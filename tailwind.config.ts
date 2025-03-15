@@ -138,5 +138,24 @@ export default {
 			}
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [
+		require("tailwindcss-animate"),
+		function({ addComponents }) {
+			addComponents({
+				'.glass-panel': {
+					backgroundColor: 'rgba(255, 255, 255, 0.1)',
+					backdropFilter: 'blur(10px)',
+					borderRadius: '0.75rem',
+					boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05)'
+				},
+				'.glass-card': {
+					backgroundColor: 'rgba(255, 255, 255, 0.05)',
+					backdropFilter: 'blur(7px)',
+					borderRadius: '0.75rem',
+					border: '1px solid rgba(255, 255, 255, 0.1)',
+					boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05)'
+				}
+			});
+		}
+	],
 } satisfies Config;

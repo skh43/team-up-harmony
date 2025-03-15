@@ -158,14 +158,14 @@ const Index = () => {
                   "glass-card rounded-xl p-6 transition-all duration-700",
                   isVisible.features ? 
                     "opacity-100 translate-y-0" : 
-                    "opacity-0 translate-y-12",
-                  `transition-delay-${index * 100}`
+                    "opacity-0 translate-y-12"
                 )}
                 style={{ 
                   transitionDelay: isVisible.features ? `${index * 100}ms` : '0ms' 
                 }}
               >
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-5">
+                  {/* Fix: pass className directly to the feature.icon component */}
                   <feature.icon className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
@@ -209,8 +209,7 @@ const Index = () => {
                     "transition-all duration-700",
                     isVisible.steps ? 
                       "opacity-100 translate-y-0" : 
-                      "opacity-0 translate-y-12",
-                    `transition-delay-${index * 200}`
+                      "opacity-0 translate-y-12"
                   )}
                   style={{ 
                     transitionDelay: isVisible.steps ? `${index * 200}ms` : '0ms' 
@@ -226,7 +225,8 @@ const Index = () => {
                     )}>
                       <div className="glass-card rounded-xl overflow-hidden aspect-video w-full">
                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-tr from-primary/5 to-accent/5">
-                          <step.icon className="h-16 w-16 text-primary/30" />
+                          {/* Fix: use className properly with icon components */}
+                          {React.createElement(step.icon, { className: "h-16 w-16 text-primary/30" })}
                         </div>
                       </div>
                     </div>
@@ -280,6 +280,7 @@ const Index = () => {
   );
 };
 
+// Update features array with proper icon rendering
 const features = [
   {
     icon: Users,
@@ -297,77 +298,99 @@ const features = [
     description: "Filter by location, price range, amenities, and more to find your perfect living space."
   },
   {
-    icon: () => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-        <circle cx="9" cy="7" r="4"></circle>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-      </svg>
-    ),
+    // Fix: convert the SVG function to a proper React component
+    icon: function ProfileGroupIcon(props) {
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      );
+    },
     title: "Different Living Plans",
     description: "Choose from Basic, Comfort, or Elite living plans to match your lifestyle and budget needs."
   },
   {
-    icon: () => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-        <line x1="3" y1="9" x2="21" y2="9"></line>
-        <line x1="9" y1="21" x2="9" y2="9"></line>
-      </svg>
-    ),
+    // Fix: convert the SVG function to a proper React component
+    icon: function GridIcon(props) {
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+          <line x1="3" y1="9" x2="21" y2="9"></line>
+          <line x1="9" y1="21" x2="9" y2="9"></line>
+        </svg>
+      );
+    },
     title: "Detailed Preferences",
     description: "Set detailed preferences for roommates, from daily habits to lifestyle choices for better matches."
   },
   {
-    icon: () => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-      </svg>
-    ),
+    // Fix: convert the SVG function to a proper React component
+    icon: function ShieldIcon(props) {
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+      );
+    },
     title: "Verified Profiles",
     description: "All users undergo verification to ensure a safe and secure platform for everyone."
   }
 ];
 
+// Update steps array with proper icon rendering
 const steps = [
   {
-    icon: () => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-        <circle cx="12" cy="7" r="4"></circle>
-      </svg>
-    ),
+    // Fix: convert the SVG function to a proper React component
+    icon: function UserIcon(props) {
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      );
+    },
     title: "Create Your Profile",
     description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate."
   },
   {
-    icon: () => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-      </svg>
-    ),
+    // Fix: convert the SVG function to a proper React component
+    icon: function ArrowRightIcon(props) {
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+          <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+      );
+    },
     title: "Select Your Path",
     description: "Choose between 'I have a room' or 'I need a roommate'. Then select your living plan tier: Basic, Comfort, or Elite."
   },
   {
-    icon: () => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10"></circle>
-        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-        <line x1="9" y1="9" x2="9.01" y2="9"></line>
-        <line x1="15" y1="9" x2="15.01" y2="9"></line>
-      </svg>
-    ),
+    // Fix: convert the SVG function to a proper React component
+    icon: function SmileIcon(props) {
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+          <line x1="9" y1="9" x2="9.01" y2="9"></line>
+          <line x1="15" y1="9" x2="15.01" y2="9"></line>
+        </svg>
+      );
+    },
     title: "Start Matching",
     description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match."
   },
   {
-    icon: () => (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
-      </svg>
-    ),
+    // Fix: convert the SVG function to a proper React component
+    icon: function CorenerIcon(props) {
+      return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+          <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
+        </svg>
+      );
+    },
     title: "Team Up",
     description: "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement."
   }
