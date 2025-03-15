@@ -42,9 +42,11 @@ const Navbar = () => {
           className="flex items-center space-x-2"
           onClick={closeMobileMenu}
         >
-          <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400">
-            Team Up
-          </span>
+          <img 
+            src="/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
+            alt="Team Up Logo" 
+            className="h-12 w-auto"
+          />
         </Link>
         
         {/* Desktop Navigation */}
