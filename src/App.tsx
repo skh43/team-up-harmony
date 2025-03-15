@@ -10,6 +10,7 @@ import PathSelection from "./pages/PathSelection";
 import LivingPlanSelection from "./pages/LivingPlanSelection";
 import Matching from "./pages/Matching";
 import Properties from "./pages/Properties";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/living-plan-selection" element={<LivingPlanSelection />} />
           <Route path="/matching" element={<Matching />} />
           <Route path="/properties" element={<Properties />} />
+          <Route path="/login" element={<Login />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

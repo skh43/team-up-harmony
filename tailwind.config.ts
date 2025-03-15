@@ -29,6 +29,11 @@ export default {
 				ring: 'hsl(var(--ring))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
+				cream: 'hsl(36, 33%, 94%)',
+				'team-red': 'hsl(var(--team-red))',
+				'team-blue': 'hsl(var(--team-blue))',
+				'team-orange': 'hsl(var(--team-orange))',
+				'team-green': 'hsl(var(--team-green))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
 					foreground: 'hsl(var(--primary-foreground))'
@@ -143,7 +148,7 @@ export default {
 		function({ addComponents }) {
 			addComponents({
 				'.glass-panel': {
-					backgroundColor: 'rgba(255, 255, 255, 0.1)',
+					backgroundColor: 'rgba(248, 243, 233, 0.1)',
 					backdropFilter: 'blur(10px)',
 					borderRadius: '0.75rem',
 					boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05)'

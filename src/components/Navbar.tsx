@@ -32,7 +32,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4 px-6",
         isScrolled 
-          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm" 
+          ? "bg-cream/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm" 
           : "bg-transparent"
       )}
     >
@@ -43,9 +43,9 @@ const Navbar = () => {
           onClick={closeMobileMenu}
         >
           <img 
-            src="/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
+            src="/lovable-uploads/e4df3d6b-dc7b-4688-98b7-a5bfcdd66c5a.png" 
             alt="Team Up Logo" 
-            className="h-12 w-auto"
+            className="h-16 w-auto"
           />
         </Link>
         
@@ -55,10 +55,10 @@ const Navbar = () => {
           <NavLink to="/properties" active={location.pathname === "/properties"}>Properties</NavLink>
           <NavLink to="/about" active={location.pathname === "/about"}>About</NavLink>
           <div className="flex items-center space-x-4 ml-4">
-            <Button asChild variant="ghost" size="sm" className="rounded-full px-4">
+            <Button asChild variant="ghost" size="sm" className="rounded-full px-4 text-team-blue hover:text-team-blue/80 hover:bg-team-blue/10">
               <Link to="/login">Login</Link>
             </Button>
-            <Button asChild size="sm" className="rounded-full px-4 font-medium">
+            <Button asChild size="sm" className="rounded-full px-4 font-medium bg-team-orange hover:bg-team-orange/90 text-white">
               <Link to="/register">Register</Link>
             </Button>
           </div>
@@ -90,14 +90,14 @@ const Navbar = () => {
       {/* Mobile Navigation Drawer */}
       <div 
         className={cn(
-          "fixed inset-0 bg-background/80 backdrop-blur-sm z-40 md:hidden transition-all duration-300 ease-in-out",
+          "fixed inset-0 bg-cream/80 backdrop-blur-sm z-40 md:hidden transition-all duration-300 ease-in-out",
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
         onClick={closeMobileMenu}
       >
         <div 
           className={cn(
-            "absolute right-0 top-0 h-screen w-3/4 max-w-xs bg-card shadow-xl p-6 transition-transform duration-300 ease-in-out",
+            "absolute right-0 top-0 h-screen w-3/4 max-w-xs bg-white shadow-xl p-6 transition-transform duration-300 ease-in-out",
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           )}
           onClick={(e) => e.stopPropagation()}
@@ -107,10 +107,10 @@ const Navbar = () => {
             <MobileNavLink to="/properties" onClick={closeMobileMenu}>Properties</MobileNavLink>
             <MobileNavLink to="/about" onClick={closeMobileMenu}>About</MobileNavLink>
             <div className="pt-4 border-t border-border">
-              <Button asChild variant="outline" size="sm" className="w-full justify-center mb-3">
+              <Button asChild variant="outline" size="sm" className="w-full justify-center mb-3 border-team-blue text-team-blue hover:bg-team-blue/10">
                 <Link to="/login" onClick={closeMobileMenu}>Login</Link>
               </Button>
-              <Button asChild size="sm" className="w-full justify-center">
+              <Button asChild size="sm" className="w-full justify-center bg-team-orange hover:bg-team-orange/90 text-white">
                 <Link to="/register" onClick={closeMobileMenu}>Register</Link>
               </Button>
             </div>
@@ -134,8 +134,8 @@ const NavLink = ({
   <Link 
     to={to} 
     className={cn(
-      "text-sm font-medium transition-colors hover:text-primary",
-      active ? "text-primary" : "text-foreground/70"
+      "text-sm font-medium transition-colors hover:text-team-blue",
+      active ? "text-team-blue font-semibold" : "text-foreground/70"
     )}
   >
     {children}
@@ -154,7 +154,7 @@ const MobileNavLink = ({
 }) => (
   <Link 
     to={to} 
-    className="text-foreground/80 hover:text-foreground text-lg font-medium transform transition-transform hover:translate-x-1"
+    className="text-foreground/80 hover:text-team-blue text-lg font-medium transform transition-transform hover:translate-x-1"
     onClick={onClick}
   >
     {children}
