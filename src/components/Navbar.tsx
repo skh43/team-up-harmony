@@ -32,21 +32,25 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4 px-6",
         isScrolled 
-          ? "bg-cream/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm" 
+          ? "bg-slate-900/80 backdrop-blur-md shadow-[0_0_15px_rgba(14,165,233,0.15)]" 
           : "bg-transparent"
       )}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link 
           to="/" 
-          className="flex items-center space-x-2"
+          className="flex items-center space-x-2 group"
           onClick={closeMobileMenu}
         >
-          <img 
-            src="/lovable-uploads/e4df3d6b-dc7b-4688-98b7-a5bfcdd66c5a.png" 
-            alt="Team Up Logo" 
-            className="h-16 w-auto"
-          />
+          <div className="relative">
+            <img 
+              src="/lovable-uploads/e4df3d6b-dc7b-4688-98b7-a5bfcdd66c5a.png" 
+              alt="Team Up Logo" 
+              className="h-20 w-auto transition-all duration-300 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
+          </div>
+          <span className="text-xl font-semibold text-blue-400 drop-shadow-[0_0_5px_rgba(59,130,246,0.5)] hidden md:block">TEAM UP</span>
         </Link>
         
         {/* Desktop Navigation */}
@@ -55,10 +59,10 @@ const Navbar = () => {
           <NavLink to="/properties" active={location.pathname === "/properties"}>Properties</NavLink>
           <NavLink to="/about" active={location.pathname === "/about"}>About</NavLink>
           <div className="flex items-center space-x-4 ml-4">
-            <Button asChild variant="ghost" size="sm" className="rounded-full px-4 text-team-blue hover:text-team-blue/80 hover:bg-team-blue/10">
+            <Button asChild variant="ghost" size="sm" className="rounded-md px-4 text-blue-400 hover:text-blue-300 hover:bg-blue-900/40 border border-blue-500/0 hover:border-blue-500/30">
               <Link to="/login">Login</Link>
             </Button>
-            <Button asChild size="sm" className="rounded-full px-4 font-medium bg-team-orange hover:bg-team-orange/90 text-white">
+            <Button asChild size="sm" className="rounded-md px-4 font-medium bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border border-blue-400/30 shadow-[0_0_10px_rgba(59,130,246,0.3)]">
               <Link to="/register">Register</Link>
             </Button>
           </div>
@@ -72,15 +76,15 @@ const Navbar = () => {
         >
           <div className="w-6 flex flex-col items-end gap-1.5">
             <span className={cn(
-              "block h-0.5 bg-foreground transition-all duration-300",
+              "block h-0.5 bg-blue-400 transition-all duration-300",
               isMobileMenuOpen ? "w-6 -rotate-45 translate-y-2" : "w-6"
             )} />
             <span className={cn(
-              "block h-0.5 bg-foreground transition-all duration-300",
+              "block h-0.5 bg-blue-400 transition-all duration-300",
               isMobileMenuOpen ? "opacity-0" : "w-4"
             )} />
             <span className={cn(
-              "block h-0.5 bg-foreground transition-all duration-300",
+              "block h-0.5 bg-blue-400 transition-all duration-300",
               isMobileMenuOpen ? "w-6 rotate-45 -translate-y-2" : "w-6"
             )} />
           </div>
@@ -90,14 +94,14 @@ const Navbar = () => {
       {/* Mobile Navigation Drawer */}
       <div 
         className={cn(
-          "fixed inset-0 bg-cream/80 backdrop-blur-sm z-40 md:hidden transition-all duration-300 ease-in-out",
+          "fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-40 md:hidden transition-all duration-300 ease-in-out",
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
         onClick={closeMobileMenu}
       >
         <div 
           className={cn(
-            "absolute right-0 top-0 h-screen w-3/4 max-w-xs bg-white shadow-xl p-6 transition-transform duration-300 ease-in-out",
+            "absolute right-0 top-0 h-screen w-3/4 max-w-xs bg-slate-900 border-l border-blue-500/20 shadow-[0_0_15px_rgba(14,165,233,0.15)] p-6 transition-transform duration-300 ease-in-out",
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           )}
           onClick={(e) => e.stopPropagation()}
@@ -106,11 +110,11 @@ const Navbar = () => {
             <MobileNavLink to="/" onClick={closeMobileMenu}>Home</MobileNavLink>
             <MobileNavLink to="/properties" onClick={closeMobileMenu}>Properties</MobileNavLink>
             <MobileNavLink to="/about" onClick={closeMobileMenu}>About</MobileNavLink>
-            <div className="pt-4 border-t border-border">
-              <Button asChild variant="outline" size="sm" className="w-full justify-center mb-3 border-team-blue text-team-blue hover:bg-team-blue/10">
+            <div className="pt-4 border-t border-blue-500/20">
+              <Button asChild variant="outline" size="sm" className="w-full justify-center mb-3 border-blue-400/50 text-blue-400 hover:bg-blue-900/40">
                 <Link to="/login" onClick={closeMobileMenu}>Login</Link>
               </Button>
-              <Button asChild size="sm" className="w-full justify-center bg-team-orange hover:bg-team-orange/90 text-white">
+              <Button asChild size="sm" className="w-full justify-center bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border border-blue-400/30">
                 <Link to="/register" onClick={closeMobileMenu}>Register</Link>
               </Button>
             </div>
@@ -134,8 +138,9 @@ const NavLink = ({
   <Link 
     to={to} 
     className={cn(
-      "text-sm font-medium transition-colors hover:text-team-blue",
-      active ? "text-team-blue font-semibold" : "text-foreground/70"
+      "text-sm font-medium transition-colors relative",
+      active ? "text-blue-400 font-semibold" : "text-blue-100/70 hover:text-blue-300",
+      "after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-blue-400/70 after:w-0 hover:after:w-full after:transition-all after:duration-300"
     )}
   >
     {children}
@@ -154,7 +159,7 @@ const MobileNavLink = ({
 }) => (
   <Link 
     to={to} 
-    className="text-foreground/80 hover:text-team-blue text-lg font-medium transform transition-transform hover:translate-x-1"
+    className="text-blue-100/80 hover:text-blue-400 text-lg font-medium transform transition-all hover:translate-x-1 hover:drop-shadow-[0_0_3px_rgba(59,130,246,0.7)]"
     onClick={onClick}
   >
     {children}

@@ -22,6 +22,7 @@ export default {
 			fontFamily: {
 				sans: ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
 				serif: ['Georgia', 'serif'],
+				mono: ['JetBrains Mono', 'monospace'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',
@@ -118,6 +119,14 @@ export default {
 				'pulse-slow': {
 					'0%, 100%': { opacity: '1' },
 					'50%': { opacity: '0.8' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'glow': {
+					'0%, 100%': { boxShadow: '0 0 5px rgba(0, 123, 255, 0.5)' },
+					'50%': { boxShadow: '0 0 20px rgba(0, 123, 255, 0.8)' }
 				}
 			},
 			animation: {
@@ -130,16 +139,21 @@ export default {
 				'slide-in-right': 'slide-in-right 0.5s ease-out',
 				'slide-in-left': 'slide-in-left 0.5s ease-out',
 				'scale-in': 'scale-in 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-				'pulse-slow': 'pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+				'pulse-slow': 'pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+				'float': 'float 3s ease-in-out infinite',
+				'glow': 'glow 2s ease-in-out infinite'
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
 				'gradient-subtle': 'linear-gradient(to right, var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+				'gradient-futuristic': 'linear-gradient(135deg, #0F172A 0%, #1E293B 100%)',
 			},
 			boxShadow: {
 				'subtle': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
 				'soft': '0 10px 25px -5px rgba(0, 0, 0, 0.05)',
 				'elegant': '0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.01)',
+				'neon': '0 0 10px rgba(14, 165, 233, 0.7), 0 0 20px rgba(14, 165, 233, 0.4)'
 			}
 		}
 	},
@@ -159,6 +173,20 @@ export default {
 					borderRadius: '0.75rem',
 					border: '1px solid rgba(255, 255, 255, 0.1)',
 					boxShadow: '0 4px 20px -2px rgba(0, 0, 0, 0.05)'
+				},
+				'.futuristic-panel': {
+					backgroundColor: 'rgba(3, 7, 18, 0.7)',
+					backdropFilter: 'blur(12px)',
+					borderRadius: '1rem',
+					border: '1px solid rgba(59, 130, 246, 0.2)',
+					boxShadow: '0 0 20px rgba(59, 130, 246, 0.15)'
+				},
+				'.neon-border': {
+					border: '1px solid rgba(59, 130, 246, 0.5)',
+					boxShadow: '0 0 8px rgba(59, 130, 246, 0.5), inset 0 0 8px rgba(59, 130, 246, 0.2)'
+				},
+				'.neon-glow': {
+					textShadow: '0 0 5px rgba(59, 130, 246, 0.7), 0 0 10px rgba(59, 130, 246, 0.5)'
 				}
 			});
 		}
