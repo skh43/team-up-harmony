@@ -4,16 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
-import { Heart, X, Star, MessageCircle, ChevronLeft, ChevronRight, UserCircle2 } from 'lucide-react';
+import { Heart, X, Star, MessageCircle, ChevronLeft, ChevronRight, UserCircle2, Globe } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
 
-// Mock data for potential roommates
+// Mock data for potential roommates with nationalities
 const MOCK_ROOMMATES = [
   {
     id: 1,
     name: 'Ahmed',
     age: 28,
+    nationality: 'Saudi Arabian',
     occupation: 'Software Engineer',
     budget: 'SAR 1,500-2,000/month',
     bio: 'I work remotely and enjoy cooking. Looking for a quiet roommate with similar interests.',
@@ -25,6 +26,7 @@ const MOCK_ROOMMATES = [
     id: 2,
     name: 'Fatima',
     age: 25,
+    nationality: 'Egyptian',
     occupation: 'Marketing Specialist',
     budget: 'SAR 2,000-2,500/month',
     bio: 'I love meeting new people and exploring the city on weekends.',
@@ -36,6 +38,7 @@ const MOCK_ROOMMATES = [
     id: 3,
     name: 'Mohammad',
     age: 30,
+    nationality: 'Jordanian',
     occupation: 'Financial Analyst',
     budget: 'SAR 2,500-3,000/month',
     bio: 'Looking for a responsible roommate. I work long hours during weekdays.',
@@ -47,12 +50,61 @@ const MOCK_ROOMMATES = [
     id: 4,
     name: 'Nora',
     age: 26,
+    nationality: 'Lebanese',
     occupation: 'Graphic Designer',
     budget: 'SAR 1,800-2,200/month',
     bio: 'Creative soul looking for a like-minded roommate. I work from home most days.',
     location: 'Dammam',
     lifestyle: 'Artistic, neat, night owl',
     image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=1998&ixlib=rb-4.0.3'
+  },
+  {
+    id: 5,
+    name: 'Yusuf',
+    age: 29,
+    nationality: 'Turkish',
+    occupation: 'Chef',
+    budget: 'SAR 2,300-2,700/month',
+    bio: 'Professional chef who loves to share cultural dishes. Looking for someone who appreciates good food.',
+    location: 'Riyadh',
+    lifestyle: 'Foodie, clean, social on weekends',
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3'
+  },
+  {
+    id: 6,
+    name: 'Amina',
+    age: 27,
+    nationality: 'Moroccan',
+    occupation: 'Doctor',
+    budget: 'SAR 3,000-3,500/month',
+    bio: 'Medical resident with irregular hours. Looking for understanding roommate who respects privacy.',
+    location: 'Jeddah',
+    lifestyle: 'Quiet, organized, health-conscious',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1976&ixlib=rb-4.0.3'
+  },
+  {
+    id: 7,
+    name: 'Khalid',
+    age: 31,
+    nationality: 'Emirati',
+    occupation: 'Business Consultant',
+    budget: 'SAR 4,000-4,500/month',
+    bio: 'Travel frequently for work. Seeking a reliable roommate for a luxury apartment.',
+    location: 'Riyadh',
+    lifestyle: 'Minimalist, tidy, sports enthusiast',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3'
+  },
+  {
+    id: 8,
+    name: 'Leila',
+    age: 24,
+    nationality: 'Iranian',
+    occupation: 'Software Developer',
+    budget: 'SAR 2,200-2,600/month',
+    bio: 'Tech enthusiast who works from home. Looking for a roommate who respects quiet work hours.',
+    location: 'Dammam',
+    lifestyle: 'Tech-savvy, reader, early sleeper',
+    image: 'https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?auto=format&fit=crop&q=80&w=1989&ixlib=rb-4.0.3'
   }
 ];
 
@@ -129,7 +181,7 @@ const Matching = () => {
           <div className="relative w-full mb-8">
             <Card 
               className={cn(
-                "w-full aspect-[3/4] overflow-hidden rounded-2xl shadow-elegant transition-transform duration-500",
+                "w-full aspect-[3/4] overflow-hidden rounded-2xl shadow-elegant transition-transform duration-500 futuristic-panel",
                 animation === 'swipe-left' && "translate-x-[-100%] rotate-[-10deg]",
                 animation === 'swipe-right' && "translate-x-[100%] rotate-[10deg]"
               )}
@@ -146,18 +198,24 @@ const Matching = () => {
                 
                 {/* Profile Information */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h2 className="text-2xl font-bold flex items-center gap-2">
-                    {currentProfile.name}, {currentProfile.age}
-                  </h2>
+                  <div className="flex items-center justify-between mb-1">
+                    <h2 className="text-2xl font-bold flex items-center gap-2">
+                      {currentProfile.name}, {currentProfile.age}
+                    </h2>
+                    <div className="flex items-center gap-1.5 px-3 py-1 bg-primary/20 backdrop-blur-sm rounded-full">
+                      <Globe className="h-4 w-4 text-primary" />
+                      <span className="text-sm font-medium text-primary">{currentProfile.nationality}</span>
+                    </div>
+                  </div>
                   <p className="text-white/90 mb-2">{currentProfile.occupation}</p>
                   <p className="text-white/90 mb-4">{currentProfile.location} • {currentProfile.budget}</p>
                   
-                  <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 mb-4">
+                  <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 mb-4 glass-card">
                     <h3 className="font-medium mb-2">Lifestyle</h3>
                     <p className="text-sm text-white/80">{currentProfile.lifestyle}</p>
                   </div>
                   
-                  <div className="bg-white/10 backdrop-blur-md rounded-lg p-4">
+                  <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 glass-card">
                     <h3 className="font-medium mb-2">About</h3>
                     <p className="text-sm text-white/80">{currentProfile.bio}</p>
                   </div>
@@ -170,7 +228,7 @@ const Matching = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="h-16 w-16 rounded-full bg-white shadow-md hover:bg-rose-50 hover:text-rose-500 border-none"
+                className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-rose-500/30 hover:text-rose-500 backdrop-blur-sm border-none neon-border"
                 onClick={handleDislike}
               >
                 <X className="h-8 w-8" />
@@ -179,7 +237,7 @@ const Matching = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="h-16 w-16 rounded-full bg-white shadow-md hover:bg-blue-50 hover:text-blue-500 border-none"
+                className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-blue-500/30 hover:text-blue-500 backdrop-blur-sm border-none neon-border"
                 onClick={goToPrevProfile}
                 disabled={currentIndex === 0}
               >
@@ -189,7 +247,7 @@ const Matching = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="h-16 w-16 rounded-full bg-white shadow-md hover:bg-green-50 hover:text-green-500 border-none"
+                className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-green-500/30 hover:text-green-500 backdrop-blur-sm border-none neon-border"
                 onClick={handleLike}
               >
                 <Heart className="h-8 w-8" />
@@ -198,7 +256,7 @@ const Matching = () => {
               <Button 
                 variant="outline" 
                 size="lg" 
-                className="h-16 w-16 rounded-full bg-white shadow-md hover:bg-blue-50 hover:text-blue-500 border-none"
+                className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-blue-500/30 hover:text-blue-500 backdrop-blur-sm border-none neon-border"
                 onClick={goToNextProfile}
                 disabled={currentIndex === MOCK_ROOMMATES.length - 1}
               >
@@ -209,8 +267,8 @@ const Matching = () => {
         )}
 
         {matches.length > 0 && (
-          <div className="mt-8">
-            <h2 className="text-xl font-semibold mb-4">Your Matches</h2>
+          <div className="mt-8 glass-panel p-6 rounded-xl">
+            <h2 className="text-xl font-semibold mb-4 text-white">Your Matches</h2>
             <div className="flex flex-wrap gap-4">
               {matches.map(matchId => {
                 const matchProfile = MOCK_ROOMMATES.find(r => r.id === matchId);
@@ -220,12 +278,12 @@ const Matching = () => {
                   <div key={matchId} className="flex flex-col items-center">
                     <div className="relative">
                       <div 
-                        className="h-16 w-16 rounded-full bg-cover bg-center"
+                        className="h-16 w-16 rounded-full bg-cover bg-center border-2 border-primary/50"
                         style={{ backgroundImage: `url(${matchProfile.image})` }}
                       />
                       <Button 
                         size="icon" 
-                        className="h-6 w-6 absolute -bottom-1 -right-1 rounded-full bg-primary hover:bg-primary/90"
+                        className="h-6 w-6 absolute -bottom-1 -right-1 rounded-full bg-primary hover:bg-primary/90 shadow-neon"
                         onClick={() => {
                           toast({
                             description: "Messaging functionality will be implemented soon.",
@@ -235,7 +293,8 @@ const Matching = () => {
                         <MessageCircle className="h-3 w-3" />
                       </Button>
                     </div>
-                    <span className="text-sm mt-1">{matchProfile.name}</span>
+                    <span className="text-sm mt-1 text-white">{matchProfile.name}</span>
+                    <span className="text-xs mt-0.5 text-primary/80">{matchProfile.nationality}</span>
                   </div>
                 );
               })}
@@ -246,7 +305,7 @@ const Matching = () => {
         <div className="mt-10 flex justify-center">
           <Button 
             onClick={() => navigate('/properties')}
-            className="rounded-full px-6"
+            className="rounded-full px-6 bg-primary/80 hover:bg-primary backdrop-blur-sm shadow-neon"
           >
             Browse Properties
           </Button>
