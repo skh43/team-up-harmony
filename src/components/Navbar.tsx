@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import Logo from './Logo';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -39,18 +40,10 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <Link 
           to="/" 
-          className="flex items-center space-x-2 group"
+          className="group"
           onClick={closeMobileMenu}
         >
-          <div className="relative">
-            <img 
-              src="/lovable-uploads/e4df3d6b-dc7b-4688-98b7-a5bfcdd66c5a.png" 
-              alt="Team Up Logo" 
-              className="h-20 w-auto transition-all duration-300 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-300"></div>
-          </div>
-          <span className="text-xl font-semibold text-blue-400 drop-shadow-[0_0_5px_rgba(59,130,246,0.5)] hidden md:block">TEAM UP</span>
+          <Logo size="medium" />
         </Link>
         
         {/* Desktop Navigation */}
@@ -59,13 +52,13 @@ const Navbar = () => {
           <NavLink to="/matching" active={location.pathname === "/matching"}>Find Roommates</NavLink>
           <NavLink to="/properties" active={location.pathname === "/properties"}>Properties</NavLink>
           <NavLink to="/about" active={location.pathname === "/about"}>About</NavLink>
-          <div className="flex items-center space-x-4 ml-4">
+          <div className="flex flex-col items-end space-y-1 ml-4">
             <Button asChild variant="ghost" size="sm" className="rounded-md px-4 text-blue-400 hover:text-blue-300 hover:bg-blue-900/40 border border-blue-500/0 hover:border-blue-500/30">
               <Link to="/login">Login</Link>
             </Button>
-            <Button asChild size="sm" className="rounded-md px-4 font-medium bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border border-blue-400/30 shadow-[0_0_10px_rgba(59,130,246,0.3)]">
-              <Link to="/register">Register</Link>
-            </Button>
+            <span className="text-xs text-blue-200/60">
+              Not a member yet? <Link to="/register" className="text-blue-400 hover:text-blue-300">Register now</Link>
+            </span>
           </div>
         </nav>
         
@@ -116,8 +109,11 @@ const Navbar = () => {
               <Button asChild variant="outline" size="sm" className="w-full justify-center mb-3 border-blue-400/50 text-blue-400 hover:bg-blue-900/40">
                 <Link to="/login" onClick={closeMobileMenu}>Login</Link>
               </Button>
+              <div className="text-xs text-center text-blue-200/60 my-2">
+                Not a member yet?
+              </div>
               <Button asChild size="sm" className="w-full justify-center bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white border border-blue-400/30">
-                <Link to="/register" onClick={closeMobileMenu}>Register</Link>
+                <Link to="/register" onClick={closeMobileMenu}>Register Now</Link>
               </Button>
             </div>
           </div>

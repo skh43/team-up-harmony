@@ -12,6 +12,7 @@ import Matching from "./pages/Matching";
 import Properties from "./pages/Properties";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import About from "./pages/About";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/properties" element={<Properties />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/about" element={<About />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
