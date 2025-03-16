@@ -56,6 +56,7 @@ const Navbar = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           <NavLink to="/" active={location.pathname === "/"}>Home</NavLink>
+          <NavLink to="/matching" active={location.pathname === "/matching"}>Find Roommates</NavLink>
           <NavLink to="/properties" active={location.pathname === "/properties"}>Properties</NavLink>
           <NavLink to="/about" active={location.pathname === "/about"}>About</NavLink>
           <div className="flex items-center space-x-4 ml-4">
@@ -108,6 +109,7 @@ const Navbar = () => {
         >
           <div className="flex flex-col space-y-6 mt-16">
             <MobileNavLink to="/" onClick={closeMobileMenu}>Home</MobileNavLink>
+            <MobileNavLink to="/matching" onClick={closeMobileMenu}>Find Roommates</MobileNavLink>
             <MobileNavLink to="/properties" onClick={closeMobileMenu}>Properties</MobileNavLink>
             <MobileNavLink to="/about" onClick={closeMobileMenu}>About</MobileNavLink>
             <div className="pt-4 border-t border-blue-500/20">
