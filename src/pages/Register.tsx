@@ -89,7 +89,7 @@ const Register = () => {
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-bold mb-2">Create your account</h1>
           <p className="text-muted-foreground">
-            Join Team Up to find your perfect roommate match
+            Join to find your perfect roommate match
           </p>
         </div>
 

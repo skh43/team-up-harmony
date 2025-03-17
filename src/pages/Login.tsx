@@ -1,19 +1,30 @@
 
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import MainLayout from '@/layouts/MainLayout';
+import { useToast } from "@/components/ui/use-toast";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // For now, just navigate to home page
-    navigate('/');
+    
+    // Show success toast
+    toast({
+      title: "Login successful!",
+      description: "Welcome back!",
+    });
+    
+    // For now, navigate to the properties page
+    setTimeout(() => {
+      navigate('/properties');
+    }, 500);
   };
 
   return (
@@ -21,7 +32,7 @@ const Login = () => {
       <div className="w-full max-w-md px-4">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold">Welcome Back</h1>
-          <p className="text-muted-foreground mt-2">Sign in to your Team Up account</p>
+          <p className="text-muted-foreground mt-2">Sign in to your account</p>
         </div>
 
         <Card className="border-purple-500/10">
