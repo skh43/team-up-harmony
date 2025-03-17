@@ -1,10 +1,10 @@
 
 import * as React from "react"
-import { type EmblaCarouselType } from "embla-carousel-react"
+import { type UseEmblaCarouselType } from "embla-carousel-react"
 
 export function useCarousel() {
   const [carouselRef, setCarouselRef] = React.useState<HTMLDivElement | null>(null)
-  const [api, setApi] = React.useState<EmblaCarouselType | null>(null)
+  const [api, setApi] = React.useState<UseEmblaCarouselType[1] | null>(null)
   const [selectedIndex, setSelectedIndex] = React.useState(0)
 
   const scrollPrev = React.useCallback(() => {
