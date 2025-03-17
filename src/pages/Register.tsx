@@ -54,9 +54,9 @@ const Register = () => {
         description: "Your account has been created.",
       });
       
-      // Navigate to the profile creation page instead of properties
+      // Navigate to the living plan selection page first
       setTimeout(() => {
-        navigate("/profile-creation");
+        navigate("/living-plan-selection");
       }, 1000);
     } catch (error) {
       console.error("Registration error:", error);
