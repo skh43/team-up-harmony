@@ -47,13 +47,11 @@ const Index = () => {
   }, []);
 
   useEffect(() => {
-    // Trigger hero animation immediately
     setIsVisible(prev => ({ ...prev, hero: true }));
   }, []);
 
   return (
     <MainLayout hideNavbar={false} className="px-0 py-0">
-      {/* Hero Section */}
       <section
         id="hero"
         ref={sectionRefs.hero}
@@ -128,7 +126,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
       <section
         id="features"
         ref={sectionRefs.features}
@@ -175,7 +172,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
       <section
         id="steps"
         ref={sectionRefs.steps}
@@ -251,7 +247,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section
         id="cta"
         ref={sectionRefs.cta}

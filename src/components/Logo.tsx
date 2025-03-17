@@ -6,9 +6,10 @@ interface LogoProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge';
   showText?: boolean;
   className?: string;
+  taglineClassName?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className }) => {
+const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className, taglineClassName }) => {
   const sizeClasses = {
     small: { container: 'h-10', text: 'text-xl', tagline: 'text-sm' },
     medium: { container: 'h-12', text: 'text-3xl', tagline: 'text-sm' },
@@ -49,13 +50,6 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className
           {/* "up" part with purple to pink gradient */}
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0]">up</span>
         </div>
-        
-        {/* Tagline */}
-        {showText && (
-          <span className={cn("text-blue-700 font-medium mt-0.5", sizeClasses[size].tagline)}>
-            roommate discovery, simplified
-          </span>
-        )}
       </div>
     </div>
   );
