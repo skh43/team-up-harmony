@@ -7,6 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { ArrowRight, CheckCircle2, Star, Package, Home, Check } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
+import Logo from '@/components/Logo';
 
 type LivingPlan = 'basic' | 'comfort' | 'elite' | null;
 
@@ -43,6 +44,25 @@ const LivingPlanSelection = () => {
     navigate('/path-selection');
   };
   
+  // Define plan card gradients and accent colors
+  const planStyles = {
+    basic: {
+      gradient: "from-[#01CDFA] to-[#516CF7]",
+      iconBg: "bg-[#01CDFA]/10",
+      iconColor: "text-[#01CDFA]",
+    },
+    comfort: {
+      gradient: "from-[#8563C9] to-[#A83ACB]",
+      iconBg: "bg-[#8563C9]/10",
+      iconColor: "text-[#8563C9]",
+    },
+    elite: {
+      gradient: "from-[#FFD43B] to-[#FF9500]",
+      iconBg: "bg-[#FFD43B]/10", 
+      iconColor: "text-[#FFD43B]",
+    }
+  };
+  
   return (
     <MainLayout className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-5xl">
@@ -54,6 +74,11 @@ const LivingPlanSelection = () => {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Select the plan that best fits your lifestyle and preferences.
           </p>
+          
+          {/* Show a small logo for brand alignment */}
+          <div className="flex justify-center my-6">
+            <Logo size="small" showText={true} />
+          </div>
         </div>
         
         <div className="grid md:grid-cols-3 gap-6 mb-10">
@@ -70,6 +95,9 @@ const LivingPlanSelection = () => {
             ]}
             selected={selectedPlan === 'basic'}
             onClick={() => handlePlanChange('basic')}
+            gradientClasses={planStyles.basic.gradient}
+            iconBgClass={planStyles.basic.iconBg}
+            iconColorClass={planStyles.basic.iconColor}
           />
           
           <PlanCard
@@ -87,6 +115,9 @@ const LivingPlanSelection = () => {
             highlighted={true}
             selected={selectedPlan === 'comfort'}
             onClick={() => handlePlanChange('comfort')}
+            gradientClasses={planStyles.comfort.gradient}
+            iconBgClass={planStyles.comfort.iconBg}
+            iconColorClass={planStyles.comfort.iconColor}
           />
           
           <PlanCard
@@ -105,6 +136,9 @@ const LivingPlanSelection = () => {
             ]}
             selected={selectedPlan === 'elite'}
             onClick={() => handlePlanChange('elite')}
+            gradientClasses={planStyles.elite.gradient}
+            iconBgClass={planStyles.elite.iconBg}
+            iconColorClass={planStyles.elite.iconColor}
           />
         </div>
         
@@ -119,9 +153,21 @@ const LivingPlanSelection = () => {
               <thead>
                 <tr className="border-b">
                   <th className="py-3 text-left font-medium">Feature</th>
-                  <th className="py-3 text-center font-medium">Basic</th>
-                  <th className="py-3 text-center font-medium">Comfort</th>
-                  <th className="py-3 text-center font-medium">Elite</th>
+                  <th className="py-3 text-center font-medium">
+                    <span className="flex flex-col items-center">
+                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#01CDFA] to-[#516CF7]">Basic</span>
+                    </span>
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    <span className="flex flex-col items-center">
+                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8563C9] to-[#A83ACB]">Comfort</span>
+                    </span>
+                  </th>
+                  <th className="py-3 text-center font-medium">
+                    <span className="flex flex-col items-center">
+                      <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#FFD43B] to-[#FF9500]">Elite</span>
+                    </span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -129,13 +175,22 @@ const LivingPlanSelection = () => {
                   <tr key={index} className="border-b">
                     <td className="py-4 text-left">{feature.name}</td>
                     <td className="py-4 text-center">
-                      {feature.basic ? <Check className="h-5 w-5 text-primary mx-auto" /> : <span className="text-muted-foreground">-</span>}
+                      {feature.basic ? 
+                        <Check className="h-5 w-5 text-[#01CDFA] mx-auto" /> : 
+                        <span className="text-muted-foreground">-</span>
+                      }
                     </td>
                     <td className="py-4 text-center">
-                      {feature.comfort ? <Check className="h-5 w-5 text-primary mx-auto" /> : <span className="text-muted-foreground">-</span>}
+                      {feature.comfort ? 
+                        <Check className="h-5 w-5 text-[#8563C9] mx-auto" /> : 
+                        <span className="text-muted-foreground">-</span>
+                      }
                     </td>
                     <td className="py-4 text-center">
-                      {feature.elite ? <Check className="h-5 w-5 text-primary mx-auto" /> : <span className="text-muted-foreground">-</span>}
+                      {feature.elite ? 
+                        <Check className="h-5 w-5 text-[#FFD43B] mx-auto" /> : 
+                        <span className="text-muted-foreground">-</span>
+                      }
                     </td>
                   </tr>
                 ))}
@@ -167,6 +222,9 @@ interface PlanCardProps {
   highlighted?: boolean;
   selected: boolean;
   onClick: () => void;
+  gradientClasses?: string;
+  iconBgClass?: string;
+  iconColorClass?: string;
 }
 
 const PlanCard = ({ 
@@ -177,37 +235,61 @@ const PlanCard = ({
   features, 
   highlighted = false,
   selected, 
-  onClick 
+  onClick,
+  gradientClasses = "from-primary to-primary",
+  iconBgClass = "bg-primary/10",
+  iconColorClass = "text-primary"
 }: PlanCardProps) => {
   return (
     <Card 
       className={cn(
-        "cursor-pointer border h-full flex flex-col transition-all duration-300 hover:border-primary/50 relative",
-        selected ? "border-primary ring-2 ring-primary/20 shadow-elegant" : "shadow-subtle",
+        "cursor-pointer border h-full flex flex-col transition-all duration-300 hover:border-primary/50 relative overflow-hidden",
+        selected ? "border-primary shadow-elegant" : "shadow-subtle",
         highlighted ? "scale-105 md:-translate-y-2" : ""
       )}
       onClick={onClick}
     >
-      {highlighted && (
-        <div className="absolute top-0 inset-x-0 h-1.5 bg-primary rounded-t-lg" />
-      )}
+      {/* Top gradient border */}
+      <div className={cn(
+        "absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r",
+        gradientClasses
+      )} />
       
       {selected && (
-        <div className="absolute top-3 right-3">
-          <CheckCircle2 className="h-6 w-6 text-primary" />
-        </div>
+        <>
+          {/* Add a subtle glow effect when selected */}
+          <div className="absolute inset-0 opacity-5 bg-gradient-to-b from-transparent to-current pointer-events-none" />
+          <div className="absolute top-3 right-3">
+            <CheckCircle2 className={cn("h-6 w-6", iconColorClass)} />
+          </div>
+        </>
       )}
       
       <CardHeader>
         <div className={cn(
           "w-14 h-14 rounded-full flex items-center justify-center mb-4 transition-colors",
-          selected ? "bg-primary/10 text-primary" : "bg-secondary text-foreground/80"
+          selected ? iconBgClass : "bg-secondary",
+          selected ? iconColorClass : "text-foreground/80" 
         )}>
           {icon}
         </div>
-        <CardTitle className="text-xl">{title}</CardTitle>
+        <CardTitle className="text-xl">
+          <span className={cn(
+            "bg-clip-text",
+            selected && "text-transparent bg-gradient-to-r",
+            selected && gradientClasses
+          )}>
+            {title}
+          </span>
+        </CardTitle>
         <div>
-          <span className="text-2xl font-bold">{price}</span>
+          <span className={cn(
+            "text-2xl font-bold",
+            selected && "bg-clip-text text-transparent bg-gradient-to-r",
+            selected && gradientClasses
+          )}>
+            {price}
+          </span>
           {price !== "Free" && <span className="text-sm text-muted-foreground ml-1"></span>}
         </div>
       </CardHeader>
@@ -217,7 +299,7 @@ const PlanCard = ({
         <ul className="space-y-2">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start">
-              <Check className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
+              <Check className={cn("h-4 w-4 mr-2 mt-0.5 flex-shrink-0", iconColorClass)} />
               <span className="text-sm">{feature}</span>
             </li>
           ))}
@@ -226,10 +308,12 @@ const PlanCard = ({
       
       <CardFooter className="pt-4 mt-auto">
         <Button 
-          variant={selected ? "default" : highlighted ? "default" : "outline"} 
+          variant={selected ? "default" : "outline"} 
           className={cn(
             "w-full rounded-md",
-            highlighted && !selected ? "bg-primary/90 hover:bg-primary" : ""
+            selected ? "bg-gradient-to-r shadow-md" : "",
+            selected && gradientClasses,
+            highlighted && !selected ? "border border-primary/20" : ""
           )}
           onClick={(e) => {
             e.stopPropagation();
