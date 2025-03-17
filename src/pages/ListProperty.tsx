@@ -134,6 +134,22 @@ const ListProperty = () => {
   }
 
   const categoryDetails = getCategoryDetails();
+  
+  // Generate placeholder text based on selected category
+  const getDescriptionPlaceholder = () => {
+    if (!category) return "Describe your property in detail...";
+    
+    switch (category) {
+      case 'basic':
+        return "Describe your Basic property in detail. Include key features like proximity to public transport, nearby facilities, etc. This is an affordable property option.";
+      case 'comfort':
+        return "Describe your Comfort property in detail. Highlight the modern amenities, quality fixtures, neighborhood benefits, etc. This is a mid-range property with attractive features.";
+      case 'elite':
+        return "Describe your Elite property in detail. Emphasize premium features, luxury finishes, exclusive location benefits, etc. This is a high-end property with exceptional quality.";
+      default:
+        return "Describe your property in detail...";
+    }
+  };
 
   return (
     <MainLayout className="pb-16">
@@ -352,14 +368,29 @@ const ListProperty = () => {
                     name="description"
                     render={({ field }) => (
                       <FormItem className="md:col-span-2">
-                        <FormLabel>Property Description</FormLabel>
+                        <FormLabel className="flex items-center gap-2">
+                          Property Description
+                          {categoryDetails && (
+                            <Badge variant="outline" className={`${categoryDetails.color}`}>
+                              {categoryDetails.label}
+                            </Badge>
+                          )}
+                        </FormLabel>
                         <FormControl>
                           <Textarea 
-                            placeholder="Describe your property in detail..." 
+                            placeholder={getDescriptionPlaceholder()} 
                             className="min-h-32" 
                             {...field} 
                           />
                         </FormControl>
+                        <FormDescription>
+                          {category && (
+                            <span className="flex items-center gap-1 mt-1">
+                              {categoryDetails?.icon}
+                              This is a <strong>{categoryDetails?.label}</strong> category property ({categoryDetails?.description}).
+                            </span>
+                          )}
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
