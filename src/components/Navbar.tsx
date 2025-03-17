@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -47,12 +46,8 @@ const Navbar = () => {
     }
     
     if (path === '/properties') {
-      toast({
-        title: "Authentication Required",
-        description: "Please register or login to access this feature.",
-        variant: "default",
-      });
-      navigate('/register');
+      // Allow direct access to properties page
+      navigate('/properties');
       return;
     }
     
@@ -95,12 +90,8 @@ const Navbar = () => {
             <span>Find Roommates</span>
           </NavLink>
           <NavLink 
-            to="#" 
+            to="/properties" 
             active={location.pathname === "/properties"}
-            onClick={(e) => {
-              e.preventDefault();
-              handleProtectedNavigation('/properties');
-            }}
           >
             <Building className="mr-1.5 h-[18px] w-[18px] transition-transform group-hover:scale-110" />
             <span>Properties</span>
@@ -183,11 +174,11 @@ const Navbar = () => {
               Find Roommates
             </MobileNavLink>
             <MobileNavLink 
-              to="#" 
+              to="/properties" 
               onClick={(e) => {
                 e.preventDefault();
                 closeMobileMenu();
-                handleProtectedNavigation('/properties');
+                navigate('/properties');
               }}
             >
               <Building className="mr-2.5 h-5 w-5" />

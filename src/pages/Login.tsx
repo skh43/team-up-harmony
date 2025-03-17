@@ -21,7 +21,7 @@ const Login = () => {
       description: "Welcome back!",
     });
     
-    // For now, navigate to the properties page
+    // Navigate directly to the properties page
     setTimeout(() => {
       navigate('/properties');
     }, 500);
