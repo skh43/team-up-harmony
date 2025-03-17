@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import MainLayout from '@/layouts/MainLayout';
 import { ArrowRight, Home, Users, Search } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 const Index = () => {
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({
@@ -75,9 +76,9 @@ const Index = () => {
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
               <span className="block">Welcome to </span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400">
-                Team Up
-              </span>
+              <div className="flex justify-center mt-3">
+                <Logo size="large" showText={false} />
+              </div>
             </h1>
             
             <p className="text-xl md:text-2xl text-foreground/80 max-w-3xl mx-auto mb-8 leading-relaxed">
