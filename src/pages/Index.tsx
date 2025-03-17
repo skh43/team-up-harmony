@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -420,5 +421,36 @@ const features = [
   }
 ];
 
-//
+// Steps data with abstract patterns
+const steps = [
+  {
+    title: "Create Your Profile",
+    description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
+    icon: UserPlus,
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200",
+    abstractPattern: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    title: "Select Your Path",
+    description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite.",
+    icon: Route,
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200",
+    abstractPattern: "https://images.unsplash.com/photo-1550684848-86a5d8727436?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    title: "Start Matching",
+    description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match.",
+    icon: MessageCircle,
+    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=1200",
+    abstractPattern: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200"
+  },
+  {
+    title: "Team Up",
+    description: "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement.",
+    icon: Handshake,
+    image: "https://images.unsplash.com/photo-1484981138541-3d074aa97716?auto=format&fit=crop&q=80&w=1200",
+    abstractPattern: "https://images.unsplash.com/photo-1516383607781-913a19294fd1?auto=format&fit=crop&q=80&w=1200"
+  }
+];
 
+export default Index;
