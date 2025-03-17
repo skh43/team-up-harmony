@@ -30,8 +30,8 @@ const App = () => (
           <Route path="/about" element={<About />} />
           
           {/* Roommate Finding Flow */}
-          <Route path="/profile-creation" element={<ProfileCreation />} />
           <Route path="/path-selection" element={<PathSelection />} />
+          <Route path="/profile-creation" element={<ProfileCreation />} />
           <Route path="/living-plan-selection" element={<LivingPlanSelection />} />
           <Route path="/matching" element={<Matching />} />
           

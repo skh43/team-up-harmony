@@ -55,12 +55,12 @@ const ProfileCreation = () => {
       // Show success toast
       toast({
         title: "Profile created successfully!",
-        description: "Now let's choose your path and living plan.",
+        description: "Now let's choose your living plan.",
       });
       
-      // Update navigation to follow the sequence: profile -> path selection -> living plan -> matching
+      // Update navigation to follow the new sequence: path selection -> profile -> living plan -> matching
       setTimeout(() => {
-        navigate("/path-selection");
+        navigate("/living-plan-selection");
       }, 1000);
     } catch (error) {
       console.error("Profile creation error:", error);
@@ -79,7 +79,7 @@ const ProfileCreation = () => {
       <div className="w-full max-w-3xl mx-auto px-4">
         <div className="text-center mb-12 mt-6">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            Step 2 of 3
+            Step 2 of 4
           </span>
           <h1 className="text-3xl md:text-4xl font-bold mb-2">Create Your Roommate Profile</h1>
           <p className="text-muted-foreground max-w-xl mx-auto">
