@@ -100,21 +100,21 @@ const ListProperty = () => {
         return {
           label: 'Basic',
           icon: <House className="h-4 w-4 mr-1" />,
-          color: 'bg-blue-100 text-blue-700',
+          color: 'basic',
           description: 'Affordable and functional living space'
         };
       case 'comfort':
         return {
           label: 'Comfort',
           icon: <Sofa className="h-4 w-4 mr-1" />,
-          color: 'bg-purple-100 text-purple-700',
+          color: 'comfort',
           description: 'Mid-range property with modern amenities'
         };
       case 'elite':
         return {
           label: 'Elite',
           icon: <Crown className="h-4 w-4 mr-1" />,
-          color: 'bg-amber-100 text-amber-700',
+          color: 'elite',
           description: 'Premium property with luxury features'
         };
       default:
@@ -132,8 +132,14 @@ const ListProperty = () => {
       return;
     }
     
-    // For demo purposes, we'll just log the image URLs
-    console.log("Property images:", propertyImages);
+    // Add the category to the submitted data
+    const submissionData = {
+      ...values,
+      category,
+      images: propertyImages
+    };
+    
+    console.log("Property submission with category:", submissionData);
     
     // Show success toast
     toast.success("Property listing submitted successfully! It will be reviewed by our team.");
@@ -258,12 +264,35 @@ const ListProperty = () => {
                         <FormControl>
                           <div className="relative">
                             <DollarSign className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 3500" {...field} />
+                            <Input 
+                              className="pl-10" 
+                              placeholder="e.g. 3500" 
+                              {...field} 
+                              type="number"
+                              min="0"
+                              step="100"
+                              onChange={(e) => {
+                                field.onChange(e);
+                                const priceValue = parseFloat(e.target.value);
+                                // Update category immediately based on price input
+                                if (!isNaN(priceValue)) {
+                                  if (priceValue < PRICE_THRESHOLDS.BASIC) {
+                                    setCategory('basic');
+                                  } else if (priceValue < PRICE_THRESHOLDS.COMFORT) {
+                                    setCategory('comfort');
+                                  } else {
+                                    setCategory('elite');
+                                  }
+                                } else {
+                                  setCategory('');
+                                }
+                              }}
+                            />
                           </div>
                         </FormControl>
                         {categoryDetails && (
                           <div className="mt-2 flex items-center">
-                            <Badge variant="outline" className={`flex items-center gap-1 ${categoryDetails.color}`}>
+                            <Badge variant={categoryDetails.color as any} className="flex items-center gap-1">
                               {categoryDetails.icon}
                               {categoryDetails.label} Property
                             </Badge>
@@ -272,6 +301,15 @@ const ListProperty = () => {
                             </span>
                           </div>
                         )}
+                        <FormDescription>
+                          {category && (
+                            <div className="mt-1 text-xs">
+                              <strong>Price tiers:</strong> Basic (&lt; {PRICE_THRESHOLDS.BASIC} SAR), 
+                              Comfort ({PRICE_THRESHOLDS.BASIC}-{PRICE_THRESHOLDS.COMFORT} SAR), 
+                              Elite (&gt; {PRICE_THRESHOLDS.COMFORT} SAR)
+                            </div>
+                          )}
+                        </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -287,7 +325,7 @@ const ListProperty = () => {
                         <FormControl>
                           <div className="relative">
                             <Bed className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 2" {...field} />
+                            <Input className="pl-10" placeholder="e.g. 2" type="number" min="0" {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -305,7 +343,7 @@ const ListProperty = () => {
                         <FormControl>
                           <div className="relative">
                             <Bath className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 1" {...field} />
+                            <Input className="pl-10" placeholder="e.g. 1" type="number" min="0" step="0.5" {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -323,7 +361,7 @@ const ListProperty = () => {
                         <FormControl>
                           <div className="relative">
                             <Square className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 120" {...field} />
+                            <Input className="pl-10" placeholder="e.g. 120" type="number" min="0" {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -391,7 +429,8 @@ const ListProperty = () => {
                         <FormLabel className="flex items-center gap-2">
                           Property Description
                           {categoryDetails && (
-                            <Badge variant="outline" className={`${categoryDetails.color}`}>
+                            <Badge variant={categoryDetails.color as any} className="flex items-center gap-1">
+                              {categoryDetails.icon}
                               {categoryDetails.label}
                             </Badge>
                           )}

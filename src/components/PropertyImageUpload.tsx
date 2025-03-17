@@ -10,6 +10,7 @@ import {
   CarouselNext
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
+import { useCarousel } from "@/hooks/use-carousel";
 
 interface PropertyImageUploadProps {
   images: string[];
@@ -34,6 +35,7 @@ const PropertyImageUpload: React.FC<PropertyImageUploadProps> = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [dragOver, setDragOver] = useState(false);
+  const carousel = useCarousel();
   
   // Check if we have enough images
   const hasMinImages = images.length >= minImages;
@@ -103,8 +105,13 @@ const PropertyImageUpload: React.FC<PropertyImageUploadProps> = ({
 
       {images.length > 0 && (
         <Carousel 
+          ref={carousel.carouselRef}
           className="w-full" 
-          onSelect={(api) => setActiveIndex(api?.selectedScrollSnap() || 0)}
+          onScroll={() => {
+            if (carousel.api) {
+              setActiveIndex(carousel.api.selectedScrollSnap());
+            }
+          }}
         >
           <CarouselContent>
             {images.map((image, index) => (
