@@ -10,9 +10,9 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className }) => {
   const sizeClasses = {
-    small: { container: 'h-8', text: 'text-lg', tagline: 'text-xs' },
-    medium: { container: 'h-10', text: 'text-2xl', tagline: 'text-xs' },
-    large: { container: 'h-16', text: 'text-4xl', tagline: 'text-sm' }
+    small: { container: 'h-10', text: 'text-xl', tagline: 'text-sm' },
+    medium: { container: 'h-12', text: 'text-3xl', tagline: 'text-sm' },
+    large: { container: 'h-20', text: 'text-5xl', tagline: 'text-base' }
   };
 
   return (
