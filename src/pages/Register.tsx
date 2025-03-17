@@ -11,6 +11,8 @@ import { ArrowRight, ArrowLeft, Mail, Lock, User, Phone, Check } from "lucide-re
 import { useToast } from "@/components/ui/use-toast";
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
+import { Separator } from "@/components/ui/separator";
+import { FaGoogle } from "react-icons/fa";
 
 const registerSchema = z.object({
   fullName: z.string().min(3, "Full name must be at least 3 characters"),
@@ -82,6 +84,23 @@ const Register = () => {
     setStep(1);
   };
 
+  const handleGoogleSignup = () => {
+    // Simulate Google authentication
+    toast({
+      title: "Google Authentication",
+      description: "Redirecting to Google...",
+    });
+    
+    // Simulate auth delay
+    setTimeout(() => {
+      toast({
+        title: "Registration successful!",
+        description: "Account created with Google",
+      });
+      navigate('/living-plan-selection');
+    }, 1500);
+  };
+
   return (
     <MainLayout className="flex items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-md">
@@ -94,6 +113,27 @@ const Register = () => {
 
         <Card className="shadow-subtle border-0 overflow-hidden">
           <CardContent className="p-6">
+            {step === 1 && (
+              <div className="mb-6">
+                <Button 
+                  onClick={handleGoogleSignup}
+                  variant="outline" 
+                  size="lg"
+                  className="w-full flex items-center justify-center gap-2 border-gray-300 hover:bg-gray-50 mb-6"
+                >
+                  <FaGoogle className="text-red-500" />
+                  <span>Sign up with Google</span>
+                </Button>
+                
+                <div className="relative my-4">
+                  <Separator />
+                  <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-card px-4 text-xs text-muted-foreground">
+                    OR CONTINUE WITH EMAIL
+                  </span>
+                </div>
+              </div>
+            )}
+
             <div className="flex items-center justify-between mb-6">
               <StepIndicator step={1} currentStep={step} label="Account" />
               <div className="w-6 h-px bg-muted" />
