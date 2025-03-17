@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
@@ -11,38 +10,36 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className }) => {
   const sizeClasses = {
-    small: { container: 'h-12 w-12', text: 'text-lg' },
-    medium: { container: 'h-16 w-16', text: 'text-xl' },
-    large: { container: 'h-24 w-24', text: 'text-2xl' }
+    small: { container: 'h-8', text: 'text-lg', tagline: 'text-xs', bolt: 'h-4 -mt-3 mb-1' },
+    medium: { container: 'h-10', text: 'text-2xl', tagline: 'text-xs', bolt: 'h-5 -mt-4 mb-1' },
+    large: { container: 'h-16', text: 'text-4xl', tagline: 'text-sm', bolt: 'h-8 -mt-6 mb-2' }
   };
 
   return (
-    <div className={cn('flex items-center gap-3', className)}>
-      <div className={cn(
-        'relative rounded-full bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shadow-lg',
-        sizeClasses[size].container
-      )}>
-        <div className="absolute inset-0.5 rounded-full bg-slate-900 flex items-center justify-center">
-          <Home className={cn(
-            'text-purple-400 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-            size === 'small' ? 'w-5 h-5' : size === 'medium' ? 'w-7 h-7' : 'w-10 h-10'
-          )} />
+    <div className={cn('flex flex-col items-center justify-center', className)}>
+      <div className="relative flex flex-col items-center">
+        {/* Lightning bolt */}
+        <svg 
+          className={cn("text-yellow-400", sizeClasses[size].bolt)} 
+          viewBox="0 0 24 24" 
+          fill="currentColor"
+        >
+          <path d="M13 9h8L11 24v-9H4l9-15v9z" />
+        </svg>
+        
+        {/* Logo text with gradient */}
+        <div className={cn("font-bold tracking-tight", sizeClasses[size].text)}>
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600">team</span>
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">up</span>
         </div>
-      </div>
-      
-      {showText && (
-        <div className="flex flex-col">
-          <span className={cn(
-            'font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-violet-500',
-            sizeClasses[size].text
-          )}>
-            TEAM UP
+        
+        {/* Tagline */}
+        {showText && (
+          <span className={cn("text-blue-600 font-medium", sizeClasses[size].tagline)}>
+            roommate discovery, simplified
           </span>
-          {size !== 'small' && (
-            <span className="text-xs text-purple-300/70">Roommate Discovery, Simplified</span>
-          )}
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
