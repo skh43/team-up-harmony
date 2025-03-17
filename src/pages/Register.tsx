@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -89,8 +88,6 @@ const Register = () => {
         title: "Registration successful!",
         description: "Account created with Google",
       });
-      
-      navigate('/profile-creation');
     } catch (error) {
       console.error("Google registration error:", error);
       toast({

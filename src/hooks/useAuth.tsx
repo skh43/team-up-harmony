@@ -9,6 +9,7 @@ interface User {
   fullName?: string;
   photoURL?: string;
   phone?: string;
+  isNewUser?: boolean;
 }
 
 interface UserProfile {
@@ -94,6 +95,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         email: 'user@gmail.com',
         fullName: 'Google User',
         photoURL: 'https://via.placeholder.com/150',
+        isNewUser: false, // For existing users
       };
       
       setUser(mockUser);
@@ -147,12 +149,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         email: 'new-user@gmail.com',
         fullName: 'New Google User',
         photoURL: 'https://via.placeholder.com/150',
+        isNewUser: true, // Flag to indicate this is a new user
       };
       
       setUser(mockUser);
       setIsAuthenticated(true);
       localStorage.setItem('user', JSON.stringify(mockUser));
       
+      // New users should go to profile creation instead of dashboard
+      navigate('/profile-creation');
     } catch (error) {
       console.error("Google registration error:", error);
       throw error;

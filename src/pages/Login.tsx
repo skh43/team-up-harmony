@@ -52,6 +52,7 @@ const Login = () => {
         title: "Login successful!",
         description: "Authenticated with Google",
       });
+      // Navigation is handled in the loginWithGoogle method
     } catch (err) {
       console.error("Google login error:", err);
       toast({
