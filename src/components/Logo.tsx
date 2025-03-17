@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { Zap } from 'lucide-react';
 
 interface LogoProps {
   size?: 'small' | 'medium' | 'large';
@@ -22,15 +23,10 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className
         <div className={cn("font-bold tracking-tight flex items-center", sizeClasses[size].text)}>
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600">team</span>
           
-          {/* Lightning bolt */}
-          <svg 
-            className="text-yellow-400 h-full mx-0.5" 
-            viewBox="0 0 24 24" 
-            fill="currentColor"
-            style={{ transform: 'rotate(15deg)' }}
-          >
-            <path d="M13 9h8L11 24v-9H4l9-15v9z" />
-          </svg>
+          {/* Lightning bolt - replaced with Lucide Zap icon */}
+          <span className="text-yellow-400 mx-0.5 transform rotate-12">
+            <Zap size={size === 'small' ? 20 : size === 'medium' ? 28 : 42} strokeWidth={2.5} fill="currentColor" />
+          </span>
           
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">up</span>
         </div>
