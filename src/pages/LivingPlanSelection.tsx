@@ -75,11 +75,6 @@ const LivingPlanSelection = () => {
           <div className="flex justify-center my-6">
             <Logo size="small" showText={true} />
           </div>
-          
-          {/* Moved step indicator down here */}
-          <span className="inline-block px-3 py-1 mb-8 mt-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            Step 1 of 4
-          </span>
         </div>
         
         <div className="grid md:grid-cols-3 gap-6 mb-10">
