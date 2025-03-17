@@ -57,55 +57,58 @@ const LivingPlanSelection = () => {
         </div>
         
         <div className="grid md:grid-cols-3 gap-6 mb-10">
-          <PlanCard
-            icon={<Package className="h-8 w-8" />}
-            title="Basic Living"
-            price="Free"
-            description="Essential matchmaking for budget-conscious roommates"
-            features={[
-              "5 Matches Per Day",
-              "Basic Preferences",
-              "Standard Filters",
-              "In-App Messaging"
-            ]}
-            selected={selectedPlan === 'basic'}
-            onClick={() => handlePlanChange('basic')}
-          />
-          
-          <PlanCard
-            icon={<Home className="h-8 w-8" />}
-            title="Comfort Zone"
-            price="SAR 29.99/month"
-            description="Enhanced matching with detailed preferences"
-            features={[
-              "20 Matches Per Day",
-              "Detailed Preferences",
-              "Advanced Filters",
-              "Priority Messaging",
-              "Background Verification"
-            ]}
-            highlighted={true}
-            selected={selectedPlan === 'comfort'}
-            onClick={() => handlePlanChange('comfort')}
-          />
-          
-          <PlanCard
-            icon={<Star className="h-8 w-8" />}
-            title="Elite Living"
-            price="SAR 59.99/month"
-            description="Premium experience for the most discerning roommates"
-            features={[
-              "Unlimited Matches",
-              "Ultra-detailed Preferences",
-              "Premium Filters",
-              "Priority Support",
-              "Background Verification",
-              "Personality Matching",
-              "Exclusive Property Listings"
-            ]}
-            selected={selectedPlan === 'elite'}
-            onClick={() => handlePlanChange('elite')}
-          />
+          {/* Plan Cards Container with Equal Heights */}
+          <div className="grid md:grid-cols-3 gap-6 mb-10 w-full">
+            <PlanCard
+              icon={<Package className="h-8 w-8" />}
+              title="Basic Living"
+              price="Free"
+              description="Essential matchmaking for budget-conscious roommates"
+              features={[
+                "5 Matches Per Day",
+                "Basic Preferences",
+                "Standard Filters",
+                "In-App Messaging"
+              ]}
+              selected={selectedPlan === 'basic'}
+              onClick={() => handlePlanChange('basic')}
+            />
+            
+            <PlanCard
+              icon={<Home className="h-8 w-8" />}
+              title="Comfort Zone"
+              price="SAR 29.99/month"
+              description="Enhanced matching with detailed preferences"
+              features={[
+                "20 Matches Per Day",
+                "Detailed Preferences",
+                "Advanced Filters",
+                "Priority Messaging",
+                "Background Verification"
+              ]}
+              highlighted={true}
+              selected={selectedPlan === 'comfort'}
+              onClick={() => handlePlanChange('comfort')}
+            />
+            
+            <PlanCard
+              icon={<Star className="h-8 w-8" />}
+              title="Elite Living"
+              price="SAR 59.99/month"
+              description="Premium experience for the most discerning roommates"
+              features={[
+                "Unlimited Matches",
+                "Ultra-detailed Preferences",
+                "Premium Filters",
+                "Priority Support",
+                "Background Verification",
+                "Personality Matching",
+                "Exclusive Property Listings"
+              ]}
+              selected={selectedPlan === 'elite'}
+              onClick={() => handlePlanChange('elite')}
+            />
+          </div>
         </div>
         
         <div className="max-w-4xl mx-auto mb-10">
@@ -182,7 +185,7 @@ const PlanCard = ({
   return (
     <Card 
       className={cn(
-        "cursor-pointer border overflow-hidden transition-all duration-300 hover:border-primary/50 relative",
+        "cursor-pointer border h-full flex flex-col transition-all duration-300 hover:border-primary/50 relative",
         selected ? "border-primary ring-2 ring-primary/20 shadow-elegant" : "shadow-subtle",
         highlighted ? "scale-105 md:-translate-y-2" : ""
       )}
@@ -212,19 +215,19 @@ const PlanCard = ({
         </div>
       </CardHeader>
       
-      <CardContent>
+      <CardContent className="flex-grow">
         <CardDescription className="text-sm mb-4">{description}</CardDescription>
         <ul className="space-y-2">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start">
-              <Check className="h-4 w-4 text-primary mr-2 mt-0.5" />
+              <Check className="h-4 w-4 text-primary mr-2 mt-0.5 flex-shrink-0" />
               <span className="text-sm">{feature}</span>
             </li>
           ))}
         </ul>
       </CardContent>
       
-      <CardFooter className="pt-4">
+      <CardFooter className="pt-4 mt-auto">
         <Button 
           variant={selected ? "default" : highlighted ? "default" : "outline"} 
           className={cn(
