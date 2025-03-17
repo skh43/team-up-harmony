@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
+import PropertyImageUpload from '@/components/PropertyImageUpload';
 
 // Define price thresholds for property categories (same as in Properties.tsx)
 const PRICE_THRESHOLDS = {
@@ -55,6 +56,7 @@ const formSchema = z.object({
 const ListProperty = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState<'basic' | 'comfort' | 'elite' | ''>('');
+  const [propertyImages, setPropertyImages] = useState<string[]>([]);
   
   // Initialize form with react-hook-form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -123,6 +125,15 @@ const ListProperty = () => {
   // Form submission handler
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("Form submitted:", values);
+    
+    // Validate that we have enough property images
+    if (propertyImages.length < 6) {
+      toast.error("Please add at least 6 property images showing different rooms");
+      return;
+    }
+    
+    // For demo purposes, we'll just log the image URLs
+    console.log("Property images:", propertyImages);
     
     // Show success toast
     toast.success("Property listing submitted successfully! It will be reviewed by our team.");
@@ -320,13 +331,13 @@ const ListProperty = () => {
                     )}
                   />
                   
-                  {/* Image URL */}
+                  {/* Main Image URL - now kept as a fallback */}
                   <FormField
                     control={form.control}
                     name="imageUrl"
                     render={({ field }) => (
                       <FormItem className="md:col-span-2">
-                        <FormLabel>Property Image URL</FormLabel>
+                        <FormLabel>Main Property Image URL (Optional)</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Camera className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
@@ -334,12 +345,21 @@ const ListProperty = () => {
                           </div>
                         </FormControl>
                         <FormDescription>
-                          Paste a URL to your property image (upload functionality coming soon)
+                          You can upload multiple images below or provide a URL for the main image
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
                   />
+                  
+                  {/* Property Images */}
+                  <div className="md:col-span-2">
+                    <PropertyImageUpload 
+                      images={propertyImages}
+                      setImages={setPropertyImages}
+                      minImages={6}
+                    />
+                  </div>
                   
                   {/* Tags */}
                   <FormField
