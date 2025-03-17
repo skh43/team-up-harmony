@@ -107,7 +107,7 @@ const PropertyImageUpload: React.FC<PropertyImageUploadProps> = ({
         <Carousel 
           ref={carousel.carouselRef}
           className="w-full" 
-          onScroll={() => {
+          onSelect={() => {
             if (carousel.api) {
               setActiveIndex(carousel.api.selectedScrollSnap());
             }
