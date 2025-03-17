@@ -357,14 +357,14 @@ const features = [
 // Steps data with enhanced animation effects but without images
 const steps = [
   {
-    title: "Create Your Profile",
-    description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
-    icon: UserPlus
-  },
-  {
     title: "Select Your Path",
     description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite.",
     icon: Route
+  },
+  {
+    title: "Create Your Profile",
+    description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
+    icon: UserPlus
   },
   {
     title: "Start Matching",
