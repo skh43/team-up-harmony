@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -304,7 +303,7 @@ const features = [
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
           <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
           <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M23 21v-2a4 4 0 0 1 0 7.75"></path>
           <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
         </svg>
       );
@@ -340,7 +339,7 @@ const features = [
   }
 ];
 
-// Update steps array with proper icon rendering
+// Update steps array with proper icon rendering and updated text
 const steps = [
   {
     // Fix: convert the SVG function to a proper React component
@@ -365,7 +364,7 @@ const steps = [
       );
     },
     title: "Select Your Path",
-    description: "Choose between 'I have a room' or 'I need a roommate'. Then select your living plan tier: Basic, Comfort, or Elite."
+    description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite."
   },
   {
     // Fix: convert the SVG function to a proper React component
