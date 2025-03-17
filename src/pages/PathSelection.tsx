@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -31,8 +32,8 @@ const PathSelection = () => {
     // Store selection in state management or localStorage if needed
     localStorage.setItem('userPath', selectedPath);
     
-    // Navigate to living plan selection page instead of profile creation
-    navigate('/living-plan-selection');
+    // Navigate to profile creation after path selection
+    navigate('/profile-creation');
   };
   
   return (
@@ -40,7 +41,7 @@ const PathSelection = () => {
       <div className="w-full max-w-5xl">
         <div className="mb-10 text-center">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            Step 1 of 4
+            Step 2 of 4
           </span>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">How would you like to Team Up?</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">

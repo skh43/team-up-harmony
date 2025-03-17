@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -36,13 +35,13 @@ const Navbar = () => {
     // For demo purposes, we'll redirect to register page with a redirect destination
     // In a real app, this would check if user is authenticated
     if (path === '/matching') {
-      // Updated to follow the proper flow: register -> path selection -> profile -> plan -> matching
+      // Updated to direct users to living plan selection instead of path selection
       toast({
         title: "Find Roommates Flow",
         description: "Let's help you find the perfect roommate match!",
         variant: "default",
       });
-      navigate('/register', { state: { redirectTo: '/path-selection' } });
+      navigate('/register', { state: { redirectTo: '/living-plan-selection' } });
       return;
     }
     

@@ -39,8 +39,8 @@ const LivingPlanSelection = () => {
     // Store selection
     localStorage.setItem('livingPlan', selectedPlan);
     
-    // Update: Navigate to profile creation instead of matching
-    navigate('/profile-creation');
+    // Navigate to path selection after selecting a plan
+    navigate('/path-selection');
   };
   
   return (
@@ -48,7 +48,7 @@ const LivingPlanSelection = () => {
       <div className="w-full max-w-5xl">
         <div className="mb-10 text-center">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            Step 2 of 4
+            Step 1 of 4
           </span>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Choose Your Living Plan</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
