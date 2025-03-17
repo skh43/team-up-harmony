@@ -10,6 +10,7 @@ import PathSelection from "./pages/PathSelection";
 import LivingPlanSelection from "./pages/LivingPlanSelection";
 import Matching from "./pages/Matching";
 import Properties from "./pages/Properties";
+import ListProperty from "./pages/ListProperty";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import About from "./pages/About";
@@ -35,7 +36,10 @@ const App = () => (
           <Route path="/profile-creation" element={<ProfileCreation />} />
           <Route path="/matching" element={<Matching />} />
           
+          {/* Property Management */}
           <Route path="/properties" element={<Properties />} />
+          <Route path="/list-property" element={<ListProperty />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

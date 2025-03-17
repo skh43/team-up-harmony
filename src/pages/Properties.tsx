@@ -1,10 +1,10 @@
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { MapPin, Bed, Bath, Square, Heart, Filter, House, Sofa, Crown } from 'lucide-react';
+import { MapPin, Bed, Bath, Square, Heart, Filter, House, Sofa, Crown, Plus } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
@@ -99,6 +99,7 @@ const PRICE_THRESHOLDS = {
 };
 
 const Properties = () => {
+  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [favorites, setFavorites] = useState<number[]>([]);
   const [activeTab, setActiveTab] = useState('all');
@@ -134,7 +135,7 @@ const Properties = () => {
             Browse available properties that match your needs and budget.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 max-w-3xl mx-auto">
+          <div className="flex flex-col sm:flex-row gap-4 max-w-3xl mx-auto mb-4">
             <div className="relative flex-1">
               <Input
                 placeholder="Search by location, property type..."
@@ -161,6 +162,17 @@ const Properties = () => {
               Filters
             </Button>
           </div>
+          
+          {/* Add List Property Button */}
+          <Button 
+            onClick={() => navigate('/list-property')}
+            variant="default" 
+            size="lg" 
+            className="gap-2 rounded-full px-8 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-md mb-6"
+          >
+            <Plus className="h-4 w-4" />
+            List Your Property
+          </Button>
         </div>
         
         <div className="mb-8">
