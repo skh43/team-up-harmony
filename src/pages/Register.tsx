@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,12 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { ArrowRight, ArrowLeft, Mail, Lock, User, Phone, Check } from "lucide-react";
+import { ArrowRight, ArrowLeft, Mail, Lock, User, Phone, Check, LoaderCircle } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
 import { Separator } from "@/components/ui/separator";
 import { FaGoogle } from "react-icons/fa";
+import { useAuth } from '@/hooks/useAuth';
 
 const registerSchema = z.object({
   fullName: z.string().min(3, "Full name must be at least 3 characters"),
@@ -31,7 +33,7 @@ const Register = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const { register, registerWithGoogle, isLoading } = useAuth();
   
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -46,20 +48,17 @@ const Register = () => {
 
   const onSubmit = async (data: RegisterFormValues) => {
     try {
-      setIsLoading(true);
-      // Simulate API call
-      console.log("Register data:", data);
+      await register(data.email, data.password, {
+        fullName: data.fullName,
+        phone: data.phone
+      });
       
-      // Show success toast
       toast({
         title: "Registration successful!",
         description: "Your account has been created.",
       });
       
-      // Navigate to the profile creation page
-      setTimeout(() => {
-        navigate("/profile-creation");
-      }, 1000);
+      navigate("/profile-creation");
     } catch (error) {
       console.error("Registration error:", error);
       toast({
@@ -67,8 +66,6 @@ const Register = () => {
         description: "There was an error creating your account. Please try again.",
         variant: "destructive",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -84,21 +81,24 @@ const Register = () => {
     setStep(1);
   };
 
-  const handleGoogleSignup = () => {
-    // Simulate Google authentication
-    toast({
-      title: "Google Authentication",
-      description: "Redirecting to Google...",
-    });
-    
-    // Simulate auth delay
-    setTimeout(() => {
+  const handleGoogleSignup = async () => {
+    try {
+      await registerWithGoogle();
+      
       toast({
         title: "Registration successful!",
         description: "Account created with Google",
       });
+      
       navigate('/profile-creation');
-    }, 1500);
+    } catch (error) {
+      console.error("Google registration error:", error);
+      toast({
+        title: "Registration failed",
+        description: "There was an error creating your account with Google. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -120,8 +120,13 @@ const Register = () => {
                   variant="outline" 
                   size="lg"
                   className="w-full flex items-center justify-center gap-2 border-gray-300 hover:bg-gray-50 mb-6"
+                  disabled={isLoading}
                 >
-                  <FaGoogle className="text-red-500" />
+                  {isLoading ? (
+                    <LoaderCircle className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <FaGoogle className="text-red-500" />
+                  )}
                   <span>Sign up with Google</span>
                 </Button>
                 
@@ -197,6 +202,7 @@ const Register = () => {
                       type="button" 
                       className="w-full bg-purple-600 hover:bg-purple-700"
                       onClick={nextStep}
+                      disabled={isLoading}
                     >
                       Continue <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
@@ -244,6 +250,7 @@ const Register = () => {
                         variant="outline" 
                         onClick={prevStep} 
                         className="flex-1"
+                        disabled={isLoading}
                       >
                         <ArrowLeft className="mr-2 h-4 w-4" /> Back
                       </Button>
@@ -252,7 +259,14 @@ const Register = () => {
                         className="flex-1 bg-purple-600 hover:bg-purple-700"
                         disabled={isLoading}
                       >
-                        {isLoading ? "Creating..." : "Create Account"}
+                        {isLoading ? (
+                          <>
+                            <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                            Creating...
+                          </>
+                        ) : (
+                          "Create Account"
+                        )}
                       </Button>
                     </div>
                   </div>

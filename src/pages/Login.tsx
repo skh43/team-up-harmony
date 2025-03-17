@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,41 +9,57 @@ import MainLayout from '@/layouts/MainLayout';
 import { useToast } from "@/components/ui/use-toast";
 import { Separator } from "@/components/ui/separator";
 import { FaGoogle } from "react-icons/fa";
+import { LoaderCircle } from "lucide-react";
+import { useAuth } from '@/hooks/useAuth';
 
 const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login, loginWithGoogle, isLoading } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
     
-    // Show success toast
-    toast({
-      title: "Login successful!",
-      description: "Welcome back!",
-    });
-    
-    // Navigate to the dashboard instead of properties
-    setTimeout(() => {
+    try {
+      await login(email, password);
+      
+      toast({
+        title: "Login successful!",
+        description: "Welcome back!",
+      });
+      
       navigate('/dashboard');
-    }, 500);
+    } catch (err) {
+      console.error("Login error:", err);
+      setError('Invalid email or password. Please try again.');
+      toast({
+        title: "Login failed",
+        description: "Invalid email or password. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
-  const handleGoogleLogin = () => {
-    // For now, this is just a simulation
-    toast({
-      title: "Google Authentication",
-      description: "Redirecting to Google...",
-    });
-    
-    // Simulate auth delay
-    setTimeout(() => {
+  const handleGoogleLogin = async () => {
+    try {
+      await loginWithGoogle();
+      
       toast({
         title: "Login successful!",
         description: "Authenticated with Google",
       });
-      navigate('/dashboard');
-    }, 1500);
+    } catch (err) {
+      console.error("Google login error:", err);
+      toast({
+        title: "Google login failed",
+        description: "Could not authenticate with Google. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -65,8 +81,13 @@ const Login = () => {
               variant="outline" 
               size="lg"
               className="w-full flex items-center justify-center gap-2 border-gray-300 hover:bg-gray-50"
+              disabled={isLoading}
             >
-              <FaGoogle className="text-red-500" />
+              {isLoading ? (
+                <LoaderCircle className="h-4 w-4 animate-spin" />
+              ) : (
+                <FaGoogle className="text-red-500" />
+              )}
               <span>Sign in with Google</span>
             </Button>
             
@@ -79,9 +100,21 @@ const Login = () => {
             
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
+                {error && (
+                  <div className="p-3 bg-red-50 text-red-600 text-sm rounded-md">
+                    {error}
+                  </div>
+                )}
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" type="email" placeholder="your@email.com" required />
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    placeholder="your@email.com" 
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required 
+                  />
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -90,10 +123,27 @@ const Login = () => {
                       Forgot password?
                     </Button>
                   </div>
-                  <Input id="password" type="password" required />
+                  <Input 
+                    id="password" 
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required 
+                  />
                 </div>
-                <Button type="submit" className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700">
-                  Sign In
+                <Button 
+                  type="submit" 
+                  className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700"
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <>
+                      <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
+                      Signing In...
+                    </>
+                  ) : (
+                    "Sign In"
+                  )}
                 </Button>
               </div>
             </form>
