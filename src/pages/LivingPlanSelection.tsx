@@ -74,7 +74,7 @@ const LivingPlanSelection = () => {
           
           <PlanCard
             icon={<Home className="h-8 w-8" />}
-            title="Comfort Zone"
+            title="Comfort Living"
             price="SAR 29.99/month"
             description="Enhanced matching with detailed preferences"
             features={[
