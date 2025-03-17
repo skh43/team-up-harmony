@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -103,14 +104,14 @@ const Navbar = () => {
           
           <div className="flex items-center ml-6 space-x-3">
             <Button asChild variant="ghost" size="sm" 
-              className="rounded-full px-5 text-blue-500 hover:text-blue-600 hover:bg-blue-50/80 border border-blue-200/0 hover:border-blue-200/80 transition-all duration-300 shadow-none hover:shadow-sm">
+              className="rounded-full px-5 text-blue-500 hover:text-blue-600 hover:bg-blue-50/80 border border-blue-200/0 hover:border-blue-200/80 transition-all duration-300 shadow-none hover:shadow-sm animate-fade-in">
               <Link to="/login" className="flex items-center">
                 <LogIn className="mr-1.5 h-4 w-4" />
                 Login
               </Link>
             </Button>
             <Button asChild variant="default" size="sm" 
-              className="ml-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-full px-5 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105">
+              className="ml-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-full px-5 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105 animate-fade-in animate-delay-100">
               <Link to="/register" className="flex items-center">
                 <UserPlus className="mr-1.5 h-4 w-4" />
                 Register
@@ -228,11 +229,13 @@ const NavLink = ({
     to={to} 
     onClick={onClick}
     className={cn(
-      "group flex items-center text-sm font-medium transition-colors relative py-1.5 px-2",
+      "group flex items-center text-sm font-medium transition-all duration-300 relative py-1.5 px-2 overflow-hidden",
       active 
         ? "text-blue-600"
         : "text-blue-900/70 hover:text-blue-600",
-      "after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:bg-gradient-to-r after:from-blue-400 after:via-blue-600 after:to-purple-600 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+      "after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:bg-gradient-to-r after:from-blue-400 after:via-blue-600 after:to-purple-600 after:w-0 hover:after:w-full after:transition-all after:duration-500 after:ease-out",
+      "before:absolute before:bottom-0 before:left-0 before:w-full before:h-0 before:opacity-10 before:bg-blue-200 hover:before:h-full before:transition-all before:duration-300 before:ease-out before:-z-10",
+      active && "after:w-full"
     )}
   >
     {children}
@@ -251,7 +254,7 @@ const MobileNavLink = ({
 }) => (
   <Link 
     to={to} 
-    className="flex items-center text-blue-800 hover:text-blue-600 text-lg font-medium transform transition-all hover:translate-x-1"
+    className="flex items-center text-blue-800 hover:text-blue-600 text-lg font-medium transform transition-all duration-300 hover:translate-x-1"
     onClick={onClick}
   >
     {children}
