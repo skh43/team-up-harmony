@@ -7,23 +7,23 @@
 
 @layer base {
   :root {
-    --background: 217 33% 12%;
-    --foreground: 210 40% 98%;
+    --background: 0 0% 100%;
+    --foreground: 217 33% 17%;
 
-    --card: 220 33% 15%;
-    --card-foreground: 210 40% 98%;
+    --card: 0 0% 100%;
+    --card-foreground: 217 33% 17%;
 
-    --popover: 220 33% 15%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 33% 17%;
 
     --primary: 190 100% 50%;
     --primary-foreground: 210 40% 98%;
 
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 217 33% 17%;
 
-    --muted: 217 33% 20%;
-    --muted-foreground: 215 20% 75%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 215 25% 45%;
 
     --accent: 300 100% 50%;
     --accent-foreground: 210 40% 98%;
@@ -31,8 +31,8 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217 33% 25%;
-    --input: 217 33% 20%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
     --ring: 190 100% 50%;
 
     --radius: 1rem;
@@ -46,13 +46,13 @@
     --team-purple: 280 100% 50%;
     --team-pink: 330 100% 50%;
 
-    --sidebar-background: 220 33% 15%;
-    --sidebar-foreground: 210 40% 90%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 217 33% 17%;
     --sidebar-primary: 190 100% 50%;
     --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 217 33% 20%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 217 33% 25%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 217 33% 17%;
+    --sidebar-border: 220 13% 91%;
     --sidebar-ring: 190 100% 50%;
   }
 }
@@ -63,10 +63,8 @@
   }
 
   body {
-    @apply bg-[#0F172A] text-foreground font-sans antialiased;
-    background-image: radial-gradient(circle at 25% 25%, rgba(30, 41, 59, 0.5) 0%, transparent 50%),
-                     radial-gradient(circle at 75% 75%, rgba(14, 165, 233, 0.1) 0%, transparent 50%);
-    background-attachment: fixed;
+    @apply bg-white text-foreground font-sans antialiased;
+    background-image: none;
   }
 }
 
@@ -180,7 +178,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(240, 240, 240, 0.8);
 }
 
 ::-webkit-scrollbar-thumb {
@@ -264,8 +262,8 @@ html {
 
 .tech-pattern {
   background-image: 
-    radial-gradient(rgba(59, 130, 246, 0.1) 2px, transparent 2px),
-    radial-gradient(rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+    radial-gradient(rgba(59, 130, 246, 0.05) 2px, transparent 2px),
+    radial-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px);
   background-size: 30px 30px, 15px 15px;
   background-position: 0 0, 15px 15px;
 }
