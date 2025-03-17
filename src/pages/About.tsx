@@ -11,7 +11,7 @@ const About = () => {
   return (
     <MainLayout className="py-20">
       <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 mt-12"> {/* Added mt-12 to bring the heading down */}
           <h1 className="text-4xl font-bold mb-6">About Team Up</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Our mission is to simplify the roommate discovery process in Saudi Arabia,
