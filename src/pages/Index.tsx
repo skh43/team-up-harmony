@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import MainLayout from '@/layouts/MainLayout';
 import { ArrowRight, Home, Users, Search } from 'lucide-react';
 import Logo from '@/components/Logo';
+import { Card, CardContent, CardDescription } from "@/components/ui/card";
 
 const Index = () => {
   const [isVisible, setIsVisible] = useState<Record<string, boolean>>({
@@ -52,48 +53,43 @@ const Index = () => {
 
   return (
     <MainLayout hideNavbar={false} className="px-0 py-0">
+      {/* Hero Section */}
       <section
         id="hero"
         ref={sectionRefs.hero}
-        className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
+        className="min-h-screen flex items-center justify-center px-4 pt-16"
       >
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-radial from-accent/40 via-background to-background" />
-        </div>
-        
-        <div className="max-w-7xl mx-auto text-center relative z-10 pt-24">
+        <div className="max-w-7xl mx-auto text-center relative z-10 pt-10">
           <div className={cn(
             "transition-all duration-1000 transform",
             isVisible.hero ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           )}>
-            <div className="inline-block mb-4">
-              <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary">
+            <div className="mb-10 text-center">
+              <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
                 Saudi Arabia's Premier Roommate Finder
               </span>
-            </div>
-            
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
-              <span className="block">Welcome to </span>
-              <div className="flex justify-center mt-3">
+              
+              <h1 className="text-3xl md:text-4xl font-bold mb-4">Welcome to</h1>
+              <div className="flex justify-center mb-3">
                 <Logo size="xlarge" showText={false} />
               </div>
-            </h1>
-            
-            <p className="text-xl md:text-2xl text-foreground/80 max-w-3xl mx-auto mb-3 font-medium text-blue-700">
-              roommate discovery, simplified
-            </p>
-            
-            <p className="text-xl md:text-2xl text-foreground/80 max-w-3xl mx-auto mb-8 leading-relaxed">
-              Shared living made easy. Find your perfect roommate match and ideal home in Saudi Arabia.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-              <Button asChild size="lg" className="rounded-full px-8 py-6 text-base shadow-subtle">
-                <Link to="/register">Get Started <ArrowRight className="ml-2 h-5 w-5" /></Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="rounded-full px-8 py-6 text-base">
-                <Link to="/properties">Browse Properties</Link>
-              </Button>
+              
+              <p className="text-lg md:text-xl text-blue-700 font-medium mb-3">
+                roommate discovery, simplified
+              </p>
+              
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
+                Shared living made easy. Find your perfect roommate match and ideal home in Saudi Arabia.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+                <Button asChild size="lg" className="rounded-full px-8 py-6 text-base shadow-subtle">
+                  <Link to="/register">Get Started <ArrowRight className="ml-2 h-5 w-5" /></Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="rounded-full px-8 py-6 text-base">
+                  <Link to="/properties">Browse Properties</Link>
+                </Button>
+              </div>
             </div>
           </div>
           
@@ -121,15 +117,9 @@ const Index = () => {
             </div>
           </div>
         </div>
-        
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19"></line>
-            <polyline points="19 12 12 19 5 12"></polyline>
-          </svg>
-        </div>
       </section>
 
+      {/* Features Section */}
       <section
         id="features"
         ref={sectionRefs.features}
@@ -143,20 +133,20 @@ const Index = () => {
             <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary mb-4 inline-block">
               Our Features
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
               Everything you need to find the <span className="text-primary">perfect match</span>
             </h2>
-            <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Team Up provides a comprehensive platform designed to make finding roommates and living spaces in Saudi Arabia seamless and enjoyable.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
             {features.map((feature, index) => (
-              <div 
+              <Card 
                 key={feature.title}
                 className={cn(
-                  "glass-card rounded-xl p-6 transition-all duration-700",
+                  "overflow-hidden shadow-subtle hover:shadow-elegant transition-shadow",
                   isVisible.features ? 
                     "opacity-100 translate-y-0" : 
                     "opacity-0 translate-y-12"
@@ -165,17 +155,20 @@ const Index = () => {
                   transitionDelay: isVisible.features ? `${index * 100}ms` : '0ms' 
                 }}
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-5">
-                  <feature.icon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
-                <p className="text-foreground/70">{feature.description}</p>
-              </div>
+                <CardContent className="p-6">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-5">
+                    <feature.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+                  <CardDescription className="text-base">{feature.description}</CardDescription>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
+      {/* How It Works Section */}
       <section
         id="steps"
         ref={sectionRefs.steps}
@@ -189,10 +182,10 @@ const Index = () => {
             <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary mb-4 inline-block">
               Simple Process
             </span>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">
               How Team Up <span className="text-primary">works</span>
             </h2>
-            <p className="text-lg text-foreground/70 max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Our simple and intuitive process makes finding your perfect roommate and home a breeze.
             </p>
           </div>
@@ -214,36 +207,40 @@ const Index = () => {
                     transitionDelay: isVisible.steps ? `${index * 200}ms` : '0ms' 
                   }}
                 >
-                  <div className={cn(
-                    "grid md:grid-cols-2 gap-8 items-center",
-                    index % 2 === 1 ? "md:flex-row-reverse" : ""
-                  )}>
-                    <div className={cn(
-                      "relative",
-                      index % 2 === 1 ? "md:order-2" : "md:order-1"
-                    )}>
-                      <div className="glass-card rounded-xl overflow-hidden aspect-video w-full">
-                        <div className="w-full h-full flex items-center justify-center bg-gradient-to-tr from-primary/5 to-accent/5">
-                          {React.createElement(step.icon, { className: "h-16 w-16 text-primary/30" })}
+                  <Card className={cn("overflow-hidden shadow-subtle border-0")}>
+                    <CardContent className="p-6">
+                      <div className={cn(
+                        "grid md:grid-cols-2 gap-8 items-center",
+                        index % 2 === 1 ? "md:flex-row-reverse" : ""
+                      )}>
+                        <div className={cn(
+                          "relative",
+                          index % 2 === 1 ? "md:order-2" : "md:order-1"
+                        )}>
+                          <div className="rounded-xl overflow-hidden aspect-video w-full">
+                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-tr from-primary/5 to-accent/5">
+                              {React.createElement(step.icon, { className: "h-16 w-16 text-primary/30" })}
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className={cn(
+                          "space-y-4",
+                          index % 2 === 1 ? "md:order-1 md:text-right" : "md:order-2"
+                        )}>
+                          <div className="flex items-center space-x-4">
+                            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-bold">
+                              {index + 1}
+                            </div>
+                            <h3 className="text-2xl font-bold">{step.title}</h3>
+                          </div>
+                          <p className="text-lg text-muted-foreground">
+                            {step.description}
+                          </p>
                         </div>
                       </div>
-                    </div>
-                    
-                    <div className={cn(
-                      "space-y-4",
-                      index % 2 === 1 ? "md:order-1 md:text-right" : "md:order-2"
-                    )}>
-                      <div className="flex items-center space-x-4">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-bold">
-                          {index + 1}
-                        </div>
-                        <h3 className="text-2xl font-bold">{step.title}</h3>
-                      </div>
-                      <p className="text-lg text-foreground/70">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
+                    </CardContent>
+                  </Card>
                 </div>
               ))}
             </div>
@@ -251,6 +248,7 @@ const Index = () => {
         </div>
       </section>
 
+      {/* CTA Section */}
       <section
         id="cta"
         ref={sectionRefs.cta}
@@ -265,7 +263,7 @@ const Index = () => {
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
             Ready to find your perfect <span className="text-primary">teamup</span>?
           </h2>
-          <p className="text-lg text-foreground/80 max-w-2xl mx-auto mb-8">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
             Join thousands of users in Saudi Arabia who have found their ideal living situation with Team Up.
           </p>
           <Button asChild size="lg" className="rounded-full px-8 text-base shadow-subtle">
@@ -277,6 +275,7 @@ const Index = () => {
   );
 };
 
+// Keep features and steps data the same
 const features = [
   {
     icon: Users,
