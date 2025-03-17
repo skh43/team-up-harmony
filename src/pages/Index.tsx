@@ -1,10 +1,9 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import MainLayout from '@/layouts/MainLayout';
-import { ArrowRight, Home, Users, Search } from 'lucide-react';
+import { ArrowRight, Home, Users, Search, UserPlus, Route, MessageCircle, Handshake } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { Card, CardContent, CardDescription } from "@/components/ui/card";
 
@@ -203,17 +202,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works Section */}
+      {/* How It Works Section - Enhanced with vibrant colors and abstract imagery */}
       <section
         id="steps"
         ref={sectionRefs.steps}
-        className="py-20 md:py-32 px-4 bg-gradient-to-b from-background via-purple-50/10 to-accent/10 relative overflow-hidden"
+        className="py-20 md:py-32 px-4 bg-gradient-to-b from-background via-purple-50/20 to-accent/10 relative overflow-hidden"
       >
-        {/* Background Elements */}
+        {/* Abstract Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-blue-400/10 blur-3xl"></div>
           <div className="absolute bottom-20 left-10 w-80 h-80 rounded-full bg-purple-400/10 blur-3xl"></div>
           <div className="absolute top-1/2 left-1/3 w-40 h-40 rounded-full bg-pink-400/10 blur-2xl"></div>
+          
+          {/* New Abstract Image Pattern */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-10">
+            <img 
+              src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&q=80&w=2100" 
+              alt="Abstract Pattern" 
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
 
         <div className="max-w-7xl mx-auto relative z-10">
@@ -224,7 +232,7 @@ const Index = () => {
             <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary mb-4 inline-block">
               Simple Process
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-blue-500 to-primary">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-[#8B5CF6] via-[#D946EF] to-[#0EA5E9]">
               How Team Up <span className="text-primary">works</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -233,7 +241,7 @@ const Index = () => {
           </div>
 
           <div className="relative">
-            <div className="hidden md:block absolute top-24 left-1/2 transform -translate-x-1/2 w-1 h-[calc(100%-6rem)] bg-gradient-to-b from-primary via-blue-400 to-transparent rounded-full"></div>
+            <div className="hidden md:block absolute top-24 left-1/2 transform -translate-x-1/2 w-1 h-[calc(100%-6rem)] bg-gradient-to-b from-[#9b87f5] via-[#0EA5E9] to-transparent rounded-full"></div>
             
             <div className="space-y-16 md:space-y-32 relative z-10">
               {steps.map((step, index) => (
@@ -251,7 +259,9 @@ const Index = () => {
                 >
                   <Card className={cn(
                     "overflow-hidden shadow-elegant border-0 group hover:shadow-[0_0_15px_rgba(124,58,237,0.3)] transition-all duration-500",
-                    index % 2 === 1 ? "bg-gradient-to-tr from-background to-blue-50/20" : "bg-gradient-to-bl from-background to-purple-50/20"
+                    index % 2 === 0 
+                      ? "bg-gradient-to-tr from-background to-blue-50/20" 
+                      : "bg-gradient-to-bl from-background to-purple-50/20"
                   )}>
                     <CardContent className="p-6">
                       <div className={cn(
@@ -270,6 +280,15 @@ const Index = () => {
                                 className="w-full h-full object-cover"
                               />
                               <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/5 mix-blend-overlay"></div>
+                              
+                              {/* Abstract Pattern Overlay */}
+                              <div className="absolute inset-0 opacity-20 mix-blend-soft-light">
+                                <img 
+                                  src={step.abstractPattern} 
+                                  alt="Abstract Pattern" 
+                                  className="w-full h-full object-cover"
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -282,10 +301,15 @@ const Index = () => {
                             "flex items-center", 
                             index % 2 === 1 ? "md:justify-end" : ""
                           )}>
-                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-primary to-blue-400 text-white font-bold shadow-[0_0_10px_rgba(124,58,237,0.5)]">
+                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-[#9b87f5] to-[#0EA5E9] text-white font-bold shadow-[0_0_10px_rgba(124,58,237,0.5)]">
                               {index + 1}
                             </div>
-                            <h3 className="text-2xl font-bold ml-4">{step.title}</h3>
+                            <div className="ml-4">
+                              <h3 className="text-2xl font-bold flex items-center gap-2">
+                                {step.title}
+                                <span className="text-[#8B5CF6]">{step.icon && <step.icon className="h-6 w-6" />}</span>
+                              </h3>
+                            </div>
                           </div>
                           <p className="text-lg text-muted-foreground">
                             {step.description}
@@ -339,7 +363,7 @@ const Index = () => {
   );
 };
 
-// Keep features and steps data the same
+// Features data
 const features = [
   {
     icon: Users,
@@ -396,59 +420,5 @@ const features = [
   }
 ];
 
-const steps = [
-  {
-    icon: function UserIcon(props) {
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-          <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-          <circle cx="12" cy="7" r="4"></circle>
-        </svg>
-      );
-    },
-    title: "Create Your Profile",
-    description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
-    image: "https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
-  },
-  {
-    icon: function ArrowRightIcon(props) {
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-          <path d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-        </svg>
-      );
-    },
-    title: "Select Your Path",
-    description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite.",
-    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
-  },
-  {
-    icon: function SmileIcon(props) {
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-          <circle cx="12" cy="12" r="10"></circle>
-          <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-          <line x1="9" y1="9" x2="9.01" y2="9"></line>
-          <line x1="15" y1="9" x2="15.01" y2="9"></line>
-        </svg>
-      );
-    },
-    title: "Start Matching",
-    description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match.",
-    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
-  },
-  {
-    icon: function CorenerIcon(props) {
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-          <path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"></path>
-        </svg>
-      );
-    },
-    title: "Team Up",
-    description: "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement.",
-    image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?auto=format&fit=crop&q=80&w=2029&ixlib=rb-4.0.3"
-  }
-];
+//
 
-export default Index;
