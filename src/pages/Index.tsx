@@ -54,24 +54,12 @@ const Index = () => {
 
   return (
     <MainLayout hideNavbar={false} className="px-0 py-0">
-      {/* Hero Section with Abstract Background */}
+      {/* Hero Section */}
       <section
         id="hero"
         ref={sectionRefs.hero}
         className="min-h-screen flex items-center justify-center px-4 pt-16 relative"
       >
-        {/* Abstract Background */}
-        <div className="absolute inset-0 overflow-hidden z-0">
-          <div className="absolute top-0 right-0 w-full h-full opacity-10">
-            <img 
-              src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&q=80&w=1200" 
-              alt="Abstract Background" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="absolute bottom-0 left-0 w-full h-3/4 bg-gradient-to-t from-background to-transparent"></div>
-        </div>
-        
         <div className="max-w-7xl mx-auto text-center relative z-10 pt-10">
           <div className={cn(
             "transition-all duration-1000 transform",
@@ -112,11 +100,6 @@ const Index = () => {
           )}>
             <div className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl shadow-elegant">
               <div className="aspect-[16/9] w-full bg-gradient-to-br from-primary/20 to-accent/30">
-                <img 
-                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1200" 
-                  alt="Abstract Digital Connection" 
-                  className="w-full h-full object-cover opacity-70"
-                />
                 <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center">
                   <div className="glass-panel rounded-xl px-6 py-4 max-w-md backdrop-blur-md bg-white/10">
                     <div className="flex items-center space-x-4">
@@ -136,30 +119,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section with Abstract Patterns */}
+      {/* Features Section */}
       <section
         id="features"
         ref={sectionRefs.features}
         className="py-20 md:py-32 px-4 relative"
-      >
-        {/* Abstract Background Elements */}
-        <div className="absolute inset-0 overflow-hidden z-0">
-          <div className="absolute top-0 right-0 w-2/3 h-1/2 opacity-5">
-            <img 
-              src="https://images.unsplash.com/photo-1486718448742-163732cd1544?auto=format&fit=crop&q=80&w=1200" 
-              alt="Abstract Pattern" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="absolute bottom-0 left-0 w-2/3 h-1/2 opacity-5">
-            <img 
-              src="https://images.unsplash.com/photo-1439337153520-7082a56a81f4?auto=format&fit=crop&q=80&w=1200" 
-              alt="Abstract Structure" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-        
+      >        
         <div className="max-w-7xl mx-auto relative z-10">
           <div className={cn(
             "text-center mb-16 transition-all duration-700",
@@ -203,28 +168,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How It Works Section - Enhanced with vibrant colors and abstract imagery */}
+      {/* How It Works Section */}
       <section
         id="steps"
         ref={sectionRefs.steps}
-        className="py-20 md:py-32 px-4 bg-gradient-to-b from-background via-purple-50/20 to-accent/10 relative overflow-hidden"
+        className="py-20 md:py-32 px-4 bg-gradient-to-b from-background via-purple-50/20 to-accent/10 relative"
       >
-        {/* Abstract Background Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-blue-400/10 blur-3xl"></div>
-          <div className="absolute bottom-20 left-10 w-80 h-80 rounded-full bg-purple-400/10 blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/3 w-40 h-40 rounded-full bg-pink-400/10 blur-2xl"></div>
-          
-          {/* New Abstract Image Pattern */}
-          <div className="absolute top-0 left-0 w-full h-full opacity-10">
-            <img 
-              src="https://images.unsplash.com/photo-1550684376-efcbd6e3f031?auto=format&fit=crop&q=80&w=2100" 
-              alt="Abstract Pattern" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-
         <div className="max-w-7xl mx-auto relative z-10">
           <div className={cn(
             "text-center mb-16 transition-all duration-700",
@@ -280,16 +229,6 @@ const Index = () => {
                                 alt={step.title}
                                 className="w-full h-full object-cover"
                               />
-                              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/5 mix-blend-overlay"></div>
-                              
-                              {/* Abstract Pattern Overlay */}
-                              <div className="absolute inset-0 opacity-20 mix-blend-soft-light">
-                                <img 
-                                  src={step.abstractPattern} 
-                                  alt="Abstract Pattern" 
-                                  className="w-full h-full object-cover"
-                                />
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -326,23 +265,12 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section with Abstract Background */}
+      {/* CTA Section */}
       <section
         id="cta"
         ref={sectionRefs.cta}
         className="py-20 md:py-32 px-4 relative"
       >
-        {/* Abstract Background */}
-        <div className="absolute inset-0 overflow-hidden z-0">
-          <div className="absolute top-0 right-0 w-full h-full opacity-5">
-            <img 
-              src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&q=80&w=1200" 
-              alt="Abstract Background" 
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-        
         <div 
           className={cn(
             "max-w-5xl mx-auto glass-panel rounded-2xl p-8 md:p-12 text-center shadow-elegant transition-all duration-700 transform relative z-10",
@@ -421,35 +349,31 @@ const features = [
   }
 ];
 
-// Steps data with abstract patterns
+// Steps data with abstraction patterns removed
 const steps = [
   {
     title: "Create Your Profile",
     description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
     icon: UserPlus,
-    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200",
-    abstractPattern: "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=1200"
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1200"
   },
   {
     title: "Select Your Path",
     description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite.",
     icon: Route,
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200",
-    abstractPattern: "https://images.unsplash.com/photo-1550684848-86a5d8727436?auto=format&fit=crop&q=80&w=1200"
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&q=80&w=1200"
   },
   {
     title: "Start Matching",
     description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match.",
     icon: MessageCircle,
-    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=1200",
-    abstractPattern: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1200"
+    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&q=80&w=1200"
   },
   {
     title: "Team Up",
     description: "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement.",
     icon: Handshake,
-    image: "https://images.unsplash.com/photo-1484981138541-3d074aa97716?auto=format&fit=crop&q=80&w=1200",
-    abstractPattern: "https://images.unsplash.com/photo-1516383607781-913a19294fd1?auto=format&fit=crop&q=80&w=1200"
+    image: "https://images.unsplash.com/photo-1484981138541-3d074aa97716?auto=format&fit=crop&q=80&w=1200"
   }
 ];
 
