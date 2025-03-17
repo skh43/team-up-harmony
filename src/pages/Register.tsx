@@ -86,7 +86,7 @@ const Register = () => {
   return (
     <MainLayout className="flex items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-md">
-        <div className="mb-8 text-center">
+        <div className="mb-12 mt-6 text-center">
           <h1 className="text-2xl font-bold mb-2">Create your account</h1>
           <p className="text-muted-foreground">
             Join to find your perfect roommate match
