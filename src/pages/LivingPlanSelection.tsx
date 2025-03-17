@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -38,8 +39,8 @@ const LivingPlanSelection = () => {
     // Store selection
     localStorage.setItem('livingPlan', selectedPlan);
     
-    // Navigate to the matching page
-    navigate('/matching');
+    // Update: Navigate to profile creation instead of matching
+    navigate('/profile-creation');
   };
   
   return (
@@ -47,7 +48,7 @@ const LivingPlanSelection = () => {
       <div className="w-full max-w-5xl">
         <div className="mb-10 text-center">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            Step 3 of 4
+            Step 2 of 4
           </span>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Choose Your Living Plan</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">

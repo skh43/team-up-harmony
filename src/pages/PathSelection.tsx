@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,8 +31,8 @@ const PathSelection = () => {
     // Store selection in state management or localStorage if needed
     localStorage.setItem('userPath', selectedPath);
     
-    // Navigate to the profile creation page
-    navigate('/profile-creation');
+    // Navigate to living plan selection page instead of profile creation
+    navigate('/living-plan-selection');
   };
   
   return (
