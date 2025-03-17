@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -144,7 +143,7 @@ const About = () => {
           <TabsContent value="elite" className="mt-8 animate-scale-in">
             <Card className="overflow-hidden border-0 shadow-elegant">
               <CardHeader className="text-center bg-gradient-to-r from-pink-400/20 to-pink-500/20 rounded-t-lg">
-                <CardTitle className="text-2xl bg-gradient-to-r from-pink-600 to-pink-800 text-transparent bg-clip-text">Elite Living (Luxury)</CardTitle>
+                <CardTitle className="text-2xl bg-gradient-to-r from-pink-600 to-pink-800 text-transparent bg-clip-text">Elite Living (Subscription)</CardTitle>
               </CardHeader>
               <CardContent className="pt-6 bg-white">
                 <div className="grid gap-4">
@@ -192,3 +191,7 @@ const About = () => {
 };
 
 export default About;
+
+
+
+
