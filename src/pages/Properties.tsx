@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { MapPin, Bed, Bath, Square, Heart, Filter } from 'lucide-react';
+import { MapPin, Bed, Bath, Square, Heart, Filter, House, Sofa, Crown } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
 
@@ -15,6 +16,7 @@ const MOCK_PROPERTIES = [
     title: 'Modern Apartment with Balcony',
     location: 'Al Olaya, Riyadh',
     price: 'SAR 3,500/month',
+    priceValue: 3500,
     bedrooms: 2,
     bathrooms: 2,
     size: '120 sqm',
@@ -27,6 +29,7 @@ const MOCK_PROPERTIES = [
     title: 'Cozy Studio near University',
     location: 'Al Malaz, Riyadh',
     price: 'SAR 2,200/month',
+    priceValue: 2200,
     bedrooms: 1,
     bathrooms: 1,
     size: '65 sqm',
@@ -39,6 +42,7 @@ const MOCK_PROPERTIES = [
     title: 'Luxury Villa with Garden',
     location: 'Al Narjis, Riyadh',
     price: 'SAR 9,000/month',
+    priceValue: 9000,
     bedrooms: 4,
     bathrooms: 3,
     size: '300 sqm',
@@ -51,6 +55,7 @@ const MOCK_PROPERTIES = [
     title: 'Shared Room in Modern Flat',
     location: 'Al Muruj, Riyadh',
     price: 'SAR 1,300/month',
+    priceValue: 1300,
     bedrooms: 1,
     bathrooms: 1,
     size: '20 sqm (room)',
@@ -63,6 +68,7 @@ const MOCK_PROPERTIES = [
     title: 'Penthouse with Stunning Views',
     location: 'Al Hamra, Jeddah',
     price: 'SAR 7,500/month',
+    priceValue: 7500,
     bedrooms: 3,
     bathrooms: 2,
     size: '180 sqm',
@@ -75,6 +81,7 @@ const MOCK_PROPERTIES = [
     title: 'Spacious Room for Rent',
     location: 'Al Rawdah, Jeddah',
     price: 'SAR 1,800/month',
+    priceValue: 1800,
     bedrooms: 1,
     bathrooms: 1,
     size: '25 sqm (room)',
@@ -84,9 +91,17 @@ const MOCK_PROPERTIES = [
   }
 ];
 
+// Price thresholds for property categories
+const PRICE_THRESHOLDS = {
+  BASIC: 2500,    // Properties below 2500 SAR/month
+  COMFORT: 6000   // Properties between 2500-6000 SAR/month
+                  // Properties above 6000 SAR/month are Elite
+};
+
 const Properties = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [activeTab, setActiveTab] = useState('all');
   
   const toggleFavorite = (id: number) => {
     setFavorites(prev => 
@@ -96,11 +111,19 @@ const Properties = () => {
     );
   };
   
-  const filteredProperties = MOCK_PROPERTIES.filter(property => 
-    property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    property.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    property.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProperties = MOCK_PROPERTIES
+    .filter(property => 
+      property.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      property.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      property.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter(property => {
+      if (activeTab === 'all') return true;
+      if (activeTab === 'basic') return property.priceValue < PRICE_THRESHOLDS.BASIC;
+      if (activeTab === 'comfort') return property.priceValue >= PRICE_THRESHOLDS.BASIC && property.priceValue < PRICE_THRESHOLDS.COMFORT;
+      if (activeTab === 'elite') return property.priceValue >= PRICE_THRESHOLDS.COMFORT;
+      return true;
+    });
 
   return (
     <MainLayout className="flex flex-col min-h-screen">
@@ -140,6 +163,32 @@ const Properties = () => {
           </div>
         </div>
         
+        <div className="mb-8">
+          <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid grid-cols-4 max-w-3xl mx-auto bg-muted/60">
+              <TabsTrigger value="all" className="data-[state=active]:bg-background">
+                All Properties
+              </TabsTrigger>
+              <TabsTrigger value="basic" className="data-[state=active]:bg-background flex items-center gap-2">
+                <House className="h-4 w-4" />
+                <span>Basic</span>
+              </TabsTrigger>
+              <TabsTrigger value="comfort" className="data-[state=active]:bg-background flex items-center gap-2">
+                <Sofa className="h-4 w-4" />
+                <span>Comfort</span>
+              </TabsTrigger>
+              <TabsTrigger value="elite" className="data-[state=active]:bg-background flex items-center gap-2">
+                <Crown className="h-4 w-4" />
+                <span>Elite</span>
+              </TabsTrigger>
+            </TabsList>
+            
+            <div className="mt-6">
+              <CategoryDescription category={activeTab} />
+            </div>
+          </Tabs>
+        </div>
+        
         {filteredProperties.length === 0 ? (
           <div className="text-center py-10">
             <h2 className="text-xl font-medium mb-2">No properties found</h2>
@@ -153,6 +202,13 @@ const Properties = () => {
                 property={property}
                 isFavorite={favorites.includes(property.id)}
                 onToggleFavorite={() => toggleFavorite(property.id)}
+                category={
+                  property.priceValue < PRICE_THRESHOLDS.BASIC 
+                    ? 'basic' 
+                    : property.priceValue < PRICE_THRESHOLDS.COMFORT 
+                      ? 'comfort' 
+                      : 'elite'
+                }
               />
             ))}
           </div>
@@ -162,12 +218,68 @@ const Properties = () => {
   );
 };
 
+interface CategoryDescriptionProps {
+  category: string;
+}
+
+const CategoryDescription = ({ category }: CategoryDescriptionProps) => {
+  if (category === 'all') {
+    return (
+      <div className="text-center text-muted-foreground mb-6">
+        <p>View all available properties from our listings</p>
+      </div>
+    );
+  }
+  
+  if (category === 'basic') {
+    return (
+      <div className="text-center text-muted-foreground mb-6">
+        <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full mb-2">
+          <House className="h-4 w-4" />
+          <span className="font-medium">Basic Properties</span>
+          <span className="text-xs bg-blue-100 px-2 py-0.5 rounded-full">Under SAR {PRICE_THRESHOLDS.BASIC}/month</span>
+        </div>
+        <p>Affordable and functional living spaces for budget-conscious renters</p>
+      </div>
+    );
+  }
+  
+  if (category === 'comfort') {
+    return (
+      <div className="text-center text-muted-foreground mb-6">
+        <div className="inline-flex items-center gap-2 bg-purple-50 text-purple-700 px-3 py-1 rounded-full mb-2">
+          <Sofa className="h-4 w-4" />
+          <span className="font-medium">Comfort Properties</span>
+          <span className="text-xs bg-purple-100 px-2 py-0.5 rounded-full">SAR {PRICE_THRESHOLDS.BASIC}-{PRICE_THRESHOLDS.COMFORT}/month</span>
+        </div>
+        <p>Mid-range properties with modern amenities and convenient locations</p>
+      </div>
+    );
+  }
+  
+  if (category === 'elite') {
+    return (
+      <div className="text-center text-muted-foreground mb-6">
+        <div className="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full mb-2">
+          <Crown className="h-4 w-4" />
+          <span className="font-medium">Elite Properties</span>
+          <span className="text-xs bg-amber-100 px-2 py-0.5 rounded-full">Above SAR {PRICE_THRESHOLDS.COMFORT}/month</span>
+        </div>
+        <p>Premium properties with luxury features, spacious layouts and exclusive locations</p>
+      </div>
+    );
+  }
+  
+  return null;
+};
+
 interface PropertyCardProps {
   property: {
     id: number;
     title: string;
     location: string;
     price: string;
+    priceValue: number;
     bedrooms: number;
     bathrooms: number;
     size: string;
@@ -177,9 +289,37 @@ interface PropertyCardProps {
   };
   isFavorite: boolean;
   onToggleFavorite: () => void;
+  category: 'basic' | 'comfort' | 'elite';
 }
 
-const PropertyCard = ({ property, isFavorite, onToggleFavorite }: PropertyCardProps) => {
+const PropertyCard = ({ property, isFavorite, onToggleFavorite, category }: PropertyCardProps) => {
+  const getCategoryStyles = () => {
+    switch (category) {
+      case 'basic':
+        return {
+          badge: 'bg-blue-100 text-blue-700',
+          icon: <House className="h-4 w-4" />
+        };
+      case 'comfort':
+        return {
+          badge: 'bg-purple-100 text-purple-700',
+          icon: <Sofa className="h-4 w-4" />
+        };
+      case 'elite':
+        return {
+          badge: 'bg-amber-100 text-amber-700',
+          icon: <Crown className="h-4 w-4" />
+        };
+      default:
+        return {
+          badge: 'bg-gray-100 text-gray-700',
+          icon: <House className="h-4 w-4" />
+        };
+    }
+  };
+
+  const categoryStyle = getCategoryStyles();
+
   return (
     <Card className="overflow-hidden shadow-subtle hover:shadow-elegant transition-shadow">
       <div className="relative aspect-[4/3] overflow-hidden">
@@ -204,6 +344,11 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite }: PropertyCardPr
         </Button>
         <div className="absolute bottom-2 left-2 px-2.5 py-1 bg-black/30 backdrop-blur-sm rounded-full text-white text-sm font-medium">
           {property.price}
+        </div>
+        
+        <div className={`absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${categoryStyle.badge}`}>
+          {categoryStyle.icon}
+          <span className="capitalize">{category}</span>
         </div>
       </div>
       
