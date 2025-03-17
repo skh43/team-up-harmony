@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -222,13 +221,27 @@ const Index = () => {
                           "relative",
                           index % 2 === 1 ? "md:order-2" : "md:order-1"
                         )}>
-                          <div className="rounded-xl overflow-hidden aspect-video w-full shadow-elegant group-hover:shadow-[0_5px_15px_rgba(124,58,237,0.4)] transition-all duration-500">
-                            <div className="w-full h-full relative">
+                          <div className="rounded-xl overflow-hidden aspect-video w-full shadow-elegant group-hover:shadow-[0_5px_15px_rgba(124,58,237,0.4)] transition-all duration-500 relative">
+                            <div className="w-full h-full relative overflow-hidden">
                               <img 
                                 src={step.image} 
                                 alt={step.title}
-                                className="w-full h-full object-cover"
+                                className={cn(
+                                  "w-full h-full object-cover",
+                                  "group-hover:scale-110 transition-all duration-3000 ease-in-out"
+                                )}
                               />
+                              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-transparent opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
+                            </div>
+                            
+                            <div className={cn(
+                              "absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-32",
+                              "animate-float opacity-0 group-hover:opacity-100 transition-opacity duration-700",
+                              index % 2 === 0 ? "text-primary" : "text-accent"
+                            )}>
+                              <div className="w-full h-full flex items-center justify-center">
+                                <step.icon className="w-16 h-16 drop-shadow-lg" stroke="currentColor" strokeWidth={1} />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -241,7 +254,7 @@ const Index = () => {
                             "flex items-center", 
                             index % 2 === 1 ? "md:justify-end" : ""
                           )}>
-                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-[#9b87f5] to-[#0EA5E9] text-white font-bold shadow-[0_0_10px_rgba(124,58,237,0.5)]">
+                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-[#9b87f5] to-[#0EA5E9] text-white font-bold shadow-[0_0_10px_rgba(124,58,237,0.5)] animate-pulse-slow">
                               {index + 1}
                             </div>
                             <div className="ml-4">
@@ -349,7 +362,7 @@ const features = [
   }
 ];
 
-// Steps data with abstraction patterns removed
+// Steps data with enhanced images for animation
 const steps = [
   {
     title: "Create Your Profile",
@@ -378,3 +391,4 @@ const steps = [
 ];
 
 export default Index;
+
