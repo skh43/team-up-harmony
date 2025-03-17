@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -172,17 +173,24 @@ const Index = () => {
       <section
         id="steps"
         ref={sectionRefs.steps}
-        className="py-20 md:py-32 px-4 bg-gradient-to-b from-background to-accent/10 relative"
+        className="py-20 md:py-32 px-4 bg-gradient-to-b from-background via-purple-50/10 to-accent/10 relative overflow-hidden"
       >
-        <div className="max-w-7xl mx-auto">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-blue-400/10 blur-3xl"></div>
+          <div className="absolute bottom-20 left-10 w-80 h-80 rounded-full bg-purple-400/10 blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/3 w-40 h-40 rounded-full bg-pink-400/10 blur-2xl"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className={cn(
             "text-center mb-16 transition-all duration-700",
             isVisible.steps ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           )}>
-            <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary mb-4 inline-block">
+            <span className="px-3 py-1 rounded-full text-xs font-medium bg-primary/20 text-primary mb-4 inline-block">
               Simple Process
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-blue-500 to-primary">
               How Team Up <span className="text-primary">works</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -191,9 +199,9 @@ const Index = () => {
           </div>
 
           <div className="relative">
-            <div className="hidden md:block absolute top-24 left-1/2 transform -translate-x-1/2 w-0.5 h-[calc(100%-6rem)] bg-gradient-to-b from-primary/30 via-primary/10 to-transparent" />
+            <div className="hidden md:block absolute top-24 left-1/2 transform -translate-x-1/2 w-1 h-[calc(100%-6rem)] bg-gradient-to-b from-primary via-blue-400 to-transparent rounded-full"></div>
             
-            <div className="space-y-12 md:space-y-24 relative z-10">
+            <div className="space-y-16 md:space-y-32 relative z-10">
               {steps.map((step, index) => (
                 <div 
                   key={step.title}
@@ -207,7 +215,10 @@ const Index = () => {
                     transitionDelay: isVisible.steps ? `${index * 200}ms` : '0ms' 
                   }}
                 >
-                  <Card className={cn("overflow-hidden shadow-subtle border-0")}>
+                  <Card className={cn(
+                    "overflow-hidden shadow-elegant border-0 group hover:shadow-[0_0_15px_rgba(124,58,237,0.3)] transition-all duration-500",
+                    index % 2 === 1 ? "bg-gradient-to-tr from-background to-blue-50/20" : "bg-gradient-to-bl from-background to-purple-50/20"
+                  )}>
                     <CardContent className="p-6">
                       <div className={cn(
                         "grid md:grid-cols-2 gap-8 items-center",
@@ -217,9 +228,13 @@ const Index = () => {
                           "relative",
                           index % 2 === 1 ? "md:order-2" : "md:order-1"
                         )}>
-                          <div className="rounded-xl overflow-hidden aspect-video w-full">
-                            <div className="w-full h-full flex items-center justify-center bg-gradient-to-tr from-primary/5 to-accent/5">
-                              {React.createElement(step.icon, { className: "h-16 w-16 text-primary/30" })}
+                          <div className="rounded-xl overflow-hidden aspect-video w-full shadow-elegant group-hover:shadow-[0_5px_15px_rgba(124,58,237,0.4)] transition-all duration-500">
+                            <div className="w-full h-full">
+                              <img 
+                                src={step.image} 
+                                alt={step.title}
+                                className="w-full h-full object-cover"
+                              />
                             </div>
                           </div>
                         </div>
@@ -228,11 +243,14 @@ const Index = () => {
                           "space-y-4",
                           index % 2 === 1 ? "md:order-1 md:text-right" : "md:order-2"
                         )}>
-                          <div className="flex items-center space-x-4">
-                            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10 text-primary font-bold">
+                          <div className={cn(
+                            "flex items-center", 
+                            index % 2 === 1 ? "md:justify-end" : ""
+                          )}>
+                            <div className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-primary to-blue-400 text-white font-bold shadow-[0_0_10px_rgba(124,58,237,0.5)]">
                               {index + 1}
                             </div>
-                            <h3 className="text-2xl font-bold">{step.title}</h3>
+                            <h3 className="text-2xl font-bold ml-4">{step.title}</h3>
                           </div>
                           <p className="text-lg text-muted-foreground">
                             {step.description}
@@ -343,7 +361,8 @@ const steps = [
       );
     },
     title: "Create Your Profile",
-    description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate."
+    description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
+    image: "https://images.unsplash.com/photo-1565688534245-05d6b5be184a?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
   },
   {
     icon: function ArrowRightIcon(props) {
@@ -354,7 +373,8 @@ const steps = [
       );
     },
     title: "Select Your Path",
-    description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite."
+    description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite.",
+    image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
   },
   {
     icon: function SmileIcon(props) {
@@ -368,7 +388,8 @@ const steps = [
       );
     },
     title: "Start Matching",
-    description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match."
+    description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match.",
+    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3"
   },
   {
     icon: function CorenerIcon(props) {
@@ -379,7 +400,8 @@ const steps = [
       );
     },
     title: "Team Up",
-    description: "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement."
+    description: "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement.",
+    image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b5f?auto=format&fit=crop&q=80&w=2029&ixlib=rb-4.0.3"
   }
 ];
 
