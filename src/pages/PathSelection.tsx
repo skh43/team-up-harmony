@@ -52,7 +52,7 @@ const PathSelection = () => {
         <div className="grid md:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
           <PathCard
             icon={<Home className="h-10 w-10" />}
-            title="I have a room"
+            title="Host My Space"
             description="I already have a place and I'm looking for someone to share it with."
             selected={selectedPath === 'has-room'}
             onClick={() => handlePathChange('has-room')}
@@ -60,7 +60,7 @@ const PathSelection = () => {
           
           <PathCard
             icon={<Users className="h-10 w-10" />}
-            title="I need a roommate"
+            title="Seek & Settle"
             description="I want to find a compatible roommate first, then we'll find a place together."
             selected={selectedPath === 'needs-roommate'}
             onClick={() => handlePathChange('needs-roommate')}

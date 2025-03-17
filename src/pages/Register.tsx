@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { ArrowRight, ArrowLeft, Mail, Lock, User, Check } from "lucide-react";
+import { ArrowRight, ArrowLeft, Mail, Lock, User, Phone, Check } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils';
 const registerSchema = z.object({
   fullName: z.string().min(3, "Full name must be at least 3 characters"),
   email: z.string().email("Please enter a valid email address"),
+  phone: z.string().min(10, "Please enter a valid phone number"),
   password: z.string().min(8, "Password must be at least 8 characters"),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -36,6 +37,7 @@ const Register = () => {
     defaultValues: {
       fullName: "",
       email: "",
+      phone: "",
       password: "",
       confirmPassword: "",
     },
@@ -53,9 +55,9 @@ const Register = () => {
         description: "Your account has been created.",
       });
       
-      // Navigate to the path selection page
+      // Navigate to the properties page directly
       setTimeout(() => {
-        navigate("/path-selection");
+        navigate("/properties");
       }, 1000);
     } catch (error) {
       console.error("Registration error:", error);
@@ -70,7 +72,7 @@ const Register = () => {
   };
 
   const nextStep = () => {
-    form.trigger(["fullName", "email"]).then((isValid) => {
+    form.trigger(["fullName", "email", "phone"]).then((isValid) => {
       if (isValid) {
         setStep(2);
       }
@@ -85,12 +87,6 @@ const Register = () => {
     <MainLayout className="flex items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-md">
         <div className="mb-8 text-center">
-          <Link 
-            to="/" 
-            className="inline-block mb-6 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400"
-          >
-            Team Up
-          </Link>
           <h1 className="text-2xl font-bold mb-2">Create your account</h1>
           <p className="text-muted-foreground">
             Join Team Up to find your perfect roommate match
@@ -141,10 +137,26 @@ const Register = () => {
                         </FormItem>
                       )}
                     />
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone Number</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                              <Input className="pl-10" placeholder="+966 xx xxx xxxx" type="tel" {...field} />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
 
                     <Button 
                       type="button" 
-                      className="w-full"
+                      className="w-full bg-purple-600 hover:bg-purple-700"
                       onClick={nextStep}
                     >
                       Continue <ArrowRight className="ml-2 h-4 w-4" />
@@ -198,7 +210,7 @@ const Register = () => {
                       </Button>
                       <Button 
                         type="submit" 
-                        className="flex-1"
+                        className="flex-1 bg-purple-600 hover:bg-purple-700"
                         disabled={isLoading}
                       >
                         {isLoading ? "Creating..." : "Create Account"}
@@ -213,7 +225,7 @@ const Register = () => {
           <CardFooter className="flex justify-center p-6 border-t bg-secondary/20">
             <p className="text-sm text-muted-foreground">
               Already have an account?{" "}
-              <Link to="/login" className="text-primary font-medium hover:underline">
+              <Link to="/login" className="text-purple-500 font-medium hover:underline">
                 Sign in
               </Link>
             </p>
@@ -240,9 +252,9 @@ const StepIndicator = ({ step, currentStep, label }: StepIndicatorProps) => {
         className={cn(
           "w-10 h-10 rounded-full flex items-center justify-center text-white mb-2 border-2 transition-colors duration-300",
           isCompleted ? 
-            "bg-primary border-primary" : 
+            "bg-purple-600 border-purple-600" : 
             isActive ? 
-              "bg-primary border-primary" : 
+              "bg-purple-600 border-purple-600" : 
               "bg-muted border-muted text-foreground"
         )}
       >
@@ -250,7 +262,7 @@ const StepIndicator = ({ step, currentStep, label }: StepIndicatorProps) => {
       </div>
       <span className={cn(
         "text-xs font-medium",
-        isActive || isCompleted ? "text-primary" : "text-muted-foreground"
+        isActive || isCompleted ? "text-purple-600" : "text-muted-foreground"
       )}>
         {label}
       </span>

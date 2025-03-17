@@ -20,16 +20,11 @@ const Login = () => {
     <MainLayout className="flex items-center justify-center min-h-screen py-20">
       <div className="w-full max-w-md px-4">
         <div className="text-center mb-8">
-          <img 
-            src="/lovable-uploads/e4df3d6b-dc7b-4688-98b7-a5bfcdd66c5a.png" 
-            alt="Team Up Logo" 
-            className="h-24 w-auto mx-auto mb-6" 
-          />
           <h1 className="text-3xl font-bold">Welcome Back</h1>
           <p className="text-muted-foreground mt-2">Sign in to your Team Up account</p>
         </div>
 
-        <Card className="border-team-blue/10">
+        <Card className="border-purple-500/10">
           <CardHeader>
             <CardTitle>Login</CardTitle>
             <CardDescription>Enter your credentials to access your account</CardDescription>
@@ -43,7 +38,7 @@ const Login = () => {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <Button type="button" variant="link" className="text-xs text-team-blue h-auto p-0">
+                  <Button type="button" variant="link" className="text-xs text-purple-500 h-auto p-0">
                     Forgot password?
                   </Button>
                 </div>
@@ -51,12 +46,12 @@ const Login = () => {
               </div>
             </CardContent>
             <CardFooter className="flex flex-col">
-              <Button type="submit" className="w-full bg-team-orange hover:bg-team-orange/90">
+              <Button type="submit" className="w-full bg-purple-600 hover:bg-purple-700">
                 Sign In
               </Button>
               <div className="mt-4 text-center text-sm">
                 Don't have an account?{' '}
-                <Button type="button" variant="link" className="p-0 h-auto text-team-blue" onClick={() => navigate('/register')}>
+                <Button type="button" variant="link" className="p-0 h-auto text-purple-500" onClick={() => navigate('/register')}>
                   Sign up
                 </Button>
               </div>

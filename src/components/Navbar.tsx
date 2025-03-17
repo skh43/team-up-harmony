@@ -51,7 +51,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4 px-6",
         isScrolled 
-          ? "bg-slate-900/80 backdrop-blur-md shadow-[0_0_15px_rgba(251,146,60,0.15)]" 
+          ? "bg-slate-900/80 backdrop-blur-md shadow-[0_0_15px_rgba(124,58,237,0.15)]" 
           : "bg-transparent"
       )}
     >
@@ -89,12 +89,11 @@ const Navbar = () => {
           </NavLink>
           <NavLink to="/about" active={location.pathname === "/about"}>About</NavLink>
           
-          <div className="flex items-center space-x-1">
-            <Button asChild variant="ghost" size="sm" className="rounded-md px-4 text-orange-400 hover:text-orange-300 hover:bg-orange-900/40 border border-orange-500/0 hover:border-orange-500/30">
+          <div className="flex items-center ml-4">
+            <Button asChild variant="ghost" size="sm" className="rounded-md px-4 text-purple-400 hover:text-purple-300 hover:bg-purple-900/40 border border-purple-500/0 hover:border-purple-500/30">
               <Link to="/login">Login</Link>
             </Button>
-            <span className="text-slate-400">|</span>
-            <Button asChild variant="link" size="sm" className="text-orange-400 hover:text-orange-300">
+            <Button asChild variant="default" size="sm" className="ml-2 bg-purple-600 hover:bg-purple-700 text-white rounded-md">
               <Link to="/register">Register</Link>
             </Button>
           </div>
@@ -108,15 +107,15 @@ const Navbar = () => {
         >
           <div className="w-6 flex flex-col items-end gap-1.5">
             <span className={cn(
-              "block h-0.5 bg-orange-400 transition-all duration-300",
+              "block h-0.5 bg-purple-400 transition-all duration-300",
               isMobileMenuOpen ? "w-6 -rotate-45 translate-y-2" : "w-6"
             )} />
             <span className={cn(
-              "block h-0.5 bg-orange-400 transition-all duration-300",
+              "block h-0.5 bg-purple-400 transition-all duration-300",
               isMobileMenuOpen ? "opacity-0" : "w-4"
             )} />
             <span className={cn(
-              "block h-0.5 bg-orange-400 transition-all duration-300",
+              "block h-0.5 bg-purple-400 transition-all duration-300",
               isMobileMenuOpen ? "w-6 rotate-45 -translate-y-2" : "w-6"
             )} />
           </div>
@@ -133,7 +132,7 @@ const Navbar = () => {
       >
         <div 
           className={cn(
-            "absolute right-0 top-0 h-screen w-3/4 max-w-xs bg-slate-900 border-l border-orange-500/20 shadow-[0_0_15px_rgba(251,146,60,0.15)] p-6 transition-transform duration-300 ease-in-out",
+            "absolute right-0 top-0 h-screen w-3/4 max-w-xs bg-slate-900 border-l border-purple-500/20 shadow-[0_0_15px_rgba(124,58,237,0.15)] p-6 transition-transform duration-300 ease-in-out",
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           )}
           onClick={(e) => e.stopPropagation()}
@@ -161,14 +160,14 @@ const Navbar = () => {
               Properties
             </MobileNavLink>
             <MobileNavLink to="/about" onClick={closeMobileMenu}>About</MobileNavLink>
-            <div className="pt-4 border-t border-orange-500/20">
-              <Button asChild variant="outline" size="sm" className="w-full justify-center mb-3 border-orange-400/50 text-orange-400 hover:bg-orange-900/40">
+            <div className="pt-4 border-t border-purple-500/20">
+              <Button asChild variant="outline" size="sm" className="w-full justify-center mb-3 border-purple-400/50 text-purple-400 hover:bg-purple-900/40">
                 <Link to="/login" onClick={closeMobileMenu}>Login</Link>
               </Button>
-              <div className="text-xs text-center text-orange-200/60 my-2">
+              <div className="text-xs text-center text-purple-200/60 my-2">
                 Not a member yet?
               </div>
-              <Button asChild size="sm" className="w-full justify-center bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-500 hover:to-orange-400 text-white border border-orange-400/30">
+              <Button asChild size="sm" className="w-full justify-center bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white border border-purple-400/30">
                 <Link to="/register" onClick={closeMobileMenu}>Register Now</Link>
               </Button>
             </div>
@@ -196,8 +195,8 @@ const NavLink = ({
     onClick={onClick}
     className={cn(
       "text-sm font-medium transition-colors relative",
-      active ? "text-orange-400 font-semibold" : "text-orange-100/70 hover:text-orange-300",
-      "after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-orange-400/70 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+      active ? "text-purple-400 font-semibold" : "text-purple-100/70 hover:text-purple-300",
+      "after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-purple-400/70 after:w-0 hover:after:w-full after:transition-all after:duration-300"
     )}
   >
     {children}
@@ -216,7 +215,7 @@ const MobileNavLink = ({
 }) => (
   <Link 
     to={to} 
-    className="text-orange-100/80 hover:text-orange-400 text-lg font-medium transform transition-all hover:translate-x-1 hover:drop-shadow-[0_0_3px_rgba(251,146,60,0.7)]"
+    className="text-purple-100/80 hover:text-purple-400 text-lg font-medium transform transition-all hover:translate-x-1 hover:drop-shadow-[0_0_3px_rgba(124,58,237,0.7)]"
     onClick={onClick}
   >
     {children}
