@@ -3,7 +3,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 
 interface LogoProps {
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'xlarge';
   showText?: boolean;
   className?: string;
 }
@@ -12,7 +12,8 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className
   const sizeClasses = {
     small: { container: 'h-10', text: 'text-xl', tagline: 'text-sm' },
     medium: { container: 'h-12', text: 'text-3xl', tagline: 'text-sm' },
-    large: { container: 'h-20', text: 'text-5xl', tagline: 'text-base' }
+    large: { container: 'h-20', text: 'text-5xl', tagline: 'text-base' },
+    xlarge: { container: 'h-28', text: 'text-7xl', tagline: 'text-lg' }
   };
 
   return (
@@ -30,7 +31,8 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className
               className={cn(
                 size === 'small' ? 'h-6 w-4' : 
                 size === 'medium' ? 'h-8 w-5' : 
-                'h-12 w-8'
+                size === 'large' ? 'h-12 w-8' :
+                'h-16 w-11'
               )}
               fill="none"
               xmlns="http://www.w3.org/2000/svg"

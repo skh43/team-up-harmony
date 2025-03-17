@@ -77,7 +77,7 @@ const Index = () => {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-6">
               <span className="block">Welcome to </span>
               <div className="flex justify-center mt-3">
-                <Logo size="large" showText={false} />
+                <Logo size="xlarge" showText={false} />
               </div>
             </h1>
             
@@ -165,7 +165,6 @@ const Index = () => {
                 }}
               >
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-5">
-                  {/* Fix: pass className directly to the feature.icon component */}
                   <feature.icon className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
@@ -225,7 +224,6 @@ const Index = () => {
                     )}>
                       <div className="glass-card rounded-xl overflow-hidden aspect-video w-full">
                         <div className="w-full h-full flex items-center justify-center bg-gradient-to-tr from-primary/5 to-accent/5">
-                          {/* Fix: use className properly with icon components */}
                           {React.createElement(step.icon, { className: "h-16 w-16 text-primary/30" })}
                         </div>
                       </div>
@@ -280,7 +278,6 @@ const Index = () => {
   );
 };
 
-// Update features array with proper icon rendering
 const features = [
   {
     icon: Users,
@@ -298,7 +295,6 @@ const features = [
     description: "Filter by location, price range, amenities, and more to find your perfect living space."
   },
   {
-    // Fix: convert the SVG function to a proper React component
     icon: function ProfileGroupIcon(props) {
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -313,7 +309,6 @@ const features = [
     description: "Choose from Basic, Comfort, or Elite living plans to match your lifestyle and budget needs."
   },
   {
-    // Fix: convert the SVG function to a proper React component
     icon: function GridIcon(props) {
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -327,7 +322,6 @@ const features = [
     description: "Set detailed preferences for roommates, from daily habits to lifestyle choices for better matches."
   },
   {
-    // Fix: convert the SVG function to a proper React component
     icon: function ShieldIcon(props) {
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -340,10 +334,8 @@ const features = [
   }
 ];
 
-// Update steps array with proper icon rendering and updated text
 const steps = [
   {
-    // Fix: convert the SVG function to a proper React component
     icon: function UserIcon(props) {
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -356,7 +348,6 @@ const steps = [
     description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate."
   },
   {
-    // Fix: convert the SVG function to a proper React component
     icon: function ArrowRightIcon(props) {
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -368,7 +359,6 @@ const steps = [
     description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite."
   },
   {
-    // Fix: convert the SVG function to a proper React component
     icon: function SmileIcon(props) {
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -383,7 +373,6 @@ const steps = [
     description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match."
   },
   {
-    // Fix: convert the SVG function to a proper React component
     icon: function CorenerIcon(props) {
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
