@@ -1,11 +1,11 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useNavigate } from 'react-router-dom';
 import { toast } from "sonner";
-import { MapPin, Bed, Bath, Square, Building, DollarSign, Tag, Camera, Check } from 'lucide-react';
+import { MapPin, Bed, Bath, Square, Building, DollarSign, Tag, Camera, Check, House, Sofa, Crown } from 'lucide-react';
 
 import MainLayout from '@/layouts/MainLayout';
 import { Input } from '@/components/ui/input';
@@ -29,6 +29,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+
+// Define price thresholds for property categories (same as in Properties.tsx)
+const PRICE_THRESHOLDS = {
+  BASIC: 2500,    // Properties below 2500 SAR/month
+  COMFORT: 6000   // Properties between 2500-6000 SAR/month
+                  // Properties above 6000 SAR/month are Elite
+};
 
 // Define form schema with validation rules
 const formSchema = z.object({
@@ -46,6 +54,7 @@ const formSchema = z.object({
 
 const ListProperty = () => {
   const navigate = useNavigate();
+  const [category, setCategory] = useState<'basic' | 'comfort' | 'elite' | ''>('');
   
   // Initialize form with react-hook-form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -64,6 +73,53 @@ const ListProperty = () => {
     },
   });
 
+  // Calculate property category based on price
+  const watchPrice = form.watch("price");
+  
+  useEffect(() => {
+    const priceValue = parseFloat(watchPrice);
+    if (!isNaN(priceValue)) {
+      if (priceValue < PRICE_THRESHOLDS.BASIC) {
+        setCategory('basic');
+      } else if (priceValue < PRICE_THRESHOLDS.COMFORT) {
+        setCategory('comfort');
+      } else {
+        setCategory('elite');
+      }
+    } else {
+      setCategory('');
+    }
+  }, [watchPrice]);
+
+  // Get category display details
+  const getCategoryDetails = () => {
+    switch (category) {
+      case 'basic':
+        return {
+          label: 'Basic',
+          icon: <House className="h-4 w-4 mr-1" />,
+          color: 'bg-blue-100 text-blue-700',
+          description: 'Affordable and functional living space'
+        };
+      case 'comfort':
+        return {
+          label: 'Comfort',
+          icon: <Sofa className="h-4 w-4 mr-1" />,
+          color: 'bg-purple-100 text-purple-700',
+          description: 'Mid-range property with modern amenities'
+        };
+      case 'elite':
+        return {
+          label: 'Elite',
+          icon: <Crown className="h-4 w-4 mr-1" />,
+          color: 'bg-amber-100 text-amber-700',
+          description: 'Premium property with luxury features'
+        };
+      default:
+        return null;
+    }
+  };
+
   // Form submission handler
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log("Form submitted:", values);
@@ -76,6 +132,8 @@ const ListProperty = () => {
       navigate('/properties');
     }, 2000);
   }
+
+  const categoryDetails = getCategoryDetails();
 
   return (
     <MainLayout className="pb-16">
@@ -176,6 +234,17 @@ const ListProperty = () => {
                             <Input className="pl-10" placeholder="e.g. 3500" {...field} />
                           </div>
                         </FormControl>
+                        {categoryDetails && (
+                          <div className="mt-2 flex items-center">
+                            <Badge variant="outline" className={`flex items-center gap-1 ${categoryDetails.color}`}>
+                              {categoryDetails.icon}
+                              {categoryDetails.label} Property
+                            </Badge>
+                            <span className="text-xs text-muted-foreground ml-2">
+                              {categoryDetails.description}
+                            </span>
+                          </div>
+                        )}
                         <FormMessage />
                       </FormItem>
                     )}
