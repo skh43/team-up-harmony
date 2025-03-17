@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Logo from './Logo';
 import { useToast } from "@/components/ui/use-toast";
+import { Home, Users, Building, Info, LogIn, UserPlus } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -51,7 +52,7 @@ const Navbar = () => {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out py-4 px-6",
         isScrolled 
-          ? "bg-white/80 backdrop-blur-md shadow-[0_0_15px_rgba(124,58,237,0.15)]" 
+          ? "bg-white/85 backdrop-blur-md shadow-[0_0_20px_rgba(124,58,237,0.2)]" 
           : "bg-transparent"
       )}
     >
@@ -66,7 +67,10 @@ const Navbar = () => {
         
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
-          <NavLink to="/" active={location.pathname === "/"}>Home</NavLink>
+          <NavLink to="/" active={location.pathname === "/"}>
+            <Home className="mr-1.5 h-[18px] w-[18px] transition-transform group-hover:scale-110" />
+            <span>Home</span>
+          </NavLink>
           <NavLink 
             to="#" 
             active={location.pathname === "/matching"}
@@ -75,7 +79,8 @@ const Navbar = () => {
               handleProtectedNavigation('/matching');
             }}
           >
-            Find Roommates
+            <Users className="mr-1.5 h-[18px] w-[18px] transition-transform group-hover:scale-110" />
+            <span>Find Roommates</span>
           </NavLink>
           <NavLink 
             to="#" 
@@ -85,16 +90,28 @@ const Navbar = () => {
               handleProtectedNavigation('/properties');
             }}
           >
-            Properties
+            <Building className="mr-1.5 h-[18px] w-[18px] transition-transform group-hover:scale-110" />
+            <span>Properties</span>
           </NavLink>
-          <NavLink to="/about" active={location.pathname === "/about"}>About</NavLink>
+          <NavLink to="/about" active={location.pathname === "/about"}>
+            <Info className="mr-1.5 h-[18px] w-[18px] transition-transform group-hover:scale-110" />
+            <span>About</span>
+          </NavLink>
           
-          <div className="flex items-center ml-4">
-            <Button asChild variant="ghost" size="sm" className="rounded-md px-4 text-blue-500 hover:text-blue-400 hover:bg-blue-900/10 border border-blue-500/0 hover:border-blue-500/30">
-              <Link to="/login">Login</Link>
+          <div className="flex items-center ml-6 space-x-3">
+            <Button asChild variant="ghost" size="sm" 
+              className="rounded-full px-5 text-blue-500 hover:text-blue-600 hover:bg-blue-50/80 border border-blue-200/0 hover:border-blue-200/80 transition-all duration-300 shadow-none hover:shadow-sm">
+              <Link to="/login" className="flex items-center">
+                <LogIn className="mr-1.5 h-4 w-4" />
+                Login
+              </Link>
             </Button>
-            <Button asChild variant="default" size="sm" className="ml-2 bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-500 hover:to-blue-700 text-white rounded-md">
-              <Link to="/register">Register</Link>
+            <Button asChild variant="default" size="sm" 
+              className="ml-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white rounded-full px-5 transition-all duration-300 shadow-md hover:shadow-lg hover:scale-105">
+              <Link to="/register" className="flex items-center">
+                <UserPlus className="mr-1.5 h-4 w-4" />
+                Register
+              </Link>
             </Button>
           </div>
         </nav>
@@ -107,15 +124,15 @@ const Navbar = () => {
         >
           <div className="w-6 flex flex-col items-end gap-1.5">
             <span className={cn(
-              "block h-0.5 bg-blue-500 transition-all duration-300",
+              "block h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300",
               isMobileMenuOpen ? "w-6 -rotate-45 translate-y-2" : "w-6"
             )} />
             <span className={cn(
-              "block h-0.5 bg-blue-500 transition-all duration-300",
+              "block h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300",
               isMobileMenuOpen ? "opacity-0" : "w-4"
             )} />
             <span className={cn(
-              "block h-0.5 bg-blue-500 transition-all duration-300",
+              "block h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300",
               isMobileMenuOpen ? "w-6 rotate-45 -translate-y-2" : "w-6"
             )} />
           </div>
@@ -125,20 +142,23 @@ const Navbar = () => {
       {/* Mobile Navigation Drawer */}
       <div 
         className={cn(
-          "fixed inset-0 bg-white/80 backdrop-blur-sm z-40 md:hidden transition-all duration-300 ease-in-out",
+          "fixed inset-0 bg-white/90 backdrop-blur-sm z-40 md:hidden transition-all duration-300 ease-in-out",
           isMobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
         onClick={closeMobileMenu}
       >
         <div 
           className={cn(
-            "absolute right-0 top-0 h-screen w-3/4 max-w-xs bg-white border-l border-blue-500/20 shadow-[0_0_15px_rgba(59,130,246,0.15)] p-6 transition-transform duration-300 ease-in-out",
+            "absolute right-0 top-0 h-screen w-3/4 max-w-xs bg-gradient-to-b from-white to-blue-50/80 border-l border-blue-100/50 shadow-[0_0_25px_rgba(59,130,246,0.2)] p-6 transition-transform duration-300 ease-in-out",
             isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
           )}
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex flex-col space-y-6 mt-16">
-            <MobileNavLink to="/" onClick={closeMobileMenu}>Home</MobileNavLink>
+            <MobileNavLink to="/" onClick={closeMobileMenu}>
+              <Home className="mr-2.5 h-5 w-5" />
+              Home
+            </MobileNavLink>
             <MobileNavLink 
               to="#" 
               onClick={(e) => {
@@ -147,6 +167,7 @@ const Navbar = () => {
                 handleProtectedNavigation('/matching');
               }}
             >
+              <Users className="mr-2.5 h-5 w-5" />
               Find Roommates
             </MobileNavLink>
             <MobileNavLink 
@@ -157,18 +178,28 @@ const Navbar = () => {
                 handleProtectedNavigation('/properties');
               }}
             >
+              <Building className="mr-2.5 h-5 w-5" />
               Properties
             </MobileNavLink>
-            <MobileNavLink to="/about" onClick={closeMobileMenu}>About</MobileNavLink>
-            <div className="pt-4 border-t border-blue-500/20">
-              <Button asChild variant="outline" size="sm" className="w-full justify-center mb-3 border-blue-400/50 text-blue-500 hover:bg-blue-50">
-                <Link to="/login" onClick={closeMobileMenu}>Login</Link>
+            <MobileNavLink to="/about" onClick={closeMobileMenu}>
+              <Info className="mr-2.5 h-5 w-5" />
+              About
+            </MobileNavLink>
+            <div className="pt-5 border-t border-blue-100">
+              <Button asChild variant="outline" size="sm" className="w-full justify-center mb-3 border-blue-200 text-blue-500 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-300">
+                <Link to="/login" onClick={closeMobileMenu} className="flex items-center">
+                  <LogIn className="mr-2 h-4 w-4" />
+                  Login
+                </Link>
               </Button>
-              <div className="text-xs text-center text-blue-500/60 my-2">
+              <div className="text-xs text-center text-blue-500/70 my-2">
                 Not a member yet?
               </div>
-              <Button asChild size="sm" className="w-full justify-center bg-gradient-to-r from-cyan-400 to-blue-600 hover:from-cyan-500 hover:to-blue-700 text-white border border-blue-400/30">
-                <Link to="/register" onClick={closeMobileMenu}>Register Now</Link>
+              <Button asChild size="sm" className="w-full justify-center bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-md">
+                <Link to="/register" onClick={closeMobileMenu} className="flex items-center">
+                  <UserPlus className="mr-2 h-4 w-4" />
+                  Register Now
+                </Link>
               </Button>
             </div>
           </div>
@@ -194,11 +225,11 @@ const NavLink = ({
     to={to} 
     onClick={onClick}
     className={cn(
-      "text-sm font-medium transition-colors relative",
+      "group flex items-center text-sm font-medium transition-colors relative py-1.5 px-2",
       active 
-        ? "bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600 bg-clip-text text-transparent font-semibold"
-        : "text-blue-900/70 hover:bg-gradient-to-r hover:from-cyan-400 hover:via-blue-500 hover:to-blue-600 hover:bg-clip-text hover:text-transparent",
-      "after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-gradient-to-r after:from-cyan-400 after:to-blue-600 after:w-0 hover:after:w-full after:transition-all after:duration-300"
+        ? "text-blue-600"
+        : "text-blue-900/70 hover:text-blue-600",
+      "after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:bg-gradient-to-r after:from-blue-400 after:via-blue-600 after:to-purple-600 after:w-0 hover:after:w-full after:transition-all after:duration-300"
     )}
   >
     {children}
@@ -217,7 +248,7 @@ const MobileNavLink = ({
 }) => (
   <Link 
     to={to} 
-    className="bg-gradient-to-r from-cyan-400 via-blue-500 to-blue-600 bg-clip-text text-transparent hover:from-cyan-500 hover:via-blue-600 hover:to-blue-700 text-lg font-medium transform transition-all hover:translate-x-1"
+    className="flex items-center text-blue-800 hover:text-blue-600 text-lg font-medium transform transition-all hover:translate-x-1"
     onClick={onClick}
   >
     {children}
