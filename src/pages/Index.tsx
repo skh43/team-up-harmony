@@ -54,12 +54,24 @@ const Index = () => {
 
   return (
     <MainLayout hideNavbar={false} className="px-0 py-0">
-      {/* Hero Section */}
+      {/* Hero Section with Abstract Background */}
       <section
         id="hero"
         ref={sectionRefs.hero}
-        className="min-h-screen flex items-center justify-center px-4 pt-16"
+        className="min-h-screen flex items-center justify-center px-4 pt-16 relative"
       >
+        {/* Abstract Background */}
+        <div className="absolute inset-0 overflow-hidden z-0">
+          <div className="absolute top-0 right-0 w-full h-full opacity-10">
+            <img 
+              src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&q=80&w=1200" 
+              alt="Abstract Background" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute bottom-0 left-0 w-full h-3/4 bg-gradient-to-t from-background to-transparent"></div>
+        </div>
+        
         <div className="max-w-7xl mx-auto text-center relative z-10 pt-10">
           <div className={cn(
             "transition-all duration-1000 transform",
@@ -99,10 +111,14 @@ const Index = () => {
             isVisible.hero ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           )}>
             <div className="relative mx-auto max-w-5xl overflow-hidden rounded-2xl shadow-elegant">
-              <div className="aspect-[16/9] w-full bg-gradient-to-br from-primary/20 to-accent/30 animate-pulse-slow">
-                <div className="w-full h-full flex flex-col items-center justify-center">
-                  <span className="text-primary/60 mb-4">App preview image goes here</span>
-                  <div className="glass-panel rounded-xl px-6 py-4 max-w-md">
+              <div className="aspect-[16/9] w-full bg-gradient-to-br from-primary/20 to-accent/30">
+                <img 
+                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=1200" 
+                  alt="Abstract Digital Connection" 
+                  className="w-full h-full object-cover opacity-70"
+                />
+                <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center">
+                  <div className="glass-panel rounded-xl px-6 py-4 max-w-md backdrop-blur-md bg-white/10">
                     <div className="flex items-center space-x-4">
                       <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
                         <Users className="h-8 w-8 text-primary/60" />
@@ -120,13 +136,31 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Features Section with Abstract Patterns */}
       <section
         id="features"
         ref={sectionRefs.features}
         className="py-20 md:py-32 px-4 relative"
       >
-        <div className="max-w-7xl mx-auto">
+        {/* Abstract Background Elements */}
+        <div className="absolute inset-0 overflow-hidden z-0">
+          <div className="absolute top-0 right-0 w-2/3 h-1/2 opacity-5">
+            <img 
+              src="https://images.unsplash.com/photo-1486718448742-163732cd1544?auto=format&fit=crop&q=80&w=1200" 
+              alt="Abstract Pattern" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <div className="absolute bottom-0 left-0 w-2/3 h-1/2 opacity-5">
+            <img 
+              src="https://images.unsplash.com/photo-1439337153520-7082a56a81f4?auto=format&fit=crop&q=80&w=1200" 
+              alt="Abstract Structure" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
           <div className={cn(
             "text-center mb-16 transition-all duration-700",
             isVisible.features ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
@@ -229,12 +263,13 @@ const Index = () => {
                           index % 2 === 1 ? "md:order-2" : "md:order-1"
                         )}>
                           <div className="rounded-xl overflow-hidden aspect-video w-full shadow-elegant group-hover:shadow-[0_5px_15px_rgba(124,58,237,0.4)] transition-all duration-500">
-                            <div className="w-full h-full">
+                            <div className="w-full h-full relative">
                               <img 
                                 src={step.image} 
                                 alt={step.title}
                                 className="w-full h-full object-cover"
                               />
+                              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/5 mix-blend-overlay"></div>
                             </div>
                           </div>
                         </div>
@@ -266,15 +301,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section with Abstract Background */}
       <section
         id="cta"
         ref={sectionRefs.cta}
         className="py-20 md:py-32 px-4 relative"
       >
+        {/* Abstract Background */}
+        <div className="absolute inset-0 overflow-hidden z-0">
+          <div className="absolute top-0 right-0 w-full h-full opacity-5">
+            <img 
+              src="https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&q=80&w=1200" 
+              alt="Abstract Background" 
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
+        
         <div 
           className={cn(
-            "max-w-5xl mx-auto glass-panel rounded-2xl p-8 md:p-12 text-center shadow-elegant transition-all duration-700 transform",
+            "max-w-5xl mx-auto glass-panel rounded-2xl p-8 md:p-12 text-center shadow-elegant transition-all duration-700 transform relative z-10",
             isVisible.cta ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
           )}
         >
