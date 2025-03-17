@@ -13,6 +13,7 @@ import Properties from "./pages/Properties";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import About from "./pages/About";
+import ProfileCreation from "./pages/ProfileCreation";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/path-selection" element={<PathSelection />} />
           <Route path="/living-plan-selection" element={<LivingPlanSelection />} />
+          <Route path="/profile-creation" element={<ProfileCreation />} />
           <Route path="/matching" element={<Matching />} />
           <Route path="/properties" element={<Properties />} />
           <Route path="/login" element={<Login />} />

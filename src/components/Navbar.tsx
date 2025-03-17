@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -33,9 +32,19 @@ const Navbar = () => {
   };
   
   const handleProtectedNavigation = (path: string) => {
-    // For demo purposes, we'll redirect to register page
+    // For demo purposes, we'll redirect to register page with a redirect destination
     // In a real app, this would check if user is authenticated
-    if (path === '/matching' || path === '/properties') {
+    if (path === '/matching') {
+      toast({
+        title: "Authentication Required",
+        description: "Please register or login to access this feature.",
+        variant: "default",
+      });
+      navigate('/register', { state: { redirectTo: '/profile-creation' } });
+      return;
+    }
+    
+    if (path === '/properties') {
       toast({
         title: "Authentication Required",
         description: "Please register or login to access this feature.",
@@ -44,6 +53,7 @@ const Navbar = () => {
       navigate('/register');
       return;
     }
+    
     navigate(path);
   };
 

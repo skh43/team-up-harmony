@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -55,9 +54,9 @@ const Register = () => {
         description: "Your account has been created.",
       });
       
-      // Navigate to the properties page directly
+      // Navigate to the profile creation page instead of properties
       setTimeout(() => {
-        navigate("/properties");
+        navigate("/profile-creation");
       }, 1000);
     } catch (error) {
       console.error("Registration error:", error);
