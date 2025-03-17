@@ -15,6 +15,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import About from "./pages/About";
 import ProfileCreation from "./pages/ProfileCreation";
+import Dashboard from "./pages/Dashboard";
+import Messages from "./pages/Messages";
+import Settings from "./pages/Settings";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +32,11 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/about" element={<About />} />
+          
+          {/* User Account */}
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/messages" element={<Messages />} />
+          <Route path="/settings" element={<Settings />} />
           
           {/* Roommate Finding Flow */}
           <Route path="/living-plan-selection" element={<LivingPlanSelection />} />

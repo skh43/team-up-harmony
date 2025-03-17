@@ -23,9 +23,9 @@ const Login = () => {
       description: "Welcome back!",
     });
     
-    // Navigate directly to the properties page
+    // Navigate to the dashboard instead of properties
     setTimeout(() => {
-      navigate('/properties');
+      navigate('/dashboard');
     }, 500);
   };
 
@@ -42,7 +42,7 @@ const Login = () => {
         title: "Login successful!",
         description: "Authenticated with Google",
       });
-      navigate('/properties');
+      navigate('/dashboard');
     }, 1500);
   };
 

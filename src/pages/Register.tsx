@@ -56,9 +56,9 @@ const Register = () => {
         description: "Your account has been created.",
       });
       
-      // Navigate to the living plan selection page first
+      // Navigate to the profile creation page
       setTimeout(() => {
-        navigate("/living-plan-selection");
+        navigate("/profile-creation");
       }, 1000);
     } catch (error) {
       console.error("Registration error:", error);
@@ -97,7 +97,7 @@ const Register = () => {
         title: "Registration successful!",
         description: "Account created with Google",
       });
-      navigate('/living-plan-selection');
+      navigate('/profile-creation');
     }, 1500);
   };
 
