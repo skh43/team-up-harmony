@@ -169,7 +169,7 @@ const Matching = () => {
       <div className="w-full max-w-3xl mx-auto">
         <div className="mb-8 text-center">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            Step 3 of 3
+            Step 4 of 4
           </span>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Find Your Perfect Match</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">

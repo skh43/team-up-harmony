@@ -55,12 +55,12 @@ const ProfileCreation = () => {
       // Show success toast
       toast({
         title: "Profile created successfully!",
-        description: "You can now start matching with potential roommates.",
+        description: "Now let's choose your path and living plan.",
       });
       
-      // Navigate to matching page
+      // Update navigation to follow the sequence: profile -> path selection -> living plan -> matching
       setTimeout(() => {
-        navigate("/matching");
+        navigate("/path-selection");
       }, 1000);
     } catch (error) {
       console.error("Profile creation error:", error);
