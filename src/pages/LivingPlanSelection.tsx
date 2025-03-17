@@ -57,58 +57,55 @@ const LivingPlanSelection = () => {
         </div>
         
         <div className="grid md:grid-cols-3 gap-6 mb-10">
-          {/* Plan Cards Container with Equal Heights */}
-          <div className="grid md:grid-cols-3 gap-6 mb-10 w-full">
-            <PlanCard
-              icon={<Package className="h-8 w-8" />}
-              title="Basic Living"
-              price="Free"
-              description="Essential matchmaking for budget-conscious roommates"
-              features={[
-                "5 Matches Per Day",
-                "Basic Preferences",
-                "Standard Filters",
-                "In-App Messaging"
-              ]}
-              selected={selectedPlan === 'basic'}
-              onClick={() => handlePlanChange('basic')}
-            />
-            
-            <PlanCard
-              icon={<Home className="h-8 w-8" />}
-              title="Comfort Zone"
-              price="SAR 29.99/month"
-              description="Enhanced matching with detailed preferences"
-              features={[
-                "20 Matches Per Day",
-                "Detailed Preferences",
-                "Advanced Filters",
-                "Priority Messaging",
-                "Background Verification"
-              ]}
-              highlighted={true}
-              selected={selectedPlan === 'comfort'}
-              onClick={() => handlePlanChange('comfort')}
-            />
-            
-            <PlanCard
-              icon={<Star className="h-8 w-8" />}
-              title="Elite Living"
-              price="SAR 59.99/month"
-              description="Premium experience for the most discerning roommates"
-              features={[
-                "Unlimited Matches",
-                "Ultra-detailed Preferences",
-                "Premium Filters",
-                "Priority Support",
-                "Background Verification",
-                "Personality Matching",
-                "Exclusive Property Listings"
-              ]}
-              selected={selectedPlan === 'elite'}
-              onClick={() => handlePlanChange('elite')}
-            />
-          </div>
+          <PlanCard
+            icon={<Package className="h-8 w-8" />}
+            title="Basic Living"
+            price="Free"
+            description="Essential matchmaking for budget-conscious roommates"
+            features={[
+              "5 Matches Per Day",
+              "Basic Preferences",
+              "Standard Filters",
+              "In-App Messaging"
+            ]}
+            selected={selectedPlan === 'basic'}
+            onClick={() => handlePlanChange('basic')}
+          />
+          
+          <PlanCard
+            icon={<Home className="h-8 w-8" />}
+            title="Comfort Zone"
+            price="SAR 29.99/month"
+            description="Enhanced matching with detailed preferences"
+            features={[
+              "20 Matches Per Day",
+              "Detailed Preferences",
+              "Advanced Filters",
+              "Priority Messaging",
+              "Background Verification"
+            ]}
+            highlighted={true}
+            selected={selectedPlan === 'comfort'}
+            onClick={() => handlePlanChange('comfort')}
+          />
+          
+          <PlanCard
+            icon={<Star className="h-8 w-8" />}
+            title="Elite Living"
+            price="SAR 59.99/month"
+            description="Premium experience for the most discerning roommates"
+            features={[
+              "Unlimited Matches",
+              "Ultra-detailed Preferences",
+              "Premium Filters",
+              "Priority Support",
+              "Background Verification",
+              "Personality Matching",
+              "Exclusive Property Listings"
+            ]}
+            selected={selectedPlan === 'elite'}
+            onClick={() => handlePlanChange('elite')}
+          />
         </div>
         
         <div className="max-w-4xl mx-auto mb-10">
