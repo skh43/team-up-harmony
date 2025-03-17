@@ -79,6 +79,10 @@ const Index = () => {
               </div>
             </h1>
             
+            <p className="text-xl md:text-2xl text-foreground/80 max-w-3xl mx-auto mb-3 font-medium text-blue-700">
+              roommate discovery, simplified
+            </p>
+            
             <p className="text-xl md:text-2xl text-foreground/80 max-w-3xl mx-auto mb-8 leading-relaxed">
               Shared living made easy. Find your perfect roommate match and ideal home in Saudi Arabia.
             </p>
