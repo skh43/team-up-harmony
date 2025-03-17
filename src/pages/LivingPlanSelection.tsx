@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -67,9 +66,6 @@ const LivingPlanSelection = () => {
     <MainLayout className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-5xl">
         <div className="mb-10 text-center">
-          <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            Step 1 of 4
-          </span>
           <h1 className="text-3xl md:text-4xl font-bold mb-4">Choose Your Living Plan</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Select the plan that best fits your lifestyle and preferences.
@@ -79,6 +75,11 @@ const LivingPlanSelection = () => {
           <div className="flex justify-center my-6">
             <Logo size="small" showText={true} />
           </div>
+          
+          {/* Moved step indicator down here */}
+          <span className="inline-block px-3 py-1 mb-8 mt-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
+            Step 1 of 4
+          </span>
         </div>
         
         <div className="grid md:grid-cols-3 gap-6 mb-10">
