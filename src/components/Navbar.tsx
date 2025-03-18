@@ -9,7 +9,6 @@ import { useTranslation } from 'react-i18next';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
 import { Building, Home, Users, Languages } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import Logo from './Logo';
 import { useToast } from '@/components/ui/use-toast';
 
 const Navbar = () => {
@@ -45,7 +44,11 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link to="/" className="flex items-center">
-            <Logo size="small" />
+            <img 
+              src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
+              alt="TeamUp Logo" 
+              className="h-10 w-auto"
+            />
           </Link>
           
           <NavigationMenu className="hidden md:flex">
