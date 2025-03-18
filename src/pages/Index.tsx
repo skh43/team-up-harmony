@@ -26,12 +26,8 @@ const Index = () => {
                 </a>
               </div>
             </div>
-            <div className="lg:w-1/2">
-              <img 
-                src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
-                alt="Roommate matchmaking app" 
-                className="w-full h-auto rounded-lg shadow-2xl"
-              />
+            <div className="lg:w-1/2 flex justify-center items-center">
+              <Logo size="xlarge" className="w-full max-w-md shadow-2xl rounded-lg bg-white p-12" />
             </div>
           </div>
         </div>
