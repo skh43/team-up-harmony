@@ -127,7 +127,7 @@ const LivingPlanSelection = () => {
                   key={tier.id}
                   className={cn(
                     "border-2 shadow-md transition-all relative overflow-hidden",
-                    selectedTier === tier.id ? `ring-2 ring-opacity-50 border-${tier.id === 'basic' ? 'blue' : tier.id === 'comfort' ? 'purple' : 'amber'}-500` : "border-muted",
+                    selectedTier === tier.id ? tier.borderColor : "border-muted",
                     "hover:shadow-lg cursor-pointer"
                   )}
                   onClick={() => handleTierSelect(tier.id)}
@@ -154,7 +154,7 @@ const LivingPlanSelection = () => {
                       variant={selectedTier === tier.id ? "default" : "outline"}
                       className={cn(
                         "w-full",
-                        selectedTier === tier.id ? tier.color : `border-${tier.borderColor}`
+                        selectedTier === tier.id ? tier.color : ""
                       )}
                       onClick={(e) => {
                         e.stopPropagation();
