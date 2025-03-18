@@ -28,7 +28,7 @@ const LanguageSelector = ({ className }: LanguageSelectorProps) => {
     <div className={cn("flex items-center", className)}>
       <Select defaultValue={i18n.language} onValueChange={changeLanguage}>
         <SelectTrigger className="w-[140px]">
-          <SelectValue placeholder={t('common.language')} />
+          <SelectValue placeholder="Select Language" />
         </SelectTrigger>
         <SelectContent>
           {languages.map((lang) => (

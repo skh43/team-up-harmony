@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import LanguageSelector from './LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
-import { Building, Home, Users } from 'lucide-react';
+import { Building, Home, Users, Languages } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Navbar = () => {
@@ -129,7 +129,10 @@ const Navbar = () => {
         </div>
         
         <div className="flex items-center space-x-4">
-          <LanguageSelector className="hidden sm:flex" />
+          <div className="hidden sm:flex items-center">
+            <Languages size={16} className="mr-2" />
+            <LanguageSelector className="hidden sm:flex" />
+          </div>
           {isAuthenticated && user ? (
             <>
               <Avatar>
