@@ -2,7 +2,7 @@
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import RoommateJourney from './RoommateJourney';
-import Logo from '@/components/Logo';
+import ModernLogo from '@/components/ModernLogo';
 
 const Index = () => {
   return (
@@ -11,6 +11,9 @@ const Index = () => {
         <div className="container px-4 mx-auto">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="lg:w-1/2">
+              <div className="mb-6">
+                <ModernLogo size="xlarge" className="mx-auto lg:mx-0" />
+              </div>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 Find Your <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-700">Perfect</span> Roommate Match
               </h1>

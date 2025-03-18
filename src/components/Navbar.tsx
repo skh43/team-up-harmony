@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -10,6 +9,7 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { Building, Home, Users, Languages, LogOut, Search, Globe, MapPin, Heart, Star, MessageCircle, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';
+import ModernLogo from './ModernLogo';
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -45,11 +45,7 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link to="/" className="flex items-center group">
-            <img 
-              src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
-              alt="TeamUp Logo" 
-              className="h-12 w-auto my-1 transition-all duration-300 hover:opacity-90 group-hover:scale-105" 
-            />
+            <ModernLogo size="medium" className="transition-all duration-300 group-hover:scale-105" />
           </Link>
           
           <NavigationMenu className="hidden md:flex">
