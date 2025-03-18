@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
 import { Building, Home, Users, Languages } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import Logo from './Logo';
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
@@ -28,8 +29,8 @@ const Navbar = () => {
     <header className="sticky top-0 z-40 w-full border-b border-b-slate-200 bg-white dark:border-b-slate-700 dark:bg-slate-900">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center space-x-4">
-          <Link to="/" className="flex items-center font-bold text-xl">
-            <span className="text-gradient-primary">TeamUp</span>
+          <Link to="/" className="flex items-center">
+            <Logo size="small" />
           </Link>
           
           <NavigationMenu className="hidden md:flex">
