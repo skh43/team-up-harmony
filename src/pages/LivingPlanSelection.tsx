@@ -91,7 +91,7 @@ const LivingPlanSelection = () => {
     
     // Show a toast notification for better user feedback
     toast({
-      title: t('livingPlan.planSelected'),
+      title: "Plan Selected",
       description: `Roommate Finding - ${selectedTier} tier`,
       variant: "default",
     });
