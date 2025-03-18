@@ -221,6 +221,12 @@ const ProfileCreation = () => {
                 <p className="text-sm text-amber-600">
                   Premium experience with advanced personality matching and exclusive features
                 </p>
+                <div className="mt-2 text-xs bg-amber-100 px-3 py-2 rounded text-amber-800">
+                  <strong>Subscribe now to Elite Living</strong> for the ultimate roommate matching experience.
+                  <Button variant="secondary" size="sm" className="ml-2 bg-amber-600 text-white hover:bg-amber-700">
+                    Subscribe Now
+                  </Button>
+                </div>
               </div>
             )}
             
