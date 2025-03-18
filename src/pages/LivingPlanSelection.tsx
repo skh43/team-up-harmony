@@ -80,17 +80,25 @@ const LivingPlanSelection = () => {
   return (
     <MainLayout className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-5xl pt-16">
-        <div className="mb-10 text-center">
-          <div className="flex items-center justify-center mb-4">
-            <Users className="h-8 w-8 mr-2 text-primary" />
-            <h1 className="text-3xl md:text-4xl font-bold">Team Up</h1>
+        <div className="mb-12 text-center relative">
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            <div className="absolute -top-10 left-1/4 w-64 h-64 bg-blue-100 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-float"></div>
+            <div className="absolute -bottom-8 right-1/3 w-72 h-72 bg-purple-100 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Choose Your Living Plan</h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          
+          <div className="inline-flex items-center justify-center mb-6 px-6 py-3 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-full shadow-sm border border-blue-100/50 animate-fade-in">
+            <Users className="h-6 w-6 mr-2 text-primary" />
+            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">Team Up</h1>
+          </div>
+          
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent animate-fade-in">
+            Choose Your Living Plan
+          </h2>
+          
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed animate-fade-in">
             Select the plan that best fits your lifestyle and preferences.
+            <span className="block mt-2 text-base text-blue-600">Upgrade anytime to unlock more features!</span>
           </p>
-          
-          
         </div>
         
         {(selectedPlan === 'comfort' || selectedPlan === 'basic' || showElitePromo) && (
