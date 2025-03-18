@@ -29,7 +29,7 @@ const Navbar = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link to="/" className="flex items-center font-bold text-xl">
-            <span className="text-gradient-primary">RoomateHarmony</span>
+            <span className="text-gradient-primary">TeamUp</span>
           </Link>
           
           <NavigationMenu className="hidden md:flex">

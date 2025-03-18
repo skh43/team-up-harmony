@@ -20,10 +20,10 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className
   return (
     <div className={cn('flex flex-col items-center justify-center', className)}>
       <div className="relative flex flex-col items-center">
-        {/* Main logo container with RoomateHarmony text */}
+        {/* Main logo container with team and up text */}
         <div className={cn("font-bold tracking-tight flex items-center", sizeClasses[size].text)}>
-          {/* "Roomate" part with cyan to blue gradient */}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#01CDFA] via-[#3DB2FF] to-[#516CF7]">Roomate</span>
+          {/* "team" part with cyan to blue gradient */}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#01CDFA] via-[#3DB2FF] to-[#516CF7]">team</span>
           
           {/* Lightning bolt SVG */}
           <div className="relative mx-0.5">
@@ -47,8 +47,8 @@ const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = true, className
             </svg>
           </div>
           
-          {/* "Harmony" part with purple to pink gradient */}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0]">Harmony</span>
+          {/* "up" part with purple to pink gradient */}
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0]">up</span>
         </div>
       </div>
     </div>
