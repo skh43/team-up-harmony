@@ -146,10 +146,19 @@ const Navbar = () => {
             </>
           ) : (
             <>
-              <Button variant="outline" size="sm" onClick={() => navigate('/login')}>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={() => navigate('/login')}
+                className="relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-md border-[#01CDFA] text-[#01CDFA] hover:text-white hover:bg-transparent before:content-[''] before:absolute before:top-0 before:left-0 before:w-full before:h-full before:bg-gradient-to-r before:from-[#01CDFA] before:via-[#3DB2FF] before:to-[#516CF7] before:z-[-1] before:scale-x-0 before:origin-right before:transition-transform before:duration-300 hover:before:scale-x-100 hover:before:origin-left"
+              >
                 {t('common.login', 'Login')}
               </Button>
-              <Button size="sm" onClick={() => navigate('/register')}>
+              <Button 
+                size="sm" 
+                onClick={() => navigate('/register')}
+                className="relative overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-md bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0] hover:from-[#A83ACB] hover:to-[#ED2FC0]"
+              >
                 {t('common.register', 'Register')}
               </Button>
             </>
