@@ -97,30 +97,33 @@ const LivingPlanSelection = () => {
         </div>
         
         {(selectedPlan === 'comfort' || selectedPlan === 'basic' || showElitePromo) && (
-          <div className="mb-6 relative overflow-hidden rounded-xl shadow-elegant bg-gradient-to-r from-yellow-100 to-amber-200">
-            <div className="absolute top-0 right-0 w-32 h-32 -mt-10 -mr-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full opacity-20"></div>
-            <div className="absolute bottom-0 left-0 w-24 h-24 -mb-8 -ml-8 bg-gradient-to-tr from-yellow-400 to-amber-500 rounded-full opacity-20"></div>
+          <div className="mb-6 relative overflow-hidden rounded-xl shadow-elegant bg-gradient-to-r from-[#FFF3DC] to-[#FFE0B0] border border-amber-200/50">
+            {/* Enhanced decorative elements */}
+            <div className="absolute top-0 right-0 w-40 h-40 -mt-16 -mr-16 bg-gradient-to-br from-amber-400 to-yellow-300 rounded-full opacity-20 animate-pulse-slow"></div>
+            <div className="absolute bottom-0 left-0 w-32 h-32 -mb-12 -ml-12 bg-gradient-to-tr from-amber-500 to-yellow-400 rounded-full opacity-20"></div>
+            <div className="absolute top-1/2 left-1/4 w-16 h-16 -mt-8 -ml-8 bg-yellow-300 rounded-full opacity-10 animate-float"></div>
             
+            {/* Enhanced content with better spacing and visual hierarchy */}
             <div className="p-6 md:p-8 relative z-10">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
-                  <div className={`p-3 rounded-full ${planStyles.elite.iconBg} ${planStyles.elite.iconColor}`}>
-                    <Sparkles className="h-5 w-5" />
+                <div className="flex items-center gap-4">
+                  <div className="p-3 rounded-full bg-gradient-to-br from-amber-400 to-yellow-300 text-white shadow-md">
+                    <Sparkles className="h-6 w-6" />
                   </div>
                   <div>
-                    <h3 className="text-lg md:text-xl font-bold bg-gradient-to-r from-amber-600 to-yellow-600 bg-clip-text text-transparent">
-                      Subscribe now to Elite Living
+                    <h3 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-amber-600 to-yellow-600 bg-clip-text text-transparent">
+                      Unlock Elite Living
                     </h3>
-                    <p className="text-sm md:text-base text-amber-800">
-                      Premium experience with advanced personality matching and exclusive features
+                    <p className="text-sm md:text-base text-amber-800 mt-1">
+                      Premium experience with <span className="font-medium">advanced personality matching</span> and <span className="font-medium">exclusive features</span>
                     </p>
                   </div>
                 </div>
                 <Button 
                   onClick={handleUpgradeToElite}
-                  className="whitespace-nowrap bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 rounded-full text-white shadow-subtle"
+                  className="whitespace-nowrap bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 rounded-full px-6 py-2 text-white shadow-md border border-amber-300/50 transform transition-transform hover:scale-105"
                 >
-                  Upgrade to Elite <Star className="ml-1 h-4 w-4" />
+                  Upgrade to Elite <Star className="ml-1 h-4 w-4 fill-white" />
                 </Button>
               </div>
             </div>
