@@ -70,7 +70,7 @@ const Navbar = () => {
                             Find a Roommate
                           </div>
                           <p className="text-sm leading-tight text-muted-foreground">
-                            Match with compatible roommates based on your preferences
+                            Start the roommate matching process
                           </p>
                         </a>
                       </NavigationMenuLink>

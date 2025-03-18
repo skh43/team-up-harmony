@@ -34,6 +34,29 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
+// Roommate finding flow route with sequential validation
+const RoommateFlowRoute = ({ children, step }: { children: React.ReactNode, step: number }) => {
+  const { isAuthenticated } = useAuth();
+  
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  // Check if previous steps are completed
+  const livingPlan = localStorage.getItem('livingPlan');
+  const userPath = localStorage.getItem('userPath');
+  
+  if (step >= 2 && !livingPlan) {
+    return <Navigate to="/living-plan-selection" replace />;
+  }
+  
+  if (step >= 3 && !userPath) {
+    return <Navigate to="/path-selection" replace />;
+  }
+  
+  return <>{children}</>;
+};
+
 const AppRoutes = () => {
   return (
     <Routes>
@@ -48,13 +71,13 @@ const AppRoutes = () => {
       <Route path="/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
       
-      {/* Roommate Finding Flow - Protected */}
-      <Route path="/living-plan-selection" element={<ProtectedRoute><LivingPlanSelection /></ProtectedRoute>} />
-      <Route path="/path-selection" element={<ProtectedRoute><PathSelection /></ProtectedRoute>} />
-      <Route path="/profile-creation" element={<ProtectedRoute><ProfileCreation /></ProtectedRoute>} />
-      <Route path="/matching" element={<ProtectedRoute><Matching /></ProtectedRoute>} />
+      {/* Roommate Finding Flow - Sequential Protection */}
+      <Route path="/living-plan-selection" element={<RoommateFlowRoute step={1}><LivingPlanSelection /></RoommateFlowRoute>} />
+      <Route path="/path-selection" element={<RoommateFlowRoute step={2}><PathSelection /></RoommateFlowRoute>} />
+      <Route path="/profile-creation" element={<RoommateFlowRoute step={3}><ProfileCreation /></RoommateFlowRoute>} />
+      <Route path="/matching" element={<RoommateFlowRoute step={4}><Matching /></RoommateFlowRoute>} />
       
-      {/* Property Management - Protected */}
+      {/* Property Management - Just requires login */}
       <Route path="/properties" element={<ProtectedRoute><Properties /></ProtectedRoute>} />
       <Route path="/list-property" element={<ProtectedRoute><ListProperty /></ProtectedRoute>} />
       

@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,12 +16,23 @@ import LanguageSelector from '@/components/LanguageSelector';
 
 const Login = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
-  const { login, loginWithGoogle, isLoading } = useAuth();
+  const { login, loginWithGoogle, isLoading, isAuthenticated } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { t } = useTranslation();
+  
+  // Get the URL to redirect to after login
+  const from = location.state?.from || '/dashboard';
+  
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from);
+    }
+  }, [isAuthenticated, navigate, from]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,7 +46,12 @@ const Login = () => {
         description: t('login.welcomeBack'),
       });
       
-      navigate('/dashboard');
+      // Check if they were trying to access the roommate flow
+      if (from.includes('living-plan') || from.includes('path-selection') || from.includes('profile-creation') || from.includes('matching')) {
+        navigate('/living-plan-selection');
+      } else {
+        navigate(from);
+      }
     } catch (err) {
       console.error("Login error:", err);
       setError(t('validation.invalidCredentials'));
@@ -55,7 +71,13 @@ const Login = () => {
         title: t('login.success'),
         description: t('login.authenticatedWithGoogle'),
       });
-      // Navigation is handled in the loginWithGoogle method
+      
+      // Check if they were trying to access the roommate flow
+      if (from.includes('living-plan') || from.includes('path-selection') || from.includes('profile-creation') || from.includes('matching')) {
+        navigate('/living-plan-selection');
+      } else {
+        navigate(from);
+      }
     } catch (err) {
       console.error("Google login error:", err);
       toast({

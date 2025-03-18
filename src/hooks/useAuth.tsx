@@ -1,6 +1,5 @@
-
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '@/components/ui/use-toast';
 
 interface User {
@@ -37,8 +36,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const { toast } = useToast();
   const navigate = useNavigate();
+  const location = useLocation();
 
-  // Check if user is already logged in
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
@@ -56,10 +55,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const login = async (email: string, password: string) => {
     setIsLoading(true);
     try {
-      // This is a mock implementation - in a real app, you'd call an API
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Simulate successful login
       if (email && password) {
         const mockUser = {
           id: '123456',
@@ -86,23 +83,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const loginWithGoogle = async () => {
     setIsLoading(true);
     try {
-      // This is a mock implementation - in a real app, you'd integrate with Google OAuth
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Simulate successful Google login
       const mockUser = {
         id: 'google-123456',
         email: 'user@gmail.com',
         fullName: 'Google User',
         photoURL: 'https://via.placeholder.com/150',
-        isNewUser: false, // For existing users
+        isNewUser: false,
       };
       
       setUser(mockUser);
       setIsAuthenticated(true);
       localStorage.setItem('user', JSON.stringify(mockUser));
-      
-      navigate('/dashboard');
     } catch (error) {
       console.error("Google login error:", error);
       throw error;
@@ -114,10 +107,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const register = async (email: string, password: string, profile: UserProfile) => {
     setIsLoading(true);
     try {
-      // This is a mock implementation - in a real app, you'd call an API
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Simulate successful registration
       const mockUser = {
         id: `reg-${Date.now()}`,
         email,
@@ -129,6 +120,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsAuthenticated(true);
       localStorage.setItem('user', JSON.stringify(mockUser));
       
+      navigate('/living-plan-selection');
     } catch (error) {
       console.error("Registration error:", error);
       throw error;
@@ -140,24 +132,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const registerWithGoogle = async () => {
     setIsLoading(true);
     try {
-      // This is a mock implementation - in a real app, you'd integrate with Google OAuth
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Simulate successful Google registration
       const mockUser = {
         id: `google-${Date.now()}`,
         email: 'new-user@gmail.com',
         fullName: 'New Google User',
         photoURL: 'https://via.placeholder.com/150',
-        isNewUser: true, // Flag to indicate this is a new user
+        isNewUser: true,
       };
       
       setUser(mockUser);
       setIsAuthenticated(true);
       localStorage.setItem('user', JSON.stringify(mockUser));
       
-      // New users should go to profile creation instead of dashboard
-      navigate('/profile-creation');
+      navigate('/living-plan-selection');
     } catch (error) {
       console.error("Google registration error:", error);
       throw error;
@@ -169,12 +158,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = async () => {
     setIsLoading(true);
     try {
-      // This is a mock implementation - in a real app, you'd call an API
       await new Promise(resolve => setTimeout(resolve, 500));
       
       setUser(null);
       setIsAuthenticated(false);
       localStorage.removeItem('user');
+      
+      localStorage.removeItem('livingPlan');
+      localStorage.removeItem('userPath');
       
       navigate('/');
       
@@ -197,7 +188,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const updateProfile = async (data: Partial<User>) => {
     setIsLoading(true);
     try {
-      // This is a mock implementation - in a real app, you'd call an API
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       if (user) {
