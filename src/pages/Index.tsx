@@ -2,6 +2,7 @@
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import RoommateJourney from './RoommateJourney';
+import Logo from '@/components/Logo';
 
 const Index = () => {
   return (
