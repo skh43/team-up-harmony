@@ -35,6 +35,8 @@ const LivingPlanSelection = () => {
 
   const handleContinue = () => {
     if (selectedPlan) {
+      // Store selected plan in localStorage
+      localStorage.setItem('livingPlan', selectedPlan);
       navigate(`/register?plan=${selectedPlan}`);
     } else {
       alert(t('livingPlan.pleaseSelect'));
