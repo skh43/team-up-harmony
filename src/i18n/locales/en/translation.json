@@ -1,3 +1,4 @@
+
 {
   "common": {
     "welcome": "Welcome Back",
@@ -15,7 +16,11 @@
     "logout": "Logout",
     "or": "OR",
     "teamUp": "Team Up",
-    "logoAlt": "TeamUp Logo"
+    "logoAlt": "TeamUp Logo",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "startJourney": "Start Your Journey",
+    "signUpNow": "Sign Up Now"
   },
   "login": {
     "subtitle": "Sign in to your account",
@@ -31,5 +36,23 @@
     "required": "{{field}} is required",
     "email": "Please enter a valid email address",
     "invalidCredentials": "Invalid email or password. Please try again."
+  },
+  "index": {
+    "title": "Find Your Perfect Roommate Match",
+    "subtitle": "Connect with compatible roommates based on lifestyle, habits, and preferences. Say goodbye to roommate nightmares!",
+    "ready": "Ready to find your ideal roommate?",
+    "joinThousands": "Join thousands of people who have found their perfect match."
+  },
+  "roommate": {
+    "title": "How It Works",
+    "subtitle": "Finding the perfect roommate is easy with our guided process",
+    "step1Title": "Select Your Path",
+    "step1Description": "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite.",
+    "step2Title": "Create Your Profile",
+    "step2Description": "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
+    "step3Title": "Start Matching",
+    "step3Description": "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match.",
+    "step4Title": "Team Up",
+    "step4Description": "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement."
   }
 }

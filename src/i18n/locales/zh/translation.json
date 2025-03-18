@@ -1,3 +1,4 @@
+
 {
   "common": {
     "welcome": "欢迎回来",
@@ -15,7 +16,11 @@
     "logout": "登出",
     "or": "或者",
     "teamUp": "团队合作",
-    "logoAlt": "团队合作标志"
+    "logoAlt": "团队合作标志",
+    "getStarted": "开始使用",
+    "learnMore": "了解更多",
+    "startJourney": "开始你的旅程",
+    "signUpNow": "立即注册"
   },
   "login": {
     "subtitle": "登录到您的账户",
@@ -31,5 +36,23 @@
     "required": "{{field}}是必需的",
     "email": "请输入有效的电子邮件地址",
     "invalidCredentials": "无效的电子邮件或密码。请再试一次。"
+  },
+  "index": {
+    "title": "找到您完美的室友匹配",
+    "subtitle": "根据生活方式、习惯和偏好与兼容的室友建立联系。告别室友噩梦！",
+    "ready": "准备找到理想的室友？",
+    "joinThousands": "加入成千上万已找到完美匹配的人。"
+  },
+  "roommate": {
+    "title": "工作原理",
+    "subtitle": "通过我们的引导流程轻松找到完美的室友",
+    "step1Title": "选择你的路径",
+    "step1Description": "在'主持我的空间'或'寻找与安定'之间选择。然后选择您的生活计划级别：基本、舒适或精英。",
+    "step2Title": "创建您的个人资料",
+    "step2Description": "注册并创建您的详细个人资料，包括您的生活方式偏好、习惯以及您在室友中寻找的内容。",
+    "step3Title": "开始匹配",
+    "step3Description": "浏览潜在的室友或房产，在您喜欢的资料上向右滑动，并在匹配时开始对话。",
+    "step4Title": "组队",
+    "step4Description": "一旦找到完美的匹配，安排会面，讨论细节，并确定您的新生活安排。"
   }
 }

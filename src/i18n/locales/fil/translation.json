@@ -1,3 +1,4 @@
+
 {
   "common": {
     "welcome": "Maligayang Pagbabalik",
@@ -15,7 +16,11 @@
     "logout": "Mag-logout",
     "or": "O",
     "teamUp": "Team Up",
-    "logoAlt": "Logo ng Team Up"
+    "logoAlt": "Logo ng Team Up",
+    "getStarted": "Magsimula",
+    "learnMore": "Matuto pa",
+    "startJourney": "Simulan ang Iyong Paglalakbay",
+    "signUpNow": "Mag-sign up Ngayon"
   },
   "login": {
     "subtitle": "Mag-sign in sa iyong account",
@@ -31,5 +36,23 @@
     "required": "Kinakailangan ang {{field}}",
     "email": "Mangyaring maglagay ng wastong email address",
     "invalidCredentials": "Hindi wastong email o password. Pakisubukang muli."
+  },
+  "index": {
+    "title": "Hanapin ang Iyong Perpektong Kasamang Roommate",
+    "subtitle": "Kumonekta sa mga angkop na roommate batay sa lifestyle, habits, at preferences. Paalam sa mga roommate nightmares!",
+    "ready": "Handa na bang hanapin ang iyong ideal na roommate?",
+    "joinThousands": "Sumali sa libu-libong tao na nakahanap na ng kanilang perpektong match."
+  },
+  "roommate": {
+    "title": "Paano Ito Gumagana",
+    "subtitle": "Madaling hanapin ang perpektong roommate sa aming guided process",
+    "step1Title": "Pumili ng Iyong Daan",
+    "step1Description": "Pumili sa pagitan ng 'Host My Space' o 'Seek & Settle'. Pagkatapos ay piliin ang iyong living plan tier: Basic, Comfort, o Elite.",
+    "step2Title": "Gumawa ng Iyong Profile",
+    "step2Description": "Mag-sign up at gumawa ng iyong detalyadong profile, kasama ang iyong lifestyle preferences, habits, at kung ano ang hinahanap mo sa isang roommate.",
+    "step3Title": "Simulan ang Pag-match",
+    "step3Description": "I-browse ang mga potensyal na roommate o properties, i-swipe right ang mga profile na gusto mo, at simulan ang pag-uusap kapag nag-match kayo.",
+    "step4Title": "Team Up",
+    "step4Description": "Kapag nakahanap ka na ng perpektong match, mag-ayos ng mga meeting, pag-usapan ang mga detalye, at i-finalize ang iyong bagong living arrangement."
   }
 }

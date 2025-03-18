@@ -30,8 +30,8 @@ const RoommateJourney = () => {
   const steps = [
     {
       number: 1,
-      title: "Select Your Path",
-      description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite.",
+      title: t('roommate.step1Title'),
+      description: t('roommate.step1Description'),
       icon: <Compass className="h-10 w-10" />,
       gradientFrom: "from-indigo-400",
       gradientTo: "to-purple-500",
@@ -39,8 +39,8 @@ const RoommateJourney = () => {
     },
     {
       number: 2,
-      title: "Create Your Profile",
-      description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
+      title: t('roommate.step2Title'),
+      description: t('roommate.step2Description'),
       icon: <UserCog className="h-10 w-10" />,
       gradientFrom: "from-cyan-400",
       gradientTo: "to-blue-500",
@@ -48,8 +48,8 @@ const RoommateJourney = () => {
     },
     {
       number: 3,
-      title: "Start Matching",
-      description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match.",
+      title: t('roommate.step3Title'),
+      description: t('roommate.step3Description'),
       icon: <UsersRound className="h-10 w-10" />,
       gradientFrom: "from-orange-400",
       gradientTo: "to-pink-500",
@@ -57,8 +57,8 @@ const RoommateJourney = () => {
     },
     {
       number: 4,
-      title: "Team Up",
-      description: "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement.",
+      title: t('roommate.step4Title'),
+      description: t('roommate.step4Description'),
       icon: <HomeIcon className="h-10 w-10" />,
       gradientFrom: "from-green-400",
       gradientTo: "to-emerald-500",
@@ -71,10 +71,10 @@ const RoommateJourney = () => {
       <div className="container px-4 mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-700">
-            How It Works
+            {t('roommate.title')}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Finding the perfect roommate is easy with our guided process
+            {t('roommate.subtitle')}
           </p>
         </div>
         
@@ -110,7 +110,7 @@ const RoommateJourney = () => {
             onClick={handleStartJourney}
             className="rounded-full px-8 py-6 text-base bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 group"
           >
-            Start Your Journey
+            {t('common.startJourney')}
             <ChevronRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
           </Button>
         </div>
