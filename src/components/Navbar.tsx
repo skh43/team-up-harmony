@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -47,7 +46,7 @@ const Navbar = () => {
             <img 
               src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
               alt="TeamUp Logo" 
-              className="h-12 w-auto" // Increased height from h-10 to h-12
+              className="h-12 w-auto my-1 transition-all duration-300 hover:opacity-90" 
             />
           </Link>
           
@@ -59,7 +58,7 @@ const Navbar = () => {
                   Find Roommates
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                  <ul className="grid w-[400px] p-4 md:w-[500px] lg:w-[600px]">
                     <li>
                       <NavigationMenuLink asChild>
                         <a
@@ -74,24 +73,6 @@ const Navbar = () => {
                           </div>
                           <p className="text-sm leading-tight text-muted-foreground">
                             Start the roommate matching process
-                          </p>
-                        </a>
-                      </NavigationMenuLink>
-                    </li>
-                    <li>
-                      <NavigationMenuLink asChild>
-                        <a
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleAuthRequiredAction('/matching');
-                          }}
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md cursor-pointer"
-                        >
-                          <div className="mb-2 mt-4 text-lg font-medium">
-                            View Matches
-                          </div>
-                          <p className="text-sm leading-tight text-muted-foreground">
-                            Browse your current roommate matches
                           </p>
                         </a>
                       </NavigationMenuLink>
