@@ -1,0 +1,28 @@
+
+{
+  "common": {
+    "welcome": "Maligayang Pagbabalik",
+    "login": "Mag-login",
+    "register": "Magrehistro",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Nakalimutan ang password?",
+    "signIn": "Mag-sign In",
+    "signingIn": "Nag-sisign In...",
+    "withGoogle": "Mag-sign in gamit ang Google",
+    "noAccount": "Wala pang account?",
+    "signUp": "Mag-sign up",
+    "language": "Wika"
+  },
+  "login": {
+    "subtitle": "Mag-sign in sa iyong account",
+    "credentials": "Ilagay ang iyong credentials para ma-access ang iyong account",
+    "success": "Matagumpay na pag-login!",
+    "welcomeBack": "Maligayang pagbabalik!"
+  },
+  "validation": {
+    "required": "Kinakailangan ang {{field}}",
+    "email": "Mangyaring maglagay ng wastong email address",
+    "invalidCredentials": "Hindi wastong email o password. Pakisubukang muli."
+  }
+}

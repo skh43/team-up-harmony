@@ -1,0 +1,28 @@
+
+{
+  "common": {
+    "welcome": "Welcome Back",
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign In",
+    "signingIn": "Signing In...",
+    "withGoogle": "Sign in with Google",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "language": "Language"
+  },
+  "login": {
+    "subtitle": "Sign in to your account",
+    "credentials": "Enter your credentials to access your account",
+    "success": "Login successful!",
+    "welcomeBack": "Welcome back!"
+  },
+  "validation": {
+    "required": "{{field}} is required",
+    "email": "Please enter a valid email address",
+    "invalidCredentials": "Invalid email or password. Please try again."
+  }
+}

@@ -11,6 +11,8 @@ import { Separator } from "@/components/ui/separator";
 import { FaGoogle } from "react-icons/fa";
 import { LoaderCircle } from "lucide-react";
 import { useAuth } from '@/hooks/useAuth';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from '@/components/LanguageSelector';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -19,6 +21,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { t } = useTranslation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,17 +31,17 @@ const Login = () => {
       await login(email, password);
       
       toast({
-        title: "Login successful!",
-        description: "Welcome back!",
+        title: t('login.success'),
+        description: t('login.welcomeBack'),
       });
       
       navigate('/dashboard');
     } catch (err) {
       console.error("Login error:", err);
-      setError('Invalid email or password. Please try again.');
+      setError(t('validation.invalidCredentials'));
       toast({
-        title: "Login failed",
-        description: "Invalid email or password. Please try again.",
+        title: t('login.failed'),
+        description: t('validation.invalidCredentials'),
         variant: "destructive",
       });
     }
@@ -49,15 +52,15 @@ const Login = () => {
       await loginWithGoogle();
       
       toast({
-        title: "Login successful!",
-        description: "Authenticated with Google",
+        title: t('login.success'),
+        description: t('login.authenticatedWithGoogle'),
       });
       // Navigation is handled in the loginWithGoogle method
     } catch (err) {
       console.error("Google login error:", err);
       toast({
-        title: "Google login failed",
-        description: "Could not authenticate with Google. Please try again.",
+        title: t('login.googleFailed'),
+        description: t('login.googleAuthError'),
         variant: "destructive",
       });
     }
@@ -67,14 +70,18 @@ const Login = () => {
     <MainLayout className="flex items-center justify-center min-h-screen py-20">
       <div className="w-full max-w-md px-4">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold">Welcome Back</h1>
-          <p className="text-muted-foreground mt-2">Sign in to your account</p>
+          <h1 className="text-3xl font-bold">{t('common.welcome')}</h1>
+          <p className="text-muted-foreground mt-2">{t('login.subtitle')}</p>
+        </div>
+
+        <div className="mb-4 flex justify-center">
+          <LanguageSelector />
         </div>
 
         <Card className="border-cyan-500/10">
           <CardHeader>
-            <CardTitle>Login</CardTitle>
-            <CardDescription>Enter your credentials to access your account</CardDescription>
+            <CardTitle>{t('common.login')}</CardTitle>
+            <CardDescription>{t('login.credentials')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <Button 
@@ -89,13 +96,13 @@ const Login = () => {
               ) : (
                 <FaGoogle className="text-red-500" />
               )}
-              <span>Sign in with Google</span>
+              <span>{t('common.withGoogle')}</span>
             </Button>
             
             <div className="relative my-6">
               <Separator />
               <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-card px-4 text-xs text-muted-foreground">
-                OR
+                {t('common.or', 'OR')}
               </span>
             </div>
             
@@ -107,7 +114,7 @@ const Login = () => {
                   </div>
                 )}
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email">{t('common.email')}</Label>
                   <Input 
                     id="email" 
                     type="email" 
@@ -119,9 +126,9 @@ const Login = () => {
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">{t('common.password')}</Label>
                     <Button type="button" variant="link" className="text-xs text-cyan-500 h-auto p-0">
-                      Forgot password?
+                      {t('common.forgotPassword')}
                     </Button>
                   </div>
                   <Input 
@@ -140,19 +147,19 @@ const Login = () => {
                   {isLoading ? (
                     <>
                       <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
-                      Signing In...
+                      {t('common.signingIn')}
                     </>
                   ) : (
-                    "Sign In"
+                    t('common.signIn')
                   )}
                 </Button>
               </div>
             </form>
             
             <div className="mt-4 text-center text-sm">
-              Don't have an account?{' '}
+              {t('common.noAccount')}{' '}
               <Button type="button" variant="link" className="p-0 h-auto text-blue-500" onClick={() => navigate('/register')}>
-                Sign up
+                {t('common.signUp')}
               </Button>
             </div>
           </CardContent>
