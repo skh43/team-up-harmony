@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { Button } from "@/components/ui/button";
@@ -43,7 +44,7 @@ const LivingPlanSelection = () => {
       <section className="py-12 flex justify-center items-center min-h-screen">
         <div className="container grid gap-6 lg:grid-cols-2 xl:grid-cols-3 max-w-5xl">
           <div className="col-span-2 text-center">
-            <ModernLogo size="xlarge" className="mx-auto mb-4" />
+            <ModernLogo size="large" className="mx-auto mb-6" />
             <h1 className="text-3xl font-bold mb-4">Choose Your Living Plan</h1>
             <p className="text-muted-foreground text-lg">Select the option that best fits your needs and preferences.</p>
           </div>
