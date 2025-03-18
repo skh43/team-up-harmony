@@ -6,6 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { ArrowRight, CheckCircle2, Star, Package, Home, Check, Sparkles, Users } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
+import SimpleTeamUpLogo from '@/components/SimpleTeamUpLogo';
 
 type LivingPlan = 'basic' | 'comfort' | 'elite' | null;
 
@@ -90,13 +91,7 @@ const LivingPlanSelection = () => {
           </p>
           
           <div className="flex justify-center my-6">
-            <div className="bg-white p-2 rounded-lg shadow-sm">
-              <img 
-                src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
-                alt="TeamUp Logo" 
-                className="h-20 w-auto transition-all duration-300 hover:opacity-90" 
-              />
-            </div>
+            <SimpleTeamUpLogo size="large" />
           </div>
         </div>
         
