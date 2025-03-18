@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Zap, Users, Home } from 'lucide-react';
+import { Zap, Home } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ModernLogoProps {
@@ -22,55 +22,41 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
   };
 
   return (
-    <div className={cn("flex items-center gap-1", sizeClasses[size].container, className)}>
+    <div className={cn("flex items-center gap-1.5", sizeClasses[size].container, className)}>
       {/* Logo Icon Container */}
       <div className="relative">
-        {/* Background circles */}
+        {/* Subtle background blur */}
         <div className={cn(
-          "absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20 backdrop-blur-sm",
+          "absolute inset-0 rounded-full bg-gradient-to-r from-blue-400/10 to-purple-400/10 backdrop-blur-sm",
           animated && "animate-pulse-slow"
         )}></div>
         
-        {/* Icon container */}
-        <div className="relative p-1.5 rounded-full bg-gradient-to-br from-[#01CDFA] via-[#3DB2FF] to-[#516CF7]">
+        {/* Icon container with softer gradient */}
+        <div className="relative p-1.5 rounded-full bg-gradient-to-br from-cyan-500/80 via-blue-500/80 to-indigo-500/80">
           <div className="relative flex items-center justify-center">
-            {/* User icon */}
-            <Users 
+            {/* Home icon as main element */}
+            <Home 
               size={sizeClasses[size].iconSize} 
               className="text-white" 
             />
-            {/* Lightning bolt overlay */}
+            {/* Lightning bolt accent */}
             <Zap 
-              size={sizeClasses[size].iconSize * 0.6} 
+              size={sizeClasses[size].iconSize * 0.5} 
               className={cn(
-                "absolute text-yellow-300 -top-1 -right-1", 
+                "absolute -top-1 -right-1 text-amber-300/90", 
                 animated && "animate-pulse"
-              )} 
-            />
-            {/* Home icon - small subtle accent */}
-            <Home 
-              size={sizeClasses[size].iconSize * 0.4} 
-              className={cn(
-                "absolute text-white/70 bottom-0 right-0", 
-                animated && "animate-float"
               )} 
             />
           </div>
         </div>
       </div>
       
-      {/* Text part */}
-      <div className={cn("font-bold tracking-tight", sizeClasses[size].text)}>
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#01CDFA] via-[#3DB2FF] to-[#516CF7]">
+      {/* Text part with more subtle gradient */}
+      <div className={cn("font-semibold tracking-tight", sizeClasses[size].text)}>
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 to-blue-600">
           team
         </span>
-        <span className={cn(
-          "inline-block mx-0.5 text-yellow-400",
-          animated && "animate-pulse"
-        )}>
-          ⚡
-        </span>
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0]">
+        <span className="text-amber-400 mx-0.5">
           up
         </span>
       </div>
