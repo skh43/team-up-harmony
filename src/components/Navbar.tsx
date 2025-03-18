@@ -47,7 +47,7 @@ const Navbar = () => {
             <img 
               src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
               alt="TeamUp Logo" 
-              className="h-10 w-auto"
+              className="h-12 w-auto" // Increased height from h-10 to h-12
             />
           </Link>
           
