@@ -20,7 +20,15 @@
     "getStarted": "Magsimula",
     "learnMore": "Matuto pa",
     "startJourney": "Simulan ang Iyong Paglalakbay",
-    "signUpNow": "Mag-sign up Ngayon"
+    "signUpNow": "Mag-sign up Ngayon",
+    "findRoommates": "Maghanap ng mga Roommate",
+    "propertyListings": "Listahan ng mga Property",
+    "about": "Tungkol Sa",
+    "dashboard": "Dashboard",
+    "messages": "Mga Mensahe",
+    "properties": "Mga Property",
+    "settings": "Mga Setting",
+    "myProfile": "Aking Profile"
   },
   "login": {
     "subtitle": "Mag-sign in sa iyong account",
@@ -54,5 +62,73 @@
     "step3Description": "I-browse ang mga potensyal na roommate o properties, i-swipe right ang mga profile na gusto mo, at simulan ang pag-uusap kapag nag-match kayo.",
     "step4Title": "Team Up",
     "step4Description": "Kapag nakahanap ka na ng perpektong match, mag-ayos ng mga meeting, pag-usapan ang mga detalye, at i-finalize ang iyong bagong living arrangement."
+  },
+  "pathSelection": {
+    "step": "Hakbang 2 ng 4",
+    "title": "Paano mo gustong Makipag-Team Up?",
+    "subtitle": "Sabihin sa amin ang tungkol sa iyong sitwasyon upang mai-match ka namin sa perpektong mga roommate o properties.",
+    "hostSpace": "I-host ang Aking Space",
+    "hostSpaceDesc": "Mayroon na akong lugar at naghahanap ako ng taong magbabahagi nito kasama ko.",
+    "seekSettle": "Maghanap at Manirahan",
+    "seekSettleDesc": "Gusto kong makahanap muna ng compatible na roommate, tapos maghahanap kami ng lugar nang magkasama.",
+    "selected": "Napili na",
+    "select": "Piliin",
+    "continue": "Magpatuloy",
+    "selectionRequired": "Kailangan ang pagpili",
+    "pleaseSelect": "Mangyaring piliin ang iyong daan para magpatuloy"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Maligayang pagdating sa iyong dashboard",
+    "newMessages": "Mga Bagong Mensahe",
+    "viewAll": "Tingnan Lahat",
+    "recentMatches": "Mga Kamakailan na Match",
+    "browseMore": "Mag-browse pa",
+    "upcomingMeetings": "Mga Darating na Meeting",
+    "scheduleNew": "Mag-iskedyul ng Bago"
+  },
+  "matching": {
+    "step": "Hakbang 4 ng 4",
+    "title": "Hanapin ang Iyong Perpektong Match",
+    "subtitle": "I-swipe right sa mga roommate na interesado ka, left sa mga hindi ka interesado.",
+    "match": "It's a match!",
+    "matchDesc": "Nag-match ka kay {{name}}. Maaari mo na silang i-message.",
+    "noMoreProfiles": "Nakita mo na ang lahat ng mga profile",
+    "checkBack": "Wala nang mga profile na ipapakita sa ngayon. Bumalik na lang sa ibang pagkakataon!",
+    "lifestyle": "Lifestyle",
+    "about": "Tungkol Sa",
+    "yourMatches": "Iyong mga Match",
+    "messagingSoon": "Ipapatupad ang functionality ng messaging sa lalong madaling panahon.",
+    "browseProperties": "Mag-browse ng mga Property"
+  },
+  "payment": {
+    "completePayment": "Kumpletuhin ang Pagbabayad",
+    "enterDetails": "Ilagay ang iyong mga detalye ng pagbabayad para i-activate ang iyong {{plan}} Living plan",
+    "cardNumber": "Card Number",
+    "expiryDate": "Expiry Date",
+    "cvv": "CVV",
+    "nameOnCard": "Pangalan sa Card",
+    "processing": "Pinoproseso...",
+    "pay": "Magbayad ng {{price}}",
+    "securePayment": "Secure na pagbabayad powered by Stripe",
+    "monthlySubscription": "Buwanang Subscription",
+    "total": "Kabuuan",
+    "plan": {
+      "basic": "Basic Living Plan",
+      "comfort": "Comfort Living Plan",
+      "elite": "Elite Living Plan"
+    }
+  },
+  "livingPlan": {
+    "choosePlan": "Pumili ng Iyong Living Plan",
+    "selectOption": "Piliin ang opsyon na pinakaaangkop sa iyong mga pangangailangan at preferences.",
+    "soloLiving": "Solo Living",
+    "soloDesc": "I-enjoy ang kapayapaan at privacy ng iyong sariling espasyo.",
+    "findRoommate": "Maghanap ng Roommate",
+    "roommateDesc": "Kumonekta sa mga compatible na roommate at magbahagi ng espasyo.",
+    "selected": "Napili",
+    "selectPlan": "Piliin ang Plan",
+    "continue": "Magpatuloy",
+    "pleaseSelect": "Mangyaring pumili ng living plan para magpatuloy."
   }
 }

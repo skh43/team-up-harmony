@@ -7,6 +7,7 @@ import { ArrowRight, Home, Users, CheckCircle2 } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 type UserPath = 'has-room' | 'needs-roommate' | null;
 
@@ -14,6 +15,7 @@ const PathSelection = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [selectedPath, setSelectedPath] = useState<UserPath>(null);
+  const { t } = useTranslation();
   
   const handlePathChange = (path: UserPath) => {
     setSelectedPath(path);
@@ -22,8 +24,8 @@ const PathSelection = () => {
   const handleContinue = () => {
     if (!selectedPath) {
       toast({
-        title: "Selection required",
-        description: "Please select your path to continue",
+        title: t('pathSelection.selectionRequired'),
+        description: t('pathSelection.pleaseSelect'),
         variant: "destructive",
       });
       return;
@@ -41,27 +43,27 @@ const PathSelection = () => {
       <div className="w-full max-w-5xl">
         <div className="mb-10 text-center">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            Step 2 of 4
+            {t('pathSelection.step')}
           </span>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">How would you like to Team Up?</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('pathSelection.title')}</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Tell us about your situation so we can match you with the perfect roommates or properties.
+            {t('pathSelection.subtitle')}
           </p>
         </div>
         
         <div className="grid md:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
           <PathCard
             icon={<Home className="h-10 w-10" />}
-            title="Host My Space"
-            description="I already have a place and I'm looking for someone to share it with."
+            title={t('pathSelection.hostSpace')}
+            description={t('pathSelection.hostSpaceDesc')}
             selected={selectedPath === 'has-room'}
             onClick={() => handlePathChange('has-room')}
           />
           
           <PathCard
             icon={<Users className="h-10 w-10" />}
-            title="Seek & Settle"
-            description="I want to find a compatible roommate first, then we'll find a place together."
+            title={t('pathSelection.seekSettle')}
+            description={t('pathSelection.seekSettleDesc')}
             selected={selectedPath === 'needs-roommate'}
             onClick={() => handlePathChange('needs-roommate')}
           />
@@ -73,7 +75,7 @@ const PathSelection = () => {
             onClick={handleContinue}
             className="rounded-full px-8 py-6 text-base shadow-subtle"
           >
-            Continue <ArrowRight className="ml-2 h-5 w-5" />
+            {t('pathSelection.continue')} <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>
       </div>
@@ -90,6 +92,8 @@ interface PathCardProps {
 }
 
 const PathCard = ({ icon, title, description, selected, onClick }: PathCardProps) => {
+  const { t } = useTranslation();
+  
   return (
     <Card 
       className={cn(
@@ -124,7 +128,7 @@ const PathCard = ({ icon, title, description, selected, onClick }: PathCardProps
             onClick();
           }}
         >
-          {selected ? "Selected" : "Select"}
+          {selected ? t('pathSelection.selected') : t('pathSelection.select')}
         </Button>
       </CardFooter>
     </Card>

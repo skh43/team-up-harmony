@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/components/ui/use-toast';
 import { ArrowLeft, Check, CreditCard, Calendar, Lock } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
+import { useTranslation } from 'react-i18next';
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Payment = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const [planPrice, setPlanPrice] = useState<string>('');
+  const { t } = useTranslation();
   
   useEffect(() => {
     // Get the selected plan from localStorage
@@ -65,15 +67,14 @@ const Payment = () => {
           className="mb-6 flex items-center"
           onClick={handleBack}
         >
-          <ArrowLeft className="mr-2 h-4 w-4" /> Back to Plans
+          <ArrowLeft className="mr-2 h-4 w-4" /> {t('livingPlan.choosePlan')}
         </Button>
         
         <Card className="w-full shadow-elegant">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Complete Payment</CardTitle>
+            <CardTitle className="text-2xl">{t('payment.completePayment')}</CardTitle>
             <CardDescription>
-              Enter your payment details to activate your{' '}
-              <span className="font-medium capitalize">{selectedPlan} Living</span> plan
+              {t('payment.enterDetails', { plan: t(`payment.plan.${selectedPlan}`) })}
             </CardDescription>
           </CardHeader>
           
@@ -84,8 +85,8 @@ const Payment = () => {
                 <div className="bg-muted/50 p-4 rounded-lg">
                   <div className="flex justify-between items-center">
                     <div>
-                      <p className="font-medium capitalize">{selectedPlan} Living Plan</p>
-                      <p className="text-sm text-muted-foreground">Monthly Subscription</p>
+                      <p className="font-medium capitalize">{t(`payment.plan.${selectedPlan}`)}</p>
+                      <p className="text-sm text-muted-foreground">{t('payment.monthlySubscription')}</p>
                     </div>
                     <p className="font-bold">{planPrice}</p>
                   </div>
@@ -93,7 +94,7 @@ const Payment = () => {
                   <Separator className="my-4" />
                   
                   <div className="flex justify-between items-center font-bold">
-                    <p>Total</p>
+                    <p>{t('payment.total')}</p>
                     <p>{planPrice}</p>
                   </div>
                 </div>
@@ -101,7 +102,7 @@ const Payment = () => {
                 {/* Card Information */}
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="cardNumber">Card Number</Label>
+                    <Label htmlFor="cardNumber">{t('payment.cardNumber')}</Label>
                     <div className="relative">
                       <Input 
                         id="cardNumber" 
@@ -114,7 +115,7 @@ const Payment = () => {
                   
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="expiryDate">Expiry Date</Label>
+                      <Label htmlFor="expiryDate">{t('payment.expiryDate')}</Label>
                       <div className="relative">
                         <Input 
                           id="expiryDate" 
@@ -126,7 +127,7 @@ const Payment = () => {
                     </div>
                     
                     <div className="space-y-2">
-                      <Label htmlFor="cvv">CVV</Label>
+                      <Label htmlFor="cvv">{t('payment.cvv')}</Label>
                       <div className="relative">
                         <Input 
                           id="cvv" 
@@ -139,7 +140,7 @@ const Payment = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="name">Name on Card</Label>
+                    <Label htmlFor="name">{t('payment.nameOnCard')}</Label>
                     <Input 
                       id="name" 
                       placeholder="John Doe" 
@@ -154,11 +155,11 @@ const Payment = () => {
                 className="w-full mt-6"
                 disabled={isProcessing}
               >
-                {isProcessing ? 'Processing...' : `Pay ${planPrice}`}
+                {isProcessing ? t('payment.processing') : t('payment.pay', { price: planPrice })}
               </Button>
               
               <div className="mt-4 text-center text-sm text-muted-foreground flex items-center justify-center gap-1">
-                <Lock className="h-3 w-3" /> Secure payment powered by Stripe
+                <Lock className="h-3 w-3" /> {t('payment.securePayment')}
               </div>
             </form>
           </CardContent>

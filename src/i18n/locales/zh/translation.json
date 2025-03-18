@@ -20,7 +20,15 @@
     "getStarted": "开始使用",
     "learnMore": "了解更多",
     "startJourney": "开始你的旅程",
-    "signUpNow": "立即注册"
+    "signUpNow": "立即注册",
+    "findRoommates": "寻找室友",
+    "propertyListings": "房源列表",
+    "about": "关于我们",
+    "dashboard": "控制面板",
+    "messages": "消息",
+    "properties": "房产",
+    "settings": "设置",
+    "myProfile": "我的资料"
   },
   "login": {
     "subtitle": "登录到您的账户",
@@ -54,5 +62,73 @@
     "step3Description": "浏览潜在的室友或房产，在您喜欢的资料上向右滑动，并在匹配时开始对话。",
     "step4Title": "组队",
     "step4Description": "一旦找到完美的匹配，安排会面，讨论细节，并确定您的新生活安排。"
+  },
+  "pathSelection": {
+    "step": "步骤 2/4",
+    "title": "您想如何组队？",
+    "subtitle": "告诉我们您的情况，以便我们为您匹配完美的室友或房产。",
+    "hostSpace": "主持我的空间",
+    "hostSpaceDesc": "我已经有了一个地方，正在寻找愿意与我分享的人。",
+    "seekSettle": "寻找与安定",
+    "seekSettleDesc": "我想先找到一个兼容的室友，然后我们一起找地方。",
+    "selected": "已选择",
+    "select": "选择",
+    "continue": "继续",
+    "selectionRequired": "需要选择",
+    "pleaseSelect": "请选择您的路径以继续"
+  },
+  "dashboard": {
+    "title": "控制面板",
+    "welcome": "欢迎来到您的控制面板",
+    "newMessages": "新消息",
+    "viewAll": "查看全部",
+    "recentMatches": "最近匹配",
+    "browseMore": "浏览更多",
+    "upcomingMeetings": "即将举行的会议",
+    "scheduleNew": "安排新的"
+  },
+  "matching": {
+    "step": "步骤 4/4",
+    "title": "寻找您的完美匹配",
+    "subtitle": "对您感兴趣的室友向右滑动，对不感兴趣的向左滑动。",
+    "match": "匹配成功！",
+    "matchDesc": "您与{{name}}匹配成功。现在可以给他们发消息了。",
+    "noMoreProfiles": "您已查看所有个人资料",
+    "checkBack": "目前没有更多个人资料可显示。请稍后再查看！",
+    "lifestyle": "生活方式",
+    "about": "关于",
+    "yourMatches": "您的匹配",
+    "messagingSoon": "消息功能即将实现。",
+    "browseProperties": "浏览房产"
+  },
+  "payment": {
+    "completePayment": "完成支付",
+    "enterDetails": "输入您的支付详情以激活您的{{plan}}生活计划",
+    "cardNumber": "卡号",
+    "expiryDate": "到期日期",
+    "cvv": "安全码",
+    "nameOnCard": "持卡人姓名",
+    "processing": "处理中...",
+    "pay": "支付 {{price}}",
+    "securePayment": "由Stripe提供安全支付",
+    "monthlySubscription": "月度订阅",
+    "total": "总计",
+    "plan": {
+      "basic": "基本生活计划",
+      "comfort": "舒适生活计划",
+      "elite": "精英生活计划"
+    }
+  },
+  "livingPlan": {
+    "choosePlan": "选择您的生活计划",
+    "selectOption": "选择最适合您需求和偏好的选项。",
+    "soloLiving": "独居生活",
+    "soloDesc": "享受您自己空间的宁静和私密性。",
+    "findRoommate": "寻找室友",
+    "roommateDesc": "与兼容的室友联系并共享空间。",
+    "selected": "已选择",
+    "selectPlan": "选择计划",
+    "continue": "继续",
+    "pleaseSelect": "请选择一个生活计划以继续。"
   }
 }

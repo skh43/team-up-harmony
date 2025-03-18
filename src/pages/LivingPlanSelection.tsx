@@ -7,22 +7,24 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Check, Home, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ModernLogo from '@/components/ModernLogo';
+import { useTranslation } from 'react-i18next';
 
 const LivingPlanSelection = () => {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const plans = [
     {
       id: 'solo',
-      title: 'Solo Living',
-      description: 'Enjoy the peace and privacy of your own space.',
+      title: t('livingPlan.soloLiving'),
+      description: t('livingPlan.soloDesc'),
       icon: Home,
     },
     {
       id: 'roommate',
-      title: 'Find a Roommate',
-      description: 'Connect with compatible roommates and share a space.',
+      title: t('livingPlan.findRoommate'),
+      description: t('livingPlan.roommateDesc'),
       icon: Users,
     },
   ];
@@ -35,7 +37,7 @@ const LivingPlanSelection = () => {
     if (selectedPlan) {
       navigate(`/register?plan=${selectedPlan}`);
     } else {
-      alert('Please select a living plan to continue.');
+      alert(t('livingPlan.pleaseSelect'));
     }
   };
 
@@ -45,8 +47,8 @@ const LivingPlanSelection = () => {
         <div className="container grid gap-6 lg:grid-cols-2 xl:grid-cols-3 max-w-5xl">
           <div className="col-span-2 text-center">
             <ModernLogo size="large" className="mx-auto mb-6" />
-            <h1 className="text-3xl font-bold mb-4">Choose Your Living Plan</h1>
-            <p className="text-muted-foreground text-lg">Select the option that best fits your needs and preferences.</p>
+            <h1 className="text-3xl font-bold mb-4">{t('livingPlan.choosePlan')}</h1>
+            <p className="text-muted-foreground text-lg">{t('livingPlan.selectOption')}</p>
           </div>
 
           {plans.map((plan) => (
@@ -73,7 +75,7 @@ const LivingPlanSelection = () => {
                   className="w-full"
                   onClick={() => handlePlanSelect(plan.id)}
                 >
-                  {selectedPlan === plan.id ? 'Selected' : 'Select Plan'}
+                  {selectedPlan === plan.id ? t('livingPlan.selected') : t('livingPlan.selectPlan')}
                 </Button>
               </CardFooter>
             </Card>
@@ -86,7 +88,7 @@ const LivingPlanSelection = () => {
               onClick={handleContinue}
               disabled={!selectedPlan}
             >
-              Continue
+              {t('livingPlan.continue')}
               <ArrowRight className="ml-2" />
             </Button>
           </div>

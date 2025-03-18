@@ -20,7 +20,15 @@
     "getStarted": "Get Started",
     "learnMore": "Learn More",
     "startJourney": "Start Your Journey",
-    "signUpNow": "Sign Up Now"
+    "signUpNow": "Sign Up Now",
+    "findRoommates": "Find Roommates",
+    "propertyListings": "Property Listings",
+    "about": "About",
+    "dashboard": "Dashboard",
+    "messages": "Messages",
+    "properties": "Properties",
+    "settings": "Settings",
+    "myProfile": "My Profile"
   },
   "login": {
     "subtitle": "Sign in to your account",
@@ -54,5 +62,73 @@
     "step3Description": "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match.",
     "step4Title": "Team Up",
     "step4Description": "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement."
+  },
+  "pathSelection": {
+    "step": "Step 2 of 4",
+    "title": "How would you like to Team Up?",
+    "subtitle": "Tell us about your situation so we can match you with the perfect roommates or properties.",
+    "hostSpace": "Host My Space",
+    "hostSpaceDesc": "I already have a place and I'm looking for someone to share it with.",
+    "seekSettle": "Seek & Settle",
+    "seekSettleDesc": "I want to find a compatible roommate first, then we'll find a place together.",
+    "selected": "Selected",
+    "select": "Select",
+    "continue": "Continue",
+    "selectionRequired": "Selection required",
+    "pleaseSelect": "Please select your path to continue"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to your dashboard",
+    "newMessages": "New Messages",
+    "viewAll": "View All",
+    "recentMatches": "Recent Matches",
+    "browseMore": "Browse More",
+    "upcomingMeetings": "Upcoming Meetings",
+    "scheduleNew": "Schedule New"
+  },
+  "matching": {
+    "step": "Step 4 of 4",
+    "title": "Find Your Perfect Match",
+    "subtitle": "Swipe right on roommates you're interested in, left on those you're not.",
+    "match": "It's a match!",
+    "matchDesc": "You matched with {{name}}. You can now message them.",
+    "noMoreProfiles": "You've seen all profiles",
+    "checkBack": "No more profiles to show at the moment. Check back later!",
+    "lifestyle": "Lifestyle",
+    "about": "About",
+    "yourMatches": "Your Matches",
+    "messagingSoon": "Messaging functionality will be implemented soon.",
+    "browseProperties": "Browse Properties"
+  },
+  "payment": {
+    "completePayment": "Complete Payment",
+    "enterDetails": "Enter your payment details to activate your {{plan}} Living plan",
+    "cardNumber": "Card Number",
+    "expiryDate": "Expiry Date",
+    "cvv": "CVV",
+    "nameOnCard": "Name on Card",
+    "processing": "Processing...",
+    "pay": "Pay {{price}}",
+    "securePayment": "Secure payment powered by Stripe",
+    "monthlySubscription": "Monthly Subscription",
+    "total": "Total",
+    "plan": {
+      "basic": "Basic Living Plan",
+      "comfort": "Comfort Living Plan",
+      "elite": "Elite Living Plan"
+    }
+  },
+  "livingPlan": {
+    "choosePlan": "Choose Your Living Plan",
+    "selectOption": "Select the option that best fits your needs and preferences.",
+    "soloLiving": "Solo Living",
+    "soloDesc": "Enjoy the peace and privacy of your own space.",
+    "findRoommate": "Find a Roommate",
+    "roommateDesc": "Connect with compatible roommates and share a space.",
+    "selected": "Selected",
+    "selectPlan": "Select Plan",
+    "continue": "Continue",
+    "pleaseSelect": "Please select a living plan to continue."
   }
 }
