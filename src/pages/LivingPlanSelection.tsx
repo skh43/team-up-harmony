@@ -61,6 +61,7 @@ const LivingPlanSelection = () => {
         { text: 'Create a basic profile', icon: Star },
       ],
       price: 'Free',
+      popular: false,
     },
     {
       id: 'comfort',
@@ -72,6 +73,7 @@ const LivingPlanSelection = () => {
       borderColor: 'border-purple-500',
       gradient: 'bg-gradient-to-r from-purple-400 to-purple-600',
       recommended: true,
+      popular: true,
       features: [
         { text: 'All Basic features', icon: Check },
         { text: 'Advanced matching algorithm', icon: Star },
@@ -90,6 +92,7 @@ const LivingPlanSelection = () => {
       textColor: 'text-amber-500',
       borderColor: 'border-amber-500',
       gradient: 'bg-gradient-to-r from-amber-400 to-amber-600',
+      popular: false,
       features: [
         { text: 'All Comfort features', icon: Check },
         { text: 'Dedicated support agent', icon: Info },
@@ -158,6 +161,20 @@ const LivingPlanSelection = () => {
     }
   };
 
+  const featureVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0 }
+  };
+
+  const pulseAnimation = {
+    scale: [1, 1.03, 1],
+    transition: {
+      duration: 2,
+      ease: "easeInOut",
+      repeat: Infinity,
+    }
+  };
+
   // If not authenticated, return null (will redirect in useEffect)
   if (!isAuthenticated) {
     return null;
@@ -166,11 +183,18 @@ const LivingPlanSelection = () => {
   return (
     <MainLayout>
       <section className="py-12 min-h-screen bg-gradient-to-b from-white to-gray-50">
+        <div 
+          className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-30 pointer-events-none"
+          style={{ 
+            backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+            backgroundAttachment: "fixed"
+          }}
+        />
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="container max-w-6xl mx-auto px-4"
+          className="container max-w-6xl mx-auto px-4 relative z-10"
         >
           <div className="text-center mb-10">
             <ModernLogo size="large" className="mx-auto mb-6" />
@@ -178,7 +202,7 @@ const LivingPlanSelection = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
+              className="text-5xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600"
             >
               Find Your Perfect Roommate
             </motion.h1>
@@ -196,69 +220,92 @@ const LivingPlanSelection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="bg-white/50 backdrop-blur-sm rounded-2xl p-8 shadow-lg mb-12 border border-gray-100"
+            className="bg-white/70 backdrop-blur-md rounded-2xl p-8 shadow-xl mb-12 border border-gray-100"
           >
-            <h2 className="text-2xl font-semibold mb-6 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600">Select Your Plan Tier</h2>
+            <motion.h2 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-violet-600 pb-1"
+            >
+              Select Your Plan Tier
+              <motion.div 
+                className="h-1 w-24 mx-auto mt-2 rounded bg-gradient-to-r from-blue-400 to-violet-500"
+                initial={{ width: 0 }}
+                animate={{ width: 100 }}
+                transition={{ delay: 0.8, duration: 0.8 }}
+              />
+            </motion.h2>
             
             <motion.div 
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto"
+              className="grid gap-8 lg:grid-cols-3 md:grid-cols-2 max-w-5xl mx-auto"
             >
               {tiers.map((tier, index) => (
                 <motion.div 
                   key={tier.id}
                   variants={itemVariants}
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
+                  animate={tier.popular ? pulseAnimation : {}}
                   className="flex"
                 >
                   <Card
                     className={cn(
-                      "w-full border-2 shadow-md transition-all relative overflow-hidden hover:shadow-xl",
+                      "w-full border-2 shadow-lg transition-all relative overflow-hidden hover:shadow-2xl",
                       selectedTier === tier.id ? tier.borderColor : "border-muted",
-                      "cursor-pointer bg-white"
+                      "cursor-pointer bg-white/90 backdrop-blur-sm"
                     )}
                     onClick={() => handleTierSelect(tier.id)}
                   >
-                    {/* Decorative background element */}
+                    {/* Decorative background elements */}
                     <div className="absolute -top-12 -right-12 w-24 h-24 rounded-full opacity-10 bg-gradient-to-br from-blue-400 to-purple-600 blur-xl" />
+                    <div className="absolute -bottom-16 -left-16 w-32 h-32 rounded-full opacity-5 bg-gradient-to-tr from-amber-300 to-pink-600 blur-xl" />
                     
                     {tier.recommended && (
-                      <div className="absolute top-0 right-0">
-                        <Badge className="bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 rounded-tl-none rounded-br-none">
-                          Recommended
-                        </Badge>
+                      <div className="absolute -top-1 -right-14 w-40 h-6 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold flex items-center justify-center rotate-45 shadow-lg z-10">
+                        RECOMMENDED
                       </div>
                     )}
                     
                     <CardHeader>
-                      <div className={`w-16 h-16 rounded-full ${tier.gradient} flex items-center justify-center mb-4 mx-auto shadow-lg transform transition-transform duration-300 hover:scale-110`}>
-                        <tier.icon className="w-8 h-8 text-white" />
+                      <div className={`w-20 h-20 rounded-full ${tier.gradient} flex items-center justify-center mb-5 mx-auto shadow-lg transform transition-transform duration-300 hover:scale-110`}>
+                        <tier.icon className="w-10 h-10 text-white" />
                       </div>
-                      <CardTitle className={cn("flex items-center justify-between", tier.textColor)}>
+                      <CardTitle className={cn("flex items-center justify-between text-2xl font-bold", tier.textColor)}>
                         {tier.title}
-                        {selectedTier === tier.id && <Check className="text-green-500" />}
+                        {selectedTier === tier.id && (
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                          >
+                            <Check className="text-green-500 w-6 h-6" />
+                          </motion.div>
+                        )}
                       </CardTitle>
-                      <CardDescription className="text-center mt-2">{tier.description}</CardDescription>
+                      <CardDescription className="text-center mt-2 text-base">{tier.description}</CardDescription>
                       
                       <div className="mt-4 text-center">
-                        <span className="text-2xl font-bold">{tier.price}</span>
+                        <span className="text-3xl font-extrabold">{tier.price}</span>
+                        {tier.price !== 'Free' && <span className="text-sm text-muted-foreground ml-1">per month</span>}
                       </div>
                     </CardHeader>
                     
                     <CardContent>
-                      <ul className="space-y-2">
+                      <ul className="space-y-3">
                         {tier.features.map((feature, idx) => (
                           <motion.li 
                             key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
+                            variants={featureVariants}
                             transition={{ delay: 0.1 * idx, duration: 0.4 }}
-                            className="flex items-center gap-2 text-sm"
+                            className="flex items-center gap-3 text-sm"
                           >
-                            <feature.icon className={`w-4 h-4 ${tier.textColor} flex-shrink-0`} />
-                            <span>{feature.text}</span>
+                            <div className={`w-8 h-8 rounded-full ${tier.gradient} flex items-center justify-center flex-shrink-0 shadow-sm`}>
+                              <feature.icon className="w-4 h-4 text-white" />
+                            </div>
+                            <span className="font-medium">{feature.text}</span>
                           </motion.li>
                         ))}
                       </ul>
@@ -268,16 +315,25 @@ const LivingPlanSelection = () => {
                       <Button
                         variant={selectedTier === tier.id ? "default" : "outline"}
                         className={cn(
-                          "w-full py-6",
+                          "w-full py-6 text-base font-semibold rounded-xl",
                           selectedTier === tier.id ? tier.gradient : "",
-                          selectedTier === tier.id ? "text-white" : ""
+                          selectedTier === tier.id ? "text-white shadow-lg" : ""
                         )}
                         onClick={(e) => {
                           e.stopPropagation();
                           handleTierSelect(tier.id);
                         }}
                       >
-                        {selectedTier === tier.id ? "Selected" : "Select Tier"}
+                        {selectedTier === tier.id ? (
+                          <motion.span
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                            className="flex items-center"
+                          >
+                            <Check className="mr-2" /> Selected
+                          </motion.span>
+                        ) : "Select Tier"}
                       </Button>
                     </CardFooter>
                   </Card>
@@ -292,20 +348,19 @@ const LivingPlanSelection = () => {
             transition={{ delay: 0.8, duration: 0.6 }}
             className="flex justify-center mt-8"
           >
-            {/* Replace Button with MotionButton to support motion props */}
             <MotionButton
               size="lg"
               className={cn(
-                "bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 px-8 py-6 rounded-full shadow-md transition-all duration-300",
+                "bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 px-10 py-7 rounded-full shadow-lg transition-all duration-300 text-lg font-bold",
                 !selectedTier && "opacity-70 pointer-events-none"
               )}
               onClick={handleContinue}
               disabled={!selectedTier}
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, boxShadow: "0 10px 25px -5px rgba(124, 58, 237, 0.5)" }}
               whileTap={{ scale: 0.95 }}
             >
               Continue to Registration
-              <ArrowRight className="ml-2" />
+              <ArrowRight className="ml-2 w-5 h-5" />
             </MotionButton>
           </motion.div>
           
