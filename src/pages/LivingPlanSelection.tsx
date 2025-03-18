@@ -10,6 +10,7 @@ import ModernLogo from '@/components/ModernLogo';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/components/ui/use-toast';
 import { Badge } from "@/components/ui/badge";
+import { useAuth } from '@/hooks/useAuth';
 
 const LivingPlanSelection = () => {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
@@ -17,6 +18,19 @@ const LivingPlanSelection = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { toast } = useToast();
+  const { isAuthenticated, user } = useAuth();
+
+  // Redirect to login if not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to access the roommate finding features.",
+        variant: "destructive",
+      });
+      navigate('/login', { state: { returnTo: '/living-plan-selection' } });
+    }
+  }, [isAuthenticated, navigate, toast]);
 
   // Check if there's a previously selected plan in localStorage
   useEffect(() => {
@@ -116,8 +130,18 @@ const LivingPlanSelection = () => {
       variant: "default",
     });
     
-    navigate(`/register?plan=${selectedPlan}&tier=${selectedTier}`);
+    // If user is already registered, go directly to path selection
+    if (user) {
+      navigate('/path-selection');
+    } else {
+      navigate(`/register?plan=${selectedPlan}&tier=${selectedTier}`);
+    }
   };
+
+  // If not authenticated, return null (will redirect in useEffect)
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <MainLayout>
