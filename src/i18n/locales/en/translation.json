@@ -12,13 +12,19 @@
     "withGoogle": "Sign in with Google",
     "noAccount": "Don't have an account?",
     "signUp": "Sign up",
-    "language": "Language"
+    "language": "Language",
+    "logout": "Logout",
+    "or": "OR"
   },
   "login": {
     "subtitle": "Sign in to your account",
     "credentials": "Enter your credentials to access your account",
     "success": "Login successful!",
-    "welcomeBack": "Welcome back!"
+    "welcomeBack": "Welcome back!",
+    "failed": "Login failed",
+    "googleFailed": "Google login failed",
+    "googleAuthError": "There was an error authenticating with Google",
+    "authenticatedWithGoogle": "Successfully authenticated with Google"
   },
   "validation": {
     "required": "{{field}} is required",

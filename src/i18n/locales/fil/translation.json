@@ -12,13 +12,19 @@
     "withGoogle": "Mag-sign in gamit ang Google",
     "noAccount": "Wala pang account?",
     "signUp": "Mag-sign up",
-    "language": "Wika"
+    "language": "Wika",
+    "logout": "Mag-logout",
+    "or": "O"
   },
   "login": {
     "subtitle": "Mag-sign in sa iyong account",
     "credentials": "Ilagay ang iyong credentials para ma-access ang iyong account",
     "success": "Matagumpay na pag-login!",
-    "welcomeBack": "Maligayang pagbabalik!"
+    "welcomeBack": "Maligayang pagbabalik!",
+    "failed": "Hindi matagumpay ang pag-login",
+    "googleFailed": "Hindi matagumpay ang pag-login gamit ang Google",
+    "googleAuthError": "May error sa pag-authenticate gamit ang Google",
+    "authenticatedWithGoogle": "Matagumpay na naka-authenticate gamit ang Google"
   },
   "validation": {
     "required": "Kinakailangan ang {{field}}",

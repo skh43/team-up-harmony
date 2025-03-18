@@ -12,13 +12,19 @@
     "withGoogle": "تسجيل الدخول باستخدام جوجل",
     "noAccount": "ليس لديك حساب؟",
     "signUp": "اشتراك",
-    "language": "اللغة"
+    "language": "اللغة",
+    "logout": "تسجيل الخروج",
+    "or": "أو"
   },
   "login": {
     "subtitle": "تسجيل الدخول إلى حسابك",
     "credentials": "أدخل بيانات الاعتماد الخاصة بك للوصول إلى حسابك",
     "success": "تم تسجيل الدخول بنجاح!",
-    "welcomeBack": "مرحبا بعودتك!"
+    "welcomeBack": "مرحبا بعودتك!",
+    "failed": "فشل تسجيل الدخول",
+    "googleFailed": "فشل تسجيل الدخول باستخدام جوجل",
+    "googleAuthError": "حدث خطأ أثناء المصادقة مع جوجل",
+    "authenticatedWithGoogle": "تم المصادقة بنجاح مع جوجل"
   },
   "validation": {
     "required": "{{field}} مطلوب",

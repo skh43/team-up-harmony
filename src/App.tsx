@@ -15,6 +15,7 @@ import ListProperty from "./pages/ListProperty";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import ProfileCreation from "./pages/ProfileCreation";
 import Dashboard from "./pages/Dashboard";
 import Messages from "./pages/Messages";
@@ -34,6 +35,7 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
             
             {/* User Account */}
             <Route path="/dashboard" element={<Dashboard />} />

@@ -1,26 +1,16 @@
-import React, { useState, useEffect } from 'react';
+
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useAuth } from '@/hooks/useAuth';
-import { useTheme } from '@/hooks/useTheme';
-import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
-import { ModeToggle } from "@/components/ui/mode-toggle"
 import LanguageSelector from './LanguageSelector';
 import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
   const { t } = useTranslation();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const handleLogout = async () => {
     try {
@@ -48,16 +38,16 @@ const Navbar = () => {
                   <AvatarFallback>{user.fullName?.charAt(0) || 'U'}</AvatarFallback>
                 </Avatar>
                 <Button variant="outline" size="sm" onClick={handleLogout}>
-                  Logout
+                  {t('common.logout', 'Logout')}
                 </Button>
               </>
             ) : (
               <>
                 <Button variant="outline" size="sm" onClick={() => navigate('/login')}>
-                  Login
+                  {t('common.login', 'Login')}
                 </Button>
                 <Button size="sm" onClick={() => navigate('/register')}>
-                  Register
+                  {t('common.register', 'Register')}
                 </Button>
               </>
             )}
