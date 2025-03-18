@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { ArrowRight, CheckCircle2, Star, Package, Home, Check, Sparkles } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Star, Package, Home, Check, Sparkles, Users } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
@@ -45,7 +44,13 @@ const LivingPlanSelection = () => {
     // Store selection
     localStorage.setItem('livingPlan', selectedPlan);
     
-    // Navigate to path selection after selecting a plan
+    // If comfort or elite is selected, navigate to payment page
+    if (selectedPlan === 'comfort' || selectedPlan === 'elite') {
+      navigate('/payment');
+      return;
+    }
+    
+    // Otherwise navigate to path selection (for basic plan)
     navigate('/path-selection');
   };
 
@@ -81,7 +86,11 @@ const LivingPlanSelection = () => {
     <MainLayout className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-5xl pt-16"> {/* Added top padding here to move content down */}
         <div className="mb-10 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Choose Your Living Plan</h1>
+          <div className="flex items-center justify-center mb-4">
+            <Users className="h-8 w-8 mr-2 text-primary" />
+            <h1 className="text-3xl md:text-4xl font-bold">Team Up</h1>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">Choose Your Living Plan</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Select the plan that best fits your lifestyle and preferences.
           </p>

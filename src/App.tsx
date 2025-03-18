@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PathSelection from "./pages/PathSelection";
 import LivingPlanSelection from "./pages/LivingPlanSelection";
+import Payment from "./pages/Payment";
 import Matching from "./pages/Matching";
 import Properties from "./pages/Properties";
 import ListProperty from "./pages/ListProperty";
@@ -73,6 +74,7 @@ const AppRoutes = () => {
       
       {/* Roommate Finding Flow - Sequential Protection */}
       <Route path="/living-plan-selection" element={<RoommateFlowRoute step={1}><LivingPlanSelection /></RoommateFlowRoute>} />
+      <Route path="/payment" element={<RoommateFlowRoute step={1}><Payment /></RoommateFlowRoute>} />
       <Route path="/path-selection" element={<RoommateFlowRoute step={2}><PathSelection /></RoommateFlowRoute>} />
       <Route path="/profile-creation" element={<RoommateFlowRoute step={3}><ProfileCreation /></RoommateFlowRoute>} />
       <Route path="/matching" element={<RoommateFlowRoute step={4}><Matching /></RoommateFlowRoute>} />
