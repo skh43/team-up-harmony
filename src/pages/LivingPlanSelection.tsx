@@ -90,9 +90,7 @@ const LivingPlanSelection = () => {
             Select the plan that best fits your lifestyle and preferences.
           </p>
           
-          <div className="flex justify-center my-6">
-            <Logo size="large" />
-          </div>
+          
         </div>
         
         {(selectedPlan === 'comfort' || selectedPlan === 'basic' || showElitePromo) && (
