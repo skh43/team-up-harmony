@@ -1,4 +1,3 @@
-
 {
   "common": {
     "welcome": "Maligayang Pagbabalik",
@@ -14,7 +13,9 @@
     "signUp": "Mag-sign up",
     "language": "Wika",
     "logout": "Mag-logout",
-    "or": "O"
+    "or": "O",
+    "teamUp": "Team Up",
+    "logoAlt": "Logo ng Team Up"
   },
   "login": {
     "subtitle": "Mag-sign in sa iyong account",
