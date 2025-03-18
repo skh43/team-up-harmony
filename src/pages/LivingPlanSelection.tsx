@@ -13,6 +13,9 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from '@/hooks/useAuth';
 import { motion } from 'framer-motion';
 
+// Create a motion version of the Button component
+const MotionButton = motion(Button);
+
 const LivingPlanSelection = () => {
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -289,7 +292,8 @@ const LivingPlanSelection = () => {
             transition={{ delay: 0.8, duration: 0.6 }}
             className="flex justify-center mt-8"
           >
-            <Button
+            {/* Replace Button with MotionButton to support motion props */}
+            <MotionButton
               size="lg"
               className={cn(
                 "bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:from-purple-600 hover:to-pink-600 px-8 py-6 rounded-full shadow-md transition-all duration-300",
@@ -302,7 +306,7 @@ const LivingPlanSelection = () => {
             >
               Continue to Registration
               <ArrowRight className="ml-2" />
-            </Button>
+            </MotionButton>
           </motion.div>
           
           <motion.div 
