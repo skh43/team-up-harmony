@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,6 +14,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { User, Save, Building, Calendar, DollarSign, Clock, HeartHandshake, Users, Coffee, Star } from 'lucide-react';
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import MainLayout from '@/layouts/MainLayout';
+import { cn } from '@/lib/utils';
 
 const profileSchema = z.object({
   gender: z.string({
@@ -45,7 +45,6 @@ const profileSchema = z.object({
   lifestyle: z.string().optional(),
   bio: z.string().optional(),
   
-  // Elite plan fields
   exercisePreference: z.string().optional(),
   hobbies: z.string().optional(),
   conflictStyle: z.string().optional(),
@@ -62,6 +61,13 @@ const ProfileCreation = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [activePlan, setActivePlan] = useState<'basic' | 'comfort' | 'elite'>('basic');
+  
+  useEffect(() => {
+    const selectedPlan = localStorage.getItem('livingPlan');
+    if (selectedPlan && (selectedPlan === 'basic' || selectedPlan === 'comfort' || selectedPlan === 'elite')) {
+      setActivePlan(selectedPlan);
+    }
+  }, []);
   
   const form = useForm<ProfileValues>({
     resolver: zodResolver(profileSchema),
@@ -96,17 +102,14 @@ const ProfileCreation = () => {
   const onSubmit = async (data: ProfileValues) => {
     try {
       setIsLoading(true);
-      // Simulate API call
       console.log("Profile data:", data);
       console.log("Selected plan:", activePlan);
       
-      // Show success toast
       toast({
         title: "Profile created successfully!",
         description: "Now let's find your matches.",
       });
       
-      // Navigate to matching after profile creation
       setTimeout(() => {
         navigate("/matching");
       }, 1000);
@@ -119,6 +122,17 @@ const ProfileCreation = () => {
       });
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const getPillButtonClass = (plan: 'basic' | 'comfort' | 'elite') => {
+    switch (plan) {
+      case 'basic':
+        return activePlan === 'basic' ? 'bg-blue-500' : 'hover:bg-blue-100 hover:text-blue-600';
+      case 'comfort':
+        return activePlan === 'comfort' ? 'bg-purple-500' : 'hover:bg-purple-100 hover:text-purple-600';
+      case 'elite':
+        return activePlan === 'elite' ? 'bg-amber-500' : 'hover:bg-amber-100 hover:text-amber-600';
     }
   };
 
@@ -135,45 +149,48 @@ const ProfileCreation = () => {
           </p>
         </div>
         
-        {/* Plan Selection Pills */}
         <div className="flex justify-center mb-8">
           <div className="inline-flex bg-muted p-1 rounded-full">
-            <Button
-              variant={activePlan === 'basic' ? 'default' : 'ghost'}
-              className={`rounded-full ${activePlan === 'basic' ? 'bg-blue-500' : 'hover:bg-blue-100 hover:text-blue-600'}`}
-              onClick={() => setActivePlan('basic')}
-            >
-              <span className="flex items-center">
-                <Users className="h-4 w-4 mr-2" />
-                Basic Living
-              </span>
-            </Button>
-            <Button
-              variant={activePlan === 'comfort' ? 'default' : 'ghost'}
-              className={`rounded-full ${activePlan === 'comfort' ? 'bg-purple-500' : 'hover:bg-purple-100 hover:text-purple-600'}`}
-              onClick={() => setActivePlan('comfort')}
-            >
-              <span className="flex items-center">
-                <Coffee className="h-4 w-4 mr-2" />
-                Comfort Zone
-              </span>
-            </Button>
-            <Button
-              variant={activePlan === 'elite' ? 'default' : 'ghost'}
-              className={`rounded-full ${activePlan === 'elite' ? 'bg-amber-500' : 'hover:bg-amber-100 hover:text-amber-600'}`}
-              onClick={() => setActivePlan('elite')}
-            >
-              <span className="flex items-center">
-                <Star className="h-4 w-4 mr-2" />
-                Elite Living
-              </span>
-            </Button>
+            {activePlan === 'basic' && (
+              <Button
+                variant="default"
+                className={`rounded-full ${getPillButtonClass('basic')}`}
+              >
+                <span className="flex items-center">
+                  <Users className="h-4 w-4 mr-2" />
+                  Basic Living
+                </span>
+              </Button>
+            )}
+            
+            {activePlan === 'comfort' && (
+              <Button
+                variant="default"
+                className={`rounded-full ${getPillButtonClass('comfort')}`}
+              >
+                <span className="flex items-center">
+                  <Coffee className="h-4 w-4 mr-2" />
+                  Comfort Zone
+                </span>
+              </Button>
+            )}
+            
+            {activePlan === 'elite' && (
+              <Button
+                variant="default"
+                className={`rounded-full ${getPillButtonClass('elite')}`}
+              >
+                <span className="flex items-center">
+                  <Star className="h-4 w-4 mr-2" />
+                  Elite Living
+                </span>
+              </Button>
+            )}
           </div>
         </div>
 
         <Card className="shadow-elegant border-0 overflow-hidden mb-10">
           <CardContent className="p-6 pt-6">
-            {/* Basic Plan Banner */}
             {activePlan === 'basic' && (
               <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-100">
                 <h2 className="text-lg font-semibold text-blue-700 mb-1 flex items-center">
@@ -185,14 +202,14 @@ const ProfileCreation = () => {
                 </p>
                 <div className="mt-2 text-xs bg-blue-100 px-3 py-2 rounded text-blue-800">
                   <strong>Comfort Zone Benefits:</strong> More detailed matching based on lifestyle preferences, advanced filtering options, and priority in search results.
-                  <Button variant="secondary" size="sm" className="ml-2 bg-blue-600 text-white hover:bg-blue-700">
+                  <Button variant="secondary" size="sm" className="ml-2 bg-blue-600 text-white hover:bg-blue-700"
+                    onClick={() => navigate('/living-plan-selection')}>
                     Subscribe Now
                   </Button>
                 </div>
               </div>
             )}
             
-            {/* Comfort Zone Banner */}
             {activePlan === 'comfort' && (
               <div className="bg-purple-50 p-4 rounded-lg mb-6 border border-purple-100">
                 <h2 className="text-lg font-semibold text-purple-700 mb-1 flex items-center">
@@ -204,14 +221,14 @@ const ProfileCreation = () => {
                 </p>
                 <div className="mt-2 text-xs bg-purple-100 px-3 py-2 rounded text-purple-800">
                   <strong>Elite Living Benefits:</strong> Unlimited matches, ultra-detailed preferences, personality matching, priority support, and exclusive property listings.
-                  <Button variant="secondary" size="sm" className="ml-2 bg-purple-600 text-white hover:bg-purple-700">
+                  <Button variant="secondary" size="sm" className="ml-2 bg-purple-600 text-white hover:bg-purple-700"
+                    onClick={() => navigate('/living-plan-selection')}>
                     Subscribe Now
                   </Button>
                 </div>
               </div>
             )}
             
-            {/* Elite Living Banner */}
             {activePlan === 'elite' && (
               <div className="bg-amber-50 p-4 rounded-lg mb-6 border border-amber-100">
                 <h2 className="text-lg font-semibold text-amber-700 mb-1 flex items-center">
@@ -223,7 +240,8 @@ const ProfileCreation = () => {
                 </p>
                 <div className="mt-2 text-xs bg-amber-100 px-3 py-2 rounded text-amber-800">
                   <strong>Subscribe now to Elite Living</strong> for the ultimate roommate matching experience.
-                  <Button variant="secondary" size="sm" className="ml-2 bg-amber-600 text-white hover:bg-amber-700">
+                  <Button variant="secondary" size="sm" className="ml-2 bg-amber-600 text-white hover:bg-amber-700"
+                    onClick={() => navigate('/living-plan-selection')}>
                     Subscribe Now
                   </Button>
                 </div>
@@ -232,7 +250,6 @@ const ProfileCreation = () => {
             
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                {/* Basic Plan Questions - Always Visible */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <FormField
                     control={form.control}
@@ -417,7 +434,6 @@ const ProfileCreation = () => {
                   />
                 </div>
                 
-                {/* Bio field for basic plan */}
                 {activePlan === 'basic' && (
                   <FormField
                     control={form.control}
@@ -441,7 +457,6 @@ const ProfileCreation = () => {
                   />
                 )}
                 
-                {/* Comfort Zone Plan Questions */}
                 {activePlan === 'comfort' && (
                   <>
                     <div className="border-t border-gray-200 pt-6 mt-4">
@@ -687,7 +702,6 @@ const ProfileCreation = () => {
                   </>
                 )}
                 
-                {/* Elite Living Plan Questions */}
                 {activePlan === 'elite' && (
                   <>
                     <div className="border-t border-gray-200 pt-6 mt-4">
