@@ -129,6 +129,10 @@
     "selected": "已选择",
     "selectPlan": "选择计划",
     "continue": "继续",
-    "pleaseSelect": "请选择一个生活计划以继续。"
+    "pleaseSelect": "请选择一个生活计划以继续。",
+    "planSelected": "计划已选择",
+    "soloSelected": "您已选择独居生活。让我们继续！",
+    "roommateSelected": "您已选择寻找室友。让我们继续！",
+    "error": "需要选择"
   }
 }

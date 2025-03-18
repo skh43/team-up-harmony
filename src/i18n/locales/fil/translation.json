@@ -129,6 +129,10 @@
     "selected": "Napili",
     "selectPlan": "Piliin ang Plan",
     "continue": "Magpatuloy",
-    "pleaseSelect": "Mangyaring pumili ng living plan para magpatuloy."
+    "pleaseSelect": "Mangyaring pumili ng living plan para magpatuloy.",
+    "planSelected": "Napili na ang Plan",
+    "soloSelected": "Pinili mo ang Solo Living. Magpatuloy tayo!",
+    "roommateSelected": "Pinili mo ang Maghanap ng Roommate. Magpatuloy tayo!",
+    "error": "Kinakailangan ang Pagpili"
   }
 }

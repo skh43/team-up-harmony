@@ -129,6 +129,10 @@
     "selected": "Selected",
     "selectPlan": "Select Plan",
     "continue": "Continue",
-    "pleaseSelect": "Please select a living plan to continue."
+    "pleaseSelect": "Please select a living plan to continue.",
+    "planSelected": "Plan Selected",
+    "soloSelected": "You've selected Solo Living. Let's continue!",
+    "roommateSelected": "You've selected Find a Roommate. Let's continue!",
+    "error": "Selection Required"
   }
 }
