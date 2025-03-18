@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -95,7 +96,7 @@ const LivingPlanSelection = () => {
           </div>
         </div>
         
-        {(selectedPlan === 'comfort' || showElitePromo) && (
+        {(selectedPlan === 'comfort' || selectedPlan === 'basic' || showElitePromo) && (
           <div className="mb-6 relative overflow-hidden rounded-xl shadow-elegant bg-gradient-to-r from-yellow-100 to-amber-200">
             <div className="absolute top-0 right-0 w-32 h-32 -mt-10 -mr-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full opacity-20"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 -mb-8 -ml-8 bg-gradient-to-tr from-yellow-400 to-amber-500 rounded-full opacity-20"></div>
