@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { ArrowRight, CheckCircle2, Star, Package, Home, Check } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Star, Package, Home, Check, Sparkles } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
 import Logo from '@/components/Logo';
@@ -22,9 +22,14 @@ const LivingPlanSelection = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [selectedPlan, setSelectedPlan] = useState<LivingPlan>(null);
+  const [showElitePromo, setShowElitePromo] = useState(false);
   
   const handlePlanChange = (plan: LivingPlan) => {
     setSelectedPlan(plan);
+    // Hide elite promo when elite is selected
+    if (plan === 'elite') {
+      setShowElitePromo(false);
+    }
   };
   
   const handleContinue = () => {
@@ -42,6 +47,15 @@ const LivingPlanSelection = () => {
     
     // Navigate to path selection after selecting a plan
     navigate('/path-selection');
+  };
+
+  const handleElitePromoToggle = () => {
+    setShowElitePromo(!showElitePromo);
+  };
+
+  const handleUpgradeToElite = () => {
+    setSelectedPlan('elite');
+    setShowElitePromo(false);
   };
   
   // Define plan card gradients and accent colors
@@ -77,6 +91,38 @@ const LivingPlanSelection = () => {
             <Logo size="small" showText={true} />
           </div>
         </div>
+        
+        {/* Elite Living Promotion Banner (shows when comfort is selected or promo button clicked) */}
+        {(selectedPlan === 'comfort' || showElitePromo) && (
+          <div className="mb-6 relative overflow-hidden rounded-xl shadow-elegant bg-gradient-to-r from-yellow-100 to-amber-200">
+            <div className="absolute top-0 right-0 w-32 h-32 -mt-10 -mr-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full opacity-20"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 -mb-8 -ml-8 bg-gradient-to-tr from-yellow-400 to-amber-500 rounded-full opacity-20"></div>
+            
+            <div className="p-6 md:p-8 relative z-10">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                <div className="flex items-center gap-3">
+                  <div className={`p-3 rounded-full ${planStyles.elite.iconBg} ${planStyles.elite.iconColor}`}>
+                    <Sparkles className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg md:text-xl font-bold bg-gradient-to-r from-amber-600 to-yellow-600 bg-clip-text text-transparent">
+                      Subscribe now to Elite Living
+                    </h3>
+                    <p className="text-sm md:text-base text-amber-800">
+                      Premium experience with advanced personality matching and exclusive features
+                    </p>
+                  </div>
+                </div>
+                <Button 
+                  onClick={handleUpgradeToElite}
+                  className="whitespace-nowrap bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 rounded-full text-white shadow-subtle"
+                >
+                  Upgrade to Elite <Star className="ml-1 h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
         
         <div className="grid md:grid-cols-3 gap-6 mb-10">
           <PlanCard
@@ -115,6 +161,19 @@ const LivingPlanSelection = () => {
             gradientClasses={planStyles.comfort.gradient}
             iconBgClass={planStyles.comfort.iconBg}
             iconColorClass={planStyles.comfort.iconColor}
+            actionButton={
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleElitePromoToggle();
+                }}
+                className="mt-2 text-xs text-purple-700 hover:text-purple-900 hover:bg-purple-50 flex items-center gap-1"
+              >
+                <Sparkles className="h-3 w-3" /> See Elite benefits
+              </Button>
+            }
           />
           
           <PlanCard
@@ -222,6 +281,7 @@ interface PlanCardProps {
   gradientClasses?: string;
   iconBgClass?: string;
   iconColorClass?: string;
+  actionButton?: React.ReactNode;
 }
 
 const PlanCard = ({ 
@@ -235,7 +295,8 @@ const PlanCard = ({
   onClick,
   gradientClasses = "from-primary to-primary",
   iconBgClass = "bg-primary/10",
-  iconColorClass = "text-primary"
+  iconColorClass = "text-primary",
+  actionButton
 }: PlanCardProps) => {
   return (
     <Card 
@@ -301,6 +362,11 @@ const PlanCard = ({
             </li>
           ))}
         </ul>
+        {actionButton && (
+          <div className="mt-3 flex justify-center">
+            {actionButton}
+          </div>
+        )}
       </CardContent>
       
       <CardFooter className="pt-4 mt-auto">
