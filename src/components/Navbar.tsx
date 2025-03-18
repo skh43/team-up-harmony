@@ -10,11 +10,13 @@ import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMe
 import { Building, Home, Users, Languages } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Logo from './Logo';
+import { useToast } from '@/components/ui/use-toast';
 
 const Navbar = () => {
   const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { toast } = useToast();
 
   const handleLogout = async () => {
     try {
@@ -22,6 +24,19 @@ const Navbar = () => {
       navigate('/');
     } catch (error) {
       console.error("Logout failed:", error);
+    }
+  };
+
+  const handleAuthRequiredAction = (path: string) => {
+    if (isAuthenticated) {
+      navigate(path);
+    } else {
+      toast({
+        title: "Authentication Required",
+        description: "Please login or register to access this feature.",
+        variant: "destructive",
+      });
+      navigate('/login');
     }
   };
 
@@ -44,9 +59,12 @@ const Navbar = () => {
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                     <li>
                       <NavigationMenuLink asChild>
-                        <Link
-                          to="/living-plan-selection"
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        <a
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleAuthRequiredAction('/living-plan-selection');
+                          }}
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md cursor-pointer"
                         >
                           <div className="mb-2 mt-4 text-lg font-medium">
                             Find a Roommate
@@ -54,14 +72,17 @@ const Navbar = () => {
                           <p className="text-sm leading-tight text-muted-foreground">
                             Match with compatible roommates based on your preferences
                           </p>
-                        </Link>
+                        </a>
                       </NavigationMenuLink>
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <Link
-                          to="/matching"
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        <a
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleAuthRequiredAction('/matching');
+                          }}
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md cursor-pointer"
                         >
                           <div className="mb-2 mt-4 text-lg font-medium">
                             View Matches
@@ -69,7 +90,7 @@ const Navbar = () => {
                           <p className="text-sm leading-tight text-muted-foreground">
                             Browse your current roommate matches
                           </p>
-                        </Link>
+                        </a>
                       </NavigationMenuLink>
                     </li>
                   </ul>
@@ -85,9 +106,12 @@ const Navbar = () => {
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                     <li>
                       <NavigationMenuLink asChild>
-                        <Link
-                          to="/properties"
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        <a
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleAuthRequiredAction('/properties');
+                          }}
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md cursor-pointer"
                         >
                           <div className="mb-2 mt-4 text-lg font-medium">
                             Browse Properties
@@ -95,14 +119,17 @@ const Navbar = () => {
                           <p className="text-sm leading-tight text-muted-foreground">
                             Find available properties for you and your roommates
                           </p>
-                        </Link>
+                        </a>
                       </NavigationMenuLink>
                     </li>
                     <li>
                       <NavigationMenuLink asChild>
-                        <Link
-                          to="/list-property"
-                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                        <a
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleAuthRequiredAction('/list-property');
+                          }}
+                          className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md cursor-pointer"
                         >
                           <div className="mb-2 mt-4 text-lg font-medium">
                             List Your Property
@@ -110,7 +137,7 @@ const Navbar = () => {
                           <p className="text-sm leading-tight text-muted-foreground">
                             Add your property to our marketplace
                           </p>
-                        </Link>
+                        </a>
                       </NavigationMenuLink>
                     </li>
                   </ul>
