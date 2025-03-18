@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -7,7 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { ArrowRight, CheckCircle2, Star, Package, Home, Check, Sparkles, Users } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
-import SimpleTeamUpLogo from '@/components/SimpleTeamUpLogo';
+import Logo from '@/components/Logo';
 
 type LivingPlan = 'basic' | 'comfort' | 'elite' | null;
 
@@ -92,18 +91,16 @@ const LivingPlanSelection = () => {
           </p>
           
           <div className="flex justify-center my-6">
-            <SimpleTeamUpLogo size="large" />
+            <Logo size="large" />
           </div>
         </div>
         
         {(selectedPlan === 'comfort' || selectedPlan === 'basic' || showElitePromo) && (
           <div className="mb-6 relative overflow-hidden rounded-xl shadow-elegant bg-gradient-to-r from-[#FFF3DC] to-[#FFE0B0] border border-amber-200/50">
-            {/* Enhanced decorative elements */}
             <div className="absolute top-0 right-0 w-40 h-40 -mt-16 -mr-16 bg-gradient-to-br from-amber-400 to-yellow-300 rounded-full opacity-20 animate-pulse-slow"></div>
             <div className="absolute bottom-0 left-0 w-32 h-32 -mb-12 -ml-12 bg-gradient-to-tr from-amber-500 to-yellow-400 rounded-full opacity-20"></div>
             <div className="absolute top-1/2 left-1/4 w-16 h-16 -mt-8 -ml-8 bg-yellow-300 rounded-full opacity-10 animate-float"></div>
             
-            {/* Enhanced content with better spacing and visual hierarchy */}
             <div className="p-6 md:p-8 relative z-10">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
