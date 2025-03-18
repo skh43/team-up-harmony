@@ -32,7 +32,12 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
- 
+
+    --team-red: 0 84% 60%;
+    --team-blue: 220 100% 50%;
+    --team-orange: 30 100% 60%;
+    --team-green: 142 76% 36%;
+
     --radius: 0.5rem;
   }
  
@@ -76,6 +81,26 @@
   }
 }
 
+/* Tech Pattern */
+.tech-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Glass Panel */
+.glass-panel {
+  @apply bg-white/40 backdrop-blur-md border border-white/30 shadow-md;
+}
+
+/* Animations & Effects */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
 /* RTL Support */
 html[dir="rtl"] * {
   text-align: right;
@@ -106,4 +131,21 @@ html[dir="rtl"] .ml-3,
 html[dir="rtl"] .ml-4 {
   margin-right: 0.25rem;
   margin-left: 0;
+}
+
+/* Custom Gradients and Colors */
+.gradient-primary {
+  @apply bg-gradient-to-r from-[#01CDFA] via-[#3DB2FF] to-[#516CF7];
+}
+
+.gradient-secondary {
+  @apply bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0];
+}
+
+.text-gradient-primary {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#01CDFA] via-[#3DB2FF] to-[#516CF7];
+}
+
+.text-gradient-secondary {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0];
 }
