@@ -101,6 +101,29 @@
   animation: float 3s ease-in-out infinite;
 }
 
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: -200% 0%;
+  }
+}
+
+.animate-shimmer {
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite linear;
+}
+
 /* RTL Support */
 html[dir="rtl"] * {
   text-align: right;
@@ -148,4 +171,26 @@ html[dir="rtl"] .ml-4 {
 
 .text-gradient-secondary {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0];
+}
+
+/* Shadow effects */
+.shadow-subtle {
+  @apply shadow-[0_2px_10px_rgba(0,0,0,0.08)];
+}
+
+.shadow-elegant {
+  @apply shadow-[0_4px_20px_rgba(0,0,0,0.08)];
+}
+
+/* Animated Link Effects */
+.link-hover-effect {
+  @apply relative;
+}
+
+.link-hover-effect::after {
+  @apply content-[''] absolute w-0 h-0.5 bg-current left-0 bottom-0 transition-all duration-300;
+}
+
+.link-hover-effect:hover::after {
+  @apply w-full;
 }
