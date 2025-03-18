@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
@@ -18,17 +19,43 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        gradient: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-md hover:shadow-lg",
+        gradientPurple: "bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md hover:shadow-lg",
+        gradientGreen: "bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-700 hover:to-emerald-700 shadow-md hover:shadow-lg",
+        gradientGold: "bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600 shadow-md hover:shadow-lg",
+        shine: "btn-shine bg-primary text-primary-foreground hover:bg-primary/90",
+        glass: "bg-white/20 backdrop-blur-md border border-white/30 text-primary hover:bg-white/30 shadow-sm hover:shadow-md",
       },
       size: {
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "h-11 rounded-md px-8",
+        xl: "h-12 text-base rounded-md px-10 py-3",
         icon: "h-10 w-10",
       },
+      radius: {
+        default: "rounded-md",
+        none: "rounded-none",
+        sm: "rounded",
+        md: "rounded-md",
+        lg: "rounded-lg",
+        xl: "rounded-xl",
+        full: "rounded-full"
+      },
+      animation: {
+        none: "",
+        pulse: "animate-pulse",
+        bounce: "hover:animate-subtle-bounce",
+        scale: "transition-transform hover:scale-105 active:scale-95",
+        shine: "btn-shine",
+        glow: "hover:shadow-glow-sm transition-shadow duration-300"
+      }
     },
     defaultVariants: {
       variant: "default",
       size: "default",
+      radius: "default",
+      animation: "none"
     },
   }
 )
@@ -40,11 +67,11 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, radius, animation, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, radius, animation, className }))}
         ref={ref}
         {...props}
       />

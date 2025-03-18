@@ -86,9 +86,28 @@
   background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
+/* Dot Pattern */
+.dot-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Wave Pattern */
+.wave-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.952.383 1.9.742 2.85 1.072h-2.483c-.76-.23-1.522-.47-2.29-.727C63.085 15.464 58.128 14 50 14c-9.039 0-14.632 1.632-24.1 5.507-.9.371-1.794.711-2.689 1.009-.87.287-1.74.557-2.61.806L21.184 20zm0-10c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928.952.383 1.9.742 2.85 1.072h-2.483c-.76-.23-1.522-.47-2.29-.727C63.085 5.464 58.128 4 50 4c-9.039 0-14.632 1.632-24.1 5.507-.9.371-1.794.711-2.689 1.009-.87.287-1.74.557-2.61.806L21.184 10zm0-10c.357-.13.72-.264 1.088-.402l1.768-.661C33.64-4.653 39.647-6 50-6c10.271 0 15.362 1.222 24.629 4.928.952.383 1.9.742 2.85 1.072h-2.483c-.76-.23-1.522-.47-2.29-.727C63.085-4.536 58.128-6 50-6c-9.039 0-14.632 1.632-24.1 5.507-.9.371-1.794.711-2.689 1.009-.87.287-1.74.557-2.61.806L21.184 0z' fill='%239C92AC' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
 /* Glass Panel */
 .glass-panel {
   @apply bg-white/40 backdrop-blur-md border border-white/30 shadow-md;
+}
+
+/* Enhanced glass morphism */
+.glass-morphism {
+  @apply bg-white/20 backdrop-blur-xl border border-white/40 shadow-lg;
+}
+
+.glass-card {
+  @apply bg-white/70 backdrop-blur-md border border-white/50 shadow-lg;
 }
 
 /* Animations & Effects */
@@ -122,6 +141,61 @@
 .animate-shimmer {
   background-size: 200% 100%;
   animation: shimmer 2s infinite linear;
+}
+
+/* Enhanced Gradient Borders */
+.gradient-border {
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: inherit;
+  background: linear-gradient(45deg, #9b87f5, #0EA5E9, #D946EF, #9b87f5);
+  background-size: 400% 400%;
+  animation: border-animation 8s ease infinite;
+  z-index: -1;
+}
+
+@keyframes border-animation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Fancy Button Styles */
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.4), 
+    transparent
+  );
+  animation: btn-shine 3s infinite;
+}
+
+@keyframes btn-shine {
+  0% { left: -100%; }
+  20% { left: 100%; }
+  100% { left: 100%; }
 }
 
 /* RTL Support */
@@ -165,12 +239,36 @@ html[dir="rtl"] .ml-4 {
   @apply bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0];
 }
 
+.gradient-sunset {
+  @apply bg-gradient-to-r from-[#fa7199] via-[#f5548e] to-[#f83a3a];
+}
+
+.gradient-royal {
+  @apply bg-gradient-to-r from-[#7764FA] via-[#8A5CF6] to-[#A844F2];
+}
+
+.gradient-emerald {
+  @apply bg-gradient-to-r from-[#13B0A5] via-[#0CC89D] to-[#12D8A0];
+}
+
+.gradient-golden {
+  @apply bg-gradient-to-r from-[#FFB347] via-[#FFCC33] to-[#FF9900];
+}
+
 .text-gradient-primary {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-[#01CDFA] via-[#3DB2FF] to-[#516CF7];
 }
 
 .text-gradient-secondary {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0];
+}
+
+.text-gradient-sunset {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#fa7199] via-[#f5548e] to-[#f83a3a];
+}
+
+.text-gradient-royal {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#7764FA] via-[#8A5CF6] to-[#A844F2];
 }
 
 /* Shadow effects */
@@ -180,6 +278,11 @@ html[dir="rtl"] .ml-4 {
 
 .shadow-elegant {
   @apply shadow-[0_4px_20px_rgba(0,0,0,0.08)];
+}
+
+.shadow-3d {
+  box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
+              0 0 0 1px rgba(10, 10, 10, 0.02);
 }
 
 /* Animated Link Effects */
