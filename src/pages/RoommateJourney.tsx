@@ -10,7 +10,8 @@ import {
   UserCog, 
   UsersRound, 
   HomeIcon, 
-  ChevronRight 
+  ChevronRight,
+  Handshake
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -30,8 +31,8 @@ const RoommateJourney = () => {
   const steps = [
     {
       number: 1,
-      title: t('roommate.step1Title'),
-      description: t('roommate.step1Description'),
+      title: "Select Your Path",
+      description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite.",
       icon: <Compass className="h-10 w-10" />,
       gradientFrom: "from-indigo-400",
       gradientTo: "to-purple-500",
@@ -39,8 +40,8 @@ const RoommateJourney = () => {
     },
     {
       number: 2,
-      title: t('roommate.step2Title'),
-      description: t('roommate.step2Description'),
+      title: "Create Your Profile",
+      description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
       icon: <UserCog className="h-10 w-10" />,
       gradientFrom: "from-cyan-400",
       gradientTo: "to-blue-500",
@@ -48,8 +49,8 @@ const RoommateJourney = () => {
     },
     {
       number: 3,
-      title: t('roommate.step3Title'),
-      description: t('roommate.step3Description'),
+      title: "Start Matching",
+      description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match.",
       icon: <UsersRound className="h-10 w-10" />,
       gradientFrom: "from-orange-400",
       gradientTo: "to-pink-500",
@@ -57,9 +58,9 @@ const RoommateJourney = () => {
     },
     {
       number: 4,
-      title: t('roommate.step4Title'),
-      description: t('roommate.step4Description'),
-      icon: <HomeIcon className="h-10 w-10" />,
+      title: "Team Up",
+      description: "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement.",
+      icon: <Handshake className="h-10 w-10" />,
       gradientFrom: "from-green-400",
       gradientTo: "to-emerald-500",
       cardBg: "bg-green-50"
