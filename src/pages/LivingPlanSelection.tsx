@@ -25,7 +25,6 @@ const LivingPlanSelection = () => {
   
   const handlePlanChange = (plan: LivingPlan) => {
     setSelectedPlan(plan);
-    // Hide elite promo when elite is selected
     if (plan === 'elite') {
       setShowElitePromo(false);
     }
@@ -41,16 +40,13 @@ const LivingPlanSelection = () => {
       return;
     }
     
-    // Store selection
     localStorage.setItem('livingPlan', selectedPlan);
     
-    // If comfort or elite is selected, navigate to payment page
     if (selectedPlan === 'comfort' || selectedPlan === 'elite') {
       navigate('/payment');
       return;
     }
     
-    // Otherwise navigate to path selection (for basic plan)
     navigate('/path-selection');
   };
 
@@ -63,7 +59,6 @@ const LivingPlanSelection = () => {
     setShowElitePromo(false);
   };
   
-  // Define plan card gradients and accent colors
   const planStyles = {
     basic: {
       gradient: "from-[#01CDFA] to-[#516CF7]",
@@ -84,7 +79,7 @@ const LivingPlanSelection = () => {
   
   return (
     <MainLayout className="flex flex-col items-center justify-center min-h-screen p-4">
-      <div className="w-full max-w-5xl pt-16"> {/* Added top padding here to move content down */}
+      <div className="w-full max-w-5xl pt-16">
         <div className="mb-10 text-center">
           <div className="flex items-center justify-center mb-4">
             <Users className="h-8 w-8 mr-2 text-primary" />
@@ -95,13 +90,11 @@ const LivingPlanSelection = () => {
             Select the plan that best fits your lifestyle and preferences.
           </p>
           
-          {/* Show a small logo for brand alignment */}
           <div className="flex justify-center my-6">
-            <Logo size="small" showText={true} />
+            <Logo size="large" showText={true} />
           </div>
         </div>
         
-        {/* Elite Living Promotion Banner (shows when comfort is selected or promo button clicked) */}
         {(selectedPlan === 'comfort' || showElitePromo) && (
           <div className="mb-6 relative overflow-hidden rounded-xl shadow-elegant bg-gradient-to-r from-yellow-100 to-amber-200">
             <div className="absolute top-0 right-0 w-32 h-32 -mt-10 -mr-10 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-full opacity-20"></div>
@@ -316,7 +309,6 @@ const PlanCard = ({
       )}
       onClick={onClick}
     >
-      {/* Top gradient border */}
       <div className={cn(
         "absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r",
         gradientClasses
@@ -324,7 +316,6 @@ const PlanCard = ({
       
       {selected && (
         <>
-          {/* Add a subtle glow effect when selected */}
           <div className="absolute inset-0 opacity-5 bg-gradient-to-b from-transparent to-current pointer-events-none" />
           <div className="absolute top-3 right-3">
             <CheckCircle2 className={cn("h-6 w-6", iconColorClass)} />
