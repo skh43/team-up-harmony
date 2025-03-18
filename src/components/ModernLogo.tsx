@@ -34,7 +34,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           animated && "hover:scale-105"
         )}
       />
-      <span className="ml-2 font-bold text-primary hidden sm:block">{t('common.teamUp', 'Team Up')}</span>
     </div>
   );
 };
