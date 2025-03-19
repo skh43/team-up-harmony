@@ -36,7 +36,11 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 };
 
 // Roommate finding flow route with sequential validation
-const RoommateFlowRoute = ({ children, step }: { children: React.ReactNode, step: number }) => {
+const RoommateFlowRoute = ({ children, step, checkPlan = false }: { 
+  children: React.ReactNode, 
+  step: number, 
+  checkPlan?: boolean 
+}) => {
   const { isAuthenticated } = useAuth();
   
   if (!isAuthenticated) {
@@ -53,6 +57,14 @@ const RoommateFlowRoute = ({ children, step }: { children: React.ReactNode, step
   
   if (step >= 3 && !userPath) {
     return <Navigate to="/path-selection" replace />;
+  }
+  
+  // If this route requires payment validation for premium plans
+  if (checkPlan && (livingPlan === 'comfort' || livingPlan === 'elite')) {
+    const paymentComplete = localStorage.getItem('paymentComplete');
+    if (!paymentComplete) {
+      return <Navigate to="/payment" replace />;
+    }
   }
   
   return <>{children}</>;
@@ -76,7 +88,7 @@ const AppRoutes = () => {
       <Route path="/living-plan-selection" element={<RoommateFlowRoute step={1}><LivingPlanSelection /></RoommateFlowRoute>} />
       <Route path="/payment" element={<RoommateFlowRoute step={1}><Payment /></RoommateFlowRoute>} />
       <Route path="/path-selection" element={<RoommateFlowRoute step={2}><PathSelection /></RoommateFlowRoute>} />
-      <Route path="/profile-creation" element={<RoommateFlowRoute step={3}><ProfileCreation /></RoommateFlowRoute>} />
+      <Route path="/profile-creation" element={<RoommateFlowRoute step={3} checkPlan={true}><ProfileCreation /></RoommateFlowRoute>} />
       <Route path="/matching" element={<RoommateFlowRoute step={4}><Matching /></RoommateFlowRoute>} />
       
       {/* Property Management - Just requires login */}
