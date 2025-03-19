@@ -160,7 +160,7 @@ const Index = () => {
                       <ModernLogo 
                         size="giant" 
                         variant="default" 
-                        className="w-[550px] mb-8" 
+                        className="w-[550px] mb-8 overflow-visible" 
                         showTagline={true} 
                         animateThunder={true} 
                       />
