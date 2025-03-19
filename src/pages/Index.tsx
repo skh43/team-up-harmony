@@ -17,24 +17,28 @@ const Index = () => {
 
   const features = [
     {
-      icon: <Users className="h-6 w-6 text-blue-500" />,
+      icon: <Users className="h-8 w-8 text-blue-500" />,
       title: "Smart Matching",
-      description: "Our AI-powered algorithm finds roommates with compatible lifestyles and preferences."
+      description: "Experience our intelligent algorithm that connects you with roommates who complement your lifestyle and align with your preferences perfectly.",
+      color: "from-blue-500 to-violet-500"
     },
     {
-      icon: <Shield className="h-6 w-6 text-purple-500" />,
+      icon: <Shield className="h-8 w-8 text-purple-500" />,
       title: "Verified Profiles",
-      description: "Every user is verified for your safety and peace of mind."
+      description: "Rest easy knowing each person on our platform has undergone thorough verification, ensuring your complete peace of mind and safety.",
+      color: "from-purple-500 to-pink-500"
     },
     {
-      icon: <Home className="h-6 w-6 text-emerald-500" />,
+      icon: <Home className="h-8 w-8 text-emerald-500" />,
       title: "Quality Listings",
-      description: "Browse high-quality, verified properties that match your budget and needs."
+      description: "Discover exceptional, fully-vetted properties tailored to your specific budget requirements and personal preferences.",
+      color: "from-emerald-500 to-teal-500"
     },
     {
-      icon: <Star className="h-6 w-6 text-amber-500" />,
+      icon: <Star className="h-8 w-8 text-amber-500" />,
       title: "Seamless Experience",
-      description: "From matching to moving in, we make the entire process smooth and stress-free."
+      description: "Enjoy a premium journey from initial match to move-in day, with every step expertly designed to be effortless and stress-free.",
+      color: "from-amber-500 to-orange-500"
     }
   ];
 
@@ -119,7 +123,7 @@ const Index = () => {
               </motion.div>
               
               <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight font-playfair"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.8 }}
@@ -128,7 +132,7 @@ const Index = () => {
               </motion.h1>
               
               <motion.p 
-                className="text-xl text-muted-foreground mb-8 max-w-2xl"
+                className="text-xl text-muted-foreground mb-8 max-w-2xl font-playfair"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
@@ -151,7 +155,7 @@ const Index = () => {
                     boxShadow: "0 10px 25px -5px rgba(124, 58, 237, 0.5)" 
                   }}
                   whileTap={{ scale: 0.95 }}
-                  className="font-semibold shadow-lg"
+                  className="font-semibold shadow-lg font-playfair"
                   asChild
                 >
                   <a href="#how-it-works">
@@ -166,7 +170,7 @@ const Index = () => {
                   radius="full"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="border-purple-300 text-purple-700 font-semibold"
+                  className="border-purple-300 text-purple-700 font-semibold font-playfair"
                   asChild
                 >
                   <a href="/about">
@@ -213,15 +217,7 @@ const Index = () => {
                   className="w-full h-auto rounded-2xl shadow-2xl relative z-10 border border-white/50"
                 />
                 
-                {/* Floating elements */}
-                <motion.div 
-                  className="absolute -top-6 left-10 bg-white rounded-lg shadow-lg px-3 py-2 flex items-center z-20"
-                  animate={{ y: [0, -10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <div className="bg-green-500 rounded-full w-3 h-3 mr-2"></div>
-                  <span className="text-sm font-medium">1000+ Active Users</span>
-                </motion.div>
+                {/* Removed the "1000+ Active Users" floating element as requested */}
                 
                 <motion.div 
                   className="absolute -bottom-6 right-10 bg-white rounded-lg shadow-lg px-3 py-2 flex items-center z-20"
@@ -237,8 +233,8 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Feature Section */}
-      <section className="py-16 bg-gradient-to-b from-white to-gray-50">
+      {/* Feature Section - Enhanced to be more attractive */}
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
         <div className="container px-4 mx-auto">
           <motion.div 
             className="text-center mb-16"
@@ -252,10 +248,10 @@ const Index = () => {
             >
               Why Choose TeamUp
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 mb-4">
-              Features Designed for You
+            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 mb-4 font-playfair">
+              Premium Features Tailored For You
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-playfair">
               We've built powerful tools to make your roommate search efficient, safe, and successful.
             </p>
           </motion.div>
@@ -273,12 +269,13 @@ const Index = () => {
                 variants={itemVariants}
                 whileHover={{ y: -10, transition: { duration: 0.3 } }}
               >
-                <Card variant="glass" radius="xl" className="h-full">
-                  <CardContent className="p-6">
-                    <div className="w-14 h-14 mb-5 rounded-full bg-gray-100 flex items-center justify-center">
+                <Card variant="glass" radius="xl" className="h-full overflow-hidden shadow-lg border border-white/50">
+                  <div className={`h-2 w-full bg-gradient-to-r ${feature.color}`}></div>
+                  <CardContent className="p-8">
+                    <div className="w-16 h-16 mb-5 rounded-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-white shadow-md">
                       {feature.icon}
                     </div>
-                    <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                    <h3 className="text-xl font-bold mb-3 font-playfair">{feature.title}</h3>
                     <p className="text-muted-foreground">{feature.description}</p>
                   </CardContent>
                 </Card>
@@ -309,10 +306,10 @@ const Index = () => {
             >
               Success Stories
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 mb-4 font-playfair">
               Hear From Our Users
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-playfair">
               Join thousands of happy users who found their perfect roommate match.
             </p>
           </motion.div>
@@ -341,9 +338,9 @@ const Index = () => {
                         />
                       </div>
                     </div>
-                    <p className="text-center text-lg italic mb-4">"{testimonial.quote}"</p>
+                    <p className="text-center text-lg italic mb-4 font-playfair">"{testimonial.quote}"</p>
                     <div className="text-center">
-                      <p className="font-semibold">{testimonial.author}</p>
+                      <p className="font-semibold font-playfair">{testimonial.author}</p>
                       <p className="text-sm text-muted-foreground">{testimonial.role}</p>
                     </div>
                   </CardContent>
@@ -369,12 +366,12 @@ const Index = () => {
             transition={{ duration: 0.8 }}
             className="max-w-3xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playfair">
               <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
                 {t('index.ready')}
               </span>
             </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto font-playfair">
               {t('index.joinThousands')}
             </p>
             
@@ -382,7 +379,7 @@ const Index = () => {
               variant="gradientPurple"
               size="xl"
               radius="full"
-              className="px-10 py-6 text-base font-bold shadow-lg"
+              className="px-10 py-6 text-base font-bold shadow-lg font-playfair"
               whileHover={{ 
                 scale: 1.05, 
                 boxShadow: "0 10px 25px -5px rgba(124, 58, 237, 0.5)" 
@@ -396,7 +393,7 @@ const Index = () => {
               </a>
             </MotionButton>
             
-            <p className="mt-6 text-sm text-muted-foreground">
+            <p className="mt-6 text-sm text-muted-foreground font-playfair">
               No credit card required. Start for free and upgrade anytime.
             </p>
           </motion.div>
