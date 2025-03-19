@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import RoommateJourney from './RoommateJourney';
@@ -156,7 +155,7 @@ const Index = () => {
               >
                 <HoverCard>
                   <HoverCardTrigger asChild>
-                    <div className="gradient-border gradient-border-reverse p-1 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105 relative">
+                    <div className="p-1 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105 relative">
                       <ModernLogo 
                         size="giant" 
                         variant="default" 
@@ -324,3 +323,4 @@ const Index = () => {
 };
 
 export default Index;
+
