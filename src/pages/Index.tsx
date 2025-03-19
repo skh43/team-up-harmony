@@ -6,6 +6,7 @@ import { Check, Users, Shield, Home, Star, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import ModernLogo from '@/components/ModernLogo';
 
 const Index = () => {
   const { t } = useTranslation();
@@ -144,15 +145,17 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="lg:w-1/2">
-              <motion.img 
-                src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
-                alt="Roommate matching" 
-                className="w-full h-auto rounded-lg shadow-lg border border-gray-100"
+            <div className="lg:w-1/2 flex justify-center items-center flex-col">
+              <motion.div 
+                className="flex flex-col items-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-              />
+              >
+                <ModernLogo size="xlarge" variant="gradient" className="w-64 h-64 mb-6" />
+                <h2 className="text-3xl font-bold text-gray-800 mt-4">Team Up</h2>
+                <p className="text-lg text-gray-600 mt-2">Find your perfect roommate today!</p>
+              </motion.div>
             </div>
           </div>
         </div>
