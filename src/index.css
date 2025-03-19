@@ -196,6 +196,10 @@
   background-size: 200% 200%;
 }
 
+.gradient-border:hover .team-up-label {
+  opacity: 0;
+}
+
 /* Fancy Button Styles */
 .btn-shine {
   position: relative;
