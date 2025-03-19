@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Check, CreditCard, Calendar, Lock } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import { useTranslation } from 'react-i18next';
@@ -21,15 +21,15 @@ const Payment = () => {
   
   useEffect(() => {
     // Get the selected plan from localStorage
-    const plan = localStorage.getItem('livingPlan');
-    if (!plan || plan === 'basic') {
-      // Redirect to path selection if no plan is found or it's basic
-      navigate('/path-selection');
+    const planTier = localStorage.getItem('planTier');
+    if (!planTier || planTier === 'basic') {
+      // Redirect to living plan selection if no premium plan is found
+      navigate('/living-plan-selection');
       return;
     }
     
-    setSelectedPlan(plan);
-    setPlanPrice(plan === 'comfort' ? 'SAR 29.99' : 'SAR 59.99');
+    setSelectedPlan(planTier);
+    setPlanPrice(planTier === 'comfort' ? 'SAR 29.99' : 'SAR 59.99');
   }, [navigate]);
   
   const handleSubmit = (e: React.FormEvent) => {
@@ -40,9 +40,13 @@ const Payment = () => {
     setTimeout(() => {
       setIsProcessing(false);
       
+      // Store payment completion in localStorage
+      localStorage.setItem('paymentComplete', 'true');
+      
+      // Show subscription activated toast
       toast({
-        title: "Payment successful",
-        description: `Your ${selectedPlan?.charAt(0).toUpperCase()}${selectedPlan?.slice(1)} Living plan is now active!`,
+        title: "Subscription Activated!",
+        description: `Your ${selectedPlan === 'comfort' ? 'Comfort' : 'Elite'} Living plan has been successfully activated!`,
         variant: "default",
       });
       

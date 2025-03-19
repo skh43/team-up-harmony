@@ -105,7 +105,7 @@ const LivingPlanSelection = () => {
   
   const handleTierSelect = (tierId: string) => {
     setSelectedTier(tierId);
-    if (tierId === 'basic' || tierId === 'comfort') {
+    if (tierId === 'basic') {
       setShowEliteUpgrade(true);
     } else {
       setShowEliteUpgrade(false);
@@ -131,10 +131,12 @@ const LivingPlanSelection = () => {
       variant: "default",
     });
     
-    if (user) {
-      navigate('/path-selection');
+    if (selectedTier === 'comfort' || selectedTier === 'elite') {
+      // For premium tiers, navigate to payment
+      navigate('/payment');
     } else {
-      navigate(`/register?plan=roommate&tier=${selectedTier}`);
+      // For basic tier, navigate to path selection
+      navigate('/path-selection');
     }
   };
 

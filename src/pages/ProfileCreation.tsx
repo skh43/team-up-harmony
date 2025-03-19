@@ -10,7 +10,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { User, Save, Building, Calendar, DollarSign, Clock, HeartHandshake, Users, Coffee, Star } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import { TabView, TabsContent } from '@/components/ui/tab-view';
@@ -65,11 +65,22 @@ const ProfileCreation = () => {
   
   useEffect(() => {
     const selectedPlanTier = localStorage.getItem('planTier');
+    const paymentComplete = localStorage.getItem('paymentComplete');
+    
+    if ((selectedPlanTier === 'comfort' || selectedPlanTier === 'elite') && !paymentComplete) {
+      toast({
+        title: "Payment Required",
+        description: "Please complete the payment to access premium features",
+        variant: "destructive",
+      });
+      navigate('/payment');
+      return;
+    }
     
     if (selectedPlanTier && (selectedPlanTier === 'basic' || selectedPlanTier === 'comfort' || selectedPlanTier === 'elite')) {
       setActivePlan(selectedPlanTier);
     }
-  }, []);
+  }, [navigate, toast]);
   
   const form = useForm<ProfileValues>({
     resolver: zodResolver(profileSchema),
@@ -525,28 +536,14 @@ const ProfileCreation = () => {
             <div className="w-full">
               {renderBasicPlanContent()}
             </div>
+          ) : activePlan === 'comfort' ? (
+            <div className="w-full">
+              {renderPremiumPlanContent('comfort')}
+            </div>
           ) : (
-            <TabView
-              defaultValue={activePlan}
-              onValueChange={handlePlanChange}
-              tabs={[
-                { value: 'basic', label: 'Basic Living', icon: <Users className="h-4 w-4" />, color: 'blue' },
-                { value: 'comfort', label: 'Comfort Zone', icon: <Coffee className="h-4 w-4" />, color: 'purple' },
-                { value: 'elite', label: 'Elite Living', icon: <Star className="h-4 w-4" />, color: 'amber' }
-              ]}
-            >
-              <TabsContent value="basic">
-                {renderBasicPlanContent()}
-              </TabsContent>
-
-              <TabsContent value="comfort">
-                {renderPremiumPlanContent('comfort')}
-              </TabsContent>
-
-              <TabsContent value="elite">
-                {renderPremiumPlanContent('elite')}
-              </TabsContent>
-            </TabView>
+            <div className="w-full">
+              {renderPremiumPlanContent('elite')}
+            </div>
           )}
         </motion.div>
       </div>
