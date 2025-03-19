@@ -2,7 +2,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
 
 interface ModernLogoProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'hero' | 'giant';
@@ -25,7 +24,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     large: 'h-10',
     xlarge: 'h-12',
     hero: 'h-48',
-    giant: 'h-80' // Added a new 'giant' size class
+    giant: 'h-80'
   };
 
   const variants = {
@@ -33,42 +32,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     glow: "drop-shadow-[0_0_15px_rgba(124,58,237,0.6)]",
     gradient: "gradient-border p-1",
     shine: "animate-shimmer bg-gradient-shine bg-[length:400%_100%]"
-  };
-
-  // Animation variants for text
-  const textVariants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: "easeOut"
-      }
-    },
-    hover: {
-      scale: 1.05,
-      textShadow: "0 0 15px rgba(124,58,237,0.8)",
-      transition: {
-        duration: 0.3,
-        yoyo: Infinity,
-        ease: "easeInOut"
-      }
-    }
-  };
-
-  // Letters animation for the text
-  const letterVariants = {
-    initial: { opacity: 0, y: 50 },
-    animate: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: i * 0.1,
-        duration: 0.5,
-        ease: [0.6, -0.05, 0.01, 0.99]
-      }
-    })
   };
 
   return (
@@ -115,36 +78,14 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
       {/* Team Up text next to or below the logo depending on size */}
       {showText && (
         <div className={cn("flex flex-col", (size === 'hero' || size === 'giant') ? 'mt-4' : 'ml-2')}>
-          <motion.div
-            initial="initial"
-            animate="animate"
-            whileHover="hover"
-            className="overflow-hidden"
+          <span 
+            className={cn(
+              "font-montserrat font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-400",
+              size === 'giant' ? 'text-8xl' : size === 'hero' ? 'text-5xl' : 'text-2xl'
+            )}
           >
-            {/* Using Mont font for main text with gradient */}
-            <motion.span 
-              className={cn(
-                "font-montserrat font-extrabold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-400",
-                size === 'giant' ? 'text-8xl' : size === 'hero' ? 'text-5xl' : 'text-2xl'
-              )}
-              variants={textVariants}
-            >
-              {t('common.teamUp').split('').map((letter, index) => (
-                <motion.span
-                  key={index}
-                  custom={index}
-                  variants={letterVariants}
-                  className="inline-block animate-float"
-                  style={{
-                    animationDelay: `${index * 0.1}s`,
-                    animationDuration: '3s'
-                  }}
-                >
-                  {letter}
-                </motion.span>
-              ))}
-            </motion.span>
-          </motion.div>
+            {t('common.teamUp')}
+          </span>
         </div>
       )}
     </div>
