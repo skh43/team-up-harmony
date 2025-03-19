@@ -52,20 +52,20 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
       {showText ? (
         <div className={cn("relative", sizeClasses[size], variants[variant])}>
           <div className="flex items-center relative">
-            {/* Text Logo instead of SVG */}
+            {/* Text Logo with enhanced contrast and lighting */}
             <span className={cn(
-              "font-bold tracking-tighter",
+              "font-bold tracking-tighter drop-shadow-md",
               size === 'giant' ? 'text-8xl' : 
               size === 'hero' ? 'text-6xl' : 
               size === 'xlarge' ? 'text-4xl' :
               size === 'large' ? 'text-3xl' :
               size === 'medium' ? 'text-2xl' : 'text-xl'
             )}>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">te</span>
-              <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent">am</span>
-              {/* Space for the thunder bolt */}
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">te</span>
+              <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold">am</span>
+              {/* Space for the thunder bolt with enhanced visibility */}
               <span className="relative">
-                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">u</span>
+                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold">u</span>
                 <span className="absolute" style={{ 
                   top: size === 'giant' ? '-40px' : 
                        size === 'hero' ? '-30px' : 
@@ -80,7 +80,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
                 }}>
                   <Zap 
                     className={cn(
-                      "fill-yellow-400 text-yellow-400 rotate-12 transform",
+                      "fill-yellow-400 text-yellow-400 rotate-12 transform drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]",
                       size === 'giant' ? 'h-16 w-16' : 
                       size === 'hero' ? 'h-12 w-12' : 
                       size === 'xlarge' ? 'h-6 w-6' : 
@@ -89,15 +89,15 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
                     )}
                   />
                 </span>
-                <span className="bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent">p</span>
+                <span className="bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent font-extrabold">p</span>
               </span>
             </span>
           </div>
 
-          {/* Tagline */}
+          {/* Tagline with enhanced contrast */}
           {showTagline && (
             <div className={cn(
-              "text-center text-blue-600 font-medium mt-1",
+              "text-center text-blue-700 font-semibold mt-1 drop-shadow-sm",
               taglineSizes[size]
             )}>
               roommate discovery, simplified
