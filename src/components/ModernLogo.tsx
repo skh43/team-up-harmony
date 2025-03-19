@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
@@ -139,27 +138,28 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
                 <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold">u</span>
                 <span className="absolute" style={{ 
                   top: position < 0 ? `${position}px` : 
-                       size === 'giant' ? '-40px' : 
-                       size === 'hero' ? '-30px' : 
-                       size === 'xlarge' ? '-15px' : 
-                       size === 'large' ? '-12px' :
-                       size === 'medium' ? '-10px' : '-8px',
-                  right: size === 'giant' ? '10px' : 
-                        size === 'hero' ? '8px' : 
-                        size === 'xlarge' ? '5px' : 
-                        size === 'large' ? '4px' :
-                        size === 'medium' ? '3px' : '2px',
+                       size === 'giant' ? '-50px' : 
+                       size === 'hero' ? '-40px' : 
+                       size === 'xlarge' ? '-20px' : 
+                       size === 'large' ? '-15px' :
+                       size === 'medium' ? '-12px' : '-10px',
+                  right: size === 'giant' ? '14px' : 
+                        size === 'hero' ? '12px' : 
+                        size === 'xlarge' ? '7px' : 
+                        size === 'large' ? '6px' :
+                        size === 'medium' ? '4px' : '3px',
                   transition: 'top 0.1s ease-in',
                   opacity: isVisible ? 1 : 0,
+                  zIndex: 10,
                 }}>
                   <Zap 
                     className={cn(
                       "fill-yellow-400 text-yellow-400 rotate-12 transform",
-                      size === 'giant' ? 'h-16 w-16' : 
-                      size === 'hero' ? 'h-12 w-12' : 
-                      size === 'xlarge' ? 'h-6 w-6' : 
-                      size === 'large' ? 'h-5 w-5' :
-                      size === 'medium' ? 'h-4 w-4' : 'h-3 w-3'
+                      size === 'giant' ? 'h-20 w-20' : 
+                      size === 'hero' ? 'h-16 w-16' : 
+                      size === 'xlarge' ? 'h-8 w-8' : 
+                      size === 'large' ? 'h-6 w-6' :
+                      size === 'medium' ? 'h-5 w-5' : 'h-4 w-4'
                     )}
                   />
                 </span>
