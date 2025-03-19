@@ -2,28 +2,25 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
 
 interface ModernLogoProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge';
   className?: string;
-  animated?: boolean;
   variant?: 'default' | 'glow' | 'gradient' | 'shine';
 }
 
 const ModernLogo: React.FC<ModernLogoProps> = ({ 
   size = 'medium', 
   className,
-  animated = true,
   variant = 'default'
 }) => {
   const { t } = useTranslation();
   
   const sizeClasses = {
-    small: 'h-8',
-    medium: 'h-10',
-    large: 'h-16',
-    xlarge: 'h-20'
+    small: 'h-6 w-auto',
+    medium: 'h-8 w-auto',
+    large: 'h-12 w-auto',
+    xlarge: 'h-16 w-auto'
   };
 
   const variants = {
@@ -34,10 +31,10 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
   };
 
   return (
-    <div className={cn("flex flex-col items-center", className)}>
+    <div className={cn("flex items-center", className)}>
       <div className={cn(
         sizeClasses[size],
-        "relative flex items-center justify-center",
+        "relative flex items-center",
         variants[variant],
       )}>
         {/* Abstract Logo SVG */}
@@ -92,10 +89,10 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
         </svg>
       </div>
       
-      {/* Team Up text below the logo */}
-      <div className="text-center font-semibold text-gray-800 mt-1">
+      {/* Team Up text next to the logo */}
+      <span className="text-lg font-semibold text-gray-800 ml-2">
         {t('common.teamUp')}
-      </div>
+      </span>
       
       {variant === 'glow' && (
         <div 
