@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss"
 import { fontFamily } from "tailwindcss/defaultTheme"
 import animatePlugin from "tailwindcss-animate"
@@ -22,8 +21,9 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
-        playfair: ["'Playfair Display'", "serif"]
+        sans: ["'Inter'", ...fontFamily.sans],
+        montserrat: ["'Montserrat'", "sans-serif"],
+        heading: ["'Montserrat'", "sans-serif"],
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -120,7 +120,6 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // New attractive colors
         vibrant: {
           purple: "#9b87f5",
           pink: "#D946EF",

@@ -52,7 +52,7 @@ const TabView = ({
     <Tabs 
       value={activeTab} 
       onValueChange={handleTabChange}
-      className={cn("w-full", className)}
+      className={cn("w-full font-montserrat", className)}
     >
       <TabsList className="w-full p-1 bg-muted rounded-full flex justify-between">
         {tabs.map((tab) => (
