@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/hooks/useAuth';
+import { motion } from 'framer-motion';
 
 const LivingPlanSelection = () => {
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
@@ -131,99 +132,160 @@ const LivingPlanSelection = () => {
     return null;
   }
 
+  // Animation variants for the cards
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: i * 0.2,
+        duration: 0.5,
+        ease: "easeOut"
+      }
+    }),
+    hover: {
+      y: -10,
+      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+
   return (
     <MainLayout>
       <section className="py-12 min-h-screen bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
-          <div className="flex justify-center mb-8">
+          <motion.div 
+            className="flex justify-center mb-8"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="bg-blue-50 rounded-full px-6 py-2 flex items-center justify-center">
               <Users className="text-blue-600 mr-2 h-5 w-5" />
               <span className="text-blue-600 font-medium">Team Up</span>
             </div>
-          </div>
+          </motion.div>
           
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold font-playfair mb-4 text-gray-800">Choose Your Living Plan</h1>
+          <motion.div 
+            className="text-center mb-12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+          >
+            <h1 className="text-4xl font-bold font-montserrat mb-4 text-gray-800">Choose Your Living Plan</h1>
             <p className="text-gray-600 max-w-2xl mx-auto mb-2">
               Select the plan that best fits your lifestyle and preferences.
             </p>
             <p className="text-blue-600">Upgrade anytime to unlock more features!</p>
-          </div>
+          </motion.div>
 
           <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2 max-w-5xl mx-auto mb-16">
-            {tiers.map((tier) => (
-              <Card
+            {tiers.map((tier, index) => (
+              <motion.div
                 key={tier.id}
-                className={cn(
-                  "overflow-hidden hover:shadow-lg transition-all border border-gray-200",
-                  selectedTier === tier.id ? `border-2 border-[${tier.borderColor}]` : ""
-                )}
+                custom={index}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+                variants={cardVariants}
                 onClick={() => handleTierSelect(tier.id)}
               >
-                <div 
-                  className="h-1.5" 
-                  style={{ backgroundColor: tier.color }}
-                ></div>
-                
-                {tier.recommended && (
-                  <div className="bg-[#8563C9] text-white text-xs font-medium py-1 text-center">
-                    RECOMMENDED
-                  </div>
-                )}
-                
-                <div className="p-6">
-                  <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-4">
-                    <tier.icon style={{ color: tier.color }} />
-                  </div>
+                <Card
+                  className={cn(
+                    "overflow-hidden shadow-md transition-all duration-300 h-full",
+                    selectedTier === tier.id ? 
+                      `border-2 border-[${tier.borderColor}] ring-2 ring-offset-2` : 
+                      "border border-gray-200 hover:border-gray-300"
+                  )}
+                >
+                  <div 
+                    className="h-2" 
+                    style={{ backgroundColor: tier.color }}
+                  ></div>
                   
-                  <h3 className="text-xl font-bold font-playfair">{tier.title}</h3>
-                  <div className="mt-2 mb-2">
-                    <span className="text-2xl font-bold">{tier.price.split('/')[0]}</span>
-                    {tier.price !== 'Free' && <span className="text-sm text-gray-500">/month</span>}
-                  </div>
-                  <p className="text-gray-600 text-sm mb-6">{tier.description}</p>
-                  
-                  <ul className="space-y-3 mb-6">
-                    {tier.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <Check 
-                          className="h-5 w-5 mt-0.5 flex-shrink-0"
-                          style={{ color: tier.checkColor }}
-                        />
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  {tier.id === 'comfort' && (
-                    <div className="mb-6 flex items-center justify-center text-purple-600 text-sm">
-                      <span className="flex items-center">
-                        <Star className="h-4 w-4 mr-1" />
-                        See Elite benefits
-                      </span>
+                  {tier.recommended && (
+                    <div 
+                      className="py-1.5 text-white text-xs font-medium text-center animate-pulse"
+                      style={{ backgroundColor: tier.color }}
+                    >
+                      RECOMMENDED
                     </div>
                   )}
                   
-                  <Button
-                    variant="outline"
-                    className={cn(
-                      "w-full py-2 border font-medium",
-                      selectedTier === tier.id ? "bg-gray-50" : ""
-                    )}
-                    style={{ 
-                      borderColor: tier.color,
-                      color: tier.color
-                    }}
-                  >
-                    Select Plan
-                  </Button>
-                </div>
-              </Card>
+                  <div className="p-6 flex flex-col h-full">
+                    <div className="flex items-center mb-4 gap-3">
+                      <div 
+                        className="w-12 h-12 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: `${tier.color}20` }}
+                      >
+                        <tier.icon style={{ color: tier.color }} className="h-6 w-6" />
+                      </div>
+                      <h3 className="text-xl font-semibold font-montserrat">{tier.title}</h3>
+                    </div>
+                    
+                    <p className="text-gray-600 text-sm mb-6">{tier.description}</p>
+                    
+                    <div className="mb-6">
+                      <span 
+                        className="text-3xl font-bold" 
+                        style={{ color: tier.color }}
+                      >
+                        {tier.price.split('/')[0]}
+                      </span>
+                      {tier.price !== 'Free' && 
+                        <span className="text-sm text-gray-500">/month</span>}
+                    </div>
+                    
+                    <ul className="space-y-3 mb-8 flex-grow">
+                      {tier.features.map((feature, idx) => (
+                        <motion.li 
+                          key={idx} 
+                          className="flex items-start gap-2"
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 * idx + 0.5, duration: 0.3 }}
+                        >
+                          <div 
+                            className="h-5 w-5 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0"
+                            style={{ backgroundColor: `${tier.color}20` }}
+                          >
+                            <Check 
+                              className="h-3 w-3"
+                              style={{ color: tier.color }}
+                            />
+                          </div>
+                          <span className="text-gray-700">{feature}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+                    
+                    <Button
+                      className={cn(
+                        "w-full py-2 border font-medium text-white transition-all transform hover:scale-105",
+                        selectedTier === tier.id ? "animate-glow" : "",
+                      )}
+                      style={{ 
+                        backgroundColor: tier.color,
+                        borderColor: tier.color,
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleTierSelect(tier.id);
+                      }}
+                    >
+                      {selectedTier === tier.id ? "Selected" : "Select Plan"}
+                    </Button>
+                  </div>
+                </Card>
+              </motion.div>
             ))}
           </div>
 
           <div className="mb-16">
-            <h2 className="text-2xl font-bold font-playfair text-center mb-4">Compare Features</h2>
+            <h2 className="text-2xl font-bold font-montserrat text-center mb-4">Compare Features</h2>
             <p className="text-center text-gray-600 mb-8">
               See what each plan includes to make the right choice
             </p>
@@ -304,18 +366,24 @@ const LivingPlanSelection = () => {
             </div>
           </div>
 
-          <div className="flex justify-center mt-12">
+          <motion.div 
+            className="flex justify-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8, duration: 0.5 }}
+          >
             <Button
               className={cn(
                 "rounded-md px-10 py-3 text-base font-medium bg-blue-600 hover:bg-blue-700 text-white transition-all",
-                !selectedTier && "opacity-70"
+                !selectedTier && "opacity-70",
+                selectedTier && "animate-pulse-slow"
               )}
               onClick={handleContinue}
               disabled={!selectedTier}
             >
               Continue
             </Button>
-          </div>
+          </motion.div>
           
           <div className="mt-8 text-center text-gray-500 text-sm max-w-2xl mx-auto">
             <p>By continuing, you agree to our Terms of Service and Privacy Policy. 
