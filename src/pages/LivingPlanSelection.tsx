@@ -177,7 +177,7 @@ const LivingPlanSelection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <ModernLogo size="hero" variant="gradient" className="mb-4" />
+            <ModernLogo size="hero" variant="gradient" className="mb-4" showTagline={true} />
           </motion.div>
           
           <motion.div 

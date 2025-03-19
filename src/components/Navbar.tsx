@@ -54,7 +54,7 @@ const Navbar = () => {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center space-x-8">
           <Link to="/" className="flex items-center">
-            <ModernLogo size="medium" variant="default" />
+            <ModernLogo size="medium" variant="default" showTagline={true} />
           </Link>
           
           <div className="hidden md:flex space-x-6">
