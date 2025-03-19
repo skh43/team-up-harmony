@@ -132,10 +132,8 @@ const LivingPlanSelection = () => {
     });
     
     if (selectedTier === 'comfort' || selectedTier === 'elite') {
-      // For premium tiers, navigate to payment
       navigate('/payment');
     } else {
-      // For basic tier, navigate to path selection
       navigate('/path-selection');
     }
   };
@@ -174,19 +172,19 @@ const LivingPlanSelection = () => {
       <section className="py-12 min-h-screen bg-white">
         <div className="container mx-auto px-4 max-w-6xl">
           <motion.div 
-            className="flex justify-center mb-8"
+            className="flex justify-center mb-12"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <ModernLogo size="medium" variant="gradient" />
+            <ModernLogo size="hero" variant="gradient" className="mb-4" />
           </motion.div>
           
           <motion.div 
             className="text-center mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.4, duration: 0.8 }}
           >
             <h1 className="text-4xl font-bold font-montserrat mb-4 text-gray-800">Choose Your Living Plan</h1>
             <p className="text-gray-600 max-w-2xl mx-auto mb-2">
