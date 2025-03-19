@@ -4,7 +4,7 @@ import MainLayout from '@/layouts/MainLayout';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Check, Award, Crown, Shield, Info, Users, Star, Clock, Gift, Sparkles } from 'lucide-react';
+import { ArrowRight, Check, Award, Crown, Shield, Info, Users, Star, Clock, Gift, Sparkles, ArrowUpRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import ModernLogo from '@/components/ModernLogo';
 import { useTranslation } from 'react-i18next';
@@ -62,6 +62,9 @@ const LivingPlanSelection = () => {
       ],
       price: 'Free',
       popular: false,
+      upgradeMessage: 'Upgrade to Comfort',
+      upgradeDescription: 'Enhance your roommate search with advanced filters and unlimited messaging',
+      upgradeTo: 'comfort'
     },
     {
       id: 'comfort',
@@ -82,6 +85,9 @@ const LivingPlanSelection = () => {
         { text: 'Compatibility scoring', icon: Gift },
       ],
       price: '$9.99/month',
+      upgradeMessage: 'Subscribe now to Elite Living',
+      upgradeDescription: 'Premium experience with advanced personality matching and exclusive features',
+      upgradeTo: 'elite'
     },
     {
       id: 'elite',
@@ -107,6 +113,16 @@ const LivingPlanSelection = () => {
   
   const handleTierSelect = (tierId: string) => {
     setSelectedTier(tierId);
+  };
+
+  // Function to handle upgrade button click
+  const handleUpgrade = (tierId: string) => {
+    setSelectedTier(tierId);
+    // Smooth scroll to the tier card
+    const element = document.getElementById(`tier-${tierId}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
   };
 
   const handleContinue = () => {
@@ -180,6 +196,9 @@ const LivingPlanSelection = () => {
     return null;
   }
 
+  // Get currently selected tier object
+  const currentTier = tiers.find(tier => tier.id === selectedTier);
+
   return (
     <MainLayout>
       <section className="py-12 min-h-screen bg-gradient-to-b from-white to-gray-50">
@@ -216,6 +235,43 @@ const LivingPlanSelection = () => {
             </motion.p>
           </div>
 
+          {/* Upgrade Banner - Only shown when a tier is selected and it's not the highest tier */}
+          {selectedTier && selectedTier !== 'elite' && currentTier && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className={cn(
+                "mb-8 rounded-2xl shadow-lg p-6 backdrop-blur-md flex flex-col md:flex-row justify-between items-center gap-4",
+                selectedTier === 'basic' ? "bg-purple-50/70 border border-purple-200" : "bg-amber-50/70 border border-amber-200"
+              )}
+            >
+              <div>
+                <h3 className={cn(
+                  "text-xl font-bold mb-1",
+                  selectedTier === 'basic' ? "text-purple-700" : "text-amber-700"
+                )}>
+                  {currentTier.upgradeMessage}
+                </h3>
+                <p className="text-muted-foreground">{currentTier.upgradeDescription}</p>
+              </div>
+              <MotionButton
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={cn(
+                  "rounded-full px-5 py-2 text-white flex items-center gap-2",
+                  selectedTier === 'basic' 
+                    ? "bg-gradient-to-r from-purple-400 to-purple-600 hover:from-purple-500 hover:to-purple-700" 
+                    : "bg-gradient-to-r from-amber-400 to-amber-600 hover:from-amber-500 hover:to-amber-700"
+                )}
+                onClick={() => handleUpgrade(currentTier.upgradeTo)}
+              >
+                Upgrade Now
+                <ArrowUpRight className="w-4 h-4" />
+              </MotionButton>
+            </motion.div>
+          )}
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -246,6 +302,7 @@ const LivingPlanSelection = () => {
               {tiers.map((tier, index) => (
                 <motion.div 
                   key={tier.id}
+                  id={`tier-${tier.id}`}
                   variants={itemVariants}
                   whileHover={{ y: -8, transition: { duration: 0.3 } }}
                   animate={tier.popular ? pulseAnimation : {}}
