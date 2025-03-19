@@ -334,7 +334,7 @@ const LivingPlanSelection = () => {
                     
                     <Button
                       className={cn(
-                        "w-full py-2 border font-medium text-white transition-all",
+                        "w-full py-2 border font-medium text-white transition-all whitespace-nowrap",
                         selectedTier === tier.id ? "" : "transform hover:scale-105",
                       )}
                       style={{ 
