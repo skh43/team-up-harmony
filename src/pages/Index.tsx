@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import RoommateJourney from './RoommateJourney';
@@ -18,25 +17,25 @@ const Index = () => {
       icon: <Users className="h-6 w-6 text-white" />,
       title: "Smart Matching",
       description: "Our intelligent algorithm connects you with roommates who complement your lifestyle and align with your preferences.",
-      color: "from-purple-500 to-indigo-600"
+      color: "from-cyan-400 to-blue-500"
     },
     {
       icon: <Shield className="h-6 w-6 text-white" />,
       title: "Verified Profiles",
       description: "Every user undergoes thorough verification, ensuring your complete peace of mind and safety.",
-      color: "from-cyan-500 to-blue-600"
+      color: "from-blue-500 to-violet-600"
     },
     {
       icon: <Home className="h-6 w-6 text-white" />,
       title: "Quality Listings",
       description: "Browse exceptional, fully-vetted properties tailored to your specific budget requirements and preferences.",
-      color: "from-pink-500 to-rose-600"
+      color: "from-violet-600 to-fuchsia-500"
     },
     {
       icon: <Star className="h-6 w-6 text-white" />,
       title: "Seamless Experience",
       description: "Enjoy a premium journey from initial match to move-in day, with every step expertly designed to be effortless.",
-      color: "from-amber-500 to-orange-600"
+      color: "from-fuchsia-500 to-pink-500"
     }
   ];
 
@@ -105,7 +104,7 @@ const Index = () => {
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold font-playfair mb-6 leading-tight">
-                Find Your <span className="text-blue-600">Perfect</span> <br />
+                Find Your <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Perfect</span> <br />
                 Roommate Match
               </h1>
               
@@ -115,7 +114,7 @@ const Index = () => {
               
               <div className="flex flex-wrap gap-4 mb-8">
                 <Button 
-                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-6 rounded-md"
+                  className="bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-600 hover:to-violet-700 text-white font-medium py-2.5 px-6 rounded-md"
                   onClick={() => navigate('/living-plan-selection')}
                 >
                   Get Started
@@ -164,7 +163,7 @@ const Index = () => {
         <div className="container px-4 mx-auto max-w-6xl">
           <div className="text-center mb-12">
             <motion.h2 
-              className="text-3xl font-bold font-playfair mb-4"
+              className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -213,14 +212,24 @@ const Index = () => {
         </div>
       </section>
       
-      <div id="how-it-works">
+      <div id="how-it-works" className="bg-gradient-to-r from-cyan-50 to-blue-50">
+        <div className="container px-4 mx-auto max-w-6xl py-10">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+              How It Works
+            </h2>
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Finding the perfect roommate is easy with our guided process
+            </p>
+          </div>
+        </div>
         <RoommateJourney />
       </div>
       
       <section className="py-16 bg-[#f8f9fa]">
         <div className="container px-4 mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-playfair mb-4">
+            <h2 className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
               Hear From Our Users
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -253,7 +262,7 @@ const Index = () => {
       
       <section className="py-16 bg-white">
         <div className="container px-4 mx-auto text-center max-w-3xl">
-          <h2 className="text-3xl font-bold mb-6 font-playfair">
+          <h2 className="text-3xl font-bold mb-6 font-playfair bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
             Ready to find your ideal roommate?
           </h2>
           <p className="text-lg text-gray-600 mb-8">
@@ -261,7 +270,7 @@ const Index = () => {
           </p>
           
           <Button 
-            className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-8 rounded-md inline-flex items-center"
+            className="bg-gradient-to-r from-violet-600 to-fuchsia-500 hover:from-violet-700 hover:to-fuchsia-600 text-white font-medium py-3 px-8 rounded-md inline-flex items-center"
             onClick={() => navigate('/register')}
           >
             Sign Up Now
