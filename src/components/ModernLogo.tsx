@@ -29,48 +29,56 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
   useEffect(() => {
     if (!animateThunder) return;
     
-    // Start with the thunderbolt hidden
-    setIsVisible(false);
-    setPosition(-50);
-    
-    // Wait a moment before starting animation
-    const startTimeout = setTimeout(() => {
+    const runAnimation = () => {
+      // Start with the thunderbolt hidden
+      setIsVisible(false);
+      setPosition(-50);
+      
       // Make the thunderbolt appear and drop from top
-      setIsVisible(true);
-      
-      // Animate the thunderbolt falling
-      const fallInterval = setInterval(() => {
-        setPosition((prev) => {
-          // When it reaches its final position, clear the interval
-          if (prev >= 0) {
-            clearInterval(fallInterval);
-            return 0;
-          }
-          return prev + 5;
-        });
-      }, 40);
-      
-      // Flash effect
-      let flashCount = 0;
-      const flashInterval = setInterval(() => {
-        if (flashCount >= 5) {
-          clearInterval(flashInterval);
-          setIsVisible(true);
-          return;
-        }
+      setTimeout(() => {
+        setIsVisible(true);
         
-        setIsVisible((prev) => !prev);
-        flashCount++;
-      }, 100);
-      
-      return () => {
-        clearInterval(fallInterval);
-        clearInterval(flashInterval);
-      };
-    }, 800);
+        // Animate the thunderbolt falling
+        const fallInterval = setInterval(() => {
+          setPosition((prev) => {
+            // When it reaches its final position, clear the interval
+            if (prev >= 0) {
+              clearInterval(fallInterval);
+              return 0;
+            }
+            return prev + 5;
+          });
+        }, 40);
+        
+        // Flash effect
+        let flashCount = 0;
+        const flashInterval = setInterval(() => {
+          if (flashCount >= 5) {
+            clearInterval(flashInterval);
+            setIsVisible(true);
+            return;
+          }
+          
+          setIsVisible((prev) => !prev);
+          flashCount++;
+        }, 100);
+        
+        // After animation completes, wait and restart
+        setTimeout(() => {
+          clearInterval(fallInterval);
+          clearInterval(flashInterval);
+          
+          // Restart the animation after a delay
+          animationTimeout = setTimeout(runAnimation, 3000);
+        }, 1000);
+      }, 500);
+    };
+    
+    // Start the initial animation
+    let animationTimeout = setTimeout(runAnimation, 800);
     
     return () => {
-      clearTimeout(startTimeout);
+      clearTimeout(animationTimeout);
     };
   }, [animateThunder]);
   
