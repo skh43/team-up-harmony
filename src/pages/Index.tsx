@@ -1,3 +1,4 @@
+
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import RoommateJourney from './RoommateJourney';
@@ -147,12 +148,18 @@ const Index = () => {
             
             <div className="lg:w-1/2 flex justify-center items-center flex-col">
               <motion.div 
-                className="flex flex-col items-center"
+                className="flex flex-col items-center mt-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <ModernLogo size="giant" variant="default" className="w-96 mb-6" showTagline={true} animateThunder={true} />
+                <ModernLogo 
+                  size="giant" 
+                  variant="default" 
+                  className="w-[450px] mb-8" 
+                  showTagline={true} 
+                  animateThunder={true} 
+                />
               </motion.div>
             </div>
           </div>
