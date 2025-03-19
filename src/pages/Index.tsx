@@ -168,7 +168,7 @@ const Index = () => {
                       </div>
                     </div>
                   </HoverCardTrigger>
-                  <HoverCardContent className="w-80 bg-gradient-to-r from-blue-500 to-violet-600 text-white p-6 animate-fade-in">
+                  <HoverCardContent className="w-80 text-white p-6 animate-fade-in">
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -323,4 +323,3 @@ const Index = () => {
 };
 
 export default Index;
-
