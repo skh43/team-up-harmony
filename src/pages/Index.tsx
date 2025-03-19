@@ -156,7 +156,7 @@ const Index = () => {
                 <ModernLogo 
                   size="giant" 
                   variant="default" 
-                  className="w-[450px] mb-8" 
+                  className="w-[550px] mb-8" 
                   showTagline={true} 
                   animateThunder={true} 
                 />
