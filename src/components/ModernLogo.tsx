@@ -37,14 +37,24 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     shine: ""
   };
 
-  // Map size to tagline size
+  // Map size to tagline size - adjusted to be smaller
   const taglineSizes = {
-    small: 'text-[8px]',
-    medium: 'text-xs',
-    large: 'text-sm',
-    xlarge: 'text-base',
-    hero: 'text-xl',
-    giant: 'text-2xl'
+    small: 'text-[6px]',
+    medium: 'text-[8px]',
+    large: 'text-xs',
+    xlarge: 'text-sm',
+    hero: 'text-lg',
+    giant: 'text-xl'
+  };
+
+  // Adjust tagline width constraints
+  const taglineWidths = {
+    small: 'max-w-[70%]',
+    medium: 'max-w-[75%]',
+    large: 'max-w-[80%]',
+    xlarge: 'max-w-[85%]',
+    hero: 'max-w-[90%]',
+    giant: 'max-w-[90%]'
   };
 
   return (
@@ -94,11 +104,12 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             </span>
           </div>
 
-          {/* Tagline without enhanced contrast */}
+          {/* Tagline - updated to be smaller and constrained width */}
           {showTagline && (
             <div className={cn(
-              "text-center text-blue-600 font-medium mt-1",
-              taglineSizes[size]
+              "text-center text-blue-600 font-medium mt-1 mx-auto",
+              taglineSizes[size],
+              taglineWidths[size]
             )}>
               roommate discovery, simplified
             </div>
