@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -64,9 +65,11 @@ const ProfileCreation = () => {
   const [activePlan, setActivePlan] = useState<'basic' | 'comfort' | 'elite'>('basic');
   
   useEffect(() => {
-    const selectedPlan = localStorage.getItem('livingPlan');
-    if (selectedPlan && (selectedPlan === 'basic' || selectedPlan === 'comfort' || selectedPlan === 'elite')) {
-      setActivePlan(selectedPlan);
+    // Get the selected tier from localStorage
+    const selectedPlanTier = localStorage.getItem('planTier');
+    
+    if (selectedPlanTier && (selectedPlanTier === 'basic' || selectedPlanTier === 'comfort' || selectedPlanTier === 'elite')) {
+      setActivePlan(selectedPlanTier);
     }
   }, []);
   
@@ -129,8 +132,11 @@ const ProfileCreation = () => {
   const handlePlanChange = (plan: string) => {
     if (plan === 'basic') {
       setActivePlan('basic');
+      // Update localStorage to match the new selection
+      localStorage.setItem('planTier', 'basic');
     } else if (plan === 'comfort' || plan === 'elite') {
-      localStorage.setItem('livingPlan', plan as 'comfort' | 'elite');
+      // Update localStorage before navigating
+      localStorage.setItem('planTier', plan as 'comfort' | 'elite');
       navigate('/payment');
     }
   };

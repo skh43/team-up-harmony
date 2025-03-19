@@ -49,9 +49,10 @@ const RoommateFlowRoute = ({ children, step, checkPlan = false }: {
   
   // Check if previous steps are completed
   const livingPlan = localStorage.getItem('livingPlan');
+  const planTier = localStorage.getItem('planTier');
   const userPath = localStorage.getItem('userPath');
   
-  if (step >= 2 && !livingPlan) {
+  if (step >= 2 && !planTier) {
     return <Navigate to="/living-plan-selection" replace />;
   }
   
@@ -60,7 +61,7 @@ const RoommateFlowRoute = ({ children, step, checkPlan = false }: {
   }
   
   // If this route requires payment validation for premium plans
-  if (checkPlan && (livingPlan === 'comfort' || livingPlan === 'elite')) {
+  if (checkPlan && (planTier === 'comfort' || planTier === 'elite')) {
     const paymentComplete = localStorage.getItem('paymentComplete');
     if (!paymentComplete) {
       return <Navigate to="/payment" replace />;
