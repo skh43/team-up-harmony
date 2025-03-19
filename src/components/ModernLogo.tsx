@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { Zap } from 'lucide-react';
@@ -10,6 +10,7 @@ interface ModernLogoProps {
   variant?: 'default' | 'glow' | 'gradient' | 'shine';
   showText?: boolean;
   showTagline?: boolean;
+  animateThunder?: boolean;
 }
 
 const ModernLogo: React.FC<ModernLogoProps> = ({ 
@@ -17,9 +18,61 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
   className,
   variant = 'default',
   showText = true,
-  showTagline = false
+  showTagline = false,
+  animateThunder = false
 }) => {
   const { t } = useTranslation();
+  const [isVisible, setIsVisible] = useState(!animateThunder);
+  const [position, setPosition] = useState(0);
+  
+  // Animation effect for the thunderbolt
+  useEffect(() => {
+    if (!animateThunder) return;
+    
+    // Start with the thunderbolt hidden
+    setIsVisible(false);
+    setPosition(-50);
+    
+    // Wait a moment before starting animation
+    const startTimeout = setTimeout(() => {
+      // Make the thunderbolt appear and drop from top
+      setIsVisible(true);
+      
+      // Animate the thunderbolt falling
+      const fallInterval = setInterval(() => {
+        setPosition((prev) => {
+          // When it reaches its final position, clear the interval
+          if (prev >= 0) {
+            clearInterval(fallInterval);
+            return 0;
+          }
+          return prev + 5;
+        });
+      }, 40);
+      
+      // Flash effect
+      let flashCount = 0;
+      const flashInterval = setInterval(() => {
+        if (flashCount >= 5) {
+          clearInterval(flashInterval);
+          setIsVisible(true);
+          return;
+        }
+        
+        setIsVisible((prev) => !prev);
+        flashCount++;
+      }, 100);
+      
+      return () => {
+        clearInterval(fallInterval);
+        clearInterval(flashInterval);
+      };
+    }, 800);
+    
+    return () => {
+      clearTimeout(startTimeout);
+    };
+  }, [animateThunder]);
   
   const sizeClasses = {
     small: 'h-6',
@@ -73,11 +126,12 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             )}>
               <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">te</span>
               <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold">am</span>
-              {/* Space for the thunder bolt without glow */}
+              {/* Space for the thunder bolt with animation */}
               <span className="relative">
                 <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold">u</span>
                 <span className="absolute" style={{ 
-                  top: size === 'giant' ? '-40px' : 
+                  top: position < 0 ? `${position}px` : 
+                       size === 'giant' ? '-40px' : 
                        size === 'hero' ? '-30px' : 
                        size === 'xlarge' ? '-15px' : 
                        size === 'large' ? '-12px' :
@@ -86,7 +140,9 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
                         size === 'hero' ? '8px' : 
                         size === 'xlarge' ? '5px' : 
                         size === 'large' ? '4px' :
-                        size === 'medium' ? '3px' : '2px'
+                        size === 'medium' ? '3px' : '2px',
+                  transition: 'top 0.1s ease-in',
+                  opacity: isVisible ? 1 : 0,
                 }}>
                   <Zap 
                     className={cn(
