@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -108,6 +107,27 @@
 
 .glass-card {
   @apply bg-white/70 backdrop-blur-md border border-white/50 shadow-lg;
+}
+
+/* Premium patterns and effects */
+.diamond-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M12 0L0 12L12 24L24 12z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.luxury-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23A67C52' fill-opacity='0.05'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.premium-card {
+  @apply bg-gradient-to-br from-white via-gray-50 to-slate-100 border border-gray-100 shadow-lg;
+}
+
+.premium-input {
+  @apply bg-white border border-gray-200 focus:border-[#516CF7] focus:ring-[#516CF7]/10 transition-all;
+}
+
+.premium-button {
+  @apply bg-gradient-to-r from-[#516CF7] to-[#01CDFA] text-white hover:shadow-lg transition-all duration-300;
 }
 
 /* Animations & Effects */
@@ -255,22 +275,6 @@ html[dir="rtl"] .ml-4 {
   @apply bg-gradient-to-r from-[#FFB347] via-[#FFCC33] to-[#FF9900];
 }
 
-.text-gradient-primary {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#01CDFA] via-[#3DB2FF] to-[#516CF7];
-}
-
-.text-gradient-secondary {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0];
-}
-
-.text-gradient-sunset {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#fa7199] via-[#f5548e] to-[#f83a3a];
-}
-
-.text-gradient-royal {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#7764FA] via-[#8A5CF6] to-[#A844F2];
-}
-
 /* Shadow effects */
 .shadow-subtle {
   @apply shadow-[0_2px_10px_rgba(0,0,0,0.08)];
@@ -283,6 +287,27 @@ html[dir="rtl"] .ml-4 {
 .shadow-3d {
   box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1),
               0 0 0 1px rgba(10, 10, 10, 0.02);
+}
+
+.shadow-card-hover {
+  @apply shadow-[0_10px_25px_-5px_rgba(81,108,247,0.15)];
+}
+
+/* Premium text gradients */
+.text-gradient-primary {
+  @apply bg-gradient-to-r from-[#01CDFA] via-[#3DB2FF] to-[#516CF7] bg-clip-text text-transparent;
+}
+
+.text-gradient-secondary {
+  @apply bg-gradient-to-r from-[#8563C9] via-[#A83ACB] to-[#ED2FC0] bg-clip-text text-transparent;
+}
+
+.text-gradient-royal {
+  @apply bg-gradient-to-r from-[#7764FA] via-[#8A5CF6] to-[#A844F2] bg-clip-text text-transparent;
+}
+
+.text-gradient-gold {
+  @apply bg-gradient-to-r from-[#FFB347] via-[#FFCC33] to-[#FF9900] bg-clip-text text-transparent;
 }
 
 /* Animated Link Effects */
