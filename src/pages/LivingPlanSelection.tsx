@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { motion } from 'framer-motion';
+import ModernLogo from '@/components/ModernLogo';
 
 const LivingPlanSelection = () => {
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
@@ -176,10 +177,7 @@ const LivingPlanSelection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="bg-blue-50 rounded-full px-6 py-2 flex items-center justify-center">
-              <Users className="text-blue-600 mr-2 h-5 w-5" />
-              <span className="text-blue-600 font-medium">Team Up</span>
-            </div>
+            <ModernLogo size="medium" variant="gradient" />
           </motion.div>
           
           <motion.div 
