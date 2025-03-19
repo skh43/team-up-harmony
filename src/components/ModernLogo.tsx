@@ -8,7 +8,7 @@ interface ModernLogoProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge';
   className?: string;
   animated?: boolean;
-  variant?: 'default' | 'glow' | 'gradient' | 'shine' | 'premium';
+  variant?: 'default' | 'glow' | 'gradient' | 'shine';
 }
 
 const ModernLogo: React.FC<ModernLogoProps> = ({ 
@@ -30,8 +30,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     default: "",
     glow: "drop-shadow-[0_0_15px_rgba(124,58,237,0.6)]",
     gradient: "gradient-border p-1",
-    shine: "animate-shimmer bg-gradient-shine bg-[length:400%_100%]",
-    premium: "p-1 border border-amber-200/70"
+    shine: "animate-shimmer bg-gradient-shine bg-[length:400%_100%]"
   };
 
   // Animation variants for Framer Motion
@@ -68,26 +67,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     }
   };
 
-  // Premium animation variant
-  const premiumVariants = {
-    animate: {
-      boxShadow: [
-        "0 0 2px rgba(251, 191, 36, 0.3), 0 0 4px rgba(251, 191, 36, 0.2)", 
-        "0 0 6px rgba(251, 191, 36, 0.5), 0 0 12px rgba(251, 191, 36, 0.3)",
-        "0 0 2px rgba(251, 191, 36, 0.3), 0 0 4px rgba(251, 191, 36, 0.2)"
-      ],
-      borderColor: [
-        "rgba(251, 191, 36, 0.5)",
-        "rgba(251, 191, 36, 0.9)",
-        "rgba(251, 191, 36, 0.5)"
-      ],
-      transition: {
-        repeat: Infinity,
-        duration: 3
-      }
-    }
-  };
-
   return (
     <motion.div 
       className={cn("flex items-center justify-center", className)}
@@ -99,18 +78,15 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
       <motion.div
         className={cn(
           "relative rounded-xl overflow-hidden", 
-          variant === 'shine' && "p-[1px]",
-          variant === 'premium' && "rounded-2xl"
+          variant === 'shine' && "p-[1px]"
         )}
         variants={
           variant === 'shine' 
             ? shineVariants 
-            : variant === 'premium' 
-              ? premiumVariants 
-              : undefined
+            : undefined
         }
         animate={
-          variant === 'shine' || variant === 'premium' 
+          variant === 'shine' 
             ? "animate" 
             : undefined
         }
@@ -122,8 +98,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             sizeClasses[size], 
             "w-auto object-contain",
             variants[variant],
-            variant === 'gradient' && "rounded-lg",
-            variant === 'premium' && "rounded-xl"
+            variant === 'gradient' && "rounded-lg"
           )}
         />
         
@@ -135,20 +110,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             }}
             transition={{ 
               duration: 2,
-              repeat: Infinity,
-              repeatType: "reverse"
-            }}
-          />
-        )}
-
-        {variant === 'premium' && (
-          <motion.div 
-            className="absolute inset-0 rounded-xl z-[-1] bg-gradient-to-r from-amber-100 via-yellow-200 to-amber-100 opacity-20"
-            animate={{ 
-              opacity: [0.2, 0.4, 0.2] 
-            }}
-            transition={{ 
-              duration: 3,
               repeat: Infinity,
               repeatType: "reverse"
             }}
