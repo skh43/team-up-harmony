@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 
 interface ModernLogoProps {
-  size?: 'small' | 'medium' | 'large' | 'xlarge' | 'hero';
+  size?: 'small' | 'medium' | 'large' | 'xlarge' | 'hero' | 'giant';
   className?: string;
   variant?: 'default' | 'glow' | 'gradient' | 'shine';
   showText?: boolean;
@@ -23,7 +23,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     medium: 'h-8',
     large: 'h-10',
     xlarge: 'h-12',
-    hero: 'h-48'
+    hero: 'h-48',
+    giant: 'h-80' // Added a new 'giant' size class
   };
 
   const variants = {
@@ -34,7 +35,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
   };
 
   return (
-    <div className={cn("flex items-center flex-col", size === 'hero' ? 'flex-col' : '', className)}>
+    <div className={cn("flex items-center flex-col", size === 'hero' || size === 'giant' ? 'flex-col' : '', className)}>
       <div className={cn(
         sizeClasses[size],
         "relative flex items-center",
@@ -76,10 +77,10 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
       
       {/* Team Up text next to or below the logo depending on size */}
       {showText && (
-        <div className={cn("flex flex-col", size === 'hero' ? 'mt-4' : 'ml-2')}>
+        <div className={cn("flex flex-col", (size === 'hero' || size === 'giant') ? 'mt-4' : 'ml-2')}>
           <span className={cn(
             "font-bold tracking-wide text-gray-800",
-            size === 'hero' ? 'text-4xl' : 'text-xl'
+            size === 'giant' ? 'text-6xl' : size === 'hero' ? 'text-4xl' : 'text-xl'
           )}>
             {t('common.teamUp')}
           </span>

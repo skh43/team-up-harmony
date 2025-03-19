@@ -152,9 +152,7 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <ModernLogo size="xlarge" variant="gradient" className="w-64 h-64 mb-6" />
-                <h2 className="text-3xl font-bold text-gray-800 mt-4">Team Up</h2>
-                <p className="text-lg text-gray-600 mt-2">Find your perfect roommate today!</p>
+                <ModernLogo size="giant" variant="gradient" className="w-96 mb-6" />
               </motion.div>
             </div>
           </div>
