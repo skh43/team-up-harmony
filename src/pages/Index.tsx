@@ -13,24 +13,28 @@ const Index = () => {
 
   const features = [
     {
-      icon: <Users className="h-6 w-6 text-blue-600" />,
+      icon: <Users className="h-6 w-6 text-white" />,
       title: "Smart Matching",
-      description: "Our intelligent algorithm connects you with roommates who complement your lifestyle and align with your preferences."
+      description: "Our intelligent algorithm connects you with roommates who complement your lifestyle and align with your preferences.",
+      color: "from-purple-500 to-indigo-600"
     },
     {
-      icon: <Shield className="h-6 w-6 text-blue-600" />,
+      icon: <Shield className="h-6 w-6 text-white" />,
       title: "Verified Profiles",
-      description: "Every user undergoes thorough verification, ensuring your complete peace of mind and safety."
+      description: "Every user undergoes thorough verification, ensuring your complete peace of mind and safety.",
+      color: "from-cyan-500 to-blue-600"
     },
     {
-      icon: <Home className="h-6 w-6 text-blue-600" />,
+      icon: <Home className="h-6 w-6 text-white" />,
       title: "Quality Listings",
-      description: "Browse exceptional, fully-vetted properties tailored to your specific budget requirements and preferences."
+      description: "Browse exceptional, fully-vetted properties tailored to your specific budget requirements and preferences.",
+      color: "from-pink-500 to-rose-600"
     },
     {
-      icon: <Star className="h-6 w-6 text-blue-600" />,
+      icon: <Star className="h-6 w-6 text-white" />,
       title: "Seamless Experience",
-      description: "Enjoy a premium journey from initial match to move-in day, with every step expertly designed to be effortless."
+      description: "Enjoy a premium journey from initial match to move-in day, with every step expertly designed to be effortless.",
+      color: "from-amber-500 to-orange-600"
     }
   ];
 
@@ -184,7 +188,7 @@ const Index = () => {
             {features.map((feature, index) => (
               <motion.div 
                 key={index} 
-                className="p-6 border border-gray-100 rounded-lg bg-white hover:border-blue-200 transition-all"
+                className={`p-6 rounded-lg bg-gradient-to-br ${feature.color} shadow-lg border border-white/30 hover:shadow-xl transition-all`}
                 variants={itemVariants}
                 whileHover="hover"
                 initial="hidden"
@@ -192,15 +196,15 @@ const Index = () => {
                 style={{ overflow: "hidden" }}
               >
                 <motion.div 
-                  className="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-4"
-                  whileHover={{ rotate: 360, backgroundColor: "#EBF5FF" }}
+                  className="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center mb-4"
+                  whileHover={{ rotate: 360, backgroundColor: "rgba(255, 255, 255, 0.3)" }}
                   transition={{ duration: 0.6 }}
                 >
                   {feature.icon}
                 </motion.div>
-                <h3 className="text-xl font-bold mb-3 font-playfair text-gray-800">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-blue-50 rounded-full opacity-20 z-0"></div>
+                <h3 className="text-xl font-bold mb-3 font-playfair text-white">{feature.title}</h3>
+                <p className="text-white/85">{feature.description}</p>
+                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-white/10 rounded-full opacity-20 z-0"></div>
               </motion.div>
             ))}
           </motion.div>
