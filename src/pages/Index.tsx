@@ -2,43 +2,35 @@
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import RoommateJourney from './RoommateJourney';
-import ModernLogo from '@/components/ModernLogo';
 import { useTranslation } from 'react-i18next';
-import { motion } from 'framer-motion';
-import { ChevronRight, Star, Check, Shield, Users, Home, ArrowRight } from 'lucide-react';
+import { Check, Users, Shield, Home, Star, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-
-const MotionButton = motion(Button);
+import { useNavigate } from 'react-router-dom';
 
 const Index = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const features = [
     {
-      icon: <Users className="h-8 w-8 text-blue-500" />,
+      icon: <Users className="h-6 w-6 text-blue-600" />,
       title: "Smart Matching",
-      description: "Experience our intelligent algorithm that connects you with roommates who complement your lifestyle and align with your preferences perfectly.",
-      color: "from-blue-500 to-violet-500"
+      description: "Our intelligent algorithm connects you with roommates who complement your lifestyle and align with your preferences."
     },
     {
-      icon: <Shield className="h-8 w-8 text-purple-500" />,
+      icon: <Shield className="h-6 w-6 text-blue-600" />,
       title: "Verified Profiles",
-      description: "Rest easy knowing each person on our platform has undergone thorough verification, ensuring your complete peace of mind and safety.",
-      color: "from-purple-500 to-pink-500"
+      description: "Every user undergoes thorough verification, ensuring your complete peace of mind and safety."
     },
     {
-      icon: <Home className="h-8 w-8 text-emerald-500" />,
+      icon: <Home className="h-6 w-6 text-blue-600" />,
       title: "Quality Listings",
-      description: "Discover exceptional, fully-vetted properties tailored to your specific budget requirements and personal preferences.",
-      color: "from-emerald-500 to-teal-500"
+      description: "Browse exceptional, fully-vetted properties tailored to your specific budget requirements and preferences."
     },
     {
-      icon: <Star className="h-8 w-8 text-amber-500" />,
+      icon: <Star className="h-6 w-6 text-blue-600" />,
       title: "Seamless Experience",
-      description: "Enjoy a premium journey from initial match to move-in day, with every step expertly designed to be effortless and stress-free.",
-      color: "from-amber-500 to-orange-500"
+      description: "Enjoy a premium journey from initial match to move-in day, with every step expertly designed to be effortless."
     }
   ];
 
@@ -63,225 +55,94 @@ const Index = () => {
     }
   ];
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-  
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 15
-      }
-    }
-  };
-
   return (
     <MainLayout className="min-h-screen">
-      {/* Hero Section with enhanced visuals */}
-      <section className="py-20 relative overflow-hidden">
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-50 via-white to-purple-50 pointer-events-none"></div>
-        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-gradient-to-br from-blue-300/20 to-purple-300/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-gradient-to-tr from-pink-300/20 to-purple-300/20 rounded-full blur-3xl"></div>
-        
-        <div className="container px-4 mx-auto relative z-10">
+      {/* Hero Section with simplified clean design */}
+      <section className="py-16 bg-[#f8f9fa]">
+        <div className="container px-4 mx-auto max-w-6xl">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-            <motion.div 
-              className="lg:w-1/2"
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              <div className="mb-6">
-                <ModernLogo size="xlarge" className="mx-auto lg:mx-0" variant="glow" />
+            <div className="lg:w-1/2">
+              <div className="inline-flex items-center justify-center bg-blue-50 px-4 py-1.5 rounded-full mb-6">
+                <Users className="text-blue-600 mr-2 h-4 w-4" />
+                <span className="text-blue-600 text-sm font-medium">Find Your Perfect Roommate</span>
               </div>
               
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-              >
-                <Badge 
-                  variant="gradientPurple" 
-                  animation="shimmer"
-                  className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium"
+              <h1 className="text-4xl md:text-5xl font-bold font-playfair mb-6 leading-tight">
+                Find Your <span className="text-blue-600">Perfect</span> <br />
+                Roommate Match
+              </h1>
+              
+              <p className="text-lg text-gray-600 mb-8 max-w-xl">
+                Connect with compatible roommates based on lifestyle, habits, and preferences. Say goodbye to roommate nightmares!
+              </p>
+              
+              <div className="flex flex-wrap gap-4 mb-8">
+                <Button 
+                  className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-6 rounded-md"
+                  onClick={() => navigate('/living-plan-selection')}
                 >
-                  Find Your Perfect Living Match
-                </Badge>
-              </motion.div>
-              
-              <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight font-playfair"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-              >
-                <span className="bg-clip-text text-transparent bg-gradient-to-r from-violet-600 to-blue-600">{t('index.title')}</span>
-              </motion.h1>
-              
-              <motion.p 
-                className="text-xl text-muted-foreground mb-8 max-w-2xl font-playfair"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-              >
-                {t('index.subtitle')}
-              </motion.p>
-              
-              <motion.div 
-                className="flex flex-wrap gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.6 }}
-              >
-                <MotionButton 
-                  variant="gradientPurple" 
-                  size="xl" 
-                  radius="full"
-                  whileHover={{ 
-                    scale: 1.05, 
-                    boxShadow: "0 10px 25px -5px rgba(124, 58, 237, 0.5)" 
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="font-semibold shadow-lg font-playfair"
-                  asChild
-                >
-                  <a href="#how-it-works">
-                    {t('common.getStarted')}
-                    <ChevronRight className="ml-1 w-5 h-5" />
-                  </a>
-                </MotionButton>
+                  Get Started
+                </Button>
                 
-                <MotionButton 
+                <Button 
                   variant="outline" 
-                  size="xl" 
-                  radius="full"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="border-purple-300 text-purple-700 font-semibold font-playfair"
-                  asChild
+                  className="border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2.5 px-6 rounded-md"
+                  onClick={() => navigate('/about')}
                 >
-                  <a href="/about">
-                    {t('common.learnMore')}
-                  </a>
-                </MotionButton>
-              </motion.div>
+                  Learn More
+                </Button>
+              </div>
               
-              <motion.div 
-                className="mt-8 flex items-center gap-4 text-sm text-muted-foreground"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 0.8 }}
-              >
+              <div className="flex items-center gap-4 text-sm text-gray-600">
                 <div className="flex items-center">
-                  <Check className="h-4 w-4 text-green-500 mr-1" />
+                  <Check className="h-4 w-4 text-green-500 mr-1.5" />
                   <span>Verified Users</span>
                 </div>
                 <div className="flex items-center">
-                  <Check className="h-4 w-4 text-green-500 mr-1" />
+                  <Check className="h-4 w-4 text-green-500 mr-1.5" />
                   <span>Smart Matching</span>
                 </div>
                 <div className="flex items-center">
-                  <Check className="h-4 w-4 text-green-500 mr-1" />
+                  <Check className="h-4 w-4 text-green-500 mr-1.5" />
                   <span>100% Secure</span>
                 </div>
-              </motion.div>
-            </motion.div>
-            
-            <motion.div 
-              className="lg:w-1/2"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              <div className="relative">
-                {/* Decorative elements around the image */}
-                <div className="absolute -top-5 -right-5 w-20 h-20 bg-purple-200 rounded-full blur-xl opacity-70"></div>
-                <div className="absolute -bottom-5 -left-5 w-20 h-20 bg-blue-200 rounded-full blur-xl opacity-70"></div>
-                
-                <img 
-                  src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
-                  alt={t('common.logoAlt')} 
-                  className="w-full h-auto rounded-2xl shadow-2xl relative z-10 border border-white/50"
-                />
-                
-                {/* Removed the "1000+ Active Users" floating element as requested */}
-                
-                <motion.div 
-                  className="absolute -bottom-6 right-10 bg-white rounded-lg shadow-lg px-3 py-2 flex items-center z-20"
-                  animate={{ y: [0, 10, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                >
-                  <div className="bg-purple-500 rounded-full w-3 h-3 mr-2"></div>
-                  <span className="text-sm font-medium">500+ Successful Matches</span>
-                </motion.div>
               </div>
-            </motion.div>
+            </div>
+            
+            <div className="lg:w-1/2">
+              <img 
+                src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
+                alt="Roommate matching" 
+                className="w-full h-auto rounded-lg shadow-lg border border-gray-100"
+              />
+            </div>
           </div>
         </div>
       </section>
       
-      {/* Feature Section - Enhanced to be more attractive */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="container px-4 mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <Badge 
-              variant="softPurple" 
-              className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium"
-            >
-              Why Choose TeamUp
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600 mb-4 font-playfair">
+      {/* Feature Section - Simplified clean design */}
+      <section className="py-16 bg-white">
+        <div className="container px-4 mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold font-playfair mb-4">
               Premium Features Tailored For You
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-playfair">
+            <p className="text-gray-600 max-w-2xl mx-auto">
               We've built powerful tools to make your roommate search efficient, safe, and successful.
             </p>
-          </motion.div>
+          </div>
           
-          <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <motion.div 
-                key={index}
-                variants={itemVariants}
-                whileHover={{ y: -10, transition: { duration: 0.3 } }}
-              >
-                <Card variant="glass" radius="xl" className="h-full overflow-hidden shadow-lg border border-white/50">
-                  <div className={`h-2 w-full bg-gradient-to-r ${feature.color}`}></div>
-                  <CardContent className="p-8">
-                    <div className="w-16 h-16 mb-5 rounded-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-white shadow-md">
-                      {feature.icon}
-                    </div>
-                    <h3 className="text-xl font-bold mb-3 font-playfair">{feature.title}</h3>
-                    <p className="text-muted-foreground">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+              <div key={index} className="p-6 border border-gray-100 rounded-lg hover:shadow-lg transition-all">
+                <div className="mb-4">
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl font-bold mb-3 font-playfair">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
       
@@ -290,113 +151,62 @@ const Index = () => {
         <RoommateJourney />
       </div>
       
-      {/* Testimonials */}
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container px-4 mx-auto">
-          <motion.div 
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <Badge 
-              variant="softBlue" 
-              className="mb-4 rounded-full px-4 py-1.5 text-sm font-medium"
-            >
-              Success Stories
-            </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600 mb-4 font-playfair">
+      {/* Testimonials - Simplified clean design */}
+      <section className="py-16 bg-[#f8f9fa]">
+        <div className="container px-4 mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold font-playfair mb-4">
               Hear From Our Users
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-playfair">
+            <p className="text-gray-600 max-w-2xl mx-auto">
               Join thousands of happy users who found their perfect roommate match.
             </p>
-          </motion.div>
+          </div>
           
-          <motion.div 
-            className="grid md:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
+          <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <motion.div 
-                key={index}
-                variants={itemVariants}
-                whileHover={{ y: -10, transition: { duration: 0.3 } }}
-              >
-                <Card variant="glass" radius="xl" className="h-full">
-                  <CardContent className="p-6">
-                    <div className="flex justify-center mb-4">
-                      <div className="w-16 h-16 overflow-hidden rounded-full border-4 border-white shadow-md">
-                        <img 
-                          src={testimonial.avatar} 
-                          alt={testimonial.author}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    </div>
-                    <p className="text-center text-lg italic mb-4 font-playfair">"{testimonial.quote}"</p>
-                    <div className="text-center">
-                      <p className="font-semibold font-playfair">{testimonial.author}</p>
-                      <p className="text-sm text-muted-foreground">{testimonial.role}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+              <div key={index} className="bg-white p-6 rounded-lg border border-gray-100 hover:shadow-lg transition-all">
+                <div className="flex justify-center mb-4">
+                  <div className="w-16 h-16 overflow-hidden rounded-full border-4 border-white shadow-md">
+                    <img 
+                      src={testimonial.avatar} 
+                      alt={testimonial.author}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                <p className="text-center text-gray-700 italic mb-4 font-playfair">"{testimonial.quote}"</p>
+                <div className="text-center">
+                  <p className="font-semibold">{testimonial.author}</p>
+                  <p className="text-sm text-gray-500">{testimonial.role}</p>
+                </div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
       
-      {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-r from-purple-50 to-blue-50 overflow-hidden relative">
-        {/* Decorative elements */}
-        <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white to-transparent"></div>
-        <div className="absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br from-purple-200/30 to-pink-200/30 rounded-full blur-3xl"></div>
-        <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-gradient-to-tr from-blue-200/30 to-purple-200/30 rounded-full blur-3xl"></div>
-        
-        <div className="container px-4 mx-auto text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl mx-auto"
+      {/* Call to Action - Simplified clean design */}
+      <section className="py-16 bg-white">
+        <div className="container px-4 mx-auto text-center max-w-3xl">
+          <h2 className="text-3xl font-bold mb-6 font-playfair">
+            Ready to find your ideal roommate?
+          </h2>
+          <p className="text-lg text-gray-600 mb-8">
+            Join thousands of people who have found their perfect match.
+          </p>
+          
+          <Button 
+            className="bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 px-8 rounded-md inline-flex items-center"
+            onClick={() => navigate('/register')}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-playfair">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-600">
-                {t('index.ready')}
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto font-playfair">
-              {t('index.joinThousands')}
-            </p>
-            
-            <MotionButton 
-              variant="gradientPurple"
-              size="xl"
-              radius="full"
-              className="px-10 py-6 text-base font-bold shadow-lg font-playfair"
-              whileHover={{ 
-                scale: 1.05, 
-                boxShadow: "0 10px 25px -5px rgba(124, 58, 237, 0.5)" 
-              }}
-              whileTap={{ scale: 0.95 }}
-              asChild
-            >
-              <a href="/register">
-                {t('common.signUpNow')}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </a>
-            </MotionButton>
-            
-            <p className="mt-6 text-sm text-muted-foreground font-playfair">
-              No credit card required. Start for free and upgrade anytime.
-            </p>
-          </motion.div>
+            Sign Up Now
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+          
+          <p className="mt-6 text-sm text-gray-500">
+            No credit card required. Start for free and upgrade anytime.
+          </p>
         </div>
       </section>
     </MainLayout>

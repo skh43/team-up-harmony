@@ -2,19 +2,13 @@
 import React, { useState, useEffect } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Box, Check, Home, Star, Users } from 'lucide-react';
+import { Box, Check, Home, Star, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import ModernLogo from '@/components/ModernLogo';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/hooks/useAuth';
-import { motion } from 'framer-motion';
-
-// Create a motion version of components
-const MotionButton = motion(Button);
-const MotionCard = motion(Card);
 
 const LivingPlanSelection = () => {
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
@@ -51,7 +45,8 @@ const LivingPlanSelection = () => {
       description: 'Essential matchmaking for budget-conscious roommates',
       icon: Box,
       color: '#01CDFA',
-      borderColor: 'border-[#01CDFA]',
+      borderColor: '#01CDFA',
+      checkColor: '#01CDFA',
       features: [
         '5 Matches Per Day',
         'Basic Preferences',
@@ -66,7 +61,8 @@ const LivingPlanSelection = () => {
       description: 'Enhanced matching with detailed preferences',
       icon: Home,
       color: '#8563C9',
-      borderColor: 'border-[#8563C9]',
+      borderColor: '#8563C9',
+      checkColor: '#8563C9',
       features: [
         '20 Matches Per Day',
         'Detailed Preferences',
@@ -83,7 +79,8 @@ const LivingPlanSelection = () => {
       description: 'Premium experience for the most discerning roommates',
       icon: Star,
       color: '#F5B72F',
-      borderColor: 'border-[#F5B72F]',
+      borderColor: '#F5B72F',
+      checkColor: '#F5B72F',
       features: [
         'Unlimited Matches',
         'Ultra-detailed Preferences',
@@ -129,35 +126,6 @@ const LivingPlanSelection = () => {
     }
   };
 
-  // Get color by tier id
-  const getColorByTier = (tierId: string) => {
-    const tier = tiers.find(t => t.id === tierId);
-    return tier ? tier.color : '#01CDFA';
-  };
-
-  // Animation variants for cards
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100, 
-        damping: 15
-      }
-    },
-    hover: {
-      y: -10,
-      boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
-      transition: {
-        type: "spring",
-        stiffness: 400, 
-        damping: 10
-      }
-    }
-  };
-
   // If not authenticated, return null (will redirect in useEffect)
   if (!isAuthenticated) {
     return null;
@@ -166,93 +134,96 @@ const LivingPlanSelection = () => {
   return (
     <MainLayout>
       <section className="py-12 min-h-screen bg-white">
-        <div className="container max-w-6xl mx-auto px-4 relative z-10">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center bg-blue-50 px-6 py-2 rounded-full mb-6">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="flex justify-center mb-8">
+            <div className="bg-blue-50 rounded-full px-6 py-2 flex items-center justify-center">
               <Users className="text-blue-600 mr-2 h-5 w-5" />
-              <span className="text-blue-600 font-semibold">Team Up</span>
+              <span className="text-blue-600 font-medium">Team Up</span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold font-playfair mb-3 text-slate-800">Choose Your Living Plan</h1>
-            <p className="text-slate-600 text-lg max-w-2xl mx-auto mb-2">
+          </div>
+          
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold font-playfair mb-4 text-gray-800">Choose Your Living Plan</h1>
+            <p className="text-gray-600 max-w-2xl mx-auto mb-2">
               Select the plan that best fits your lifestyle and preferences.
             </p>
-            <p className="text-blue-500 font-medium">Upgrade anytime to unlock more features!</p>
+            <p className="text-blue-600">Upgrade anytime to unlock more features!</p>
           </div>
 
-          <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2 max-w-5xl mx-auto mb-12">
-            {tiers.map((tier, index) => (
-              <MotionCard
+          <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2 max-w-5xl mx-auto mb-16">
+            {tiers.map((tier) => (
+              <Card
                 key={tier.id}
                 className={cn(
-                  "overflow-hidden hover:shadow-lg transition-all",
-                  selectedTier === tier.id ? `border-2 ${tier.borderColor}` : "border",
-                  tier.recommended ? "relative" : ""
+                  "overflow-hidden hover:shadow-lg transition-all border border-gray-200",
+                  selectedTier === tier.id ? `border-2 border-[${tier.borderColor}]` : ""
                 )}
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover="hover"
                 onClick={() => handleTierSelect(tier.id)}
               >
+                <div 
+                  className="h-1.5" 
+                  style={{ backgroundColor: tier.color }}
+                ></div>
+                
                 {tier.recommended && (
-                  <div className="absolute top-0 left-0 right-0 bg-[#8563C9] text-white text-xs font-semibold py-1 text-center">
+                  <div className="bg-[#8563C9] text-white text-xs font-medium py-1 text-center">
                     RECOMMENDED
                   </div>
                 )}
-                <div 
-                  className="h-2" 
-                  style={{ backgroundColor: tier.color }}
-                ></div>
-                <CardHeader className={cn(
-                  "pt-6",
-                  tier.recommended ? "pt-8" : ""
-                )}>
-                  <div className="mb-4 w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center">
+                
+                <div className="p-6">
+                  <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mb-4">
                     <tier.icon style={{ color: tier.color }} />
                   </div>
-                  <CardTitle className="text-2xl font-bold font-playfair">{tier.title}</CardTitle>
+                  
+                  <h3 className="text-xl font-bold font-playfair">{tier.title}</h3>
                   <div className="mt-2 mb-2">
                     <span className="text-2xl font-bold">{tier.price.split('/')[0]}</span>
                     {tier.price !== 'Free' && <span className="text-sm text-gray-500">/month</span>}
                   </div>
-                  <CardDescription>{tier.description}</CardDescription>
-                </CardHeader>
-                
-                <CardContent>
-                  <ul className="space-y-3">
+                  <p className="text-gray-600 text-sm mb-6">{tier.description}</p>
+                  
+                  <ul className="space-y-3 mb-6">
                     {tier.features.map((feature, idx) => (
                       <li key={idx} className="flex items-start gap-2">
                         <Check 
                           className="h-5 w-5 mt-0.5 flex-shrink-0"
-                          style={{ color: tier.color }}
+                          style={{ color: tier.checkColor }}
                         />
                         <span className="text-gray-700">{feature}</span>
                       </li>
                     ))}
                   </ul>
-                </CardContent>
-                
-                <CardFooter>
+                  
+                  {tier.id === 'comfort' && (
+                    <div className="mb-6 flex items-center justify-center text-purple-600 text-sm">
+                      <span className="flex items-center">
+                        <Star className="h-4 w-4 mr-1" />
+                        See Elite benefits
+                      </span>
+                    </div>
+                  )}
+                  
                   <Button
                     variant="outline"
                     className={cn(
-                      "w-full py-2",
-                      selectedTier === tier.id ? "bg-slate-100 border-2" : ""
+                      "w-full py-2 border font-medium",
+                      selectedTier === tier.id ? "bg-gray-50" : ""
                     )}
                     style={{ 
-                      borderColor: selectedTier === tier.id ? tier.color : '',
-                      color: selectedTier === tier.id ? tier.color : ''
+                      borderColor: tier.color,
+                      color: tier.color
                     }}
                   >
-                    {selectedTier === tier.id ? "Selected" : "Select Plan"}
+                    Select Plan
                   </Button>
-                </CardFooter>
-              </MotionCard>
+                </div>
+              </Card>
             ))}
           </div>
 
-          <div className="mt-8 mb-12">
-            <h2 className="text-2xl font-bold font-playfair text-center mb-6">Compare Features</h2>
+          <div className="mb-16">
+            <h2 className="text-2xl font-bold font-playfair text-center mb-4">Compare Features</h2>
             <p className="text-center text-gray-600 mb-8">
               See what each plan includes to make the right choice
             </p>
@@ -261,10 +232,10 @@ const LivingPlanSelection = () => {
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left py-4 px-4 font-semibold">Feature</th>
-                    <th className="py-4 px-4 font-semibold text-center" style={{ color: '#01CDFA' }}>Basic</th>
-                    <th className="py-4 px-4 font-semibold text-center" style={{ color: '#8563C9' }}>Comfort</th>
-                    <th className="py-4 px-4 font-semibold text-center" style={{ color: '#F5B72F' }}>Elite</th>
+                    <th className="text-left py-4 px-4 font-medium">Feature</th>
+                    <th className="py-4 px-4 font-medium text-center" style={{ color: '#01CDFA' }}>Basic</th>
+                    <th className="py-4 px-4 font-medium text-center" style={{ color: '#8563C9' }}>Comfort</th>
+                    <th className="py-4 px-4 font-medium text-center" style={{ color: '#F5B72F' }}>Elite</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -334,27 +305,19 @@ const LivingPlanSelection = () => {
           </div>
 
           <div className="flex justify-center mt-12">
-            <MotionButton
-              size="lg"
+            <Button
               className={cn(
-                "rounded-full px-10 py-6 text-base transition-all duration-300",
-                !selectedTier && "opacity-70 pointer-events-none"
+                "rounded-md px-10 py-3 text-base font-medium bg-blue-600 hover:bg-blue-700 text-white transition-all",
+                !selectedTier && "opacity-70"
               )}
               onClick={handleContinue}
               disabled={!selectedTier}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              style={{ 
-                backgroundColor: selectedTier ? getColorByTier(selectedTier) : '#8563C9',
-                color: 'white' 
-              }}
             >
               Continue
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </MotionButton>
+            </Button>
           </div>
           
-          <div className="mt-12 text-center text-gray-500 text-sm max-w-2xl mx-auto">
+          <div className="mt-8 text-center text-gray-500 text-sm max-w-2xl mx-auto">
             <p>By continuing, you agree to our Terms of Service and Privacy Policy. 
             You can change your plan at any time after registration.</p>
           </div>
