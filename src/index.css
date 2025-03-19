@@ -190,6 +190,12 @@
   100% { background-position: 0% 50%; }
 }
 
+/* Enhanced hover animations for gradient border */
+.gradient-border:hover::before {
+  animation: border-animation 3s ease infinite;
+  background-size: 200% 200%;
+}
+
 /* Fancy Button Styles */
 .btn-shine {
   position: relative;
