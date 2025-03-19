@@ -4,15 +4,16 @@ import MainLayout from '@/layouts/MainLayout';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
-import { Box, Check, Home, Star, Users } from 'lucide-react';
+import { Box, Check, Home, Star, Users, StarIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/hooks/useAuth';
 import { motion } from 'framer-motion';
 
 const LivingPlanSelection = () => {
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
+  const [showEliteUpgrade, setShowEliteUpgrade] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -46,8 +47,11 @@ const LivingPlanSelection = () => {
       description: 'Essential matchmaking for budget-conscious roommates',
       icon: Box,
       color: '#01CDFA',
+      textColor: '#01CDFA',
       borderColor: '#01CDFA',
       checkColor: '#01CDFA',
+      buttonGradient: 'from-blue-400 to-blue-600',
+      iconBgColor: 'rgba(1, 205, 250, 0.1)',
       features: [
         '5 Matches Per Day',
         'Basic Preferences',
@@ -62,8 +66,11 @@ const LivingPlanSelection = () => {
       description: 'Enhanced matching with detailed preferences',
       icon: Home,
       color: '#8563C9',
+      textColor: '#8563C9',
       borderColor: '#8563C9',
       checkColor: '#8563C9',
+      buttonGradient: 'from-purple-400 to-purple-600',
+      iconBgColor: 'rgba(133, 99, 201, 0.1)',
       features: [
         '20 Matches Per Day',
         'Detailed Preferences',
@@ -72,7 +79,7 @@ const LivingPlanSelection = () => {
         'Background Verification'
       ],
       price: 'SAR 29.99/month',
-      recommended: true
+      showEliteBenefits: true
     },
     {
       id: 'elite',
@@ -80,8 +87,11 @@ const LivingPlanSelection = () => {
       description: 'Premium experience for the most discerning roommates',
       icon: Star,
       color: '#F5B72F',
+      textColor: '#F5B72F',
       borderColor: '#F5B72F',
       checkColor: '#F5B72F',
+      buttonGradient: 'from-amber-400 to-amber-600',
+      iconBgColor: 'rgba(245, 183, 47, 0.1)',
       features: [
         'Unlimited Matches',
         'Ultra-detailed Preferences',
@@ -97,6 +107,12 @@ const LivingPlanSelection = () => {
   
   const handleTierSelect = (tierId: string) => {
     setSelectedTier(tierId);
+    // Show upgrade banner for basic and comfort tiers
+    if (tierId === 'basic' || tierId === 'comfort') {
+      setShowEliteUpgrade(true);
+    } else {
+      setShowEliteUpgrade(false);
+    }
   };
 
   const handleContinue = () => {
@@ -125,6 +141,11 @@ const LivingPlanSelection = () => {
     } else {
       navigate(`/register?plan=roommate&tier=${selectedTier}`);
     }
+  };
+
+  const handleUpgradeToElite = () => {
+    setSelectedTier('elite');
+    setShowEliteUpgrade(false);
   };
 
   // If not authenticated, return null (will redirect in useEffect)
@@ -170,7 +191,7 @@ const LivingPlanSelection = () => {
           </motion.div>
           
           <motion.div 
-            className="text-center mb-12"
+            className="text-center mb-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6 }}
@@ -179,8 +200,41 @@ const LivingPlanSelection = () => {
             <p className="text-gray-600 max-w-2xl mx-auto mb-2">
               Select the plan that best fits your lifestyle and preferences.
             </p>
-            <p className="text-blue-600">Upgrade anytime to unlock more features!</p>
           </motion.div>
+
+          {/* Elite Upgrade Banner */}
+          {showEliteUpgrade && (
+            <motion.div 
+              className="mx-auto mb-8 rounded-xl overflow-hidden relative"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <div className="bg-yellow-100 p-4 rounded-xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-300 rounded-full -mr-8 -mt-8 z-0"></div>
+                
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="flex items-center">
+                    <div className="bg-yellow-300 h-14 w-14 rounded-full flex items-center justify-center mr-4">
+                      <Star className="h-7 w-7 text-white" fill="white" />
+                    </div>
+                    <div>
+                      <h3 className="font-montserrat text-xl font-bold text-amber-600">Unlock Elite Living</h3>
+                      <p className="text-amber-800">
+                        Premium experience with <span className="font-semibold">advanced personality matching</span> and <span className="font-semibold">exclusive features</span>
+                      </p>
+                    </div>
+                  </div>
+                  <Button 
+                    onClick={handleUpgradeToElite}
+                    className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white px-4 py-2 rounded-full flex items-center"
+                  >
+                    Upgrade to Elite <Star className="ml-1 h-4 w-4" fill="white" />
+                  </Button>
+                </div>
+              </div>
+            </motion.div>
+          )}
 
           <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2 max-w-5xl mx-auto mb-16">
             {tiers.map((tier, index) => (
@@ -195,51 +249,59 @@ const LivingPlanSelection = () => {
               >
                 <Card
                   className={cn(
-                    "overflow-hidden shadow-md transition-all duration-300 h-full",
+                    "overflow-hidden shadow-md transition-all duration-300 h-full border rounded-xl",
                     selectedTier === tier.id ? 
-                      `border-2 border-[${tier.borderColor}] ring-2 ring-offset-2` : 
-                      "border border-gray-200 hover:border-gray-300"
+                      `border-2 ring-2 ring-offset-2` : 
+                      "border hover:border-gray-300"
                   )}
+                  style={{ 
+                    borderColor: selectedTier === tier.id ? tier.borderColor : 'transparent',
+                    boxShadow: selectedTier === tier.id ? `0 0 0 2px ${tier.borderColor}20` : ''
+                  }}
                 >
                   <div 
                     className="h-2" 
                     style={{ backgroundColor: tier.color }}
                   ></div>
                   
-                  {tier.recommended && (
-                    <div 
-                      className="py-1.5 text-white text-xs font-medium text-center animate-pulse"
-                      style={{ backgroundColor: tier.color }}
-                    >
-                      RECOMMENDED
-                    </div>
-                  )}
-                  
-                  <div className="p-6 flex flex-col h-full">
-                    <div className="flex items-center mb-4 gap-3">
+                  <div className="p-6">
+                    <div className="flex justify-between items-start mb-4">
                       <div 
-                        className="w-12 h-12 rounded-full flex items-center justify-center"
-                        style={{ backgroundColor: `${tier.color}20` }}
+                        className="w-16 h-16 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: tier.iconBgColor }}
                       >
-                        <tier.icon style={{ color: tier.color }} className="h-6 w-6" />
+                        <tier.icon style={{ color: tier.color }} className="h-8 w-8" />
                       </div>
-                      <h3 className="text-xl font-semibold font-montserrat">{tier.title}</h3>
+                      
+                      {selectedTier === tier.id && (
+                        <div 
+                          className="h-8 w-8 rounded-full flex items-center justify-center"
+                          style={{ backgroundColor: tier.iconBgColor }}
+                        >
+                          <Check style={{ color: tier.color }} className="h-5 w-5" />
+                        </div>
+                      )}
                     </div>
+                    
+                    <h3 
+                      className="text-xl font-semibold font-montserrat mb-1"
+                      style={{ color: tier.textColor }}
+                    >
+                      {tier.title}
+                    </h3>
+                    
+                    <h2 
+                      className="text-3xl font-bold mb-3"
+                      style={{ color: tier.textColor }}
+                    >
+                      {tier.price === 'Free' ? 'Free' : tier.price.split('/')[0]}
+                      {tier.price !== 'Free' && 
+                        <span className="text-sm text-gray-500">/month</span>}
+                    </h2>
                     
                     <p className="text-gray-600 text-sm mb-6">{tier.description}</p>
                     
-                    <div className="mb-6">
-                      <span 
-                        className="text-3xl font-bold" 
-                        style={{ color: tier.color }}
-                      >
-                        {tier.price.split('/')[0]}
-                      </span>
-                      {tier.price !== 'Free' && 
-                        <span className="text-sm text-gray-500">/month</span>}
-                    </div>
-                    
-                    <ul className="space-y-3 mb-8 flex-grow">
+                    <ul className="space-y-3 mb-8">
                       {tier.features.map((feature, idx) => (
                         <motion.li 
                           key={idx} 
@@ -248,28 +310,37 @@ const LivingPlanSelection = () => {
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.1 * idx + 0.5, duration: 0.3 }}
                         >
-                          <div 
-                            className="h-5 w-5 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0"
-                            style={{ backgroundColor: `${tier.color}20` }}
-                          >
-                            <Check 
-                              className="h-3 w-3"
-                              style={{ color: tier.color }}
-                            />
-                          </div>
+                          <Check 
+                            className="h-5 w-5 mt-0.5 flex-shrink-0"
+                            style={{ color: tier.checkColor }}
+                          />
                           <span className="text-gray-700">{feature}</span>
                         </motion.li>
                       ))}
                     </ul>
                     
+                    {tier.showEliteBenefits && (
+                      <div 
+                        className="flex items-center justify-center mb-4 text-sm text-purple-600 cursor-pointer hover:underline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleUpgradeToElite();
+                        }}
+                      >
+                        <Star className="h-4 w-4 mr-1 text-purple-600" />
+                        See Elite benefits
+                      </div>
+                    )}
+                    
                     <Button
                       className={cn(
-                        "w-full py-2 border font-medium text-white transition-all transform hover:scale-105",
-                        selectedTier === tier.id ? "animate-glow" : "",
+                        "w-full py-2 border font-medium text-white transition-all",
+                        selectedTier === tier.id ? "" : "transform hover:scale-105",
                       )}
                       style={{ 
-                        backgroundColor: tier.color,
-                        borderColor: tier.color,
+                        background: selectedTier === tier.id 
+                          ? tier.color 
+                          : `linear-gradient(to right, ${tier.color}, ${tier.color})`, 
                       }}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -282,88 +353,6 @@ const LivingPlanSelection = () => {
                 </Card>
               </motion.div>
             ))}
-          </div>
-
-          <div className="mb-16">
-            <h2 className="text-2xl font-bold font-montserrat text-center mb-4">Compare Features</h2>
-            <p className="text-center text-gray-600 mb-8">
-              See what each plan includes to make the right choice
-            </p>
-            
-            <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-4 px-4 font-medium">Feature</th>
-                    <th className="py-4 px-4 font-medium text-center" style={{ color: '#01CDFA' }}>Basic</th>
-                    <th className="py-4 px-4 font-medium text-center" style={{ color: '#8563C9' }}>Comfort</th>
-                    <th className="py-4 px-4 font-medium text-center" style={{ color: '#F5B72F' }}>Elite</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">Daily Match Limit</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#01CDFA' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#8563C9' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">Basic Preferences (Gender, Budget)</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#01CDFA' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#8563C9' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">In-App Messaging</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#01CDFA' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#8563C9' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">Location Filters</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#01CDFA' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#8563C9' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">Detailed Preferences (Lifestyle)</td>
-                    <td className="py-4 px-4 text-center">-</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#8563C9' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">Background Verification</td>
-                    <td className="py-4 px-4 text-center">-</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#8563C9' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">Premium Filters</td>
-                    <td className="py-4 px-4 text-center">-</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#8563C9' }} /></td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">Personality Matching</td>
-                    <td className="py-4 px-4 text-center">-</td>
-                    <td className="py-4 px-4 text-center">-</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">Priority Support</td>
-                    <td className="py-4 px-4 text-center">-</td>
-                    <td className="py-4 px-4 text-center">-</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="py-4 px-4">Exclusive Property Listings</td>
-                    <td className="py-4 px-4 text-center">-</td>
-                    <td className="py-4 px-4 text-center">-</td>
-                    <td className="py-4 px-4 text-center"><Check className="inline-block h-5 w-5" style={{ color: '#F5B72F' }} /></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
           </div>
 
           <motion.div 
