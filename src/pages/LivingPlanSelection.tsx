@@ -3,7 +3,7 @@ import MainLayout from '@/layouts/MainLayout';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
-import { Box, Check, Home, Star, Users, StarIcon } from 'lucide-react';
+import { Box, Check, Home, Star, Users } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/hooks/use-toast';
@@ -240,7 +240,7 @@ const LivingPlanSelection = () => {
               >
                 <Card
                   className={cn(
-                    "overflow-hidden shadow-md transition-all duration-300 h-full border rounded-xl",
+                    "overflow-hidden shadow-md transition-all duration-300 h-full border rounded-xl flex flex-col",
                     selectedTier === tier.id ? 
                       `border-2 ring-2 ring-offset-2` : 
                       "border hover:border-gray-300"
@@ -255,7 +255,7 @@ const LivingPlanSelection = () => {
                     style={{ backgroundColor: tier.color }}
                   ></div>
                   
-                  <div className="p-6">
+                  <div className="p-6 flex-grow flex flex-col">
                     <div className="flex justify-between items-start mb-4">
                       <div 
                         className="w-16 h-16 rounded-full flex items-center justify-center"
@@ -292,7 +292,7 @@ const LivingPlanSelection = () => {
                     
                     <p className="text-gray-600 text-sm mb-6">{tier.description}</p>
                     
-                    <ul className="space-y-3 mb-8">
+                    <ul className="space-y-3 mb-8 flex-grow">
                       {tier.features.map((feature, idx) => (
                         <motion.li 
                           key={idx} 
@@ -323,23 +323,29 @@ const LivingPlanSelection = () => {
                       </div>
                     )}
                     
-                    <Button
-                      variant="outline"
-                      size="lg"
-                      radius="md"
-                      className={cn(
-                        "w-full font-medium transition-all border text-center",
-                        selectedTier === tier.id ? 
-                          "bg-white text-gray-800 border-gray-200" : 
-                          "bg-white text-gray-800 border-gray-200 transform hover:scale-105",
-                      )}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleTierSelect(tier.id);
-                      }}
-                    >
-                      {selectedTier === tier.id ? "Selected" : "Select Plan"}
-                    </Button>
+                    <div className="mt-auto">
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        radius="md"
+                        className={cn(
+                          "w-full font-medium transition-all border text-center whitespace-nowrap",
+                          selectedTier === tier.id 
+                            ? "bg-gradient-to-r text-white" 
+                            : "bg-white text-gray-800 border-gray-200 hover:scale-105"
+                        )}
+                        style={selectedTier === tier.id ? {
+                          background: `linear-gradient(to right, ${tier.color}, ${tier.color})`,
+                          borderColor: tier.color
+                        } : {}}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleTierSelect(tier.id);
+                        }}
+                      >
+                        {selectedTier === tier.id ? "Selected" : "Select Plan"}
+                      </Button>
+                    </div>
                   </div>
                 </Card>
               </motion.div>
