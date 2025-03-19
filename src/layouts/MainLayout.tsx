@@ -2,6 +2,7 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
+import BackButton from '@/components/BackButton';
 import { cn } from '@/lib/utils';
 
 interface MainLayoutProps {
@@ -17,6 +18,7 @@ const MainLayout = ({
 }: MainLayoutProps) => {
   const location = useLocation();
   const content = children || <Outlet />;
+  const isIndexPage = location.pathname === '/';
   
   return (
     <div className="min-h-screen flex flex-col bg-white relative overflow-hidden">
@@ -48,6 +50,12 @@ const MainLayout = ({
         "flex-1 w-full mx-auto p-4 sm:p-6 md:p-8 animate-fade-in relative z-10",
         className
       )}>
+        {/* Back button - only show on non-index pages */}
+        {!isIndexPage && (
+          <div className="mb-4">
+            <BackButton className="hover:bg-gray-100" />
+          </div>
+        )}
         {content}
       </main>
     </div>
