@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -190,14 +191,25 @@
   100% { background-position: 0% 50%; }
 }
 
-/* Enhanced hover animations for gradient border */
-.gradient-border:hover::before {
+/* Reversed animation behavior for gradient border */
+.gradient-border-reverse::before {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.gradient-border-reverse:hover::before {
+  opacity: 1;
   animation: border-animation 3s ease infinite;
   background-size: 200% 200%;
 }
 
-.gradient-border:hover .team-up-label {
+.gradient-border .team-up-label {
   opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.gradient-border:hover .team-up-label {
+  opacity: 1;
 }
 
 /* Fancy Button Styles */

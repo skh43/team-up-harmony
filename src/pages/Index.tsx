@@ -156,7 +156,7 @@ const Index = () => {
               >
                 <HoverCard>
                   <HoverCardTrigger asChild>
-                    <div className="gradient-border p-1 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105 relative">
+                    <div className="gradient-border gradient-border-reverse p-1 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105 relative">
                       <ModernLogo 
                         size="giant" 
                         variant="default" 
@@ -164,7 +164,7 @@ const Index = () => {
                         showTagline={true} 
                         animateThunder={true} 
                       />
-                      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-violet-600 text-white py-2 px-6 rounded-full font-bold shadow-lg opacity-100 transition-opacity duration-300 hover:opacity-0">
+                      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-violet-600 text-white py-2 px-6 rounded-full font-bold shadow-lg opacity-0 transition-opacity duration-300 team-up-label">
                         Team Up
                       </div>
                     </div>
