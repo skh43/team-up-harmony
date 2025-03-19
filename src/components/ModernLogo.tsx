@@ -78,9 +78,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
         <span className="text-xl font-bold tracking-wide text-gray-800">
           {t('common.teamUp')}
         </span>
-        <span className="text-[9px] uppercase tracking-wider text-gray-500 -mt-1">
-          {t('common.tagline')}
-        </span>
       </div>
     </div>
   );
