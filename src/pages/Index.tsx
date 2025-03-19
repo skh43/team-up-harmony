@@ -1,4 +1,3 @@
-
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import RoommateJourney from './RoommateJourney';
@@ -6,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Check, Users, Shield, Home, Star, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Index = () => {
   const { t } = useTranslation();
@@ -55,9 +55,40 @@ const Index = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: { 
+      y: 0, 
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100
+      }
+    },
+    hover: {
+      y: -10,
+      scale: 1.05,
+      boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+      transition: {
+        type: "spring", 
+        stiffness: 300,
+        damping: 15
+      }
+    }
+  };
+
   return (
     <MainLayout className="min-h-screen">
-      {/* Hero Section with simplified clean design */}
       <section className="py-16 bg-[#f8f9fa]">
         <div className="container px-4 mx-auto max-w-6xl">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -110,48 +141,76 @@ const Index = () => {
             </div>
             
             <div className="lg:w-1/2">
-              <img 
+              <motion.img 
                 src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
                 alt="Roommate matching" 
                 className="w-full h-auto rounded-lg shadow-lg border border-gray-100"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
               />
             </div>
           </div>
         </div>
       </section>
       
-      {/* Feature Section - Simplified clean design */}
       <section className="py-16 bg-white">
         <div className="container px-4 mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-playfair mb-4">
+            <motion.h2 
+              className="text-3xl font-bold font-playfair mb-4"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               Premium Features Tailored For You
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            </motion.h2>
+            <motion.p 
+              className="text-gray-600 max-w-2xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
               We've built powerful tools to make your roommate search efficient, safe, and successful.
-            </p>
+            </motion.p>
           </div>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
             {features.map((feature, index) => (
-              <div key={index} className="p-6 border border-gray-100 rounded-lg hover:shadow-lg transition-all">
-                <div className="mb-4">
+              <motion.div 
+                key={index} 
+                className="p-6 border border-gray-100 rounded-lg bg-white hover:border-blue-200 transition-all"
+                variants={itemVariants}
+                whileHover="hover"
+                initial="hidden"
+                animate="visible"
+                style={{ overflow: "hidden" }}
+              >
+                <motion.div 
+                  className="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center mb-4"
+                  whileHover={{ rotate: 360, backgroundColor: "#EBF5FF" }}
+                  transition={{ duration: 0.6 }}
+                >
                   {feature.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-3 font-playfair">{feature.title}</h3>
+                </motion.div>
+                <h3 className="text-xl font-bold mb-3 font-playfair text-gray-800">{feature.title}</h3>
                 <p className="text-gray-600">{feature.description}</p>
-              </div>
+                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-32 h-32 bg-blue-50 rounded-full opacity-20 z-0"></div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
       
-      {/* How It Works Section */}
       <div id="how-it-works">
         <RoommateJourney />
       </div>
       
-      {/* Testimonials - Simplified clean design */}
       <section className="py-16 bg-[#f8f9fa]">
         <div className="container px-4 mx-auto max-w-6xl">
           <div className="text-center mb-12">
@@ -186,7 +245,6 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Call to Action - Simplified clean design */}
       <section className="py-16 bg-white">
         <div className="container px-4 mx-auto text-center max-w-3xl">
           <h2 className="text-3xl font-bold mb-6 font-playfair">
