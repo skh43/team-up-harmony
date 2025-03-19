@@ -62,10 +62,19 @@ const ProfileCreation = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [activePlan, setActivePlan] = useState<'basic' | 'comfort' | 'elite'>('basic');
+  const [paymentVerified, setPaymentVerified] = useState(false);
   
   useEffect(() => {
-    const selectedPlanTier = localStorage.getItem('planTier');
+    const selectedPlanTier = localStorage.getItem('planTier') as 'basic' | 'comfort' | 'elite' | null;
     const paymentComplete = localStorage.getItem('paymentComplete');
+    
+    console.log("Selected plan tier:", selectedPlanTier);
+    console.log("Payment complete status:", paymentComplete);
+    
+    if (!selectedPlanTier) {
+      navigate('/living-plan-selection');
+      return;
+    }
     
     if ((selectedPlanTier === 'comfort' || selectedPlanTier === 'elite') && !paymentComplete) {
       toast({
@@ -77,9 +86,9 @@ const ProfileCreation = () => {
       return;
     }
     
-    if (selectedPlanTier && (selectedPlanTier === 'basic' || selectedPlanTier === 'comfort' || selectedPlanTier === 'elite')) {
-      setActivePlan(selectedPlanTier);
-    }
+    setActivePlan(selectedPlanTier);
+    setPaymentVerified(true);
+    
   }, [navigate, toast]);
   
   const form = useForm<ProfileValues>({
@@ -460,7 +469,621 @@ const ProfileCreation = () => {
     </motion.div>
   );
 
+  const renderComfortPlanContent = () => (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div variants={itemVariants}>
+        <Card className="shadow-elegant border-0 overflow-hidden mb-10">
+          <CardContent className="p-6 pt-6">
+            <div className="bg-purple-50 p-4 rounded-lg mb-6 border border-purple-100">
+              <h2 className="text-lg font-semibold text-purple-700 mb-1 flex items-center">
+                <Coffee className="h-4 w-4 mr-2" />
+                Comfort Zone
+              </h2>
+              <p className="text-sm text-purple-600">
+                Enhanced matching with detailed lifestyle preferences for better roommate compatibility
+              </p>
+            </div>
+            
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <motion.div 
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  variants={itemVariants}
+                >
+                  <FormField
+                    control={form.control}
+                    name="gender"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel className="font-medium">Gender</FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="flex flex-col space-y-1"
+                          >
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="male" />
+                              </FormControl>
+                              <FormLabel className="font-normal">Male</FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="female" />
+                              </FormControl>
+                              <FormLabel className="font-normal">Female</FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="other" />
+                              </FormControl>
+                              <FormLabel className="font-normal">Other</FormLabel>
+                            </FormItem>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="budget"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Monthly Budget</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="pl-10">
+                              <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                              <SelectValue placeholder="Select your budget range" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="500-750">SAR 500 - 750</SelectItem>
+                            <SelectItem value="750-1000">SAR 750 - 1,000</SelectItem>
+                            <SelectItem value="1000-1500">SAR 1,000 - 1,500</SelectItem>
+                            <SelectItem value="1500-2000">SAR 1,500 - 2,000</SelectItem>
+                            <SelectItem value="2000-3000">SAR 2,000 - 3,000</SelectItem>
+                            <SelectItem value="3000+">SAR 3,000+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+                
+                <motion.div 
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  variants={itemVariants}
+                >
+                  <FormField
+                    control={form.control}
+                    name="location"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Preferred Location</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                            <Input className="pl-10" placeholder="City, neighborhood" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="roomType"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Room Type Preference</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select room type" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="single">Single Room</SelectItem>
+                            <SelectItem value="shared">Shared Room</SelectItem>
+                            <SelectItem value="any">No Preference</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  variants={itemVariants}
+                >
+                  <FormField
+                    control={form.control}
+                    name="dietary"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Dietary Preferences</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select dietary preference" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="no-preference">No Preference</SelectItem>
+                            <SelectItem value="vegetarian">Vegetarian</SelectItem>
+                            <SelectItem value="vegan">Vegan</SelectItem>
+                            <SelectItem value="halal">Halal</SelectItem>
+                            <SelectItem value="kosher">Kosher</SelectItem>
+                            <SelectItem value="gluten-free">Gluten-Free</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="workSchedule"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Work/Study Schedule</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="pl-10">
+                              <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                              <SelectValue placeholder="Select schedule" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="standard">Standard (9-5)</SelectItem>
+                            <SelectItem value="evening">Evening/Night Shift</SelectItem>
+                            <SelectItem value="flexible">Flexible Hours</SelectItem>
+                            <SelectItem value="remote">Fully Remote</SelectItem>
+                            <SelectItem value="hybrid">Hybrid (Part Remote)</SelectItem>
+                            <SelectItem value="student">Student Schedule</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  variants={itemVariants}
+                >
+                  <FormField
+                    control={form.control}
+                    name="cleanliness"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Cleanliness Level</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select cleanliness level" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="very-neat">Very Neat & Organized</SelectItem>
+                            <SelectItem value="neat">Generally Neat</SelectItem>
+                            <SelectItem value="average">Average</SelectItem>
+                            <SelectItem value="relaxed">Relaxed About Cleaning</SelectItem>
+                            <SelectItem value="messy">Comfortable With Mess</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="social"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Social Preference</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select social preference" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="very-social">Very Social (Friends Over Often)</SelectItem>
+                            <SelectItem value="somewhat-social">Somewhat Social</SelectItem>
+                            <SelectItem value="balanced">Balanced (Mix of Social/Private)</SelectItem>
+                            <SelectItem value="private">Private (Keep to Myself)</SelectItem>
+                            <SelectItem value="very-private">Very Private (Minimal Interaction)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+                
+                <motion.div variants={itemVariants}>
+                  <FormField
+                    control={form.control}
+                    name="bio"
+                    render={({ field }) => (
+                      <FormItem className="mt-4">
+                        <FormLabel className="font-medium">About You</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <HeartHandshake className="absolute left-3 top-3 text-muted-foreground h-4 w-4" />
+                            <Textarea 
+                              className="pl-10 min-h-24" 
+                              placeholder="Tell potential roommates about yourself, your interests, and what you're looking for in a roommate" 
+                              {...field} 
+                            />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+                
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Button 
+                    type="submit" 
+                    className="w-full mt-6 bg-purple-600 hover:bg-purple-700"
+                    disabled={isLoading}
+                  >
+                    <Save className="mr-2 h-4 w-4" />
+                    {isLoading ? "Creating Profile..." : "Save Profile & Find Matches"}
+                  </Button>
+                </motion.div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </motion.div>
+  );
+
+  const renderElitePlanContent = () => (
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.div variants={itemVariants}>
+        <Card className="shadow-elegant border-0 overflow-hidden mb-10">
+          <CardContent className="p-6 pt-6">
+            <div className="bg-amber-50 p-4 rounded-lg mb-6 border border-amber-100">
+              <h2 className="text-lg font-semibold text-amber-700 mb-1 flex items-center">
+                <Star className="h-4 w-4 mr-2" />
+                Elite Living
+              </h2>
+              <p className="text-sm text-amber-600">
+                Premium experience with advanced personality matching for perfect roommate compatibility
+              </p>
+            </div>
+            
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <motion.div 
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  variants={itemVariants}
+                >
+                  <FormField
+                    control={form.control}
+                    name="gender"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel className="font-medium">Gender</FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="flex flex-col space-y-1"
+                          >
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="male" />
+                              </FormControl>
+                              <FormLabel className="font-normal">Male</FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="female" />
+                              </FormControl>
+                              <FormLabel className="font-normal">Female</FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="other" />
+                              </FormControl>
+                              <FormLabel className="font-normal">Other</FormLabel>
+                            </FormItem>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="age"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Age</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                            <Input className="pl-10" type="number" placeholder="Your age" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+                
+                <motion.div 
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  variants={itemVariants}
+                >
+                  <FormField
+                    control={form.control}
+                    name="budget"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Monthly Budget</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger className="pl-10">
+                              <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                              <SelectValue placeholder="Select your budget range" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="500-750">SAR 500 - 750</SelectItem>
+                            <SelectItem value="750-1000">SAR 750 - 1,000</SelectItem>
+                            <SelectItem value="1000-1500">SAR 1,000 - 1,500</SelectItem>
+                            <SelectItem value="1500-2000">SAR 1,500 - 2,000</SelectItem>
+                            <SelectItem value="2000-3000">SAR 2,000 - 3,000</SelectItem>
+                            <SelectItem value="3000+">SAR 3,000+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="location"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Preferred Location</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Building className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                            <Input className="pl-10" placeholder="City, neighborhood" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  variants={itemVariants}
+                >
+                  <FormField
+                    control={form.control}
+                    name="cleanliness"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Cleanliness Level</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select cleanliness level" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="very-neat">Very Neat & Organized</SelectItem>
+                            <SelectItem value="neat">Generally Neat</SelectItem>
+                            <SelectItem value="average">Average</SelectItem>
+                            <SelectItem value="relaxed">Relaxed About Cleaning</SelectItem>
+                            <SelectItem value="messy">Comfortable With Mess</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="social"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Social Preference</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select social preference" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="very-social">Very Social (Friends Over Often)</SelectItem>
+                            <SelectItem value="somewhat-social">Somewhat Social</SelectItem>
+                            <SelectItem value="balanced">Balanced (Mix of Social/Private)</SelectItem>
+                            <SelectItem value="private">Private (Keep to Myself)</SelectItem>
+                            <SelectItem value="very-private">Very Private (Minimal Interaction)</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+                
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-2 gap-5"
+                  variants={itemVariants}
+                >
+                  <FormField
+                    control={form.control}
+                    name="conflictStyle"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Conflict Resolution Style</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="How do you handle conflicts?" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="direct">Direct Confrontation</SelectItem>
+                            <SelectItem value="diplomatic">Diplomatic Discussion</SelectItem>
+                            <SelectItem value="compromise">Seek Compromise</SelectItem>
+                            <SelectItem value="avoidant">Avoid Confrontation</SelectItem>
+                            <SelectItem value="mediator">Prefer Third-Party Mediation</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="lifestyleEnvironment"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="font-medium">Lifestyle Environment</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Your ideal home environment" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="quiet-calm">Quiet & Calm</SelectItem>
+                            <SelectItem value="lively-active">Lively & Active</SelectItem>
+                            <SelectItem value="focused-productive">Focused & Productive</SelectItem>
+                            <SelectItem value="relaxed-casual">Relaxed & Casual</SelectItem>
+                            <SelectItem value="spiritual-mindful">Spiritual & Mindful</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+                
+                <motion.div variants={itemVariants}>
+                  <FormField
+                    control={form.control}
+                    name="bio"
+                    render={({ field }) => (
+                      <FormItem className="mt-4">
+                        <FormLabel className="font-medium">About You</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <HeartHandshake className="absolute left-3 top-3 text-muted-foreground h-4 w-4" />
+                            <Textarea 
+                              className="pl-10 min-h-24" 
+                              placeholder="Tell potential roommates about yourself, your interests, and what you're looking for in a roommate" 
+                              {...field} 
+                            />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </motion.div>
+                
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Button 
+                    type="submit" 
+                    className="w-full mt-6 bg-amber-600 hover:bg-amber-700"
+                    disabled={isLoading}
+                  >
+                    <Save className="mr-2 h-4 w-4" />
+                    {isLoading ? "Creating Profile..." : "Save Profile & Find Matches"}
+                  </Button>
+                </motion.div>
+              </form>
+            </Form>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </motion.div>
+  );
+
   const renderPremiumPlanContent = (planType: 'comfort' | 'elite') => {
+    if (paymentVerified) {
+      return planType === 'comfort' ? renderComfortPlanContent() : renderElitePlanContent();
+    }
+    
     const iconClass = planType === 'comfort' ? 
       <Coffee className="h-12 w-12 text-purple-500 mx-auto mb-4" /> : 
       <Star className="h-12 w-12 text-amber-500 mx-auto mb-4" />;
