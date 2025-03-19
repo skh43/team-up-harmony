@@ -1,7 +1,8 @@
+
 import React, { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import { Zap } from 'lucide-react';
+import { Zap, Users } from 'lucide-react';
 
 interface ModernLogoProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'hero' | 'giant';
@@ -124,18 +125,18 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           <div className="flex items-center relative">
             {/* Text Logo without lighting effects */}
             <span className={cn(
-              "font-bold tracking-tighter",
-              size === 'giant' ? 'text-8xl' : 
-              size === 'hero' ? 'text-6xl' : 
+              "font-bold tracking-tighter flex items-center",
+              size === 'giant' ? 'text-7xl' : 
+              size === 'hero' ? 'text-5xl' : 
               size === 'xlarge' ? 'text-4xl' :
               size === 'large' ? 'text-3xl' :
-              size === 'medium' ? 'text-2xl' : 'text-xl'
+              size === 'medium' ? 'text-xl' : 'text-lg'
             )}>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">te</span>
-              <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold">am</span>
-              {/* Space for the thunder bolt with animation */}
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">team</span>
+              <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold mx-1">up</span>
               <span className="relative">
-                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold">u</span>
+                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold">tribe</span>
+                {/* Thunder animation positioned over 'T' in Tribe */}
                 <span className="absolute" style={{ 
                   top: position < 0 ? `${position}px` : 
                        size === 'giant' ? '-50px' : 
@@ -143,11 +144,11 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
                        size === 'xlarge' ? '-20px' : 
                        size === 'large' ? '-15px' :
                        size === 'medium' ? '-12px' : '-10px',
-                  right: size === 'giant' ? '14px' : 
-                        size === 'hero' ? '12px' : 
-                        size === 'xlarge' ? '7px' : 
-                        size === 'large' ? '6px' :
-                        size === 'medium' ? '4px' : '3px',
+                  left: size === 'giant' ? '2px' : 
+                        size === 'hero' ? '2px' : 
+                        size === 'xlarge' ? '1px' : 
+                        size === 'large' ? '1px' :
+                        size === 'medium' ? '0px' : '0px',
                   transition: 'top 0.1s ease-in',
                   opacity: isVisible ? 1 : 0,
                   zIndex: 10,
@@ -155,15 +156,27 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
                   <Zap 
                     className={cn(
                       "fill-yellow-400 text-yellow-400 rotate-12 transform",
-                      size === 'giant' ? 'h-20 w-20' : 
-                      size === 'hero' ? 'h-16 w-16' : 
+                      size === 'giant' ? 'h-16 w-16' : 
+                      size === 'hero' ? 'h-14 w-14' : 
                       size === 'xlarge' ? 'h-8 w-8' : 
                       size === 'large' ? 'h-6 w-6' :
-                      size === 'medium' ? 'h-5 w-5' : 'h-4 w-4'
+                      size === 'medium' ? 'h-4 w-4' : 'h-3 w-3'
                     )}
                   />
                 </span>
-                <span className="bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent font-extrabold">p</span>
+                {/* Tribe icon next to text for more visual appeal */}
+                {size !== 'small' && (
+                  <Users 
+                    className={cn(
+                      "ml-1 text-fuchsia-500",
+                      size === 'giant' ? 'h-14 w-14' : 
+                      size === 'hero' ? 'h-10 w-10' : 
+                      size === 'xlarge' ? 'h-6 w-6' : 
+                      size === 'large' ? 'h-5 w-5' :
+                      size === 'medium' ? 'h-4 w-4' : 'h-3 w-3'
+                    )}
+                  />
+                )}
               </span>
             </span>
           </div>
@@ -180,43 +193,30 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           )}
         </div>
       ) : (
+        // Fallback non-text logo
         <div className={cn(
           sizeClasses[size],
           "relative flex items-center",
           variants[variant],
         )}>
-          {/* City Skyline Logo SVG - kept for fallback */}
-          <svg 
-            viewBox="0 0 120 60" 
-            className="w-auto h-full"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Skyline */}
-            <g fill="none" stroke="url(#skylineGradient)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              {/* Building 1 */}
-              <path d="M10,50 L10,30 L20,30 L20,50" />
-              
-              {/* Building 2 */}
-              <path d="M25,50 L25,25 L35,25 L35,35 L40,35 L40,50" />
-              
-              {/* Central Tall Building (Empire State) */}
-              <path d="M50,50 L50,15 L55,10 L60,15 L60,50" />
-              
-              {/* Building 4 */}
-              <path d="M70,50 L70,20 L80,20 L80,30 L85,30 L85,50" />
-              
-              {/* Building 5 */}
-              <path d="M95,50 L95,35 L105,35 L105,50" />
-            </g>
-            
-            {/* Gradients */}
-            <defs>
-              <linearGradient id="skylineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#9b87f5" />
-                <stop offset="100%" stopColor="#0EA5E9" />
-              </linearGradient>
-            </defs>
-          </svg>
+          <div className="flex items-center">
+            <Users className={cn(
+              "text-violet-600",
+              size === 'giant' ? 'h-24 w-24' : 
+              size === 'hero' ? 'h-16 w-16' : 
+              size === 'xlarge' ? 'h-10 w-10' : 
+              size === 'large' ? 'h-8 w-8' :
+              size === 'medium' ? 'h-6 w-6' : 'h-5 w-5'
+            )} />
+            <Zap className={cn(
+              "text-yellow-400 ml-1",
+              size === 'giant' ? 'h-16 w-16' : 
+              size === 'hero' ? 'h-12 w-12' : 
+              size === 'xlarge' ? 'h-8 w-8' : 
+              size === 'large' ? 'h-6 w-6' :
+              size === 'medium' ? 'h-5 w-5' : 'h-4 w-4'
+            )} />
+          </div>
         </div>
       )}
     </div>

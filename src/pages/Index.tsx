@@ -1,3 +1,4 @@
+
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import RoommateJourney from './RoommateJourney';
@@ -164,7 +165,7 @@ const Index = () => {
                         animateThunder={true} 
                       />
                       <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-violet-600 text-white py-2 px-6 rounded-full font-bold shadow-lg opacity-0 transition-opacity duration-300 team-up-label">
-                        Team Up
+                        Join Our Tribe
                       </div>
                     </div>
                   </HoverCardTrigger>
