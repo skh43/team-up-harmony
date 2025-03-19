@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { Button } from "@/components/ui/button";
@@ -19,7 +18,6 @@ const LivingPlanSelection = () => {
   const { toast } = useToast();
   const { isAuthenticated, user } = useAuth();
 
-  // Redirect to login if not authenticated
   useEffect(() => {
     if (!isAuthenticated) {
       toast({
@@ -31,7 +29,6 @@ const LivingPlanSelection = () => {
     }
   }, [isAuthenticated, navigate, toast]);
 
-  // Check if there's a previously selected tier in localStorage
   useEffect(() => {
     const savedTier = localStorage.getItem('planTier');
     
@@ -107,7 +104,6 @@ const LivingPlanSelection = () => {
   
   const handleTierSelect = (tierId: string) => {
     setSelectedTier(tierId);
-    // Show upgrade banner for basic and comfort tiers
     if (tierId === 'basic' || tierId === 'comfort') {
       setShowEliteUpgrade(true);
     } else {
@@ -128,14 +124,12 @@ const LivingPlanSelection = () => {
     localStorage.setItem('livingPlan', 'roommate');
     localStorage.setItem('planTier', selectedTier);
     
-    // Show a toast notification for better user feedback
     toast({
       title: "Plan Selected",
       description: `Roommate Finding - ${selectedTier} tier`,
       variant: "default",
     });
     
-    // If user is already registered, go directly to path selection
     if (user) {
       navigate('/path-selection');
     } else {
@@ -148,12 +142,10 @@ const LivingPlanSelection = () => {
     setShowEliteUpgrade(false);
   };
 
-  // If not authenticated, return null (will redirect in useEffect)
   if (!isAuthenticated) {
     return null;
   }
 
-  // Animation variants for the cards
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: (i: number) => ({
@@ -202,7 +194,6 @@ const LivingPlanSelection = () => {
             </p>
           </motion.div>
 
-          {/* Elite Upgrade Banner */}
           {showEliteUpgrade && (
             <motion.div 
               className="mx-auto mb-8 rounded-xl overflow-hidden relative"
@@ -333,15 +324,15 @@ const LivingPlanSelection = () => {
                     )}
                     
                     <Button
+                      variant="outline"
+                      size="lg"
+                      radius="md"
                       className={cn(
-                        "w-full py-2 border font-medium text-white transition-all whitespace-nowrap",
-                        selectedTier === tier.id ? "" : "transform hover:scale-105",
+                        "w-full font-medium transition-all border text-center",
+                        selectedTier === tier.id ? 
+                          "bg-white text-gray-800 border-gray-200" : 
+                          "bg-white text-gray-800 border-gray-200 transform hover:scale-105",
                       )}
-                      style={{ 
-                        background: selectedTier === tier.id 
-                          ? tier.color 
-                          : `linear-gradient(to right, ${tier.color}, ${tier.color})`, 
-                      }}
                       onClick={(e) => {
                         e.stopPropagation();
                         handleTierSelect(tier.id);
