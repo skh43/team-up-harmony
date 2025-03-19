@@ -47,14 +47,14 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     giant: 'text-xl'
   };
 
-  // Adjust tagline width constraints
+  // Adjusted tagline width constraints to match logo width
   const taglineWidths = {
-    small: 'max-w-[70%]',
-    medium: 'max-w-[75%]',
-    large: 'max-w-[80%]',
-    xlarge: 'max-w-[85%]',
-    hero: 'max-w-[90%]',
-    giant: 'max-w-[90%]'
+    small: 'max-w-[100%]',
+    medium: 'max-w-[100%]',
+    large: 'max-w-[100%]',
+    xlarge: 'max-w-[100%]',
+    hero: 'max-w-[100%]',
+    giant: 'max-w-[100%]'
   };
 
   return (
@@ -104,10 +104,10 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             </span>
           </div>
 
-          {/* Tagline - updated to be smaller and constrained width */}
+          {/* Tagline - updated to be on a single line and match logo width */}
           {showTagline && (
             <div className={cn(
-              "text-center text-blue-600 font-medium mt-1 mx-auto",
+              "text-center text-blue-600 font-medium mt-1 mx-auto whitespace-nowrap overflow-hidden",
               taglineSizes[size],
               taglineWidths[size]
             )}>
