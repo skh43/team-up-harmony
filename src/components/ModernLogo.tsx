@@ -21,7 +21,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
   
   const sizeClasses = {
     small: 'h-8',
-    medium: 'h-12',
+    medium: 'h-10',
     large: 'h-16',
     xlarge: 'h-20'
   };
@@ -77,7 +77,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     >
       <motion.div
         className={cn(
-          "relative rounded-xl overflow-hidden", 
+          "relative rounded-xl overflow-hidden flex items-center", 
           variant === 'shine' && "p-[1px]"
         )}
         variants={
@@ -91,16 +91,84 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             : undefined
         }
       >
-        <motion.img 
-          src="/public/lovable-uploads/f6a689e5-9dc4-44c7-a958-19de3d72db76.png" 
-          alt={t('common.logoAlt', 'TeamUp Logo')} 
-          className={cn(
-            sizeClasses[size], 
-            "w-auto object-contain",
-            variants[variant],
-            variant === 'gradient' && "rounded-lg"
-          )}
-        />
+        <div className={cn(
+          sizeClasses[size],
+          "relative flex items-center justify-center",
+          variants[variant],
+        )}>
+          {/* Abstract Logo SVG */}
+          <svg 
+            viewBox="0 0 40 40" 
+            className="w-auto h-full"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Main shape - abstract home/building */}
+            <motion.path 
+              d="M20 5L5 20v15h30V20L20 5z" 
+              fill="none" 
+              stroke="url(#gradient1)" 
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+            />
+            
+            {/* Abstract figures representing people */}
+            <motion.circle 
+              cx="15" 
+              cy="25" 
+              r="3" 
+              fill="url(#gradient2)"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+            />
+            <motion.circle 
+              cx="25" 
+              cy="25" 
+              r="3" 
+              fill="url(#gradient3)"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.7, duration: 0.5 }}
+            />
+            
+            {/* Connect the figures - representing connection */}
+            <motion.line 
+              x1="15" 
+              y1="25" 
+              x2="25" 
+              y2="25" 
+              stroke="url(#gradient4)" 
+              strokeWidth="1.5"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ delay: 0.9, duration: 0.5 }}
+            />
+            
+            {/* Gradients */}
+            <defs>
+              <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#9b87f5" />
+                <stop offset="100%" stopColor="#0EA5E9" />
+              </linearGradient>
+              <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#D946EF" />
+                <stop offset="100%" stopColor="#9b87f5" />
+              </linearGradient>
+              <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#0EA5E9" />
+                <stop offset="100%" stopColor="#9b87f5" />
+              </linearGradient>
+              <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#D946EF" />
+                <stop offset="100%" stopColor="#0EA5E9" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
         
         {variant === 'glow' && (
           <motion.div 
