@@ -32,9 +32,9 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
 
   const variants = {
     default: "",
-    glow: "drop-shadow-[0_0_15px_rgba(124,58,237,0.6)]",
-    gradient: "gradient-border p-1",
-    shine: "animate-shimmer bg-gradient-shine bg-[length:400%_100%]"
+    glow: "",
+    gradient: "p-1",
+    shine: ""
   };
 
   // Map size to tagline size
@@ -52,9 +52,9 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
       {showText ? (
         <div className={cn("relative", sizeClasses[size], variants[variant])}>
           <div className="flex items-center relative">
-            {/* Text Logo with enhanced contrast and lighting */}
+            {/* Text Logo without lighting effects */}
             <span className={cn(
-              "font-bold tracking-tighter drop-shadow-md",
+              "font-bold tracking-tighter",
               size === 'giant' ? 'text-8xl' : 
               size === 'hero' ? 'text-6xl' : 
               size === 'xlarge' ? 'text-4xl' :
@@ -63,7 +63,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             )}>
               <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">te</span>
               <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold">am</span>
-              {/* Space for the thunder bolt with enhanced visibility */}
+              {/* Space for the thunder bolt without glow */}
               <span className="relative">
                 <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold">u</span>
                 <span className="absolute" style={{ 
@@ -80,7 +80,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
                 }}>
                   <Zap 
                     className={cn(
-                      "fill-yellow-400 text-yellow-400 rotate-12 transform drop-shadow-[0_0_8px_rgba(250,204,21,0.8)]",
+                      "fill-yellow-400 text-yellow-400 rotate-12 transform",
                       size === 'giant' ? 'h-16 w-16' : 
                       size === 'hero' ? 'h-12 w-12' : 
                       size === 'xlarge' ? 'h-6 w-6' : 
@@ -94,10 +94,10 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             </span>
           </div>
 
-          {/* Tagline with enhanced contrast */}
+          {/* Tagline without enhanced contrast */}
           {showTagline && (
             <div className={cn(
-              "text-center text-blue-700 font-semibold mt-1 drop-shadow-sm",
+              "text-center text-blue-600 font-medium mt-1",
               taglineSizes[size]
             )}>
               roommate discovery, simplified
