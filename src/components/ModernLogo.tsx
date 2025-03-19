@@ -104,7 +104,16 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             </span>
           </div>
 
-          {/* Removed tagline section */}
+          {/* Tagline - only show when requested */}
+          {showTagline && (
+            <div className={cn(
+              "text-center text-blue-600 font-medium mt-1 mx-auto whitespace-nowrap overflow-hidden",
+              taglineSizes[size],
+              taglineWidths[size]
+            )}>
+              roommate discovery, simplified
+            </div>
+          )}
         </div>
       ) : (
         <div className={cn(
