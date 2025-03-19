@@ -24,11 +24,12 @@ const BackButton = ({ className }: BackButtonProps) => {
     <Button
       onClick={handleGoBack}
       variant="ghost"
-      size="icon"
-      className={className}
+      size="sm"
+      className={`flex items-center gap-2 ${className}`}
       aria-label="Go back to previous page"
     >
-      <ArrowLeft className="h-5 w-5" />
+      <ArrowLeft className="h-4 w-4" />
+      <span>Go Back</span>
     </Button>
   );
 };

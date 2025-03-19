@@ -50,10 +50,10 @@ const MainLayout = ({
         "flex-1 w-full mx-auto p-4 sm:p-6 md:p-8 animate-fade-in relative z-10",
         className
       )}>
-        {/* Back button - only show on non-index pages */}
+        {/* Back button - only show on non-index pages, positioned below the animated circle */}
         {!isIndexPage && (
-          <div className="mb-4">
-            <BackButton className="hover:bg-gray-100" />
+          <div className="mb-6 mt-12">
+            <BackButton className="hover:bg-gray-100/80 backdrop-blur-sm" />
           </div>
         )}
         {content}
