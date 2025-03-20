@@ -1,4 +1,3 @@
-
 {
   "common": {
     "welcome": "欢迎回来",
@@ -15,8 +14,8 @@
     "language": "语言",
     "logout": "登出",
     "or": "或者",
-    "teamUp": "团队部落",
-    "logoAlt": "团队部落标志",
+    "teamUp": "精选共居",
+    "logoAlt": "精选共居标志",
     "getStarted": "开始使用",
     "learnMore": "了解更多",
     "startJourney": "开始你的旅程",

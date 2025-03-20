@@ -70,10 +70,10 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               size === 'large' ? 'text-3xl' :
               size === 'medium' ? 'text-xl' : 'text-lg'
             )}>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">team</span>
-              <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold mx-1">up</span>
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">curated</span>
+              <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold mx-1">co</span>
               <span className="relative">
-                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold text-sm">tribe</span>
+                <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold text-sm">living</span>
               </span>
             </span>
           </div>
@@ -97,9 +97,9 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           variants[variant],
         )}>
           <div className="flex items-center">
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">team</span>
-            <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold mx-1">up</span>
-            <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold text-sm">tribe</span>
+            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">curated</span>
+            <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold mx-1">co</span>
+            <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent font-extrabold text-sm">living</span>
           </div>
         </div>
       )}
