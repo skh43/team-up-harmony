@@ -4,6 +4,8 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import BackButton from '@/components/BackButton';
 import { cn } from '@/lib/utils';
+import AdComponent from '@/components/AdComponent';
+import '@/components/AdStyles.css';
 
 interface MainLayoutProps {
   children?: React.ReactNode;
@@ -46,18 +48,43 @@ const MainLayout = ({
       <div className="absolute top-1/3 right-1/3 w-80 h-80 rounded-full bg-pink-100/20 blur-[150px] pointer-events-none"></div>
       
       {!hideNavbar && <Navbar />}
-      <main className={cn(
-        "flex-1 w-full mx-auto p-4 sm:p-6 md:p-8 animate-fade-in relative z-10",
-        className
-      )}>
-        {/* Back button - only show on non-index pages, positioned below the animated circle */}
-        {!isIndexPage && (
-          <div className="mb-6 mt-12">
-            <BackButton className="hover:bg-gray-100/80 backdrop-blur-sm" />
+
+      {/* Top banner ad - visible on all pages */}
+      <div className="w-full px-4 py-2 bg-gray-50">
+        <AdComponent type="banner" isSpinning={true} />
+      </div>
+      
+      <div className="flex flex-1 w-full mx-auto relative z-10">
+        {/* Sidebar ad - only on desktop */}
+        <div className="hidden lg:block w-64 p-4 sticky top-20 h-screen">
+          <AdComponent type="sidebar" className="sticky top-20" />
+        </div>
+        
+        <main className={cn(
+          "flex-1 p-4 sm:p-6 md:p-8 animate-fade-in relative",
+          className
+        )}>
+          {/* Back button - only show on non-index pages */}
+          {!isIndexPage && (
+            <div className="mb-6 mt-12">
+              <BackButton className="hover:bg-gray-100/80 backdrop-blur-sm" />
+            </div>
+          )}
+          
+          {/* Main content */}
+          {content}
+          
+          {/* Inline ad in the content */}
+          <div className="my-8">
+            <AdComponent type="inline" />
           </div>
-        )}
-        {content}
-      </main>
+        </main>
+      </div>
+      
+      {/* Footer ad space */}
+      <div className="w-full px-4 py-2 bg-gray-50">
+        <AdComponent type="footer" />
+      </div>
     </div>
   );
 };

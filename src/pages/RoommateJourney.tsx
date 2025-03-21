@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from '@/hooks/useAuth';
 import { Badge } from "@/components/ui/badge";
 import { motion } from 'framer-motion';
+import AdComponent from '@/components/AdComponent';
 import { 
   Compass, 
   UserCog, 
@@ -128,6 +129,11 @@ const RoommateJourney = () => {
             {t('roommate.subtitle')}
           </p>
         </motion.div>
+
+        {/* Spinning Ad before the steps */}
+        <div className="max-w-lg mx-auto mb-10">
+          <AdComponent type="inline" isSpinning={true} />
+        </div>
         
         <motion.div 
           variants={containerVariants}
@@ -177,6 +183,11 @@ const RoommateJourney = () => {
             </motion.div>
           ))}
         </motion.div>
+
+        {/* Middle ad - regular inline ad */}
+        <div className="max-w-xl mx-auto mb-10">
+          <AdComponent type="inline" />
+        </div>
         
         <motion.div 
           className="text-center"
