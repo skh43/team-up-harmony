@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -24,8 +23,8 @@ const Login = () => {
   const [error, setError] = useState('');
   const { t } = useTranslation();
   
-  // Get the URL to redirect to after login
-  const from = location.state?.from || '/dashboard';
+  // Always redirect to roommate flow after login
+  const from = '/living-plan-selection';
   
   // Redirect if already authenticated
   useEffect(() => {
@@ -46,12 +45,7 @@ const Login = () => {
         description: t('login.welcomeBack'),
       });
       
-      // Check if they were trying to access the roommate flow
-      if (from.includes('living-plan') || from.includes('path-selection') || from.includes('profile-creation') || from.includes('matching')) {
-        navigate('/living-plan-selection');
-      } else {
-        navigate(from);
-      }
+      navigate(from);
     } catch (err) {
       console.error("Login error:", err);
       setError(t('validation.invalidCredentials'));
@@ -72,12 +66,7 @@ const Login = () => {
         description: t('login.authenticatedWithGoogle'),
       });
       
-      // Check if they were trying to access the roommate flow
-      if (from.includes('living-plan') || from.includes('path-selection') || from.includes('profile-creation') || from.includes('matching')) {
-        navigate('/living-plan-selection');
-      } else {
-        navigate(from);
-      }
+      navigate(from);
     } catch (err) {
       console.error("Google login error:", err);
       toast({
