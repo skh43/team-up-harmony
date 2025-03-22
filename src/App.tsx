@@ -21,7 +21,9 @@ import ProfileCreation from "./pages/ProfileCreation";
 import Dashboard from "./pages/Dashboard";
 import Messages from "./pages/Messages";
 import Settings from "./pages/Settings";
+import React from 'react';
 
+// Create a new QueryClient instance
 const queryClient = new QueryClient();
 
 // Protected route component
@@ -104,17 +106,19 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <TooltipProvider>
-            <AppRoutes />
-            <Toaster />
-            <Sonner />
-          </TooltipProvider>
-        </AuthProvider>
-      </QueryClientProvider>
-    </BrowserRouter>
+    <React.StrictMode>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <AuthProvider>
+            <TooltipProvider>
+              <AppRoutes />
+              <Toaster />
+              <Sonner />
+            </TooltipProvider>
+          </AuthProvider>
+        </QueryClientProvider>
+      </BrowserRouter>
+    </React.StrictMode>
   );
 };
 
