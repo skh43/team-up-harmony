@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -49,7 +48,6 @@ const RoommateFlowRoute = ({ children, step, checkPlan = false }: {
     return <Navigate to="/login" replace />;
   }
   
-  // Check if previous steps are completed
   const livingPlan = localStorage.getItem('livingPlan');
   const planTier = localStorage.getItem('planTier');
   const userPath = localStorage.getItem('userPath');
@@ -62,7 +60,6 @@ const RoommateFlowRoute = ({ children, step, checkPlan = false }: {
     return <Navigate to="/path-selection" replace />;
   }
   
-  // If this route requires payment validation for premium plans
   if (checkPlan && (planTier === 'comfort' || planTier === 'elite')) {
     const paymentComplete = localStorage.getItem('paymentComplete');
     if (!paymentComplete) {
@@ -82,23 +79,19 @@ const AppRoutes = () => {
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       
-      {/* Protected Routes */}
       <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       <Route path="/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
       
-      {/* Roommate Finding Flow - Sequential Protection */}
       <Route path="/living-plan-selection" element={<RoommateFlowRoute step={1}><LivingPlanSelection /></RoommateFlowRoute>} />
       <Route path="/payment" element={<RoommateFlowRoute step={1}><Payment /></RoommateFlowRoute>} />
       <Route path="/path-selection" element={<RoommateFlowRoute step={2}><PathSelection /></RoommateFlowRoute>} />
       <Route path="/profile-creation" element={<RoommateFlowRoute step={3} checkPlan={true}><ProfileCreation /></RoommateFlowRoute>} />
       <Route path="/matching" element={<RoommateFlowRoute step={4}><Matching /></RoommateFlowRoute>} />
       
-      {/* Property Management - Just requires login */}
       <Route path="/properties" element={<ProtectedRoute><Properties /></ProtectedRoute>} />
       <Route path="/list-property" element={<ProtectedRoute><ListProperty /></ProtectedRoute>} />
       
-      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
@@ -106,19 +99,19 @@ const AppRoutes = () => {
 
 const App = () => {
   return (
-    <React.StrictMode>
-      <BrowserRouter>
+    <BrowserRouter>
+      <React.StrictMode>
         <QueryClientProvider client={queryClient}>
           <AuthProvider>
-            <TooltipProvider>
+            <TooltipProvider delayDuration={0}>
               <AppRoutes />
               <Toaster />
               <Sonner />
             </TooltipProvider>
           </AuthProvider>
         </QueryClientProvider>
-      </BrowserRouter>
-    </React.StrictMode>
+      </React.StrictMode>
+    </BrowserRouter>
   );
 };
 
