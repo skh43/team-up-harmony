@@ -71,7 +71,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               size === 'medium' ? 'text-xl' : 'text-lg'
             )}>
               <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">Teem</span>
-              <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold">up</span>
+              <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold ml-1">up</span>
             </span>
           </div>
 
@@ -95,7 +95,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
         )}>
           <div className="flex items-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">Teem</span>
-            <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold">up</span>
+            <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold ml-1">up</span>
           </div>
         </div>
       )}
