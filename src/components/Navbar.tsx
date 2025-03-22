@@ -7,7 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import LanguageSelector from './LanguageSelector';
 import { useTranslation } from 'react-i18next';
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, NavigationMenuTrigger } from './ui/navigation-menu';
-import { Building, Home, Users, LogOut, Search, Heart, User } from 'lucide-react';
+import { Building, Home, Users, LogOut, Search, Heart, User, LayoutDashboard } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/components/ui/use-toast';
 import ModernLogo from './ModernLogo';
@@ -146,6 +146,19 @@ const Navbar = () => {
           
           {isAuthenticated && user ? (
             <div className="flex items-center space-x-3">
+              <MotionButton 
+                variant="outline" 
+                size="sm" 
+                onClick={() => navigate('/dashboard')}
+                whileHover={{ scale: 1.03 }}
+                className="text-purple-600 border-purple-200 hover:bg-purple-50"
+              >
+                <span className="flex items-center gap-1.5">
+                  <LayoutDashboard size={16} />
+                  Dashboard
+                </span>
+              </MotionButton>
+
               <Avatar className="border-2 border-white shadow-sm">
                 <AvatarImage src={user.photoURL} alt={user.fullName || 'Avatar'} />
                 <AvatarFallback className="bg-blue-500 text-white">
