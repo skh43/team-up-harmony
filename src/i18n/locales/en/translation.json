@@ -1,3 +1,4 @@
+
 {
   "common": {
     "welcome": "Welcome Back",
@@ -14,8 +15,8 @@
     "language": "Language",
     "logout": "Logout",
     "or": "OR",
-    "teamUp": "Curated Co-Living",
-    "logoAlt": "Curated Co-Living Logo",
+    "teamUp": "Teemup",
+    "logoAlt": "Teemup Logo",
     "getStarted": "Get Started",
     "learnMore": "Learn More",
     "startJourney": "Start Your Journey",
