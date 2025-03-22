@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import ModernLogo from '@/components/ModernLogo';
-import { HoverCard, HoverCardTrigger, HoverCardContent } from '@/components/ui/hover-card';
 
 const Index = () => {
   const { t } = useTranslation();
@@ -153,41 +152,17 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <HoverCard>
-                  <HoverCardTrigger asChild>
-                    <div className="p-1 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105 relative">
-                      <ModernLogo 
-                        size="giant" 
-                        variant="default" 
-                        className="w-[550px] mb-8 overflow-visible" 
-                        showTagline={true} 
-                      />
-                      <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-violet-600 text-white py-2 px-6 rounded-full font-bold shadow-lg opacity-0 transition-opacity duration-300 team-up-label">
-                        Join Our Tribe
-                      </div>
-                    </div>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-80 text-white p-6 animate-fade-in">
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-center"
-                    >
-                      <h3 className="text-xl font-bold mb-2">Start Your Journey</h3>
-                      <p className="text-sm text-white/90 mb-4">
-                        Find your perfect roommate match and begin your new living adventure today!
-                      </p>
-                      <Button 
-                        variant="outline" 
-                        className="mt-2 bg-white/20 text-white hover:bg-white/30 border-white/40 w-full"
-                        onClick={() => navigate('/register')}
-                      >
-                        Register Now
-                      </Button>
-                    </motion.div>
-                  </HoverCardContent>
-                </HoverCard>
+                <div className="p-1 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105 relative">
+                  <ModernLogo 
+                    size="giant" 
+                    variant="default" 
+                    className="w-[550px] mb-8 overflow-visible" 
+                    showTagline={true} 
+                  />
+                  <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-violet-600 text-white py-2 px-6 rounded-full font-bold shadow-lg opacity-0 transition-opacity duration-300 team-up-label">
+                    Join Our Tribe
+                  </div>
+                </div>
               </motion.div>
             </div>
           </div>
