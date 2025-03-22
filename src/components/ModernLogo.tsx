@@ -2,6 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import { Users } from 'lucide-react';
 
 interface ModernLogoProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'hero' | 'giant';
@@ -9,6 +10,7 @@ interface ModernLogoProps {
   variant?: 'default' | 'glow' | 'gradient' | 'shine';
   showText?: boolean;
   showTagline?: boolean;
+  showIcon?: boolean;
 }
 
 const ModernLogo: React.FC<ModernLogoProps> = ({ 
@@ -17,6 +19,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
   variant = 'default',
   showText = true,
   showTagline = false,
+  showIcon = true,
 }) => {
   const { t } = useTranslation();
   
@@ -46,6 +49,16 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     giant: 'text-xl'
   };
 
+  // Icon sizes based on logo size
+  const iconSizes = {
+    small: 16,
+    medium: 20,
+    large: 24,
+    xlarge: 28,
+    hero: 48,
+    giant: 64
+  };
+
   // Adjusted tagline width constraints to match logo width
   const taglineWidths = {
     small: 'max-w-[100%]',
@@ -61,6 +74,17 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
       {showText ? (
         <div className={cn("relative", sizeClasses[size], variants[variant])}>
           <div className="flex items-center relative">
+            {/* Icon - only shown when requested */}
+            {showIcon && (
+              <div className="mr-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full p-1 flex items-center justify-center">
+                <Users 
+                  size={iconSizes[size]} 
+                  className="text-white" 
+                  strokeWidth={2.5}
+                />
+              </div>
+            )}
+            
             {/* Text Logo without lighting effects */}
             <span className={cn(
               "font-bold tracking-tighter flex items-center",
@@ -93,6 +117,16 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           "relative flex items-center",
           variants[variant],
         )}>
+          {/* Icon only when text is hidden */}
+          {showIcon && (
+            <div className="mr-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full p-1 flex items-center justify-center">
+              <Users 
+                size={iconSizes[size]} 
+                className="text-white" 
+                strokeWidth={2.5}
+              />
+            </div>
+          )}
           <div className="flex items-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">Teem</span>
             <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold ml-1">up</span>
