@@ -110,14 +110,13 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             )}
             
             {/* Text Logo */}
-            <span className={cn(
-              "font-bold tracking-tighter flex items-center",
-              textSizes[size],
-              compact ? "space-x-0.5" : "space-x-1"
+            <div className={cn(
+              "font-bold tracking-tighter inline-flex items-center",
+              textSizes[size]
             )}>
               <span className="text-airbnb-red font-extrabold">The</span>
-              <span className="text-airbnb-navy font-extrabold">Living Circle</span>
-            </span>
+              <span className="text-airbnb-navy font-extrabold ml-1">Living Circle</span>
+            </div>
           </div>
 
           {/* Tagline - only show when requested */}
