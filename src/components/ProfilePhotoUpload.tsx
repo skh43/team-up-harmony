@@ -54,7 +54,6 @@ const ProfilePhotoUpload: React.FC<ProfilePhotoUploadProps> = ({
           <Avatar className="h-24 w-24">
             <AvatarImage src={image} alt="Profile" />
             <AvatarFallback>
-              {/* User initials fallback */}
               <Camera className="h-8 w-8 text-muted-foreground" />
             </AvatarFallback>
           </Avatar>

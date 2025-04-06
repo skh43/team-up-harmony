@@ -16,11 +16,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Clock, Flag } from "lucide-react";
+import { Briefcase, Clock, Flag, Home, Sofa, Coffee } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
 import { Checkbox } from '@/components/ui/checkbox';
 import ProfilePhotoUpload from '@/components/ProfilePhotoUpload';
+import { Textarea } from "@/components/ui/textarea";
+import PropertyImageUpload from '@/components/PropertyImageUpload';
 
 // Define the form schema with Zod
 const formSchema = z.object({
@@ -34,6 +36,9 @@ const formSchema = z.object({
   workTiming: z.string().min(2, "Please specify your work schedule"),
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
+  // Add new fields for room facilities
+  roomDescription: z.string().min(10, "Please provide details about your room/space").optional(),
+  sharedFacilities: z.string().min(5, "Please list the facilities you're willing to share").optional(),
 });
 
 // List of nationalities for the dropdown
@@ -49,6 +54,7 @@ const nationalities = [
 export default function ProfileCreation() {
   const navigate = useNavigate();
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
+  const [roomImages, setRoomImages] = useState<string[]>([]);
   
   // Initialize the form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -62,6 +68,8 @@ export default function ProfileCreation() {
       workTiming: "",
       nationality: "",
       openToAllNationalities: false,
+      roomDescription: "",
+      sharedFacilities: "",
     },
   });
 
@@ -69,7 +77,8 @@ export default function ProfileCreation() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log({
       ...values,
-      profilePhoto
+      profilePhoto,
+      roomImages
     });
     // Redirect to the next step
     navigate("/matching");
@@ -244,6 +253,71 @@ export default function ProfileCreation() {
                     Check this if you're comfortable living with people from any background
                   </FormDescription>
                 </div>
+              </FormItem>
+            )}
+          />
+          
+          {/* Add the Room/Space Section */}
+          <div className="my-6 border-t border-gray-200 pt-6">
+            <h2 className="text-xl font-semibold mb-4">Your Room/Space Details</h2>
+            <p className="text-muted-foreground mb-4">
+              Upload photos and provide details about the room or bed space you're offering.
+            </p>
+          </div>
+          
+          {/* Room Images Upload */}
+          <div>
+            <PropertyImageUpload 
+              images={roomImages}
+              setImages={setRoomImages}
+              minImages={2}
+            />
+          </div>
+          
+          {/* Room Description */}
+          <FormField
+            control={form.control}
+            name="roomDescription"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Home className="w-4 h-4" /> Room/Space Description
+                </FormLabel>
+                <FormControl>
+                  <Textarea 
+                    placeholder="Describe your room or bed space in detail (size, furnishings, window, etc.)" 
+                    className="min-h-24" 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormDescription>
+                  Provide details about your room/space to help potential roommates understand what you're offering
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          {/* Shared Facilities */}
+          <FormField
+            control={form.control}
+            name="sharedFacilities"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Coffee className="w-4 h-4" /> Shared Facilities
+                </FormLabel>
+                <FormControl>
+                  <Textarea 
+                    placeholder="List all facilities you're willing to share (kitchen, bathroom, living room, wifi, etc.)" 
+                    className="min-h-24" 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormDescription>
+                  Clearly mention which facilities will be shared with roommates
+                </FormDescription>
+                <FormMessage />
               </FormItem>
             )}
           />
