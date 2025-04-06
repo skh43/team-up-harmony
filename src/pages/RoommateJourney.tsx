@@ -40,36 +40,36 @@ const RoommateJourney = () => {
       title: "Select Your Path",
       description: "Choose between 'Host My Space' or 'Seek & Settle'. Then select your living plan tier: Basic, Comfort, or Elite.",
       icon: <Compass className="h-10 w-10" />,
-      gradientFrom: "from-indigo-400",
-      gradientTo: "to-purple-500",
-      cardBg: "bg-purple-50"
+      gradientFrom: "from-airbnb-red",
+      gradientTo: "to-airbnb-navy",
+      cardBg: "bg-airbnb-light"
     },
     {
       number: 2,
       title: "Create Your Profile",
       description: "Sign up and create your detailed profile, including your lifestyle preferences, habits, and what you're looking for in a roommate.",
       icon: <UserCog className="h-10 w-10" />,
-      gradientFrom: "from-cyan-400",
-      gradientTo: "to-blue-500",
-      cardBg: "bg-blue-50"
+      gradientFrom: "from-airbnb-red",
+      gradientTo: "to-airbnb-darkpink",
+      cardBg: "bg-airbnb-light"
     },
     {
       number: 3,
       title: "Start Matching",
       description: "Browse potential roommates or properties, swipe right on profiles you like, and start conversations when you match.",
       icon: <UsersRound className="h-10 w-10" />,
-      gradientFrom: "from-orange-400",
-      gradientTo: "to-pink-500",
-      cardBg: "bg-pink-50"
+      gradientFrom: "from-airbnb-darkpink",
+      gradientTo: "to-airbnb-navy",
+      cardBg: "bg-airbnb-light"
     },
     {
       number: 4,
       title: "Team Up",
       description: "Once you've found the perfect match, arrange meetings, discuss details, and finalize your new living arrangement.",
       icon: <Handshake className="h-10 w-10" />,
-      gradientFrom: "from-green-400",
-      gradientTo: "to-emerald-500",
-      cardBg: "bg-green-50"
+      gradientFrom: "from-airbnb-red",
+      gradientTo: "to-airbnb-purple",
+      cardBg: "bg-airbnb-light"
     }
   ];
 
@@ -98,10 +98,10 @@ const RoommateJourney = () => {
   };
   
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-gray-50 overflow-hidden">
+    <section className="py-16 bg-gradient-to-b from-white to-airbnb-light/30 overflow-hidden">
       {/* Decorative elements */}
-      <div className="absolute left-0 top-1/3 w-32 h-32 bg-gradient-to-br from-purple-300/20 to-pink-300/20 rounded-full blur-3xl"></div>
-      <div className="absolute right-0 top-2/3 w-40 h-40 bg-gradient-to-br from-blue-300/20 to-cyan-300/20 rounded-full blur-3xl"></div>
+      <div className="absolute left-0 top-1/3 w-32 h-32 bg-gradient-to-br from-airbnb-red/20 to-airbnb-navy/20 rounded-full blur-3xl"></div>
+      <div className="absolute right-0 top-2/3 w-40 h-40 bg-gradient-to-br from-airbnb-red/20 to-airbnb-darkpink/20 rounded-full blur-3xl"></div>
       
       <div className="container px-4 mx-auto relative z-10">
         <motion.div 
@@ -115,14 +115,14 @@ const RoommateJourney = () => {
               variant="gradientPurple" 
               size="lg" 
               animation="shimmer"
-              className="rounded-full px-4 py-1.5 font-medium text-white"
+              className="rounded-full px-4 py-1.5 font-medium text-white bg-gradient-to-r from-airbnb-red to-airbnb-navy"
             >
               <Sparkles className="w-4 h-4 mr-1" />
               How It Works
             </Badge>
           </div>
           
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-blue-600">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-airbnb-red to-airbnb-navy">
             {t('roommate.title')}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -154,7 +154,7 @@ const RoommateJourney = () => {
                 variant="glass"
                 radius="xl"
                 className={`relative overflow-hidden border-none shadow-lg h-full ${step.cardBg}`}
-                whileHover={{ boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
+                whileHover={{ boxShadow: "0 20px 25px -5px rgba(0, 164, 212, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" }}
               >
                 <div className="absolute top-0 right-0 w-24 h-24 -mt-8 -mr-8 rounded-full bg-gradient-to-br opacity-20"></div>
                 
@@ -176,8 +176,8 @@ const RoommateJourney = () => {
                     {step.icon}
                   </motion.div>
                   
-                  <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                  <p className="text-muted-foreground">{step.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-airbnb-navy">{step.title}</h3>
+                  <p className="text-airbnb-gray">{step.description}</p>
                 </CardContent>
               </MotionCard>
             </motion.div>
@@ -196,14 +196,14 @@ const RoommateJourney = () => {
           transition={{ delay: 0.8, duration: 0.5 }}
         >
           <MotionButton 
-            variant="gradientPurple"
+            variant="airbnbGradient"
             size="xl"
             radius="full"
             onClick={handleStartJourney}
             className="px-10 py-6 text-base font-bold shadow-lg"
             whileHover={{ 
               scale: 1.05, 
-              boxShadow: "0 10px 25px -5px rgba(124, 58, 237, 0.5)" 
+              boxShadow: "0 10px 25px -5px rgba(0, 164, 212, 0.5)" 
             }}
             whileTap={{ scale: 0.95 }}
           >
@@ -217,7 +217,7 @@ const RoommateJourney = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 1, duration: 0.5 }}
           >
-            <p className="text-muted-foreground">
+            <p className="text-airbnb-gray">
               No credit card required. Start your journey today!
             </p>
           </motion.div>
