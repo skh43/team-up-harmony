@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -6,7 +5,7 @@ import * as z from "zod";
 import { useNavigate } from 'react-router-dom';
 import { toast } from "sonner";
 import { MapPin, Bed, Bath, Square, Building, DollarSign, Tag, Camera, Check, House, Sofa, Crown,
-  Hospital, ShoppingCart, PlusCircle, Bus, Train, Map } from 'lucide-react';
+  Hospital, ShoppingCart, PlusCircle, Bus, Train, Map, Calendar } from 'lucide-react';
 
 import MainLayout from '@/layouts/MainLayout';
 import { Input } from '@/components/ui/input';
@@ -32,6 +31,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import PropertyImageUpload from '@/components/PropertyImageUpload';
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 // Define price thresholds for property categories (same as in Properties.tsx)
 const PRICE_THRESHOLDS = {
@@ -50,6 +50,9 @@ const formSchema = z.object({
   bathrooms: z.string().min(1, "Number of bathrooms is required"),
   size: z.string().min(1, "Size is required"),
   propertyType: z.string().min(1, "Property type is required"),
+  contractDuration: z.enum(["monthly", "sixMonths", "yearly"], {
+    required_error: "Please select a contract duration",
+  }),
   imageUrl: z.string().url("Please enter a valid image URL").optional(),
   tags: z.string().optional(),
   mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
@@ -77,6 +80,7 @@ const ListProperty = () => {
       bathrooms: "",
       size: "",
       propertyType: "",
+      contractDuration: "monthly",
       imageUrl: "",
       tags: "",
       mapLink: "",
@@ -322,6 +326,55 @@ const ListProperty = () => {
                               Elite (&gt; {PRICE_THRESHOLDS.COMFORT} SAR)
                             </div>
                           )}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  {/* Contract Duration */}
+                  <FormField
+                    control={form.control}
+                    name="contractDuration"
+                    render={({ field }) => (
+                      <FormItem className="space-y-3">
+                        <FormLabel className="flex items-center gap-2">
+                          <Calendar className="h-4 w-4 mr-1" /> Contract Duration
+                        </FormLabel>
+                        <FormControl>
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            className="flex flex-col space-y-1"
+                          >
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="monthly" />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                Monthly (Short-term)
+                              </FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="sixMonths" />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                6 Months (Medium-term)
+                              </FormLabel>
+                            </FormItem>
+                            <FormItem className="flex items-center space-x-3 space-y-0">
+                              <FormControl>
+                                <RadioGroupItem value="yearly" />
+                              </FormControl>
+                              <FormLabel className="font-normal">
+                                Yearly (Long-term)
+                              </FormLabel>
+                            </FormItem>
+                          </RadioGroup>
+                        </FormControl>
+                        <FormDescription>
+                          Select the contract duration you're offering for this property
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
