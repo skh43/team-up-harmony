@@ -1,111 +1,15 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
-import { Heart, X, Star, MessageCircle, ChevronLeft, ChevronRight, UserCircle2, Globe } from 'lucide-react';
+import { Heart, X, Star, MessageCircle, ChevronLeft, ChevronRight, UserCircle2, Globe, AlertCircle } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
 
-// Mock data for potential roommates with nationalities
 const MOCK_ROOMMATES = [
-  {
-    id: 1,
-    name: 'Ahmed',
-    age: 28,
-    nationality: 'Saudi Arabian',
-    occupation: 'Software Engineer',
-    budget: 'SAR 1,500-2,000/month',
-    bio: 'I work remotely and enjoy cooking. Looking for a quiet roommate with similar interests.',
-    location: 'Riyadh',
-    lifestyle: 'Clean, non-smoker, early riser',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3'
-  },
-  {
-    id: 2,
-    name: 'Fatima',
-    age: 25,
-    nationality: 'Egyptian',
-    occupation: 'Marketing Specialist',
-    budget: 'SAR 2,000-2,500/month',
-    bio: 'I love meeting new people and exploring the city on weekends.',
-    location: 'Jeddah',
-    lifestyle: 'Sociable, clean, loves to cook',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3'
-  },
-  {
-    id: 3,
-    name: 'Mohammad',
-    age: 30,
-    nationality: 'Jordanian',
-    occupation: 'Financial Analyst',
-    budget: 'SAR 2,500-3,000/month',
-    bio: 'Looking for a responsible roommate. I work long hours during weekdays.',
-    location: 'Riyadh',
-    lifestyle: 'Neat, quiet, occasional cook',
-    image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3'
-  },
-  {
-    id: 4,
-    name: 'Nora',
-    age: 26,
-    nationality: 'Lebanese',
-    occupation: 'Graphic Designer',
-    budget: 'SAR 1,800-2,200/month',
-    bio: 'Creative soul looking for a like-minded roommate. I work from home most days.',
-    location: 'Dammam',
-    lifestyle: 'Artistic, neat, night owl',
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=1998&ixlib=rb-4.0.3'
-  },
-  {
-    id: 5,
-    name: 'Yusuf',
-    age: 29,
-    nationality: 'Turkish',
-    occupation: 'Chef',
-    budget: 'SAR 2,300-2,700/month',
-    bio: 'Professional chef who loves to share cultural dishes. Looking for someone who appreciates good food.',
-    location: 'Riyadh',
-    lifestyle: 'Foodie, clean, social on weekends',
-    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3'
-  },
-  {
-    id: 6,
-    name: 'Amina',
-    age: 27,
-    nationality: 'Moroccan',
-    occupation: 'Doctor',
-    budget: 'SAR 3,000-3,500/month',
-    bio: 'Medical resident with irregular hours. Looking for understanding roommate who respects privacy.',
-    location: 'Jeddah',
-    lifestyle: 'Quiet, organized, health-conscious',
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=1976&ixlib=rb-4.0.3'
-  },
-  {
-    id: 7,
-    name: 'Khalid',
-    age: 31,
-    nationality: 'Emirati',
-    occupation: 'Business Consultant',
-    budget: 'SAR 4,000-4,500/month',
-    bio: 'Travel frequently for work. Seeking a reliable roommate for a luxury apartment.',
-    location: 'Riyadh',
-    lifestyle: 'Minimalist, tidy, sports enthusiast',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3'
-  },
-  {
-    id: 8,
-    name: 'Leila',
-    age: 24,
-    nationality: 'Iranian',
-    occupation: 'Software Developer',
-    budget: 'SAR 2,200-2,600/month',
-    bio: 'Tech enthusiast who works from home. Looking for a roommate who respects quiet work hours.',
-    location: 'Dammam',
-    lifestyle: 'Tech-savvy, reader, early sleeper',
-    image: 'https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?auto=format&fit=crop&q=80&w=1989&ixlib=rb-4.0.3'
-  }
+  // Mock data for potential roommates with nationalities
+  // ... keep existing code
 ];
 
 const Matching = () => {
@@ -114,22 +18,69 @@ const Matching = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [matches, setMatches] = useState<number[]>([]);
   const [animation, setAnimation] = useState<'swipe-left' | 'swipe-right' | null>(null);
+  const [swipesUsed, setSwipesUsed] = useState<number>(0);
+  const [swipesReset, setSwipesReset] = useState<string>("");
+  
+  const MAX_DAILY_SWIPES = 20;
 
   const currentProfile = MOCK_ROOMMATES[currentIndex];
 
+  useEffect(() => {
+    const storedSwipeData = localStorage.getItem('dailySwipes');
+    if (storedSwipeData) {
+      const { count, resetDate } = JSON.parse(storedSwipeData);
+      
+      const today = new Date().toDateString();
+      if (resetDate === today) {
+        setSwipesUsed(count);
+      } else {
+        setSwipesUsed(0);
+        updateSwipeStorage(0);
+      }
+      
+      setSwipesReset(resetDate);
+    } else {
+      updateSwipeStorage(0);
+    }
+  }, []);
+
+  const updateSwipeStorage = (count: number) => {
+    const today = new Date().toDateString();
+    localStorage.setItem('dailySwipes', JSON.stringify({ 
+      count, 
+      resetDate: today 
+    }));
+    setSwipesReset(today);
+  };
+
+  const hasReachedSwipeLimit = swipesUsed >= MAX_DAILY_SWIPES;
+
+  const incrementSwipeCount = () => {
+    const newCount = swipesUsed + 1;
+    setSwipesUsed(newCount);
+    updateSwipeStorage(newCount);
+  };
+
   const handleLike = () => {
-    setAnimation('swipe-right');
+    if (hasReachedSwipeLimit) {
+      toast({
+        title: "Daily Swipe Limit Reached",
+        description: "You've used all 20 swipes for today. Come back tomorrow!",
+        variant: "destructive",
+      });
+      return;
+    }
     
-    // Add to matches (in a real app, this would be a match only if they also liked you)
+    setAnimation('swipe-right');
+    incrementSwipeCount();
+    
     setMatches(prev => [...prev, currentProfile.id]);
     
-    // Show toast
     toast({
       title: "It's a match!",
       description: `You matched with ${currentProfile.name}. You can now message them.`,
     });
     
-    // Delayed animation reset and move to next profile
     setTimeout(() => {
       setAnimation(null);
       goToNextProfile();
@@ -137,9 +88,18 @@ const Matching = () => {
   };
 
   const handleDislike = () => {
-    setAnimation('swipe-left');
+    if (hasReachedSwipeLimit) {
+      toast({
+        title: "Daily Swipe Limit Reached",
+        description: "You've used all 20 swipes for today. Come back tomorrow!",
+        variant: "destructive",
+      });
+      return;
+    }
     
-    // Delayed animation reset and move to next profile
+    setAnimation('swipe-left');
+    incrementSwipeCount();
+    
     setTimeout(() => {
       setAnimation(null);
       goToNextProfile();
@@ -150,7 +110,6 @@ const Matching = () => {
     if (currentIndex < MOCK_ROOMMATES.length - 1) {
       setCurrentIndex(prevIndex => prevIndex + 1);
     } else {
-      // End of profiles
       toast({
         title: "You've seen all profiles",
         description: "No more profiles to show at the moment. Check back later!",
@@ -175,6 +134,22 @@ const Matching = () => {
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Swipe right on roommates you're interested in, left on those you're not.
           </p>
+          
+          <div className="mt-4 inline-flex items-center justify-center px-4 py-2 bg-primary/5 rounded-full">
+            <span className="text-sm text-primary font-medium mr-2">Today's Swipes:</span>
+            <span className={cn(
+              "font-bold",
+              hasReachedSwipeLimit ? "text-destructive" : "text-primary"
+            )}>
+              {swipesUsed}/{MAX_DAILY_SWIPES}
+            </span>
+            {hasReachedSwipeLimit && (
+              <div className="flex items-center ml-2 text-destructive">
+                <AlertCircle className="h-4 w-4 mr-1" />
+                <span className="text-xs">Limit reached</span>
+              </div>
+            )}
+          </div>
         </div>
 
         {currentProfile && (
@@ -183,20 +158,18 @@ const Matching = () => {
               className={cn(
                 "w-full aspect-[3/4] overflow-hidden rounded-2xl shadow-elegant transition-transform duration-500 futuristic-panel",
                 animation === 'swipe-left' && "translate-x-[-100%] rotate-[-10deg]",
-                animation === 'swipe-right' && "translate-x-[100%] rotate-[10deg]"
+                animation === 'swipe-right' && "translate-x-[100%] rotate-[10deg]",
+                hasReachedSwipeLimit && "opacity-70"
               )}
             >
               <div className="relative h-full">
-                {/* Profile Image */}
                 <div 
                   className="absolute inset-0 bg-cover bg-center"
                   style={{ backgroundImage: `url(${currentProfile.image})` }}
                 />
                 
-                {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
-                {/* Profile Information */}
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                   <div className="flex items-center justify-between mb-1">
                     <h2 className="text-2xl font-bold flex items-center gap-2">
@@ -223,13 +196,13 @@ const Matching = () => {
               </div>
             </Card>
 
-            {/* Action Buttons */}
             <div className="flex justify-center gap-4 mt-6">
               <Button 
                 variant="outline" 
                 size="lg" 
                 className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-rose-500/30 hover:text-rose-500 backdrop-blur-sm border-none neon-border"
                 onClick={handleDislike}
+                disabled={hasReachedSwipeLimit}
               >
                 <X className="h-8 w-8" />
               </Button>
@@ -239,7 +212,7 @@ const Matching = () => {
                 size="lg" 
                 className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-blue-500/30 hover:text-blue-500 backdrop-blur-sm border-none neon-border"
                 onClick={goToPrevProfile}
-                disabled={currentIndex === 0}
+                disabled={currentIndex === 0 || hasReachedSwipeLimit}
               >
                 <ChevronLeft className="h-8 w-8" />
               </Button>
@@ -249,6 +222,7 @@ const Matching = () => {
                 size="lg" 
                 className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-green-500/30 hover:text-green-500 backdrop-blur-sm border-none neon-border"
                 onClick={handleLike}
+                disabled={hasReachedSwipeLimit}
               >
                 <Heart className="h-8 w-8" />
               </Button>
@@ -258,11 +232,18 @@ const Matching = () => {
                 size="lg" 
                 className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-blue-500/30 hover:text-blue-500 backdrop-blur-sm border-none neon-border"
                 onClick={goToNextProfile}
-                disabled={currentIndex === MOCK_ROOMMATES.length - 1}
+                disabled={currentIndex === MOCK_ROOMMATES.length - 1 || hasReachedSwipeLimit}
               >
                 <ChevronRight className="h-8 w-8" />
               </Button>
             </div>
+            
+            {hasReachedSwipeLimit && (
+              <div className="mt-6 p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-center">
+                <h3 className="font-semibold text-destructive mb-1">Swipe Limit Reached</h3>
+                <p className="text-sm text-muted-foreground">You've used all 20 daily swipes. Your swipes will reset at midnight.</p>
+              </div>
+            )}
           </div>
         )}
 
