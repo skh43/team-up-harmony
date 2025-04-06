@@ -108,9 +108,9 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               </div>
             )}
             
-            {/* Text Logo */}
+            {/* Text Logo - ensuring it's always in a straight line */}
             <div className={cn(
-              "font-bold tracking-tight",
+              "font-bold tracking-tight whitespace-nowrap",
               textSizes[size]
             )}>
               <span className="text-airbnb-red font-extrabold">The</span>
@@ -154,7 +154,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               />
             </div>
           )}
-          <div className="flex items-center">
+          <div className="flex items-center whitespace-nowrap">
             <span className="text-airbnb-red font-extrabold">The</span>
             <span className="text-airbnb-navy font-extrabold ml-1">Living Circle</span>
           </div>
