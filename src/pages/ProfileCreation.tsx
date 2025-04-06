@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Clock, Flag, Users } from "lucide-react";
+import { Briefcase, Clock, Flag } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -32,7 +32,6 @@ const formSchema = z.object({
   workProfession: z.string().min(2, "Please enter your profession"),
   workTiming: z.string().min(2, "Please specify your work schedule"),
   nationality: z.string().min(1, "Please select your nationality"),
-  preferredNationalities: z.array(z.string()).optional(),
   openToAllNationalities: z.boolean().default(false),
 });
 
@@ -44,11 +43,6 @@ const nationalities = [
   "Italian", "Japanese", "Kenyan", "Korean", "Malaysian", 
   "Mexican", "Nigerian", "Pakistani", "Russian", "Saudi Arabian", 
   "Singaporean", "South African", "Spanish", "Turkish", "Other"
-];
-
-// List of common nationalities for the preference checkboxes
-const commonNationalities = [
-  "Indian", "Pakistani", "American", "British", "Canadian", "Chinese"
 ];
 
 export default function ProfileCreation() {
@@ -65,7 +59,6 @@ export default function ProfileCreation() {
       workProfession: "",
       workTiming: "",
       nationality: "",
-      preferredNationalities: [],
       openToAllNationalities: false,
     },
   });
@@ -76,9 +69,6 @@ export default function ProfileCreation() {
     // Redirect to the next step
     navigate("/matching");
   }
-
-  // Watch for openToAllNationalities changes
-  const openToAll = form.watch("openToAllNationalities");
 
   return (
     <div className="max-w-md mx-auto p-6">
@@ -245,61 +235,6 @@ export default function ProfileCreation() {
               </FormItem>
             )}
           />
-          
-          {!openToAll && (
-            <FormField
-              control={form.control}
-              name="preferredNationalities"
-              render={() => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">
-                    <Users className="w-4 h-4" /> Preferred Roommate Nationalities
-                  </FormLabel>
-                  <FormDescription>
-                    Select nationalities you're open to living with.
-                  </FormDescription>
-                  <div className="grid grid-cols-2 gap-3 mt-2">
-                    {commonNationalities.map((nationality) => (
-                      <FormField
-                        key={nationality}
-                        control={form.control}
-                        name="preferredNationalities"
-                        render={({ field }) => {
-                          return (
-                            <FormItem
-                              key={nationality}
-                              className="flex flex-row items-start space-x-3 space-y-0"
-                            >
-                              <FormControl>
-                                <Checkbox
-                                  checked={field.value?.includes(nationality.toLowerCase())}
-                                  onCheckedChange={(checked) => {
-                                    const currentValues = field.value || [];
-                                    const lowerNationality = nationality.toLowerCase();
-                                    return checked
-                                      ? field.onChange([...currentValues, lowerNationality])
-                                      : field.onChange(
-                                          currentValues.filter(
-                                            (value) => value !== lowerNationality
-                                          )
-                                        );
-                                  }}
-                                />
-                              </FormControl>
-                              <FormLabel className="text-sm font-normal">
-                                {nationality}
-                              </FormLabel>
-                            </FormItem>
-                          );
-                        }}
-                      />
-                    ))}
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          )}
           
           <Button type="submit" variant="airbnb" className="w-full">
             Continue
