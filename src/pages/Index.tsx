@@ -17,25 +17,25 @@ const Index = () => {
       icon: <Users className="h-6 w-6 text-white" />,
       title: "Smart Matching",
       description: "Our intelligent algorithm connects you with roommates who complement your lifestyle and align with your preferences.",
-      color: "from-cyan-400 to-blue-500"
+      color: "from-airbnb-red to-airbnb-purple"
     },
     {
       icon: <Shield className="h-6 w-6 text-white" />,
       title: "Verified Profiles",
       description: "Every user undergoes thorough verification, ensuring your complete peace of mind and safety.",
-      color: "from-blue-500 to-violet-600"
+      color: "from-airbnb-purple to-airbnb-navy"
     },
     {
       icon: <Home className="h-6 w-6 text-white" />,
       title: "Quality Listings",
       description: "Browse exceptional, fully-vetted properties tailored to your specific budget requirements and preferences.",
-      color: "from-violet-600 to-fuchsia-500"
+      color: "from-airbnb-red to-airbnb-darkpink"
     },
     {
       icon: <Star className="h-6 w-6 text-white" />,
       title: "Seamless Experience",
       description: "Enjoy a premium journey from initial match to move-in day, with every step expertly designed to be effortless.",
-      color: "from-fuchsia-500 to-pink-500"
+      color: "from-airbnb-darkpink to-airbnb-navy"
     }
   ];
 
@@ -94,17 +94,17 @@ const Index = () => {
 
   return (
     <MainLayout className="min-h-screen">
-      <section className="py-16 bg-[#f8f9fa]">
+      <section className="py-16 bg-airbnb-light/30">
         <div className="container px-4 mx-auto max-w-6xl">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="lg:w-1/2">
-              <div className="inline-flex items-center justify-center bg-blue-50 px-4 py-1.5 rounded-full mb-6">
-                <Users className="text-blue-600 mr-2 h-4 w-4" />
-                <span className="text-blue-600 text-sm font-medium">Find Your Perfect Roommate</span>
+              <div className="inline-flex items-center justify-center bg-airbnb-red/10 px-4 py-1.5 rounded-full mb-6">
+                <Users className="text-airbnb-red mr-2 h-4 w-4" />
+                <span className="text-airbnb-red text-sm font-medium">Find Your Perfect Roommate</span>
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold font-playfair mb-6 leading-tight">
-                Find Your <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Perfect</span> <br />
+                Find Your <span className="bg-gradient-to-r from-airbnb-red to-airbnb-navy bg-clip-text text-transparent">Perfect</span> <br />
                 Roommate Match
               </h1>
               
@@ -114,7 +114,7 @@ const Index = () => {
               
               <div className="flex flex-wrap gap-4 mb-8">
                 <Button 
-                  className="bg-gradient-to-r from-blue-500 to-violet-600 hover:from-blue-600 hover:to-violet-700 text-white font-medium py-2.5 px-6 rounded-md"
+                  className="bg-gradient-to-r from-airbnb-red to-airbnb-navy hover:from-airbnb-darkpink hover:to-airbnb-navy text-white font-medium py-2.5 px-6 rounded-md"
                   onClick={() => navigate('/living-plan-selection')}
                 >
                   Get Started
@@ -122,7 +122,7 @@ const Index = () => {
                 
                 <Button 
                   variant="outline" 
-                  className="border-gray-300 text-gray-700 hover:bg-gray-50 font-medium py-2.5 px-6 rounded-md"
+                  className="border-airbnb-red/30 text-airbnb-navy hover:bg-airbnb-light/20 font-medium py-2.5 px-6 rounded-md"
                   onClick={() => navigate('/about')}
                 >
                   Learn More
@@ -131,15 +131,15 @@ const Index = () => {
               
               <div className="flex items-center gap-4 text-sm text-gray-600">
                 <div className="flex items-center">
-                  <Check className="h-4 w-4 text-green-500 mr-1.5" />
+                  <Check className="h-4 w-4 text-airbnb-red mr-1.5" />
                   <span>Verified Users</span>
                 </div>
                 <div className="flex items-center">
-                  <Check className="h-4 w-4 text-green-500 mr-1.5" />
+                  <Check className="h-4 w-4 text-airbnb-red mr-1.5" />
                   <span>Smart Matching</span>
                 </div>
                 <div className="flex items-center">
-                  <Check className="h-4 w-4 text-green-500 mr-1.5" />
+                  <Check className="h-4 w-4 text-airbnb-red mr-1.5" />
                   <span>100% Secure</span>
                 </div>
               </div>
@@ -159,7 +159,7 @@ const Index = () => {
                     className="w-auto h-auto scale-125" 
                     showTagline={true} 
                   />
-                  <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-violet-600 text-white py-2 px-6 rounded-full font-bold shadow-lg opacity-0 transition-opacity duration-300 team-up-label">
+                  <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-airbnb-red to-airbnb-navy text-white py-2 px-6 rounded-full font-bold shadow-lg opacity-0 transition-opacity duration-300 team-up-label">
                     Join Our Tribe
                   </div>
                 </div>
@@ -203,10 +203,10 @@ const Index = () => {
         </div>
       </section>
       
-      <div id="how-it-works" className="bg-gradient-to-r from-cyan-50 to-blue-50">
+      <div id="how-it-works" className="bg-gradient-to-r from-airbnb-light/30 to-airbnb-light/10">
         <div className="container px-4 mx-auto max-w-6xl py-10">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-airbnb-purple to-airbnb-navy bg-clip-text text-transparent">
               How It Works
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -217,10 +217,10 @@ const Index = () => {
         <RoommateJourney />
       </div>
       
-      <section className="py-16 bg-[#f8f9fa]">
+      <section className="py-16 bg-airbnb-light/30">
         <div className="container px-4 mx-auto max-w-6xl">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-fuchsia-500 to-pink-500 bg-clip-text text-transparent">
+            <h2 className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-airbnb-red to-airbnb-darkpink bg-clip-text text-transparent">
               Hear From Our Users
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -230,7 +230,7 @@ const Index = () => {
           
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg border border-gray-100 hover:shadow-lg transition-all">
+              <div key={index} className="bg-white p-6 rounded-lg border border-airbnb-red/10 hover:shadow-lg transition-all">
                 <div className="flex justify-center mb-4">
                   <div className="w-16 h-16 overflow-hidden rounded-full border-4 border-white shadow-md">
                     <img 
@@ -253,7 +253,7 @@ const Index = () => {
       
       <section className="py-16 bg-white">
         <div className="container px-4 mx-auto text-center max-w-3xl">
-          <h2 className="text-3xl font-bold mb-6 font-playfair bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold mb-6 font-playfair bg-gradient-to-r from-airbnb-red to-airbnb-navy bg-clip-text text-transparent">
             Ready to find your ideal roommate?
           </h2>
           <p className="text-lg text-gray-600 mb-8">
@@ -261,7 +261,7 @@ const Index = () => {
           </p>
           
           <Button 
-            className="bg-gradient-to-r from-violet-600 to-fuchsia-500 hover:from-violet-700 hover:to-fuchsia-600 text-white font-medium py-3 px-8 rounded-md inline-flex items-center"
+            className="bg-gradient-to-r from-airbnb-purple to-airbnb-navy hover:from-airbnb-red hover:to-airbnb-purple text-white font-medium py-3 px-8 rounded-md inline-flex items-center"
             onClick={() => navigate('/register')}
           >
             Sign Up Now

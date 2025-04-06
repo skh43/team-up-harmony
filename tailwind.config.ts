@@ -142,7 +142,7 @@ const config = {
           green: "#008489",
           yellow: "#FCB017",
           orange: "#FC642D",
-          light: "#F7F7F7",
+          light: "#E8F5F9",
           dark: "#222222",
           gray: "#717171",
         },
