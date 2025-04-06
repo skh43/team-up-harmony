@@ -100,8 +100,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               "font-bold tracking-tighter flex items-center",
               textSizes[size]
             )}>
-              <span className="text-airbnb-red font-extrabold">Shared</span>
-              <span className="text-airbnb-navy font-extrabold ml-1">Algorithm</span>
+              <span className="text-airbnb-red font-extrabold">The</span>
+              <span className="text-airbnb-navy font-extrabold ml-1">Living Circle</span>
             </span>
           </div>
 
@@ -134,8 +134,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             </div>
           )}
           <div className="flex items-center">
-            <span className="text-airbnb-red font-extrabold">Shared</span>
-            <span className="text-airbnb-navy font-extrabold ml-1">Algorithm</span>
+            <span className="text-airbnb-red font-extrabold">The</span>
+            <span className="text-airbnb-navy font-extrabold ml-1">Living Circle</span>
           </div>
         </div>
       )}
