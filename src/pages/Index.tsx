@@ -145,18 +145,18 @@ const Index = () => {
               </div>
             </div>
             
-            <div className="lg:w-1/2 flex justify-center items-center flex-col">
+            <div className="lg:w-1/2 flex justify-center items-center">
               <motion.div 
-                className="flex flex-col items-center mt-16" 
+                className="flex justify-center items-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="p-1 rounded-xl cursor-pointer transition-all duration-300 hover:scale-105 relative">
+                <div className="p-2 rounded-xl transition-all duration-300 hover:scale-105">
                   <ModernLogo 
                     size="giant" 
                     variant="default" 
-                    className="w-[550px] mb-8 overflow-visible" 
+                    className="w-auto h-auto scale-125" 
                     showTagline={true} 
                   />
                   <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-blue-500 to-violet-600 text-white py-2 px-6 rounded-full font-bold shadow-lg opacity-0 transition-opacity duration-300 team-up-label">
@@ -171,25 +171,6 @@ const Index = () => {
       
       <section className="py-16 bg-white">
         <div className="container px-4 mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <motion.h2 
-              className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              Premium Features Tailored For You
-            </motion.h2>
-            <motion.p 
-              className="text-gray-600 max-w-2xl mx-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-            >
-              We've built powerful tools to make your roommate search efficient, safe, and successful.
-            </motion.p>
-          </div>
-          
           <motion.div 
             className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
             variants={containerVariants}
