@@ -133,9 +133,9 @@ const Chatbot: React.FC = () => {
           >
             <Button
               onClick={() => setIsOpen(true)}
-              variant="goldGradient"
+              variant="gradient"
               size="icon"
-              className="h-14 w-14 rounded-full shadow-gold-md"
+              className="h-14 w-14 rounded-full shadow-lg"
               aria-label="Open chat"
             >
               <MessageCircle className="h-6 w-6" />
@@ -153,26 +153,26 @@ const Chatbot: React.FC = () => {
             exit={{ opacity: 0, y: 50 }}
             className="fixed bottom-6 right-6 z-50 w-80 sm:w-96"
           >
-            <Card variant="blackGold" className="flex flex-col shadow-gold-md h-[450px] border-gold-500/30">
+            <Card variant="premium" className="flex flex-col shadow-lg h-[450px] border border-elegant-200">
               {/* Chat header */}
-              <div className="flex items-center justify-between p-3 border-b border-gold-500/20">
+              <div className="flex items-center justify-between p-3 border-b border-elegant-200">
                 <div className="flex items-center space-x-2">
-                  <Bot className="text-gold-500 h-5 w-5" />
-                  <h3 className="font-semibold text-gold-500">Teemup Assistant</h3>
-                  <Badge variant="goldGlass" animation="goldShimmer">Online</Badge>
+                  <Bot className="text-primary h-5 w-5" />
+                  <h3 className="font-semibold text-primary">Teemup Assistant</h3>
+                  <Badge variant="outline">Online</Badge>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsOpen(false)}
-                  className="h-8 w-8 rounded-full text-gold-500 hover:bg-gold-500/10"
+                  className="h-8 w-8 rounded-full text-muted-foreground hover:bg-secondary"
                 >
                   <X className="h-4 w-4" />
                 </Button>
               </div>
 
               {/* Chat messages */}
-              <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-black-900/50">
+              <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-background/50">
                 {messages.map((message) => (
                   <div
                     key={message.id}
@@ -182,21 +182,21 @@ const Chatbot: React.FC = () => {
                   >
                     <div className="flex items-start gap-2 max-w-[80%]">
                       {message.sender === 'bot' && (
-                        <Avatar className="h-8 w-8 bg-gold-600 text-black-900">
+                        <Avatar className="h-8 w-8 bg-primary text-primary-foreground">
                           <Bot className="h-4 w-4" />
                         </Avatar>
                       )}
                       <div
                         className={`px-3 py-2 rounded-xl text-sm ${
                           message.sender === 'user'
-                            ? 'bg-gold-500 text-black-900 rounded-tr-none'
-                            : 'bg-black-800 border border-gold-500/20 text-gold-300 rounded-tl-none'
+                            ? 'bg-primary text-primary-foreground rounded-tr-none'
+                            : 'bg-secondary border border-elegant-200/20 text-secondary-foreground rounded-tl-none'
                         }`}
                       >
                         {message.content}
                       </div>
                       {message.sender === 'user' && (
-                        <Avatar className="h-8 w-8 bg-black-700 text-gold-500 border border-gold-500/20">
+                        <Avatar className="h-8 w-8 bg-muted text-foreground border border-elegant-200/20">
                           <User className="h-4 w-4" />
                         </Avatar>
                       )}
@@ -207,14 +207,14 @@ const Chatbot: React.FC = () => {
                 {isTyping && (
                   <div className="flex justify-start">
                     <div className="flex items-start gap-2 max-w-[80%]">
-                      <Avatar className="h-8 w-8 bg-gold-600 text-black-900">
+                      <Avatar className="h-8 w-8 bg-primary text-primary-foreground">
                         <Bot className="h-4 w-4" />
                       </Avatar>
-                      <div className="px-4 py-2 rounded-xl text-sm bg-black-800 border border-gold-500/20 text-gold-300 rounded-tl-none">
+                      <div className="px-4 py-2 rounded-xl text-sm bg-secondary border border-elegant-200/20 text-secondary-foreground rounded-tl-none">
                         <div className="flex space-x-1">
-                          <div className="h-2 w-2 bg-gold-500 rounded-full animate-pulse"></div>
-                          <div className="h-2 w-2 bg-gold-500 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                          <div className="h-2 w-2 bg-gold-500 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                          <div className="h-2 w-2 bg-primary rounded-full animate-pulse"></div>
+                          <div className="h-2 w-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                          <div className="h-2 w-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
                         </div>
                       </div>
                     </div>
@@ -225,7 +225,7 @@ const Chatbot: React.FC = () => {
               </div>
 
               {/* Chat input */}
-              <div className="p-3 border-t border-gold-500/20 bg-black-800">
+              <div className="p-3 border-t border-elegant-200 bg-muted/50">
                 <div className="flex space-x-2">
                   <Input
                     ref={inputRef}
@@ -233,11 +233,11 @@ const Chatbot: React.FC = () => {
                     onChange={(e) => setNewMessage(e.target.value)}
                     onKeyDown={handleKeyDown}
                     placeholder="Type your message..."
-                    className="flex-1 bg-black-700 border-gold-500/30 text-gold-300 placeholder:text-gold-500/50 focus-visible:ring-gold-500/30"
+                    className="flex-1 bg-background border-elegant-200 text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/30"
                   />
                   <Button
                     onClick={handleSendMessage}
-                    variant="gold"
+                    variant="primary"
                     size="icon"
                     className="h-10 w-10"
                     disabled={newMessage.trim() === ''}
