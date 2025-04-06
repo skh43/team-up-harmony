@@ -4,32 +4,32 @@
  
 @layer base {
   :root {
-    --background: 0 0% 10%;
+    --background: 0 0% 5%;
     --foreground: 45 100% 50%;
 
-    --card: 0 0% 15%;
+    --card: 0 0% 10%;
     --card-foreground: 45 100% 50%;
  
-    --popover: 0 0% 15%;
+    --popover: 0 0% 10%;
     --popover-foreground: 45 100% 50%;
  
     --primary: 45 100% 50%;
-    --primary-foreground: 0 0% 10%;
+    --primary-foreground: 0 0% 5%;
  
-    --secondary: 0 0% 15%;
+    --secondary: 0 0% 10%;
     --secondary-foreground: 45 100% 50%;
  
-    --muted: 0 0% 20%;
+    --muted: 0 0% 15%;
     --muted-foreground: 45 100% 70%;
  
     --accent: 45 100% 45%;
-    --accent-foreground: 0 0% 10%;
+    --accent-foreground: 0 0% 5%;
  
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 45 100% 97%;
 
     --border: 45 100% 40%;
-    --input: 0 0% 20%;
+    --input: 0 0% 15%;
     --ring: 45 100% 50%;
 
     --team-red: 0 84% 60%;
@@ -41,19 +41,19 @@
   }
  
   .dark {
-    --background: 0 0% 5%;
+    --background: 0 0% 3%;
     --foreground: 45 100% 50%;
  
-    --card: 0 0% 7%;
+    --card: 0 0% 5%;
     --card-foreground: 45 100% 50%;
  
-    --popover: 0 0% 7%;
+    --popover: 0 0% 5%;
     --popover-foreground: 45 100% 50%;
  
     --primary: 45 100% 50%;
     --primary-foreground: 0 0% 5%;
  
-    --secondary: 0 0% 12%;
+    --secondary: 0 0% 10%;
     --secondary-foreground: 45 100% 50%;
  
     --muted: 0 0% 15%;
@@ -78,6 +78,150 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* High contrast text for better readability */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-gold-400 font-heading;
+  }
+  
+  /* Refined link styles */
+  a:not(.no-style) {
+    @apply text-gold-500 hover:text-gold-300 transition-colors duration-300;
+  }
+  
+  /* Improved input styles */
+  input, textarea, select {
+    @apply bg-black-800 border-gold-700/30 focus:border-gold-500 focus:ring-gold-500/20;
+  }
+}
+
+/* Tech Pattern */
+.tech-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Dot Pattern */
+.dot-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FFD700' fill-opacity='0.05'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Diamond Pattern - refined */
+.diamond-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23FFD700' fill-opacity='0.03'%3E%3Cpath d='M12 0L0 12L12 24L24 12z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Wave Pattern */
+.wave-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.952.383 1.9.742 2.85 1.072h-2.483c-.76-.23-1.522-.47-2.29-.727C63.085 15.464 58.128 14 50 14c-9.039 0-14.632 1.632-24.1 5.507-.9.371-1.794.711-2.689 1.009-.87.287-1.74.557-2.61.806L21.184 20zm0-10c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928.952.383 1.9.742 2.85 1.072h-2.483c-.76-.23-1.522-.47-2.29-.727C63.085 5.464 58.128 4 50 4c-9.039 0-14.632 1.632-24.1 5.507-.9.371-1.794.711-2.689 1.009-.87.287-1.74.557-2.61.806L21.184 10zm0-10c.357-.13.72-.264 1.088-.402l1.768-.661C33.64-4.653 39.647-6 50-6c10.271 0 15.362 1.222 24.629 4.928.952.383 1.9.742 2.85 1.072h-2.483c-.76-.23-1.522-.47-2.29-.727C63.085-4.536 58.128-6 50-6c-9.039 0-14.632 1.632-24.1 5.507-.9.371-1.794.711-2.689 1.009-.87.287-1.74.557-2.61.806L21.184 0z' fill='%23FFD700' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+
+/* Enhanced glass morphism */
+.glass-morphism {
+  @apply bg-black-800/50 backdrop-blur-xl border border-gold-500/10 shadow-gold-sm;
+}
+
+.glass-card {
+  @apply bg-black-800/70 backdrop-blur-md border border-gold-500/20 shadow-gold-sm;
+}
+
+/* Luxury pattern */
+.luxury-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFD700' fill-opacity='0.05'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Animations & Effects */
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.5;
+  }
+  50% { 
+    transform: translateY(-15px) rotate(1deg);
+    opacity: 0.7;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 0% 0%;
+  }
+  to {
+    background-position: -200% 0%;
+  }
+}
+
+.gold-shimmer {
+  background: linear-gradient(90deg, 
+    rgba(255, 215, 0, 0) 0%, 
+    rgba(255, 215, 0, 0.2) 50%, 
+    rgba(255, 215, 0, 0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Gold glow effect - enhanced */
+.gold-glow {
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.gold-glow:hover {
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* Text shadow for gold text */
+.text-shadow-gold {
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+/* The rest of the CSS remains unchanged */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em rgba(255, 215, 0, 0.7));
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em rgba(255, 215, 0, 0.7));
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: rgba(255, 215, 0, 0.6);
 }
 
 /* Tech Pattern */
@@ -374,44 +518,4 @@ html[dir="rtl"] .ml-4 {
 }
 
 .gold-card {
-  @apply bg-black-800 border border-gold-700/30 shadow-gold-sm hover:shadow-gold-md transition-all duration-300;
-}
-
-.gold-input {
-  @apply bg-black-800 border border-gold-700/50 focus:border-gold-500 focus:ring-gold-500/10 transition-all;
-}
-
-.black-gold-glass {
-  @apply bg-black-900/70 backdrop-blur-md border border-gold-500/20 shadow-gold-sm;
-}
-
-.luxury-button {
-  @apply bg-black-800 text-gold-500 border border-gold-500/50 hover:bg-black-700 hover:border-gold-400 transition-all duration-300;
-}
-
-/* Animated gold shimmer effect */
-@keyframes gold-shimmer {
-  0% { background-position: -100% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.gold-shimmer {
-  background: linear-gradient(90deg, 
-    rgba(255, 215, 0, 0) 0%, 
-    rgba(255, 215, 0, 0.4) 50%, 
-    rgba(255, 215, 0, 0) 100%);
-  background-size: 200% 100%;
-  animation: gold-shimmer 3s infinite linear;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Gold glow effect */
-.gold-glow {
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-  transition: box-shadow 0.3s ease;
-}
-
-.gold-glow:hover {
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-}
+  @apply bg-black-800
