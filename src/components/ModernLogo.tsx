@@ -34,9 +34,9 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
 
   const variants = {
     default: "",
-    glow: "",
+    glow: "text-shadow-gold",
     gradient: "p-1",
-    shine: ""
+    shine: "gold-shimmer"
   };
 
   // Map size to tagline size - adjusted to be smaller

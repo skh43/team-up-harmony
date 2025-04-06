@@ -6,6 +6,7 @@ import BackButton from '@/components/BackButton';
 import { cn } from '@/lib/utils';
 import AdComponent from '@/components/AdComponent';
 import '@/components/AdStyles.css';
+import Chatbot from '@/components/Chatbot';
 
 interface MainLayoutProps {
   children?: React.ReactNode;
@@ -85,6 +86,9 @@ const MainLayout = ({
       <div className="w-full px-4 py-2 bg-black-800">
         <AdComponent type="footer" />
       </div>
+
+      {/* Chatbot component */}
+      <Chatbot />
     </div>
   );
 };

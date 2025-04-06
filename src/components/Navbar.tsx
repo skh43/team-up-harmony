@@ -50,7 +50,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#f8f9fa] border-b border-slate-200/60">
+    <header className="sticky top-0 z-40 w-full bg-black-900/80 backdrop-blur-md border-b border-gold-500/20">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center space-x-8">
           <Link to="/" className="flex items-center">
@@ -60,12 +60,12 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-6">
             <div className="relative group">
               <button 
-                className={`flex items-center gap-2 text-gray-800 hover:text-blue-600 font-medium`}
+                className={`flex items-center gap-2 text-gold-400 hover:text-gold-500 font-medium`}
                 onClick={() => navigate('/living-plan-selection')}
                 onMouseEnter={() => setHoverItem('roommates')}
                 onMouseLeave={() => setHoverItem(null)}
               >
-                <Users size={18} className="text-blue-600" />
+                <Users size={18} className="text-gold-500" />
                 <span>Find Roommates</span>
                 <span className={`ml-1 transition-transform ${hoverItem === 'roommates' ? 'rotate-180' : ''}`}>
                   {hoverItem === 'roommates' ? '▲' : '▼'}
@@ -73,16 +73,16 @@ const Navbar = () => {
               </button>
               
               {hoverItem === 'roommates' && (
-                <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 border border-gray-100">
+                <div className="absolute left-0 mt-2 w-64 bg-black-800 rounded-lg shadow-gold-sm p-4 border border-gold-500/20">
                   <div 
-                    className="p-3 hover:bg-blue-50 rounded-md transition cursor-pointer"
+                    className="p-3 hover:bg-black-700 rounded-md transition cursor-pointer"
                     onClick={() => handleAuthRequiredAction('/living-plan-selection')}
                   >
                     <div className="flex items-center gap-2">
-                      <Search size={18} className="text-blue-600" />
-                      <span className="font-medium">Find a Roommate</span>
+                      <Search size={18} className="text-gold-500" />
+                      <span className="font-medium text-gold-400">Find a Roommate</span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">Start the roommate matching process</p>
+                    <p className="text-sm text-gold-300/70 mt-1">Start the roommate matching process</p>
                   </div>
                 </div>
               )}
@@ -90,12 +90,12 @@ const Navbar = () => {
             
             <div className="relative group">
               <button 
-                className={`flex items-center gap-2 text-gray-800 hover:text-blue-600 font-medium`}
+                className={`flex items-center gap-2 text-gold-400 hover:text-gold-500 font-medium`}
                 onClick={() => navigate('/properties')}
                 onMouseEnter={() => setHoverItem('properties')}
                 onMouseLeave={() => setHoverItem(null)}
               >
-                <Building size={18} className="text-blue-600" />
+                <Building size={18} className="text-gold-500" />
                 <span>Property Listings</span>
                 <span className={`ml-1 transition-transform ${hoverItem === 'properties' ? 'rotate-180' : ''}`}>
                   {hoverItem === 'properties' ? '▲' : '▼'}
@@ -103,27 +103,27 @@ const Navbar = () => {
               </button>
               
               {hoverItem === 'properties' && (
-                <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg p-4 border border-gray-100">
+                <div className="absolute left-0 mt-2 w-64 bg-black-800 rounded-lg shadow-gold-sm p-4 border border-gold-500/20">
                   <div 
-                    className="p-3 hover:bg-blue-50 rounded-md transition cursor-pointer mb-2"
+                    className="p-3 hover:bg-black-700 rounded-md transition cursor-pointer mb-2"
                     onClick={() => handleAuthRequiredAction('/properties')}
                   >
                     <div className="flex items-center gap-2">
-                      <Search size={18} className="text-blue-600" />
-                      <span className="font-medium">Browse Properties</span>
+                      <Search size={18} className="text-gold-500" />
+                      <span className="font-medium text-gold-400">Browse Properties</span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">Find available properties for you and your roommates</p>
+                    <p className="text-sm text-gold-300/70 mt-1">Find available properties for you and your roommates</p>
                   </div>
                   
                   <div 
-                    className="p-3 hover:bg-blue-50 rounded-md transition cursor-pointer"
+                    className="p-3 hover:bg-black-700 rounded-md transition cursor-pointer"
                     onClick={() => handleAuthRequiredAction('/list-property')}
                   >
                     <div className="flex items-center gap-2">
-                      <Heart size={18} className="text-blue-600" />
-                      <span className="font-medium">List Your Property</span>
+                      <Heart size={18} className="text-gold-500" />
+                      <span className="font-medium text-gold-400">List Your Property</span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">Add your property to our marketplace</p>
+                    <p className="text-sm text-gold-300/70 mt-1">Add your property to our marketplace</p>
                   </div>
                 </div>
               )}
@@ -131,9 +131,9 @@ const Navbar = () => {
             
             <Link 
               to="/about"
-              className="flex items-center gap-2 text-gray-800 hover:text-blue-600 font-medium"
+              className="flex items-center gap-2 text-gold-400 hover:text-gold-500 font-medium"
             >
-              <Home size={18} className="text-blue-600" />
+              <Home size={18} className="text-gold-500" />
               <span>About</span>
             </Link>
           </div>
@@ -147,11 +147,11 @@ const Navbar = () => {
           {isAuthenticated && user ? (
             <div className="flex items-center space-x-3">
               <MotionButton 
-                variant="outline" 
+                variant="blackGold" 
                 size="sm" 
                 onClick={() => navigate('/dashboard')}
                 whileHover={{ scale: 1.03 }}
-                className="text-purple-600 border-purple-200 hover:bg-purple-50"
+                className="text-gold-500 border-gold-500/50"
               >
                 <span className="flex items-center gap-1.5">
                   <LayoutDashboard size={16} />
@@ -159,9 +159,9 @@ const Navbar = () => {
                 </span>
               </MotionButton>
 
-              <Avatar className="border-2 border-white shadow-sm">
+              <Avatar className="border-2 border-gold-500/50 shadow-gold-sm">
                 <AvatarImage src={user.photoURL} alt={user.fullName || 'Avatar'} />
-                <AvatarFallback className="bg-blue-500 text-white">
+                <AvatarFallback className="bg-gold-500 text-black-900">
                   {user.fullName?.charAt(0) || 'U'}
                 </AvatarFallback>
               </Avatar>
@@ -171,7 +171,7 @@ const Navbar = () => {
                 size="sm" 
                 onClick={handleLogout}
                 whileHover={{ scale: 1.03 }}
-                className="text-gray-700 border-gray-300"
+                className="text-gold-400 border-gold-500/30 hover:bg-black-800"
               >
                 <span className="flex items-center gap-1.5">
                   <LogOut size={16} />
@@ -182,11 +182,10 @@ const Navbar = () => {
           ) : (
             <div className="flex items-center space-x-3">
               <MotionButton 
-                variant="outline" 
+                variant="goldOutline" 
                 size="sm" 
                 onClick={() => navigate('/login')}
                 whileHover={{ scale: 1.03 }}
-                className="text-blue-600 border-blue-200 hover:bg-blue-50"
               >
                 <span className="flex items-center gap-1.5">
                   <User size={16} />
@@ -195,10 +194,11 @@ const Navbar = () => {
               </MotionButton>
               
               <MotionButton 
+                variant="goldGradient"
                 size="sm" 
                 onClick={() => navigate('/register')}
                 whileHover={{ scale: 1.03 }}
-                className="bg-purple-600 hover:bg-purple-700 text-white"
+                animation="goldGlow"
               >
                 Register
               </MotionButton>
