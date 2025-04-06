@@ -84,7 +84,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
   return (
     <div className={cn(
       "flex items-center", 
-      size === 'hero' || size === 'giant' ? 'flex-col' : '', 
       className
     )}>
       {showText ? (
@@ -111,7 +110,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             
             {/* Text Logo */}
             <div className={cn(
-              "font-bold tracking-tighter inline-flex items-center",
+              "font-bold tracking-tight",
               textSizes[size]
             )}>
               <span className="text-airbnb-red font-extrabold">The</span>
