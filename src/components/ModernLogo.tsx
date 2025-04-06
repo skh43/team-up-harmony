@@ -34,9 +34,9 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
 
   const variants = {
     default: "",
-    glow: "text-shadow-gold",
+    glow: "shadow-md",
     gradient: "p-1",
-    shine: "gold-shimmer"
+    shine: "shimmer-effect"
   };
 
   // Map size to tagline size - adjusted to be smaller
@@ -76,16 +76,16 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           <div className="flex items-center relative">
             {/* Icon - only shown when requested */}
             {showIcon && (
-              <div className="mr-2 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full p-1 flex items-center justify-center shadow-gold-sm">
+              <div className="mr-2 bg-gradient-to-r from-apple-light to-apple-DEFAULT rounded-full p-1 flex items-center justify-center shadow-sm">
                 <Users 
                   size={iconSizes[size]} 
-                  className="text-black-900" 
+                  className="text-white" 
                   strokeWidth={2.5}
                 />
               </div>
             )}
             
-            {/* Text Logo without lighting effects */}
+            {/* Text Logo */}
             <span className={cn(
               "font-bold tracking-tighter flex items-center",
               size === 'giant' ? 'text-7xl' : 
@@ -94,15 +94,15 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               size === 'large' ? 'text-3xl' :
               size === 'medium' ? 'text-xl' : 'text-lg'
             )}>
-              <span className="bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500 bg-clip-text text-transparent font-extrabold">Teem</span>
-              <span className="bg-gradient-to-r from-gold-500 via-gold-600 to-gold-700 bg-clip-text text-transparent font-extrabold ml-1">up</span>
+              <span className="bg-gradient-to-r from-apple-light via-apple-DEFAULT to-apple-dark bg-clip-text text-transparent font-extrabold">Teem</span>
+              <span className="bg-gradient-to-r from-apple-DEFAULT via-apple-dark to-elegant-700 bg-clip-text text-transparent font-extrabold ml-1">up</span>
             </span>
           </div>
 
           {/* Tagline - only show when requested */}
           {showTagline && (
             <div className={cn(
-              "text-center text-gold-400/80 font-medium mt-1 mx-auto whitespace-nowrap overflow-hidden",
+              "text-center text-elegant-500 font-medium mt-1 mx-auto whitespace-nowrap overflow-hidden",
               taglineSizes[size],
               taglineWidths[size]
             )}>
@@ -119,17 +119,17 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
         )}>
           {/* Icon only when text is hidden */}
           {showIcon && (
-            <div className="mr-2 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full p-1 flex items-center justify-center shadow-gold-sm">
+            <div className="mr-2 bg-gradient-to-r from-apple-light to-apple-DEFAULT rounded-full p-1 flex items-center justify-center shadow-sm">
               <Users 
                 size={iconSizes[size]} 
-                className="text-black-900" 
+                className="text-white" 
                 strokeWidth={2.5}
               />
             </div>
           )}
           <div className="flex items-center">
-            <span className="bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500 bg-clip-text text-transparent font-extrabold">Teem</span>
-            <span className="bg-gradient-to-r from-gold-500 via-gold-600 to-gold-700 bg-clip-text text-transparent font-extrabold ml-1">up</span>
+            <span className="bg-gradient-to-r from-apple-light via-apple-DEFAULT to-apple-dark bg-clip-text text-transparent font-extrabold">Teem</span>
+            <span className="bg-gradient-to-r from-apple-DEFAULT via-apple-dark to-elegant-700 bg-clip-text text-transparent font-extrabold ml-1">up</span>
           </div>
         </div>
       )}

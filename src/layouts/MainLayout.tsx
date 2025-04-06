@@ -24,34 +24,34 @@ const MainLayout = ({
   const isIndexPage = location.pathname === '/';
   
   return (
-    <div className="min-h-screen flex flex-col bg-black-900 relative overflow-hidden">
-      {/* Enhanced luxury pattern background */}
-      <div className="absolute inset-0 luxury-pattern opacity-5 pointer-events-none"></div>
+    <div className="min-h-screen flex flex-col bg-background relative overflow-hidden">
+      {/* Enhanced subtle pattern background */}
+      <div className="absolute inset-0 subtle-grid opacity-5 pointer-events-none"></div>
       
       {/* Refined grid lines */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxwYXRoIGQ9Ik0gODAgMCBMIDAgMCAwIDgwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkQ3MDAiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4wMyIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPgo8L3N2Zz4=')] opacity-15 pointer-events-none"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgogIDxkZWZzPgogICAgPHBhdHRlcm4gaWQ9ImdyaWQiIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CiAgICAgIDxwYXRoIGQ9Ik0gODAgMCBMIDAgMCAwIDgwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwMDAwMDAiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4wMyIvPgogICAgPC9wYXR0ZXJuPgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIiAvPgo8L3N2Zz4=')] opacity-5 pointer-events-none"></div>
       
       {/* Subtle diamond pattern */}
-      <div className="absolute inset-0 diamond-pattern opacity-10 pointer-events-none"></div>
+      <div className="absolute inset-0 diamond-pattern opacity-5 pointer-events-none"></div>
       
-      {/* Enhanced gradient accents */}
-      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-gold-800/10 to-transparent pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-gold-800/10 to-transparent pointer-events-none"></div>
+      {/* Subtle gradient accents */}
+      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-elegant-50/10 to-transparent pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-elegant-50/10 to-transparent pointer-events-none"></div>
       
-      {/* Animated floating elements */}
-      <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-gradient-to-br from-gold-400/5 to-gold-600/5 animate-float pointer-events-none" style={{animationDelay: '0s'}}></div>
-      <div className="absolute top-40 right-20 w-20 h-20 rounded-full bg-gradient-to-br from-gold-500/5 to-gold-700/5 animate-float pointer-events-none" style={{animationDelay: '1s'}}></div>
-      <div className="absolute bottom-20 left-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-gold-300/5 to-gold-500/5 animate-float pointer-events-none" style={{animationDelay: '2s'}}></div>
+      {/* Subtle floating elements */}
+      <div className="absolute top-20 left-10 w-16 h-16 rounded-full bg-gradient-to-br from-elegant-100/5 to-elegant-300/5 animate-float pointer-events-none" style={{animationDelay: '0s'}}></div>
+      <div className="absolute top-40 right-20 w-20 h-20 rounded-full bg-gradient-to-br from-elegant-200/5 to-elegant-400/5 animate-float pointer-events-none" style={{animationDelay: '1s'}}></div>
+      <div className="absolute bottom-20 left-1/4 w-24 h-24 rounded-full bg-gradient-to-br from-elegant-100/5 to-elegant-300/5 animate-float pointer-events-none" style={{animationDelay: '2s'}}></div>
       
-      {/* Accent light spots - more subtle */}
-      <div className="absolute top-40 left-20 w-64 h-64 rounded-full bg-gold-500/3 blur-[100px] pointer-events-none"></div>
-      <div className="absolute bottom-40 right-20 w-96 h-96 rounded-full bg-gold-400/3 blur-[120px] pointer-events-none"></div>
-      <div className="absolute top-1/3 right-1/3 w-80 h-80 rounded-full bg-gold-600/3 blur-[150px] pointer-events-none"></div>
+      {/* Accent light spots - very subtle */}
+      <div className="absolute top-40 left-20 w-64 h-64 rounded-full bg-apple-light/3 blur-[100px] pointer-events-none"></div>
+      <div className="absolute bottom-40 right-20 w-96 h-96 rounded-full bg-apple-DEFAULT/3 blur-[120px] pointer-events-none"></div>
+      <div className="absolute top-1/3 right-1/3 w-80 h-80 rounded-full bg-apple-dark/3 blur-[150px] pointer-events-none"></div>
       
       {!hideNavbar && <Navbar />}
 
       {/* Top banner ad - improved styling */}
-      <div className="w-full px-4 py-2 bg-black-800/80 backdrop-blur-sm border-b border-gold-700/10">
+      <div className="w-full px-4 py-2 bg-white/80 backdrop-blur-sm border-b border-elegant-200/10">
         <AdComponent type="banner" isSpinning={true} />
       </div>
       
@@ -68,7 +68,7 @@ const MainLayout = ({
           {/* Back button - improved styling */}
           {!isIndexPage && (
             <div className="mb-6 mt-12">
-              <BackButton className="hover:bg-black-700/60 backdrop-blur-md border border-gold-500/10" />
+              <BackButton className="hover:bg-elegant-100/60 backdrop-blur-md border border-elegant-200/10" />
             </div>
           )}
           
@@ -83,7 +83,7 @@ const MainLayout = ({
       </div>
       
       {/* Footer ad space - improved styling */}
-      <div className="w-full px-4 py-2 bg-black-800/80 backdrop-blur-sm border-t border-gold-700/10">
+      <div className="w-full px-4 py-2 bg-white/80 backdrop-blur-sm border-t border-elegant-200/10">
         <AdComponent type="footer" />
       </div>
 

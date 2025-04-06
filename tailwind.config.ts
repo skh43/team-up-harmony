@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss"
 import { fontFamily } from "tailwindcss/defaultTheme"
 import animatePlugin from "tailwindcss-animate"
@@ -22,8 +23,9 @@ const config = {
     extend: {
       fontFamily: {
         sans: ["'Inter'", ...fontFamily.sans],
+        serif: ["'Playfair Display'", "serif"],
+        heading: ["'Playfair Display'", "serif"],
         montserrat: ["'Montserrat'", "sans-serif"],
-        heading: ["'Montserrat'", "sans-serif"],
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -33,6 +35,7 @@ const config = {
         "float": "float 6s ease-in-out infinite",
         "shimmer": "shimmer 2s infinite linear",
         "glow": "glow 2s ease-in-out infinite alternate",
+        "fade-in": "fade-in 0.5s ease-out",
       },
       keyframes: {
         "accordion-down": {
@@ -54,19 +57,19 @@ const config = {
         "float": {
           "0%, 100%": { 
             transform: "translateY(0) rotate(0deg)",
-            boxShadow: "0 5px 15px 0px rgba(0,0,0,0.1)"
+            boxShadow: "0 5px 15px 0px rgba(0,0,0,0.05)"
           },
           "25%": { 
             transform: "translateY(-10px) rotate(1deg)",
-            boxShadow: "0 15px 15px 0px rgba(0,0,0,0.05)"
+            boxShadow: "0 15px 15px 0px rgba(0,0,0,0.025)"
           },
           "50%": { 
             transform: "translateY(-20px) rotate(-1deg)",
-            boxShadow: "0 25px 15px 0px rgba(0,0,0,0.025)"
+            boxShadow: "0 25px 15px 0px rgba(0,0,0,0.0125)"
           },
           "75%": { 
             transform: "translateY(-10px) rotate(1deg)",
-            boxShadow: "0 15px 15px 0px rgba(0,0,0,0.05)"
+            boxShadow: "0 15px 15px 0px rgba(0,0,0,0.025)"
           }
         },
         "shimmer": {
@@ -79,10 +82,20 @@ const config = {
         },
         "glow": {
           "0%": {
-            boxShadow: "0 0 5px rgba(124, 58, 237, 0.5)"
+            boxShadow: "0 0 5px rgba(0, 0, 0, 0.1)"
           },
           "100%": {
-            boxShadow: "0 0 20px rgba(124, 58, 237, 0.8), 0 0 30px rgba(167, 139, 250, 0.6)"
+            boxShadow: "0 0 20px rgba(0, 0, 0, 0.2), 0 0 30px rgba(0, 0, 0, 0.1)"
+          }
+        },
+        "fade-in": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(10px)"
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)"
           }
         }
       },
@@ -139,33 +152,30 @@ const config = {
           orange: "#FDE1D3",
           gray: "#F1F0FB",
         },
-        gold: {
-          DEFAULT: "#FFD700",
-          50: "#FFFDF0",
-          100: "#FFF8D1",
-          200: "#FFEF9E",
-          300: "#FFE66B",
-          400: "#FFDD38",
-          500: "#FFD700",
-          600: "#CCB000",
-          700: "#998400",
-          800: "#665700",
-          900: "#332B00",
-          950: "#1A1600",
-        },
-        black: {
-          DEFAULT: "#000000",
-          50: "#F0F0F0",
-          100: "#D1D1D1",
-          200: "#A3A3A3",
-          300: "#757575",
-          400: "#474747",
-          500: "#1A1A1A",
-          600: "#121212",
-          700: "#0A0A0A",
-          800: "#050505",
-          900: "#000000",
+        // New elegant colors 
+        elegant: {
+          DEFAULT: "#1D1D1F",
+          50: "#F5F5F7",
+          100: "#E8E8ED",
+          200: "#D2D2D7",
+          300: "#AEAEB2",
+          400: "#8E8E93",
+          500: "#636366",
+          600: "#48484A",
+          700: "#363638",
+          800: "#2C2C2E",
+          900: "#1D1D1F",
           950: "#000000",
+        },
+        apple: {
+          DEFAULT: "#0071E3",
+          light: "#2997FF",
+          dark: "#0066CC",
+        },
+        rolex: {
+          DEFAULT: "#006039",
+          gold: "#A37E2C",
+          silver: "#E0E0E0",
         },
       },
       borderRadius: {
@@ -174,22 +184,20 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       boxShadow: {
-        "glow-sm": "0 0 10px rgba(124, 58, 237, 0.5)",
-        "glow-md": "0 0 15px rgba(124, 58, 237, 0.6)",
-        "glow-lg": "0 0 20px rgba(124, 58, 237, 0.7), 0 0 30px rgba(167, 139, 250, 0.5)",
-        "card-hover": "0 10px 25px -5px rgba(124, 58, 237, 0.3)",
-        "gold-sm": "0 0 10px rgba(255, 215, 0, 0.5)",
-        "gold-md": "0 0 15px rgba(255, 215, 0, 0.6)",
-        "gold-lg": "0 0 20px rgba(255, 215, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.5)",
-        "gold-hover": "0 10px 25px -5px rgba(255, 215, 0, 0.3)",
+        "sm": "0 1px 2px rgba(0, 0, 0, 0.05)",
+        "md": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+        "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+        "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+        "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        "card-hover": "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
+        "apple": "0 4px 14px rgba(0, 0, 0, 0.1)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
         "gradient-shine": "linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.3) 50%, transparent 75%)",
-        "gold-gradient": "linear-gradient(45deg, #FFD700, #FFA500)",
-        "gold-to-black": "linear-gradient(to right, #FFD700, #1A1A1A)",
-        "black-to-gold": "linear-gradient(to right, #1A1A1A, #FFD700)",
+        "gradient-apple": "linear-gradient(180deg, #42a1ec 0%, #0070c9 100%)",
+        "gradient-rolex": "linear-gradient(to right, #006039, #004C2C)",
       },
     },
   },
