@@ -2,7 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import { Home } from 'lucide-react';
+import { Users, Circle } from 'lucide-react';
 
 interface ModernLogoProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'hero' | 'giant';
@@ -86,10 +86,15 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           <div className="flex items-center relative">
             {/* Icon - only shown when requested */}
             {showIcon && (
-              <div className="mr-2 bg-airbnb-red rounded-lg p-1 flex items-center justify-center shadow-sm">
-                <Home 
+              <div className="mr-2 bg-airbnb-red rounded-full p-1 flex items-center justify-center shadow-sm">
+                <Circle 
                   size={iconSizes[size]} 
                   className="text-white" 
+                  strokeWidth={2.5}
+                />
+                <Users 
+                  size={iconSizes[size] * 0.7} 
+                  className="text-white absolute" 
                   strokeWidth={2.5}
                 />
               </div>
@@ -125,10 +130,15 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
         )}>
           {/* Icon only when text is hidden */}
           {showIcon && (
-            <div className="mr-2 bg-airbnb-red rounded-lg p-1 flex items-center justify-center shadow-sm">
-              <Home 
+            <div className="mr-2 bg-airbnb-red rounded-full p-1 flex items-center justify-center shadow-sm">
+              <Circle 
                 size={iconSizes[size]} 
                 className="text-white" 
+                strokeWidth={2.5}
+              />
+              <Users 
+                size={iconSizes[size] * 0.7} 
+                className="text-white absolute" 
                 strokeWidth={2.5}
               />
             </div>
