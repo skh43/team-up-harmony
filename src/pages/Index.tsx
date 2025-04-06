@@ -1,3 +1,4 @@
+
 import React from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import RoommateJourney from './RoommateJourney';
@@ -36,27 +37,6 @@ const Index = () => {
       title: "Seamless Experience",
       description: "Enjoy a premium journey from initial match to move-in day, with every step expertly designed to be effortless.",
       color: "from-airbnb-darkpink to-airbnb-navy"
-    }
-  ];
-
-  const testimonials = [
-    {
-      quote: "I found my perfect roommate within a week! The matching process was spot on.",
-      author: "Sarah K.",
-      role: "Graduate Student",
-      avatar: "https://randomuser.me/api/portraits/women/44.jpg"
-    },
-    {
-      quote: "As a landlord, finding reliable tenants has never been easier. Highly recommended!",
-      author: "Michael T.",
-      role: "Property Owner",
-      avatar: "https://randomuser.me/api/portraits/men/32.jpg"
-    },
-    {
-      quote: "The verification process gave me peace of mind when choosing who to live with.",
-      author: "Jessica M.",
-      role: "Young Professional",
-      avatar: "https://randomuser.me/api/portraits/women/68.jpg"
     }
   ];
 
@@ -216,40 +196,6 @@ const Index = () => {
         </div>
         <RoommateJourney />
       </div>
-      
-      <section className="py-16 bg-airbnb-light/30">
-        <div className="container px-4 mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-airbnb-red to-airbnb-darkpink bg-clip-text text-transparent">
-              Hear From Our Users
-            </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Join thousands of happy users who found their perfect roommate match.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg border border-airbnb-red/10 hover:shadow-lg transition-all">
-                <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 overflow-hidden rounded-full border-4 border-white shadow-md">
-                    <img 
-                      src={testimonial.avatar} 
-                      alt={testimonial.author}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </div>
-                <p className="text-center text-gray-700 italic mb-4 font-playfair">"{testimonial.quote}"</p>
-                <div className="text-center">
-                  <p className="font-semibold">{testimonial.author}</p>
-                  <p className="text-sm text-gray-500">{testimonial.role}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
       
       <section className="py-16 bg-white">
         <div className="container px-4 mx-auto text-center max-w-3xl">
