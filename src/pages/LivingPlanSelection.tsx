@@ -1,9 +1,10 @@
+
 import React, { useState, useEffect } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
-import { Box, Check, Home, Star, Users } from 'lucide-react';
+import { Box, Check, Home, Star, Users, LockIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { useToast } from '@/hooks/use-toast';
@@ -13,7 +14,6 @@ import ModernLogo from '@/components/ModernLogo';
 
 const LivingPlanSelection = () => {
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
-  const [showEliteUpgrade, setShowEliteUpgrade] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -33,8 +33,11 @@ const LivingPlanSelection = () => {
   useEffect(() => {
     const savedTier = localStorage.getItem('planTier');
     
-    if (savedTier) {
+    if (savedTier === 'basic') {
       setSelectedTier(savedTier);
+    } else {
+      // Reset to basic if they had comfort or elite previously selected
+      setSelectedTier('basic');
     }
   }, []);
   
@@ -57,6 +60,7 @@ const LivingPlanSelection = () => {
         'In-App Messaging'
       ],
       price: 'Free',
+      disabled: false
     },
     {
       id: 'comfort',
@@ -64,10 +68,10 @@ const LivingPlanSelection = () => {
       description: 'Enhanced matching with detailed preferences',
       icon: Home,
       color: '#8563C9',
-      textColor: '#8563C9',
-      borderColor: '#8563C9',
-      checkColor: '#8563C9',
-      buttonGradient: 'from-purple-400 to-purple-600',
+      textColor: 'gray',
+      borderColor: 'gray',
+      checkColor: 'gray',
+      buttonGradient: 'from-gray-400 to-gray-600',
       iconBgColor: 'rgba(133, 99, 201, 0.1)',
       features: [
         '20 Matches Per Day',
@@ -76,8 +80,9 @@ const LivingPlanSelection = () => {
         'Priority Messaging',
         'Background Verification'
       ],
-      price: 'SAR 29.99/month',
-      showEliteBenefits: true
+      price: 'Coming Soon',
+      showEliteBenefits: false,
+      disabled: true
     },
     {
       id: 'elite',
@@ -85,10 +90,10 @@ const LivingPlanSelection = () => {
       description: 'Premium experience for the most discerning roommates',
       icon: Star,
       color: '#F5B72F',
-      textColor: '#F5B72F',
-      borderColor: '#F5B72F',
-      checkColor: '#F5B72F',
-      buttonGradient: 'from-amber-400 to-amber-600',
+      textColor: 'gray',
+      borderColor: 'gray',
+      checkColor: 'gray',
+      buttonGradient: 'from-gray-400 to-gray-600',
       iconBgColor: 'rgba(245, 183, 47, 0.1)',
       features: [
         'Unlimited Matches',
@@ -99,17 +104,21 @@ const LivingPlanSelection = () => {
         'Personality Matching',
         'Exclusive Property Listings'
       ],
-      price: 'SAR 59.99/month',
+      price: 'Coming Soon',
+      disabled: true
     },
   ];
   
   const handleTierSelect = (tierId: string) => {
-    setSelectedTier(tierId);
-    if (tierId === 'basic') {
-      setShowEliteUpgrade(true);
-    } else {
-      setShowEliteUpgrade(false);
+    if (tierId !== 'basic') {
+      toast({
+        title: "Coming Soon",
+        description: "This plan is not available yet. Please select the Basic plan for now.",
+        variant: "default",
+      });
+      return;
     }
+    setSelectedTier(tierId);
   };
 
   const handleContinue = () => {
@@ -131,16 +140,7 @@ const LivingPlanSelection = () => {
       variant: "default",
     });
     
-    if (selectedTier === 'comfort' || selectedTier === 'elite') {
-      navigate('/payment');
-    } else {
-      navigate('/path-selection');
-    }
-  };
-
-  const handleUpgradeToElite = () => {
-    setSelectedTier('elite');
-    setShowEliteUpgrade(false);
+    navigate('/path-selection');
   };
 
   if (!isAuthenticated) {
@@ -190,40 +190,10 @@ const LivingPlanSelection = () => {
             <p className="text-gray-600 max-w-2xl mx-auto mb-2">
               Select the plan that best fits your lifestyle and preferences.
             </p>
+            <div className="text-amber-600 font-medium mt-4 bg-amber-50 inline-block px-4 py-2 rounded-md">
+              Premium plans are coming soon! Only Basic plan is available at the moment.
+            </div>
           </motion.div>
-
-          {showEliteUpgrade && (
-            <motion.div 
-              className="mx-auto mb-8 rounded-xl overflow-hidden relative"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="bg-yellow-100 p-4 rounded-xl relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-300 rounded-full -mr-8 -mt-8 z-0"></div>
-                
-                <div className="flex items-center justify-between relative z-10">
-                  <div className="flex items-center">
-                    <div className="bg-yellow-300 h-14 w-14 rounded-full flex items-center justify-center mr-4">
-                      <Star className="h-7 w-7 text-white" fill="white" />
-                    </div>
-                    <div>
-                      <h3 className="font-montserrat text-xl font-bold text-amber-600">Unlock Elite Living</h3>
-                      <p className="text-amber-800">
-                        Premium experience with <span className="font-semibold">advanced personality matching</span> and <span className="font-semibold">exclusive features</span>
-                      </p>
-                    </div>
-                  </div>
-                  <Button 
-                    onClick={handleUpgradeToElite}
-                    className="bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white px-4 py-2 rounded-full flex items-center"
-                  >
-                    Upgrade to Elite <Star className="ml-1 h-4 w-4" fill="white" />
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-          )}
 
           <div className="grid gap-8 lg:grid-cols-3 md:grid-cols-2 max-w-5xl mx-auto mb-16">
             {tiers.map((tier, index) => (
@@ -232,16 +202,17 @@ const LivingPlanSelection = () => {
                 custom={index}
                 initial="hidden"
                 animate="visible"
-                whileHover="hover"
+                whileHover={tier.disabled ? undefined : "hover"}
                 variants={cardVariants}
-                onClick={() => handleTierSelect(tier.id)}
+                onClick={() => !tier.disabled && handleTierSelect(tier.id)}
               >
                 <Card
                   className={cn(
                     "overflow-hidden shadow-md transition-all duration-300 h-full border rounded-xl flex flex-col",
                     selectedTier === tier.id ? 
                       `border-2 ring-2 ring-offset-2` : 
-                      "border hover:border-gray-300"
+                      "border hover:border-gray-300",
+                    tier.disabled && "opacity-70 cursor-not-allowed"
                   )}
                   style={{ 
                     borderColor: selectedTier === tier.id ? tier.borderColor : 'transparent',
@@ -253,7 +224,13 @@ const LivingPlanSelection = () => {
                     style={{ backgroundColor: tier.color }}
                   ></div>
                   
-                  <div className="p-6 flex-grow flex flex-col">
+                  <div className="p-6 flex-grow flex flex-col relative">
+                    {tier.disabled && (
+                      <div className="absolute top-2 right-2">
+                        <LockIcon className="h-5 w-5 text-gray-400" />
+                      </div>
+                    )}
+                    
                     <div className="flex justify-between items-start mb-4">
                       <div 
                         className="w-16 h-16 rounded-full flex items-center justify-center"
@@ -283,9 +260,7 @@ const LivingPlanSelection = () => {
                       className="text-3xl font-bold mb-3"
                       style={{ color: tier.textColor }}
                     >
-                      {tier.price === 'Free' ? 'Free' : tier.price.split('/')[0]}
-                      {tier.price !== 'Free' && 
-                        <span className="text-sm text-gray-500">/month</span>}
+                      {tier.price}
                     </h2>
                     
                     <p className="text-gray-600 text-sm mb-6">{tier.description}</p>
@@ -301,36 +276,25 @@ const LivingPlanSelection = () => {
                         >
                           <Check 
                             className="h-5 w-5 mt-0.5 flex-shrink-0"
-                            style={{ color: tier.checkColor }}
+                            style={{ color: tier.disabled ? "#9CA3AF" : tier.checkColor }}
                           />
-                          <span className="text-gray-700">{feature}</span>
+                          <span className={tier.disabled ? "text-gray-500" : "text-gray-700"}>{feature}</span>
                         </motion.li>
                       ))}
                     </ul>
-                    
-                    {tier.showEliteBenefits && (
-                      <div 
-                        className="flex items-center justify-center mb-4 text-sm text-purple-600 cursor-pointer hover:underline"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleUpgradeToElite();
-                        }}
-                      >
-                        <Star className="h-4 w-4 mr-1 text-purple-600" />
-                        See Elite benefits
-                      </div>
-                    )}
                     
                     <div className="mt-auto">
                       <Button
                         variant="outline"
                         size="lg"
                         radius="md"
+                        disabled={tier.disabled}
                         className={cn(
                           "w-full font-medium transition-all border text-center whitespace-nowrap",
                           selectedTier === tier.id 
                             ? "bg-gradient-to-r text-white" 
-                            : "bg-white text-gray-800 border-gray-200 hover:scale-105"
+                            : "bg-white text-gray-800 border-gray-200 hover:scale-105",
+                          tier.disabled && "cursor-not-allowed opacity-70"
                         )}
                         style={selectedTier === tier.id ? {
                           background: `linear-gradient(to right, ${tier.color}, ${tier.color})`,
@@ -338,10 +302,10 @@ const LivingPlanSelection = () => {
                         } : {}}
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleTierSelect(tier.id);
+                          !tier.disabled && handleTierSelect(tier.id);
                         }}
                       >
-                        {selectedTier === tier.id ? "Selected" : "Select Plan"}
+                        {tier.disabled ? "Coming Soon" : (selectedTier === tier.id ? "Selected" : "Select Plan")}
                       </Button>
                     </div>
                   </div>
@@ -371,7 +335,7 @@ const LivingPlanSelection = () => {
           
           <div className="mt-8 text-center text-gray-500 text-sm max-w-2xl mx-auto">
             <p>By continuing, you agree to our Terms of Service and Privacy Policy. 
-            You can change your plan at any time after registration.</p>
+            Premium plans will be available soon.</p>
           </div>
         </div>
       </section>

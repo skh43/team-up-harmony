@@ -1,83 +1,47 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { Avatar } from '@/components/ui/avatar';
-import { MessageCircle, X, Send, Bot, User } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Input } from "@/components/ui/input";
+import { Send, Bot, X, PlusCircle } from 'lucide-react';
 
-interface Message {
+type Message = {
   id: string;
   content: string;
   sender: 'user' | 'bot';
   timestamp: Date;
 }
 
-const INITIAL_MESSAGES: Message[] = [
+const sampleMessages: Message[] = [
   {
     id: '1',
-    content: 'Hello! Welcome to Teemup. How can I help you today?',
+    content: "👋 Hi there! Welcome to Teemup! How can I help you find the perfect roommate or property today?",
     sender: 'bot',
-    timestamp: new Date(),
-  },
+    timestamp: new Date()
+  }
 ];
 
-const BOT_RESPONSES: Record<string, string[]> = {
-  default: [
-    "I'm here to help with any questions about finding roommates or properties.",
-    "Feel free to ask me about our roommate matching process or property listings.",
-    "I can assist with any questions about our services. What would you like to know?"
-  ],
-  roommate: [
-    "Our smart matching algorithm connects you with compatible roommates based on lifestyle preferences.",
-    "We verify all profiles to ensure a safe and reliable matching experience.",
-    "Getting started with roommate matching is easy! Just click on 'Find Roommates' in the navigation bar."
-  ],
-  property: [
-    "We have a curated selection of properties that meet various budgets and preferences.",
-    "All our property listings are verified for quality and accuracy.",
-    "You can browse property listings by clicking on 'Property Listings' in the navigation bar."
-  ],
-  help: [
-    "Need help? You can reach out to our support team via the Contact page.",
-    "For common questions, check out our FAQ section on the About page.",
-    "I'm happy to assist with any issues you're experiencing with our platform."
-  ]
-};
+const suggestedQuestions = [
+  "How does roommate matching work?",
+  "What verification processes do you use?",
+  "How do I list my property?",
+  "What pricing plans do you offer?",
+  "Is my data secure?"
+];
 
-const getBotResponse = (userMessage: string): string => {
-  const userMessageLower = userMessage.toLowerCase();
-  
-  if (userMessageLower.includes('roommate') || userMessageLower.includes('match')) {
-    const randomIndex = Math.floor(Math.random() * BOT_RESPONSES.roommate.length);
-    return BOT_RESPONSES.roommate[randomIndex];
-  } else if (userMessageLower.includes('property') || userMessageLower.includes('house') || userMessageLower.includes('apartment')) {
-    const randomIndex = Math.floor(Math.random() * BOT_RESPONSES.property.length);
-    return BOT_RESPONSES.property[randomIndex];
-  } else if (userMessageLower.includes('help') || userMessageLower.includes('support') || userMessageLower.includes('question')) {
-    const randomIndex = Math.floor(Math.random() * BOT_RESPONSES.help.length);
-    return BOT_RESPONSES.help[randomIndex];
-  } else {
-    const randomIndex = Math.floor(Math.random() * BOT_RESPONSES.default.length);
-    return BOT_RESPONSES.default[randomIndex];
-  }
-};
-
-const Chatbot: React.FC = () => {
+const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
-  const [newMessage, setNewMessage] = useState('');
+  const [messages, setMessages] = useState<Message[]>(sampleMessages);
+  const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
+  
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
+  
   useEffect(() => {
     if (isOpen) {
       scrollToBottom();
@@ -85,137 +49,149 @@ const Chatbot: React.FC = () => {
     }
   }, [isOpen, messages]);
 
-  const handleSendMessage = () => {
-    if (newMessage.trim() === '') return;
-
+  const handleSend = () => {
+    if (input.trim() === '') return;
+    
     // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
-      content: newMessage,
+      content: input,
       sender: 'user',
-      timestamp: new Date(),
+      timestamp: new Date()
     };
-
-    setMessages((prev) => [...prev, userMessage]);
-    setNewMessage('');
+    
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
     setIsTyping(true);
-
-    // Simulate bot response with typing delay
+    
+    // Simulate bot typing
     setTimeout(() => {
+      const botResponse = getBotResponse(input);
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: getBotResponse(newMessage),
+        content: botResponse,
         sender: 'bot',
-        timestamp: new Date(),
+        timestamp: new Date()
       };
       
-      setMessages((prev) => [...prev, botMessage]);
+      setMessages(prev => [...prev, botMessage]);
       setIsTyping(false);
     }, 1500);
   };
 
+  const handleSuggestedQuestion = (question: string) => {
+    setInput(question);
+    handleSend();
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
-      handleSendMessage();
+      handleSend();
     }
+  };
+
+  // Simple response generator based on keywords
+  const getBotResponse = (message: string): string => {
+    const lowerMsg = message.toLowerCase();
+    
+    if (lowerMsg.includes('hello') || lowerMsg.includes('hi') || lowerMsg.includes('hey')) {
+      return "Hello! How can I help you with finding roommates or properties today?";
+    }
+    
+    if (lowerMsg.includes('how does') && lowerMsg.includes('matching')) {
+      return "Our roommate matching uses advanced algorithms to connect you with compatible roommates based on lifestyle preferences, habits, schedules, and personal values. We use a compatibility score to show you the best matches!";
+    }
+    
+    if (lowerMsg.includes('verification') || lowerMsg.includes('verify')) {
+      return "We verify user identities through government ID verification, social media profile validation, and optional background checks for premium users. This creates a safer environment for all users.";
+    }
+    
+    if (lowerMsg.includes('list') && (lowerMsg.includes('property') || lowerMsg.includes('apartment'))) {
+      return "To list your property, go to the 'Property Listings' dropdown and select 'List Your Property'. You'll be able to add photos, details, and set your preferences for potential tenants.";
+    }
+    
+    if (lowerMsg.includes('price') || lowerMsg.includes('pricing') || lowerMsg.includes('plan') || lowerMsg.includes('cost')) {
+      return "We offer flexible pricing tiers: Basic (free), Comfort (SAR 29.99/month), and Elite (SAR 59.99/month). Each tier offers different features and matching capabilities. You can view details on our Living Plan Selection page.";
+    }
+    
+    if (lowerMsg.includes('secure') || lowerMsg.includes('privacy') || lowerMsg.includes('data')) {
+      return "We take data security seriously. All personal information is encrypted, and we never share your details with third parties without your explicit consent. Our privacy policy provides full details.";
+    }
+    
+    return "Thanks for your message! Is there anything specific about roommate matching or property listings you'd like to know about? Feel free to ask any questions.";
   };
 
   return (
     <>
-      {/* Floating chat button */}
-      <AnimatePresence>
-        {!isOpen && (
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
-            className="fixed bottom-6 right-6 z-50"
-          >
-            <Button
-              onClick={() => setIsOpen(true)}
-              variant="gradient"
-              size="icon"
-              className="h-14 w-14 rounded-full shadow-lg"
-              aria-label="Open chat"
-            >
-              <MessageCircle className="h-6 w-6" />
-            </Button>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Chat button */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <Button
+          onClick={() => setIsOpen(true)}
+          variant="apple"
+          size="icon"
+          className="h-14 w-14 rounded-full shadow-lg"
+        >
+          <Bot className="h-6 w-6" />
+        </Button>
+      </div>
 
       {/* Chat window */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            className="fixed bottom-6 right-6 z-50 w-80 sm:w-96"
-          >
-            <Card variant="premium" className="flex flex-col shadow-lg h-[450px] border border-elegant-200">
-              {/* Chat header */}
-              <div className="flex items-center justify-between p-3 border-b border-elegant-200">
-                <div className="flex items-center space-x-2">
-                  <Bot className="text-primary h-5 w-5" />
-                  <h3 className="font-semibold text-primary">Teemup Assistant</h3>
-                  <Badge variant="outline">Online</Badge>
+      {isOpen && (
+        <div className="fixed bottom-20 right-4 w-80 sm:w-96 z-50">
+          <Card className="shadow-xl border border-elegant-200/30">
+            <div className="flex items-center justify-between bg-background p-3 border-b border-elegant-200/30">
+              <div className="flex items-center gap-2">
+                <Avatar className="h-8 w-8 bg-apple-DEFAULT">
+                  <AvatarImage src="/bot-avatar.png" />
+                  <AvatarFallback className="bg-apple-DEFAULT text-white">TA</AvatarFallback>
+                </Avatar>
+                <div>
+                  <h3 className="font-medium text-sm">Teemup Assistant</h3>
+                  <p className="text-xs text-muted-foreground">Online</p>
                 </div>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => setIsOpen(false)}
-                  className="h-8 w-8 rounded-full text-muted-foreground hover:bg-secondary"
-                >
-                  <X className="h-4 w-4" />
-                </Button>
               </div>
-
-              {/* Chat messages */}
-              <div className="flex-1 overflow-y-auto p-3 space-y-4 bg-background/50">
+              <Button 
+                variant="ghost" 
+                size="icon"
+                onClick={() => setIsOpen(false)}
+                className="h-7 w-7"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+            
+            <CardContent className="p-0">
+              <div className="h-96 overflow-y-auto p-4 space-y-4">
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className={`flex ${
-                      message.sender === 'user' ? 'justify-end' : 'justify-start'
-                    }`}
+                    className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                   >
-                    <div className="flex items-start gap-2 max-w-[80%]">
-                      {message.sender === 'bot' && (
-                        <Avatar className="h-8 w-8 bg-primary text-primary-foreground">
-                          <Bot className="h-4 w-4" />
-                        </Avatar>
-                      )}
-                      <div
-                        className={`px-3 py-2 rounded-xl text-sm ${
-                          message.sender === 'user'
-                            ? 'bg-primary text-primary-foreground rounded-tr-none'
-                            : 'bg-secondary border border-elegant-200/20 text-secondary-foreground rounded-tl-none'
-                        }`}
-                      >
-                        {message.content}
-                      </div>
-                      {message.sender === 'user' && (
-                        <Avatar className="h-8 w-8 bg-muted text-foreground border border-elegant-200/20">
-                          <User className="h-4 w-4" />
-                        </Avatar>
-                      )}
+                    <div
+                      className={`max-w-3/4 px-4 py-2 rounded-lg ${
+                        message.sender === 'user'
+                          ? 'bg-apple-DEFAULT text-white'
+                          : 'bg-muted'
+                      }`}
+                    >
+                      <p className="text-sm">{message.content}</p>
+                      <p className="text-xs text-right mt-1 opacity-70">
+                        {message.timestamp.toLocaleTimeString([], {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </p>
                     </div>
                   </div>
                 ))}
                 
                 {isTyping && (
                   <div className="flex justify-start">
-                    <div className="flex items-start gap-2 max-w-[80%]">
-                      <Avatar className="h-8 w-8 bg-primary text-primary-foreground">
-                        <Bot className="h-4 w-4" />
-                      </Avatar>
-                      <div className="px-4 py-2 rounded-xl text-sm bg-secondary border border-elegant-200/20 text-secondary-foreground rounded-tl-none">
-                        <div className="flex space-x-1">
-                          <div className="h-2 w-2 bg-primary rounded-full animate-pulse"></div>
-                          <div className="h-2 w-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-                          <div className="h-2 w-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
-                        </div>
+                    <div className="bg-muted px-4 py-2 rounded-lg">
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 rounded-full bg-elegant-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-elegant-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-elegant-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
                       </div>
                     </div>
                   </div>
@@ -223,33 +199,50 @@ const Chatbot: React.FC = () => {
                 
                 <div ref={messagesEndRef} />
               </div>
-
-              {/* Chat input */}
-              <div className="p-3 border-t border-elegant-200 bg-muted/50">
-                <div className="flex space-x-2">
-                  <Input
-                    ref={inputRef}
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    placeholder="Type your message..."
-                    className="flex-1 bg-background border-elegant-200 text-foreground placeholder:text-muted-foreground/50 focus-visible:ring-primary/30"
-                  />
-                  <Button
-                    onClick={handleSendMessage}
-                    variant="primary"
-                    size="icon"
-                    className="h-10 w-10"
-                    disabled={newMessage.trim() === ''}
-                  >
-                    <Send className="h-4 w-4" />
-                  </Button>
+              
+              {/* Suggested questions */}
+              {messages.length <= 2 && (
+                <div className="px-4 py-2 border-t border-elegant-200/30">
+                  <p className="text-xs text-muted-foreground mb-2">Suggested questions:</p>
+                  <div className="flex flex-wrap gap-2">
+                    {suggestedQuestions.map((question, index) => (
+                      <Button
+                        key={index}
+                        variant="outline"
+                        size="sm"
+                        className="text-xs py-1 h-auto bg-muted/50 border-elegant-200/50"
+                        onClick={() => handleSuggestedQuestion(question)}
+                      >
+                        {question}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
+              )}
+              
+              <div className="p-3 border-t border-elegant-200/30 flex items-center gap-2">
+                <Input
+                  ref={inputRef}
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Type a message..."
+                  className="flex-1"
+                />
+                <Button 
+                  onClick={handleSend} 
+                  size="icon" 
+                  disabled={!input.trim()}
+                  variant="apple"
+                  className="h-9 w-9 rounded-full"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
               </div>
-            </Card>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </>
   );
 };
