@@ -25,6 +25,13 @@ const buttonVariants = cva(
         gradientGold: "bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600 shadow-md hover:shadow-lg",
         shine: "btn-shine bg-primary text-primary-foreground hover:bg-primary/90",
         glass: "bg-white/20 backdrop-blur-md border border-white/30 text-primary hover:bg-white/30 shadow-sm hover:shadow-md",
+        // New black and gold theme variants
+        gold: "bg-gold-500 text-black-900 hover:bg-gold-600 border border-gold-600",
+        goldOutline: "bg-transparent text-gold-500 border border-gold-500 hover:bg-gold-500/10",
+        goldGradient: "bg-gradient-to-r from-gold-400 to-gold-600 text-black-900 hover:from-gold-500 hover:to-gold-700 shadow-gold-sm hover:shadow-gold-md",
+        goldShine: "btn-shine bg-gold-500 text-black-900 hover:bg-gold-600 relative overflow-hidden",
+        goldGlass: "bg-black-800/80 backdrop-blur-md border border-gold-500/30 text-gold-500 hover:bg-black-700/80 shadow-gold-sm hover:shadow-gold-md",
+        blackGold: "bg-black-800 text-gold-500 border border-gold-500/50 hover:bg-black-700 hover:border-gold-400",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -48,7 +55,9 @@ const buttonVariants = cva(
         bounce: "hover:animate-subtle-bounce",
         scale: "transition-transform hover:scale-105 active:scale-95",
         shine: "btn-shine",
-        glow: "hover:shadow-glow-sm transition-shadow duration-300"
+        glow: "hover:shadow-glow-sm transition-shadow duration-300",
+        goldGlow: "hover:shadow-gold-md transition-shadow duration-300",
+        goldShimmer: "gold-shimmer"
       }
     },
     defaultVariants: {

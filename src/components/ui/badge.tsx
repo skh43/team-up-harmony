@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
@@ -16,29 +15,31 @@ const badgeVariants = cva(
         destructive:
           "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
         outline: "text-foreground",
-        // New custom variants to support property categories
+        gold: "bg-gold-500 text-black-900 border-gold-600",
+        goldOutline: "bg-transparent text-gold-500 border-gold-500",
+        goldGlass: "bg-black-800/80 backdrop-blur-md border-gold-500/30 text-gold-500",
+        blackGold: "bg-black-800 text-gold-500 border-gold-500/50",
         basic: "bg-blue-100 text-blue-700 border-blue-200",
         comfort: "bg-purple-100 text-purple-700 border-purple-200",
         elite: "bg-amber-100 text-amber-700 border-amber-200",
-        // New gradient variants
         gradient: "border-transparent bg-gradient-to-r from-blue-600 to-indigo-600 text-white",
         gradientPurple: "border-transparent bg-gradient-to-r from-purple-600 to-pink-600 text-white",
         gradientGreen: "border-transparent bg-gradient-to-r from-green-600 to-emerald-600 text-white",
         gradientGold: "border-transparent bg-gradient-to-r from-amber-500 to-yellow-500 text-white",
-        // New solid variants
         purple: "border-transparent bg-purple-500 text-white hover:bg-purple-600",
         blue: "border-transparent bg-blue-500 text-white hover:bg-blue-600",
         green: "border-transparent bg-green-500 text-white hover:bg-green-600",
         amber: "border-transparent bg-amber-500 text-white hover:bg-amber-600",
         pink: "border-transparent bg-pink-500 text-white hover:bg-pink-600",
         cyan: "border-transparent bg-cyan-500 text-white hover:bg-cyan-600",
-        // New soft variants
         softPurple: "bg-purple-100 text-purple-700 border-purple-200",
         softBlue: "bg-blue-100 text-blue-700 border-blue-200",
         softGreen: "bg-green-100 text-green-700 border-green-200",
         softAmber: "bg-amber-100 text-amber-700 border-amber-200",
         softPink: "bg-pink-100 text-pink-700 border-pink-200",
         softCyan: "bg-cyan-100 text-cyan-700 border-cyan-200",
+        goldGradient: "border-transparent bg-gradient-to-r from-gold-400 to-gold-600 text-black-900",
+        softGold: "bg-gold-100 text-gold-700 border-gold-200",
       },
       size: {
         default: "px-2.5 py-0.5 text-xs",
@@ -50,7 +51,9 @@ const badgeVariants = cva(
         none: "",
         pulse: "animate-pulse",
         glow: "shadow-glow-sm",
-        shimmer: "animate-shimmer bg-gradient-shine bg-[length:400%_100%]"
+        shimmer: "animate-shimmer bg-gradient-shine bg-[length:400%_100%]",
+        goldGlow: "shadow-gold-sm",
+        goldShimmer: "gold-shimmer"
       }
     },
     defaultVariants: {

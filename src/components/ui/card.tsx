@@ -16,6 +16,12 @@ const cardVariants = cva(
         royal: "bg-gradient-to-br from-purple-50 to-indigo-50 border-purple-100",
         primary: "bg-primary/10 border-primary/20",
         destructive: "bg-destructive/10 border-destructive/20",
+        // New black and gold theme variants
+        gold: "bg-gold-500/10 border-gold-500/30 text-gold-500",
+        goldGradient: "bg-gradient-to-br from-gold-500/20 to-gold-700/10 border-gold-500/20",
+        blackGold: "bg-black-800 border-gold-500/20 text-gold-500",
+        goldGlass: "black-gold-glass backdrop-blur-md border-gold-500/20",
+        luxury: "bg-black-900 border-gold-500/30 shadow-gold-sm",
       },
       padding: {
         default: "",
@@ -37,7 +43,8 @@ const cardVariants = cva(
         none: "",
         hover: "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
         scale: "transition-all duration-300 hover:scale-[1.02] hover:shadow-lg",
-        glow: "hover:shadow-glow-sm transition-shadow duration-300"
+        glow: "hover:shadow-glow-sm transition-shadow duration-300",
+        goldGlow: "hover:shadow-gold-sm transition-shadow duration-300"
       }
     },
     defaultVariants: {

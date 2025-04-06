@@ -76,10 +76,10 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           <div className="flex items-center relative">
             {/* Icon - only shown when requested */}
             {showIcon && (
-              <div className="mr-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full p-1 flex items-center justify-center">
+              <div className="mr-2 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full p-1 flex items-center justify-center">
                 <Users 
                   size={iconSizes[size]} 
-                  className="text-white" 
+                  className="text-black-900" 
                   strokeWidth={2.5}
                 />
               </div>
@@ -94,15 +94,15 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               size === 'large' ? 'text-3xl' :
               size === 'medium' ? 'text-xl' : 'text-lg'
             )}>
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">Teem</span>
-              <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold ml-1">up</span>
+              <span className="bg-gradient-to-r from-gold-300 to-gold-500 bg-clip-text text-transparent font-extrabold">Teem</span>
+              <span className="bg-gradient-to-r from-gold-500 to-gold-700 bg-clip-text text-transparent font-extrabold ml-1">up</span>
             </span>
           </div>
 
           {/* Tagline - only show when requested */}
           {showTagline && (
             <div className={cn(
-              "text-center text-blue-600 font-medium mt-1 mx-auto whitespace-nowrap overflow-hidden",
+              "text-center text-gold-400 font-medium mt-1 mx-auto whitespace-nowrap overflow-hidden",
               taglineSizes[size],
               taglineWidths[size]
             )}>
@@ -119,17 +119,17 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
         )}>
           {/* Icon only when text is hidden */}
           {showIcon && (
-            <div className="mr-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full p-1 flex items-center justify-center">
+            <div className="mr-2 bg-gradient-to-r from-gold-400 to-gold-600 rounded-full p-1 flex items-center justify-center">
               <Users 
                 size={iconSizes[size]} 
-                className="text-white" 
+                className="text-black-900" 
                 strokeWidth={2.5}
               />
             </div>
           )}
           <div className="flex items-center">
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent font-extrabold">Teem</span>
-            <span className="bg-gradient-to-r from-blue-500 to-violet-600 bg-clip-text text-transparent font-extrabold ml-1">up</span>
+            <span className="bg-gradient-to-r from-gold-300 to-gold-500 bg-clip-text text-transparent font-extrabold">Teem</span>
+            <span className="bg-gradient-to-r from-gold-500 to-gold-700 bg-clip-text text-transparent font-extrabold ml-1">up</span>
           </div>
         </div>
       )}
