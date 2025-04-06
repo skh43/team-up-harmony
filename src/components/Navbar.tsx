@@ -147,7 +147,7 @@ const Navbar = () => {
           {isAuthenticated && user ? (
             <div className="flex items-center space-x-3">
               <MotionButton 
-                variant="primary" 
+                variant="apple" 
                 size="sm" 
                 onClick={() => navigate('/dashboard')}
                 whileHover={{ scale: 1.03 }}
