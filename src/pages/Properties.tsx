@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { MapPin, Bed, Bath, Square, Heart, Filter, House, Sofa, Crown, Plus } from 'lucide-react';
+import { MapPin, Bed, Bath, Square, Heart, Filter, House, Sofa, Crown, Plus, Hospital, ShoppingCart, PlusCircle, Bus, Train, Map, ExternalLink } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
@@ -22,7 +22,15 @@ const MOCK_PROPERTIES = [
     size: '120 sqm',
     description: 'Spacious and bright apartment in a central location with modern amenities.',
     image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Balcony', 'Pool', 'Gym', 'Parking']
+    tags: ['Balcony', 'Pool', 'Gym', 'Parking'],
+    mapLink: 'https://maps.google.com/?q=Al+Olaya+Riyadh',
+    amenities: {
+      hospital: '2.5 km',
+      supermarket: '0.3 km',
+      medicalStore: '0.5 km',
+      publicTransport: '0.2 km',
+      metro: '1.5 km'
+    }
   },
   {
     id: 2,
@@ -35,7 +43,15 @@ const MOCK_PROPERTIES = [
     size: '65 sqm',
     description: 'Perfect for students, this studio apartment is just a 5-minute walk from the university.',
     image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Furnished', 'Near University', 'Public Transport']
+    tags: ['Furnished', 'Near University', 'Public Transport'],
+    mapLink: 'https://maps.google.com/?q=Al+Malaz+Riyadh',
+    amenities: {
+      hospital: '3 km',
+      supermarket: '0.2 km',
+      medicalStore: '0.8 km',
+      publicTransport: '0.1 km',
+      metro: '2 km'
+    }
   },
   {
     id: 3,
@@ -163,7 +179,6 @@ const Properties = () => {
             </Button>
           </div>
           
-          {/* Add List Property Button */}
           <Button 
             onClick={() => navigate('/list-property')}
             variant="default" 
@@ -298,6 +313,14 @@ interface PropertyCardProps {
     description: string;
     image: string;
     tags: string[];
+    mapLink?: string;
+    amenities?: {
+      hospital?: string;
+      supermarket?: string;
+      medicalStore?: string;
+      publicTransport?: string;
+      metro?: string;
+    };
   };
   isFavorite: boolean;
   onToggleFavorite: () => void;
@@ -369,6 +392,18 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, category }: Prop
         <div className="flex items-center gap-1.5 text-muted-foreground">
           <MapPin className="h-4 w-4" />
           <CardDescription className="text-sm">{property.location}</CardDescription>
+          
+          {property.mapLink && (
+            <a 
+              href={property.mapLink} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary inline-flex items-center hover:underline ml-2"
+            >
+              <Map className="h-3.5 w-3.5 mr-1" />
+              <span className="text-xs">View Map</span>
+            </a>
+          )}
         </div>
       </CardHeader>
       
@@ -387,6 +422,41 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, category }: Prop
             <span className="text-sm">{property.size}</span>
           </div>
         </div>
+        
+        {property.amenities && (
+          <div className="mb-4 grid grid-cols-2 gap-2 text-xs text-muted-foreground">
+            {property.amenities.hospital && (
+              <div className="flex items-center gap-1">
+                <Hospital className="h-3.5 w-3.5" />
+                <span>Hospital: {property.amenities.hospital}</span>
+              </div>
+            )}
+            {property.amenities.supermarket && (
+              <div className="flex items-center gap-1">
+                <ShoppingCart className="h-3.5 w-3.5" />
+                <span>Supermarket: {property.amenities.supermarket}</span>
+              </div>
+            )}
+            {property.amenities.medicalStore && (
+              <div className="flex items-center gap-1">
+                <PlusCircle className="h-3.5 w-3.5" />
+                <span>Medical Store: {property.amenities.medicalStore}</span>
+              </div>
+            )}
+            {property.amenities.publicTransport && (
+              <div className="flex items-center gap-1">
+                <Bus className="h-3.5 w-3.5" />
+                <span>Public Transport: {property.amenities.publicTransport}</span>
+              </div>
+            )}
+            {property.amenities.metro && (
+              <div className="flex items-center gap-1">
+                <Train className="h-3.5 w-3.5" />
+                <span>Metro: {property.amenities.metro}</span>
+              </div>
+            )}
+          </div>
+        )}
         
         <div className="flex flex-wrap gap-2 mb-4">
           {property.tags.map((tag, index) => (

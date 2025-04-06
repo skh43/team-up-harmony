@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useNavigate } from 'react-router-dom';
 import { toast } from "sonner";
-import { MapPin, Bed, Bath, Square, Building, DollarSign, Tag, Camera, Check, House, Sofa, Crown } from 'lucide-react';
+import { MapPin, Bed, Bath, Square, Building, DollarSign, Tag, Camera, Check, House, Sofa, Crown,
+  Hospital, ShoppingCart, PlusCircle, Bus, Train, Map } from 'lucide-react';
 
 import MainLayout from '@/layouts/MainLayout';
 import { Input } from '@/components/ui/input';
@@ -51,6 +52,12 @@ const formSchema = z.object({
   propertyType: z.string().min(1, "Property type is required"),
   imageUrl: z.string().url("Please enter a valid image URL").optional(),
   tags: z.string().optional(),
+  mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
+  distanceHospital: z.string().optional(),
+  distanceSupermarket: z.string().optional(),
+  distanceMedicalStore: z.string().optional(),
+  distancePublicTransport: z.string().optional(),
+  distanceMetro: z.string().optional(),
 });
 
 const ListProperty = () => {
@@ -72,6 +79,12 @@ const ListProperty = () => {
       propertyType: "",
       imageUrl: "",
       tags: "",
+      mapLink: "",
+      distanceHospital: "",
+      distanceSupermarket: "",
+      distanceMedicalStore: "",
+      distancePublicTransport: "",
+      distanceMetro: "",
     },
   });
 
@@ -362,6 +375,122 @@ const ListProperty = () => {
                           <div className="relative">
                             <Square className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                             <Input className="pl-10" placeholder="e.g. 120" type="number" min="0" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  {/* Location Details Section */}
+                  <div className="md:col-span-2 mt-4">
+                    <h3 className="text-lg font-semibold mb-4">Nearby Amenities & Location</h3>
+                  </div>
+                  
+                  {/* Map Link */}
+                  <FormField
+                    control={form.control}
+                    name="mapLink"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel>Map Link</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Map className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <Input className="pl-10" placeholder="e.g. https://maps.google.com/?q=your-property-location" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormDescription>
+                          Paste a link to Google Maps or any other map service showing your property location
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  {/* Distance to Hospital */}
+                  <FormField
+                    control={form.control}
+                    name="distanceHospital"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Distance to Nearest Hospital</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Hospital className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <Input className="pl-10" placeholder="e.g. 2.5 km" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  {/* Distance to Supermarket */}
+                  <FormField
+                    control={form.control}
+                    name="distanceSupermarket"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Distance to Nearest Supermarket</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <ShoppingCart className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <Input className="pl-10" placeholder="e.g. 0.5 km" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  {/* Distance to Medical Store */}
+                  <FormField
+                    control={form.control}
+                    name="distanceMedicalStore"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Distance to Nearest Medical Store</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <PlusCircle className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <Input className="pl-10" placeholder="e.g. 1 km" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  {/* Distance to Public Transport */}
+                  <FormField
+                    control={form.control}
+                    name="distancePublicTransport"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Distance to Public Transport</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Bus className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <Input className="pl-10" placeholder="e.g. 0.2 km" {...field} />
+                          </div>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  {/* Distance to Metro */}
+                  <FormField
+                    control={form.control}
+                    name="distanceMetro"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Distance to Metro Station</FormLabel>
+                        <FormControl>
+                          <div className="relative">
+                            <Train className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                            <Input className="pl-10" placeholder="e.g. 1.5 km" {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
