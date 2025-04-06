@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,6 +20,7 @@ import { Briefcase, Clock, Flag } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
 import { Checkbox } from '@/components/ui/checkbox';
+import ProfilePhotoUpload from '@/components/ProfilePhotoUpload';
 
 // Define the form schema with Zod
 const formSchema = z.object({
@@ -47,6 +48,7 @@ const nationalities = [
 
 export default function ProfileCreation() {
   const navigate = useNavigate();
+  const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   
   // Initialize the form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -65,7 +67,10 @@ export default function ProfileCreation() {
 
   // Form submission handler
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    console.log({
+      ...values,
+      profilePhoto
+    });
     // Redirect to the next step
     navigate("/matching");
   }
@@ -81,6 +86,13 @@ export default function ProfileCreation() {
         <h1 className="text-2xl font-bold mt-4 mb-2">Create Your Profile</h1>
         <p className="text-muted-foreground">Tell us about yourself to help find your perfect roommate match.</p>
       </div>
+      
+      <ProfilePhotoUpload 
+        image={profilePhoto}
+        setImage={setProfilePhoto}
+      />
+      
+      <div className="my-6 border-t border-gray-200"></div>
       
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
