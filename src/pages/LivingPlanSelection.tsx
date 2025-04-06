@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { Button } from "@/components/ui/button";
@@ -321,12 +322,17 @@ const LivingPlanSelection = () => {
           >
             <Button
               className={cn(
-                "rounded-md px-10 py-3 text-base font-medium bg-blue-600 hover:bg-blue-700 text-white transition-all",
+                "rounded-md px-10 py-3 text-base font-medium text-white transition-all",
                 !selectedTier && "opacity-70",
                 selectedTier && "animate-pulse-slow"
               )}
               onClick={handleContinue}
               disabled={!selectedTier}
+              style={{ 
+                backgroundColor: "#01CDFA", 
+                borderColor: "#01CDFA",
+                boxShadow: "0 4px 6px rgba(1, 205, 250, 0.25)"
+              }}
             >
               Continue
             </Button>
