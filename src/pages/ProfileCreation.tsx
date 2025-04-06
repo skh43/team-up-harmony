@@ -11,13 +11,15 @@ import {
   FormField, 
   FormItem, 
   FormLabel, 
-  FormMessage 
+  FormMessage,
+  FormDescription 
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Clock } from "lucide-react";
+import { Briefcase, Clock, Flag, Users } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
+import { Checkbox } from '@/components/ui/checkbox';
 
 // Define the form schema with Zod
 const formSchema = z.object({
@@ -29,7 +31,19 @@ const formSchema = z.object({
   gender: z.string().min(1, "Please select your gender"),
   workProfession: z.string().min(2, "Please enter your profession"),
   workTiming: z.string().min(2, "Please specify your work schedule"),
+  nationality: z.string().min(1, "Please select your nationality"),
+  preferredNationalities: z.array(z.string()).optional(),
 });
+
+// List of nationalities for the dropdown
+const nationalities = [
+  "Afghan", "American", "Australian", "Bangladeshi", "Brazilian", 
+  "British", "Canadian", "Chinese", "Egyptian", "Filipino", 
+  "French", "German", "Indian", "Indonesian", "Irish", 
+  "Italian", "Japanese", "Kenyan", "Korean", "Malaysian", 
+  "Mexican", "Nigerian", "Pakistani", "Russian", "Saudi Arabian", 
+  "Singaporean", "South African", "Spanish", "Turkish", "Other"
+];
 
 export default function ProfileCreation() {
   const navigate = useNavigate();
@@ -44,6 +58,8 @@ export default function ProfileCreation() {
       gender: "",
       workProfession: "",
       workTiming: "",
+      nationality: "",
+      preferredNationalities: [],
     },
   });
 
@@ -165,6 +181,86 @@ export default function ProfileCreation() {
                 <FormControl>
                   <Input placeholder="9am-5pm weekdays, night shifts, remote, etc." {...field} />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="nationality"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Flag className="w-4 h-4" /> Nationality
+                </FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select your nationality" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {nationalities.map((nationality) => (
+                      <SelectItem key={nationality} value={nationality.toLowerCase()}>
+                        {nationality}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name="preferredNationalities"
+            render={() => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Users className="w-4 h-4" /> Preferred Roommate Nationalities
+                </FormLabel>
+                <FormDescription>
+                  Select nationalities you're open to living with.
+                </FormDescription>
+                <div className="grid grid-cols-2 gap-3 mt-2">
+                  {['Indian', 'Pakistani'].map((nationality) => (
+                    <FormField
+                      key={nationality}
+                      control={form.control}
+                      name="preferredNationalities"
+                      render={({ field }) => {
+                        return (
+                          <FormItem
+                            key={nationality}
+                            className="flex flex-row items-start space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value?.includes(nationality.toLowerCase())}
+                                onCheckedChange={(checked) => {
+                                  const currentValues = field.value || [];
+                                  const lowerNationality = nationality.toLowerCase();
+                                  return checked
+                                    ? field.onChange([...currentValues, lowerNationality])
+                                    : field.onChange(
+                                        currentValues.filter(
+                                          (value) => value !== lowerNationality
+                                        )
+                                      );
+                                }}
+                              />
+                            </FormControl>
+                            <FormLabel className="text-sm font-normal">
+                              {nationality}
+                            </FormLabel>
+                          </FormItem>
+                        );
+                      }}
+                    />
+                  ))}
+                </div>
                 <FormMessage />
               </FormItem>
             )}
