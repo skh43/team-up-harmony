@@ -92,7 +92,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             {/* Icon - only shown when requested */}
             {showIcon && (
               <div className={cn(
-                "bg-airbnb-red rounded-full p-1 flex items-center justify-center shadow-sm",
+                "bg-[#01CDFA] rounded-full p-1 flex items-center justify-center shadow-sm",
                 compact ? "scale-90" : ""
               )}>
                 <Circle 
@@ -113,8 +113,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               "font-bold tracking-tight whitespace-nowrap",
               textSizes[size]
             )}>
-              <span className="text-airbnb-red font-extrabold">The</span>
-              <span className="text-airbnb-navy font-extrabold ml-1">Living Circle</span>
+              <span className="text-[#01CDFA] font-extrabold">The</span>
+              <span className="text-[#004E64] font-extrabold ml-1">Living Circle</span>
             </div>
           </div>
 
@@ -139,7 +139,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           {/* Icon only when text is hidden */}
           {showIcon && (
             <div className={cn(
-              "bg-airbnb-red rounded-full p-1 flex items-center justify-center shadow-sm",
+              "bg-[#01CDFA] rounded-full p-1 flex items-center justify-center shadow-sm",
               compact ? "scale-90" : "mr-2"
             )}>
               <Circle 
@@ -155,8 +155,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             </div>
           )}
           <div className="flex items-center whitespace-nowrap">
-            <span className="text-airbnb-red font-extrabold">The</span>
-            <span className="text-airbnb-navy font-extrabold ml-1">Living Circle</span>
+            <span className="text-[#01CDFA] font-extrabold">The</span>
+            <span className="text-[#004E64] font-extrabold ml-1">Living Circle</span>
           </div>
         </div>
       )}
