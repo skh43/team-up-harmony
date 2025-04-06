@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Clock, Flag, Home, Sofa, Coffee } from "lucide-react";
+import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -36,9 +36,16 @@ const formSchema = z.object({
   workTiming: z.string().min(2, "Please specify your work schedule"),
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
-  // Add new fields for room facilities
+  // Room details fields
   roomDescription: z.string().min(10, "Please provide details about your room/space").optional(),
   sharedFacilities: z.string().min(5, "Please list the facilities you're willing to share").optional(),
+  // New location and amenities fields
+  mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
+  distanceHospital: z.string().optional(),
+  distanceSupermarket: z.string().optional(),
+  distanceMedicalStore: z.string().optional(),
+  distancePublicTransport: z.string().optional(),
+  distanceMetroStation: z.string().optional(),
 });
 
 // List of nationalities for the dropdown
@@ -70,6 +77,12 @@ export default function ProfileCreation() {
       openToAllNationalities: false,
       roomDescription: "",
       sharedFacilities: "",
+      mapLink: "",
+      distanceHospital: "",
+      distanceSupermarket: "",
+      distanceMedicalStore: "",
+      distancePublicTransport: "",
+      distanceMetroStation: "",
     },
   });
 
@@ -317,6 +330,137 @@ export default function ProfileCreation() {
                 <FormDescription>
                   Clearly mention which facilities will be shared with roommates
                 </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          {/* NEW: Nearby Amenities & Location Section */}
+          <div className="my-6 border-t border-gray-200 pt-6">
+            <h2 className="text-xl font-semibold mb-4">Nearby Amenities & Location</h2>
+            <p className="text-muted-foreground mb-4">
+              Help potential roommates understand your location and nearby facilities.
+            </p>
+          </div>
+          
+          {/* Map Link */}
+          <FormField
+            control={form.control}
+            name="mapLink"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Map className="w-4 h-4" /> Map Link
+                </FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder="e.g. https://maps.google.com/?q=your-property-location" 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormDescription>
+                  Paste a link to Google Maps or any other map service showing your property location
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          {/* Hospital distance */}
+          <FormField
+            control={form.control}
+            name="distanceHospital"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Hospital className="w-4 h-4" /> Distance to Nearest Hospital
+                </FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder="e.g. 2.5 km" 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          {/* Supermarket distance */}
+          <FormField
+            control={form.control}
+            name="distanceSupermarket"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <ShoppingCart className="w-4 h-4" /> Distance to Nearest Supermarket
+                </FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder="e.g. 0.5 km" 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          {/* Medical Store distance */}
+          <FormField
+            control={form.control}
+            name="distanceMedicalStore"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <MapPin className="w-4 h-4" /> Distance to Nearest Medical Store
+                </FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder="e.g. 1 km" 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          {/* Public Transport distance */}
+          <FormField
+            control={form.control}
+            name="distancePublicTransport"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Bus className="w-4 h-4" /> Distance to Public Transport
+                </FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder="e.g. 0.2 km" 
+                    {...field} 
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          
+          {/* Metro Station distance */}
+          <FormField
+            control={form.control}
+            name="distanceMetroStation"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <Train className="w-4 h-4" /> Distance to Metro Station
+                </FormLabel>
+                <FormControl>
+                  <Input 
+                    placeholder="e.g. 1.5 km" 
+                    {...field} 
+                  />
+                </FormControl>
                 <FormMessage />
               </FormItem>
             )}
