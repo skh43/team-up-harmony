@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
@@ -41,7 +40,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     shine: "shimmer-effect"
   };
 
-  // Map size to tagline size - adjusted to be smaller
   const taglineSizes = {
     small: 'text-[6px]',
     medium: 'text-[8px]',
@@ -51,7 +49,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     giant: 'text-lg'
   };
 
-  // Icon sizes based on logo size
   const iconSizes = {
     small: 14,
     medium: 18,
@@ -61,7 +58,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     giant: 38
   };
 
-  // Adjusted tagline width constraints to match logo width
   const taglineWidths = {
     small: 'max-w-[100%]',
     medium: 'max-w-[100%]',
@@ -71,7 +67,6 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     giant: 'max-w-[100%]'
   };
 
-  // Text sizes adjusted for better fit
   const textSizes = {
     small: 'text-sm',
     medium: 'text-base',
@@ -79,6 +74,11 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     xlarge: 'text-xl',
     hero: 'text-2xl',
     giant: 'text-3xl'
+  };
+
+  const logoColors = {
+    primary: "#01CDFA",
+    secondary: "#004E64"
   };
 
   return (
@@ -89,10 +89,9 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
       {showText ? (
         <div className={cn("relative", sizeClasses[size], variants[variant])}>
           <div className={cn("flex items-center relative", compact ? "space-x-1" : "space-x-2")}>
-            {/* Icon - only shown when requested */}
             {showIcon && (
               <div className={cn(
-                "bg-[#01CDFA] rounded-full p-1 flex items-center justify-center shadow-sm",
+                `bg-[${logoColors.primary}] rounded-full p-1 flex items-center justify-center shadow-sm`,
                 compact ? "scale-90" : ""
               )}>
                 <Circle 
@@ -108,17 +107,15 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               </div>
             )}
             
-            {/* Text Logo - ensuring it's always in a straight line */}
             <div className={cn(
               "font-bold tracking-tight whitespace-nowrap",
               textSizes[size]
             )}>
-              <span className="text-[#01CDFA] font-extrabold">The</span>
-              <span className="text-[#004E64] font-extrabold ml-1">Living Circle</span>
+              <span className={`text-[${logoColors.primary}] font-extrabold`}>The</span>
+              <span className={`text-[${logoColors.secondary}] font-extrabold ml-1`}>Living Circle</span>
             </div>
           </div>
 
-          {/* Tagline - only show when requested */}
           {showTagline && (
             <div className={cn(
               "text-center text-airbnb-gray font-medium mt-1 mx-auto",
@@ -130,16 +127,14 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           )}
         </div>
       ) : (
-        // Fallback non-text logo (simplified)
         <div className={cn(
           sizeClasses[size],
           "relative flex items-center",
           variants[variant],
         )}>
-          {/* Icon only when text is hidden */}
           {showIcon && (
             <div className={cn(
-              "bg-[#01CDFA] rounded-full p-1 flex items-center justify-center shadow-sm",
+              `bg-[${logoColors.primary}] rounded-full p-1 flex items-center justify-center shadow-sm`,
               compact ? "scale-90" : "mr-2"
             )}>
               <Circle 
@@ -155,8 +150,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             </div>
           )}
           <div className="flex items-center whitespace-nowrap">
-            <span className="text-[#01CDFA] font-extrabold">The</span>
-            <span className="text-[#004E64] font-extrabold ml-1">Living Circle</span>
+            <span className={`text-[${logoColors.primary}] font-extrabold`}>The</span>
+            <span className={`text-[${logoColors.secondary}] font-extrabold ml-1`}>Living Circle</span>
           </div>
         </div>
       )}
