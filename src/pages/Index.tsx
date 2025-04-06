@@ -147,7 +147,7 @@ const Index = () => {
             
             <div className="lg:w-1/2 flex justify-center items-center">
               <motion.div 
-                className="flex justify-center items-center"
+                className="flex justify-center items-center -mt-12"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
