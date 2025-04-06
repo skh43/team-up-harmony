@@ -28,8 +28,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     medium: 'h-8',
     large: 'h-10',
     xlarge: 'h-12',
-    hero: 'h-48',
-    giant: 'h-80'
+    hero: 'h-16',  // Reduced from h-48 for better proportion
+    giant: 'h-24'  // Reduced from h-80 for better proportion
   };
 
   const variants = {
@@ -45,8 +45,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     medium: 'text-[8px]',
     large: 'text-xs',
     xlarge: 'text-sm',
-    hero: 'text-lg',
-    giant: 'text-xl'
+    hero: 'text-base',   // Adjusted for new hero size
+    giant: 'text-lg'     // Adjusted for new giant size
   };
 
   // Icon sizes based on logo size
@@ -55,8 +55,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     medium: 20,
     large: 24,
     xlarge: 28,
-    hero: 48,
-    giant: 64
+    hero: 32,   // Adjusted for new hero size
+    giant: 40   // Adjusted for new giant size
   };
 
   // Adjusted tagline width constraints to match logo width
@@ -69,8 +69,18 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     giant: 'max-w-[100%]'
   };
 
+  // Text sizes adjusted for better fit
+  const textSizes = {
+    small: 'text-lg',
+    medium: 'text-xl',
+    large: 'text-2xl',
+    xlarge: 'text-3xl',
+    hero: 'text-4xl',
+    giant: 'text-5xl'
+  };
+
   return (
-    <div className={cn("flex items-center flex-col", size === 'hero' || size === 'giant' ? 'flex-col' : '', className)}>
+    <div className={cn("flex items-center", size === 'hero' || size === 'giant' ? 'flex-col' : '', className)}>
       {showText ? (
         <div className={cn("relative", sizeClasses[size], variants[variant])}>
           <div className="flex items-center relative">
@@ -88,11 +98,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             {/* Text Logo */}
             <span className={cn(
               "font-bold tracking-tighter flex items-center",
-              size === 'giant' ? 'text-7xl' : 
-              size === 'hero' ? 'text-5xl' : 
-              size === 'xlarge' ? 'text-4xl' :
-              size === 'large' ? 'text-3xl' :
-              size === 'medium' ? 'text-xl' : 'text-lg'
+              textSizes[size]
             )}>
               <span className="text-airbnb-red font-extrabold">Shared</span>
               <span className="text-airbnb-navy font-extrabold ml-1">Algorithm</span>
@@ -102,7 +108,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           {/* Tagline - only show when requested */}
           {showTagline && (
             <div className={cn(
-              "text-center text-airbnb-gray font-medium mt-1 mx-auto whitespace-nowrap overflow-hidden",
+              "text-center text-airbnb-gray font-medium mt-1 mx-auto",
               taglineSizes[size],
               taglineWidths[size]
             )}>
