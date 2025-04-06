@@ -11,6 +11,7 @@ interface ModernLogoProps {
   showText?: boolean;
   showTagline?: boolean;
   showIcon?: boolean;
+  compact?: boolean;
 }
 
 const ModernLogo: React.FC<ModernLogoProps> = ({ 
@@ -20,6 +21,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
   showText = true,
   showTagline = false,
   showIcon = true,
+  compact = false,
 }) => {
   const { t } = useTranslation();
   
@@ -28,8 +30,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     medium: 'h-8',
     large: 'h-10',
     xlarge: 'h-12',
-    hero: 'h-16',  // Reduced from h-48 for better proportion
-    giant: 'h-24'  // Reduced from h-80 for better proportion
+    hero: 'h-16',
+    giant: 'h-24'
   };
 
   const variants = {
@@ -45,18 +47,18 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     medium: 'text-[8px]',
     large: 'text-xs',
     xlarge: 'text-sm',
-    hero: 'text-base',   // Adjusted for new hero size
-    giant: 'text-lg'     // Adjusted for new giant size
+    hero: 'text-base',
+    giant: 'text-lg'
   };
 
   // Icon sizes based on logo size
   const iconSizes = {
-    small: 16,
-    medium: 20,
-    large: 24,
-    xlarge: 28,
-    hero: 32,   // Adjusted for new hero size
-    giant: 40   // Adjusted for new giant size
+    small: 14,
+    medium: 18,
+    large: 22,
+    xlarge: 26,
+    hero: 30,
+    giant: 38
   };
 
   // Adjusted tagline width constraints to match logo width
@@ -71,22 +73,29 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
 
   // Text sizes adjusted for better fit
   const textSizes = {
-    small: 'text-lg',
-    medium: 'text-xl',
-    large: 'text-2xl',
-    xlarge: 'text-3xl',
-    hero: 'text-4xl',
-    giant: 'text-5xl'
+    small: 'text-sm',
+    medium: 'text-base',
+    large: 'text-lg',
+    xlarge: 'text-xl',
+    hero: 'text-2xl',
+    giant: 'text-3xl'
   };
 
   return (
-    <div className={cn("flex items-center", size === 'hero' || size === 'giant' ? 'flex-col' : '', className)}>
+    <div className={cn(
+      "flex items-center", 
+      size === 'hero' || size === 'giant' ? 'flex-col' : '', 
+      className
+    )}>
       {showText ? (
         <div className={cn("relative", sizeClasses[size], variants[variant])}>
-          <div className="flex items-center relative">
+          <div className={cn("flex items-center relative", compact ? "space-x-1" : "space-x-2")}>
             {/* Icon - only shown when requested */}
             {showIcon && (
-              <div className="mr-2 bg-airbnb-red rounded-full p-1 flex items-center justify-center shadow-sm">
+              <div className={cn(
+                "bg-airbnb-red rounded-full p-1 flex items-center justify-center shadow-sm",
+                compact ? "scale-90" : ""
+              )}>
                 <Circle 
                   size={iconSizes[size]} 
                   className="text-white" 
@@ -103,10 +112,11 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             {/* Text Logo */}
             <span className={cn(
               "font-bold tracking-tighter flex items-center",
-              textSizes[size]
+              textSizes[size],
+              compact ? "space-x-0.5" : "space-x-1"
             )}>
               <span className="text-airbnb-red font-extrabold">The</span>
-              <span className="text-airbnb-navy font-extrabold ml-1">Living Circle</span>
+              <span className="text-airbnb-navy font-extrabold">Living Circle</span>
             </span>
           </div>
 
@@ -130,7 +140,10 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
         )}>
           {/* Icon only when text is hidden */}
           {showIcon && (
-            <div className="mr-2 bg-airbnb-red rounded-full p-1 flex items-center justify-center shadow-sm">
+            <div className={cn(
+              "bg-airbnb-red rounded-full p-1 flex items-center justify-center shadow-sm",
+              compact ? "scale-90" : "mr-2"
+            )}>
               <Circle 
                 size={iconSizes[size]} 
                 className="text-white" 
