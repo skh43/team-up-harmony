@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { Button } from "@/components/ui/button";
@@ -36,7 +35,6 @@ const LivingPlanSelection = () => {
     if (savedTier === 'basic') {
       setSelectedTier(savedTier);
     } else {
-      // Reset to basic if they had comfort or elite previously selected
       setSelectedTier('basic');
     }
   }, []);
@@ -55,6 +53,7 @@ const LivingPlanSelection = () => {
       iconBgColor: 'rgba(1, 205, 250, 0.1)',
       features: [
         '5 Matches Per Day',
+        '20 Swipes Per Day',
         'Basic Preferences',
         'Standard Filters',
         'In-App Messaging'
