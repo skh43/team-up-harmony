@@ -2,7 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import { Users } from 'lucide-react';
+import { Home } from 'lucide-react';
 
 interface ModernLogoProps {
   size?: 'small' | 'medium' | 'large' | 'xlarge' | 'hero' | 'giant';
@@ -76,8 +76,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           <div className="flex items-center relative">
             {/* Icon - only shown when requested */}
             {showIcon && (
-              <div className="mr-2 bg-gradient-to-r from-apple-light to-apple-DEFAULT rounded-full p-1 flex items-center justify-center shadow-sm">
-                <Users 
+              <div className="mr-2 bg-airbnb-red rounded-lg p-1 flex items-center justify-center shadow-sm">
+                <Home 
                   size={iconSizes[size]} 
                   className="text-white" 
                   strokeWidth={2.5}
@@ -94,15 +94,15 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               size === 'large' ? 'text-3xl' :
               size === 'medium' ? 'text-xl' : 'text-lg'
             )}>
-              <span className="bg-gradient-to-r from-apple-light via-apple-DEFAULT to-apple-dark bg-clip-text text-transparent font-extrabold">Teem</span>
-              <span className="bg-gradient-to-r from-apple-DEFAULT via-apple-dark to-elegant-700 bg-clip-text text-transparent font-extrabold ml-1">up</span>
+              <span className="text-airbnb-red font-extrabold">Teem</span>
+              <span className="text-airbnb-navy font-extrabold ml-1">up</span>
             </span>
           </div>
 
           {/* Tagline - only show when requested */}
           {showTagline && (
             <div className={cn(
-              "text-center text-elegant-500 font-medium mt-1 mx-auto whitespace-nowrap overflow-hidden",
+              "text-center text-airbnb-gray font-medium mt-1 mx-auto whitespace-nowrap overflow-hidden",
               taglineSizes[size],
               taglineWidths[size]
             )}>
@@ -119,8 +119,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
         )}>
           {/* Icon only when text is hidden */}
           {showIcon && (
-            <div className="mr-2 bg-gradient-to-r from-apple-light to-apple-DEFAULT rounded-full p-1 flex items-center justify-center shadow-sm">
-              <Users 
+            <div className="mr-2 bg-airbnb-red rounded-lg p-1 flex items-center justify-center shadow-sm">
+              <Home 
                 size={iconSizes[size]} 
                 className="text-white" 
                 strokeWidth={2.5}
@@ -128,8 +128,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             </div>
           )}
           <div className="flex items-center">
-            <span className="bg-gradient-to-r from-apple-light via-apple-DEFAULT to-apple-dark bg-clip-text text-transparent font-extrabold">Teem</span>
-            <span className="bg-gradient-to-r from-apple-DEFAULT via-apple-dark to-elegant-700 bg-clip-text text-transparent font-extrabold ml-1">up</span>
+            <span className="text-airbnb-red font-extrabold">Teem</span>
+            <span className="text-airbnb-navy font-extrabold ml-1">up</span>
           </div>
         </div>
       )}

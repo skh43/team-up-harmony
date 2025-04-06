@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
@@ -16,12 +15,13 @@ const cardVariants = cva(
         royal: "bg-gradient-to-br from-purple-50 to-indigo-50 border-purple-100",
         primary: "bg-primary/10 border-primary/20",
         destructive: "bg-destructive/10 border-destructive/20",
-        // Premium theme variants
-        apple: "bg-white border-elegant-100 shadow-apple",
-        appleGradient: "bg-gradient-to-br from-white to-elegant-50 border-elegant-100/50",
-        premium: "bg-white border-elegant-100 shadow-md",
+        airbnb: "bg-white border-none rounded-xl shadow-airbnb hover:shadow-airbnb-hover transition-shadow duration-300",
+        airbnbAccent: "bg-white border-l-4 border-l-airbnb-red border rounded-xl shadow-sm",
+        apple: "bg-white border-none rounded-xl shadow-airbnb",
+        appleGradient: "bg-gradient-to-br from-white to-airbnb-light/5 border-airbnb-light/10",
+        premium: "bg-white border-none shadow-airbnb rounded-xl",
         modern: "bg-white border-none shadow-lg rounded-xl",
-        subtle: "bg-elegant-50 border-elegant-100 shadow-sm",
+        subtle: "bg-airbnb-light border-airbnb-red/10 shadow-sm"
       },
       padding: {
         default: "",
@@ -44,7 +44,7 @@ const cardVariants = cva(
         hover: "transition-all duration-300 hover:-translate-y-1 hover:shadow-lg",
         scale: "transition-all duration-300 hover:scale-[1.02] hover:shadow-lg",
         glow: "hover:shadow-md transition-shadow duration-300",
-        subtle: "hover:shadow-apple transition-shadow duration-300"
+        subtle: "hover:shadow-airbnb-hover transition-shadow duration-300"
       }
     },
     defaultVariants: {

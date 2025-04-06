@@ -50,7 +50,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-md border-b border-elegant-200/20">
+    <header className="sticky top-0 z-40 w-full bg-background/80 backdrop-blur-md border-b border-border/10">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <div className="flex items-center space-x-8">
           <Link to="/" className="flex items-center">
@@ -60,12 +60,12 @@ const Navbar = () => {
           <div className="hidden md:flex space-x-6">
             <div className="relative group">
               <button 
-                className={`flex items-center gap-2 text-elegant-500 hover:text-elegant-700 font-medium`}
+                className={`flex items-center gap-2 text-airbnb-gray hover:text-airbnb-dark font-medium`}
                 onClick={() => navigate('/living-plan-selection')}
                 onMouseEnter={() => setHoverItem('roommates')}
                 onMouseLeave={() => setHoverItem(null)}
               >
-                <Users size={18} className="text-primary" />
+                <Users size={18} className="text-airbnb-red" />
                 <span>Find Roommates</span>
                 <span className={`ml-1 transition-transform ${hoverItem === 'roommates' ? 'rotate-180' : ''}`}>
                   {hoverItem === 'roommates' ? '▲' : '▼'}
@@ -73,13 +73,13 @@ const Navbar = () => {
               </button>
               
               {hoverItem === 'roommates' && (
-                <div className="absolute left-0 mt-2 w-64 bg-background rounded-lg shadow-md p-4 border border-elegant-200/20">
+                <div className="absolute left-0 mt-2 w-64 bg-background rounded-xl shadow-airbnb p-4 border border-border/10">
                   <div 
-                    className="p-3 hover:bg-secondary rounded-md transition cursor-pointer"
+                    className="p-3 hover:bg-secondary rounded-lg transition cursor-pointer"
                     onClick={() => handleAuthRequiredAction('/living-plan-selection')}
                   >
                     <div className="flex items-center gap-2">
-                      <Search size={18} className="text-primary" />
+                      <Search size={18} className="text-airbnb-red" />
                       <span className="font-medium text-foreground">Find a Roommate</span>
                     </div>
                     <p className="text-sm text-muted-foreground mt-1">Start the roommate matching process</p>
@@ -90,12 +90,12 @@ const Navbar = () => {
             
             <div className="relative group">
               <button 
-                className={`flex items-center gap-2 text-elegant-500 hover:text-elegant-700 font-medium`}
+                className={`flex items-center gap-2 text-airbnb-gray hover:text-airbnb-dark font-medium`}
                 onClick={() => navigate('/properties')}
                 onMouseEnter={() => setHoverItem('properties')}
                 onMouseLeave={() => setHoverItem(null)}
               >
-                <Building size={18} className="text-primary" />
+                <Building size={18} className="text-airbnb-red" />
                 <span>Property Listings</span>
                 <span className={`ml-1 transition-transform ${hoverItem === 'properties' ? 'rotate-180' : ''}`}>
                   {hoverItem === 'properties' ? '▲' : '▼'}
@@ -103,24 +103,24 @@ const Navbar = () => {
               </button>
               
               {hoverItem === 'properties' && (
-                <div className="absolute left-0 mt-2 w-64 bg-background rounded-lg shadow-md p-4 border border-elegant-200/20">
+                <div className="absolute left-0 mt-2 w-64 bg-background rounded-xl shadow-airbnb p-4 border border-border/10">
                   <div 
-                    className="p-3 hover:bg-secondary rounded-md transition cursor-pointer mb-2"
+                    className="p-3 hover:bg-secondary rounded-lg transition cursor-pointer mb-2"
                     onClick={() => handleAuthRequiredAction('/properties')}
                   >
                     <div className="flex items-center gap-2">
-                      <Search size={18} className="text-primary" />
+                      <Search size={18} className="text-airbnb-red" />
                       <span className="font-medium text-foreground">Browse Properties</span>
                     </div>
                     <p className="text-sm text-muted-foreground mt-1">Find available properties for you and your roommates</p>
                   </div>
                   
                   <div 
-                    className="p-3 hover:bg-secondary rounded-md transition cursor-pointer"
+                    className="p-3 hover:bg-secondary rounded-lg transition cursor-pointer"
                     onClick={() => handleAuthRequiredAction('/list-property')}
                   >
                     <div className="flex items-center gap-2">
-                      <Heart size={18} className="text-primary" />
+                      <Heart size={18} className="text-airbnb-red" />
                       <span className="font-medium text-foreground">List Your Property</span>
                     </div>
                     <p className="text-sm text-muted-foreground mt-1">Add your property to our marketplace</p>
@@ -131,9 +131,9 @@ const Navbar = () => {
             
             <Link 
               to="/about"
-              className="flex items-center gap-2 text-elegant-500 hover:text-elegant-700 font-medium"
+              className="flex items-center gap-2 text-airbnb-gray hover:text-airbnb-dark font-medium"
             >
-              <Home size={18} className="text-primary" />
+              <Home size={18} className="text-airbnb-red" />
               <span>About</span>
             </Link>
           </div>
@@ -147,7 +147,7 @@ const Navbar = () => {
           {isAuthenticated && user ? (
             <div className="flex items-center space-x-3">
               <MotionButton 
-                variant="apple" 
+                variant="airbnb" 
                 size="sm" 
                 onClick={() => navigate('/dashboard')}
                 whileHover={{ scale: 1.03 }}
@@ -159,9 +159,9 @@ const Navbar = () => {
                 </span>
               </MotionButton>
 
-              <Avatar className="border-2 border-elegant-200/50 shadow-md">
+              <Avatar className="border-2 border-border/30 shadow-sm">
                 <AvatarImage src={user.photoURL} alt={user.fullName || 'Avatar'} />
-                <AvatarFallback className="bg-primary text-primary-foreground">
+                <AvatarFallback className="bg-airbnb-red text-white">
                   {user.fullName?.charAt(0) || 'U'}
                 </AvatarFallback>
               </Avatar>
@@ -171,7 +171,7 @@ const Navbar = () => {
                 size="sm" 
                 onClick={handleLogout}
                 whileHover={{ scale: 1.03 }}
-                className="text-muted-foreground border-elegant-200/30 hover:bg-secondary"
+                className="text-muted-foreground border-border/30 hover:bg-secondary"
               >
                 <span className="flex items-center gap-1.5">
                   <LogOut size={16} />
@@ -194,7 +194,7 @@ const Navbar = () => {
               </MotionButton>
               
               <MotionButton 
-                variant="apple" 
+                variant="airbnb" 
                 size="sm" 
                 onClick={() => navigate('/register')}
                 whileHover={{ scale: 1.03 }}

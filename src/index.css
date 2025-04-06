@@ -5,65 +5,65 @@
  
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 240 10% 3.9%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 0 0% 12%;
  
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
+    --popover-foreground: 0 0% 12%;
  
-    --primary: 240 6% 10%;
+    --primary: 357 82% 48%;
     --primary-foreground: 0 0% 98%;
  
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 6% 10%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 12%;
  
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
  
-    --accent: 240 5% 96%;
-    --accent-foreground: 240 6% 10%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 12%;
  
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 240 6% 10%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 12%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
   }
  
   .dark {
-    --background: 240 10% 3.9%;
+    --background: 0 0% 12%;
     --foreground: 0 0% 98%;
  
-    --card: 240 10% 3.9%;
+    --card: 0 0% 12%;
     --card-foreground: 0 0% 98%;
  
-    --popover: 240 10% 3.9%;
+    --popover: 0 0% 12%;
     --popover-foreground: 0 0% 98%;
  
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 6% 10%;
+    --primary: 357 82% 48%;
+    --primary-foreground: 0 0% 98%;
  
-    --secondary: 240 4% 12%;
+    --secondary: 0 0% 18%;
     --secondary-foreground: 0 0% 98%;
  
-    --muted: 240 4% 12%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 65%;
  
-    --accent: 240 4% 12%;
+    --accent: 0 0% 18%;
     --accent-foreground: 0 0% 98%;
  
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
  
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 240 5% 65%;
+    --border: 0 0% 24%;
+    --input: 0 0% 24%;
+    --ring: 0 0% 85%;
   }
 }
  
@@ -78,7 +78,7 @@
   
   /* Modern, premium typography */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-serif font-medium tracking-tight;
+    @apply font-sans font-medium tracking-tight;
   }
   
   h1 {

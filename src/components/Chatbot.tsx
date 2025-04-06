@@ -127,7 +127,7 @@ const Chatbot = () => {
       <div className="fixed bottom-4 right-4 z-50">
         <Button
           onClick={() => setIsOpen(true)}
-          variant="apple"
+          variant="airbnb"
           size="icon"
           className="h-14 w-14 rounded-full shadow-lg"
         >
@@ -138,12 +138,12 @@ const Chatbot = () => {
       {/* Chat window */}
       {isOpen && (
         <div className="fixed bottom-20 right-4 w-80 sm:w-96 z-50">
-          <Card className="shadow-xl border border-elegant-200/30">
-            <div className="flex items-center justify-between bg-background p-3 border-b border-elegant-200/30">
+          <Card className="shadow-airbnb border border-border/10 rounded-xl overflow-hidden">
+            <div className="flex items-center justify-between bg-background p-3 border-b border-border/10">
               <div className="flex items-center gap-2">
-                <Avatar className="h-8 w-8 bg-apple-DEFAULT">
+                <Avatar className="h-8 w-8 bg-airbnb-red">
                   <AvatarImage src="/bot-avatar.png" />
-                  <AvatarFallback className="bg-apple-DEFAULT text-white">TA</AvatarFallback>
+                  <AvatarFallback className="bg-airbnb-red text-white">TA</AvatarFallback>
                 </Avatar>
                 <div>
                   <h3 className="font-medium text-sm">Teemup Assistant</h3>
@@ -170,7 +170,7 @@ const Chatbot = () => {
                     <div
                       className={`max-w-3/4 px-4 py-2 rounded-lg ${
                         message.sender === 'user'
-                          ? 'bg-apple-DEFAULT text-white'
+                          ? 'bg-airbnb-red text-white'
                           : 'bg-muted'
                       }`}
                     >
@@ -189,9 +189,9 @@ const Chatbot = () => {
                   <div className="flex justify-start">
                     <div className="bg-muted px-4 py-2 rounded-lg">
                       <div className="flex space-x-1">
-                        <div className="w-2 h-2 rounded-full bg-elegant-400 animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                        <div className="w-2 h-2 rounded-full bg-elegant-400 animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                        <div className="w-2 h-2 rounded-full bg-elegant-400 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-airbnb-gray animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-airbnb-gray animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                        <div className="w-2 h-2 rounded-full bg-airbnb-gray animate-bounce" style={{ animationDelay: '300ms' }}></div>
                       </div>
                     </div>
                   </div>
@@ -202,7 +202,7 @@ const Chatbot = () => {
               
               {/* Suggested questions */}
               {messages.length <= 2 && (
-                <div className="px-4 py-2 border-t border-elegant-200/30">
+                <div className="px-4 py-2 border-t border-border/10">
                   <p className="text-xs text-muted-foreground mb-2">Suggested questions:</p>
                   <div className="flex flex-wrap gap-2">
                     {suggestedQuestions.map((question, index) => (
@@ -210,7 +210,7 @@ const Chatbot = () => {
                         key={index}
                         variant="outline"
                         size="sm"
-                        className="text-xs py-1 h-auto bg-muted/50 border-elegant-200/50"
+                        className="text-xs py-1 h-auto bg-muted/50 border-border/30"
                         onClick={() => handleSuggestedQuestion(question)}
                       >
                         {question}
@@ -220,7 +220,7 @@ const Chatbot = () => {
                 </div>
               )}
               
-              <div className="p-3 border-t border-elegant-200/30 flex items-center gap-2">
+              <div className="p-3 border-t border-border/10 flex items-center gap-2">
                 <Input
                   ref={inputRef}
                   value={input}
@@ -233,7 +233,7 @@ const Chatbot = () => {
                   onClick={handleSend} 
                   size="icon" 
                   disabled={!input.trim()}
-                  variant="apple"
+                  variant="airbnb"
                   className="h-9 w-9 rounded-full"
                 >
                   <Send className="h-4 w-4" />

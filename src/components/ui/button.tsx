@@ -25,10 +25,14 @@ const buttonVariants = cva(
         gradientGold: "bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600 shadow-md hover:shadow-lg",
         shine: "btn-shine bg-primary text-primary-foreground hover:bg-primary/90",
         glass: "bg-white/20 backdrop-blur-md border border-white/30 text-primary hover:bg-white/30 shadow-sm hover:shadow-md",
-        // New premium theme variants
-        apple: "bg-apple-DEFAULT text-white hover:bg-apple-dark shadow-sm",
-        appleOutline: "bg-transparent text-apple-DEFAULT border border-apple-DEFAULT hover:bg-apple-DEFAULT/5",
-        appleGradient: "bg-gradient-apple text-white hover:shadow-md",
+        // Airbnb-inspired theme variants
+        airbnb: "bg-airbnb-red text-white hover:bg-airbnb-darkpink shadow-sm rounded-lg",
+        airbnbOutline: "bg-transparent text-airbnb-red border border-airbnb-red hover:bg-airbnb-red/5 rounded-lg",
+        airbnbGradient: "bg-gradient-airbnb text-white hover:shadow-airbnb-hover rounded-lg",
+        // Maintain old variants with new names for compatibility
+        apple: "bg-airbnb-red text-white hover:bg-airbnb-darkpink shadow-sm rounded-lg",
+        appleOutline: "bg-transparent text-airbnb-red border border-airbnb-red hover:bg-airbnb-red/5 rounded-lg",
+        appleGradient: "bg-gradient-airbnb text-white hover:shadow-airbnb-hover rounded-lg",
         modern: "bg-elegant-900 text-white hover:bg-elegant-800 shadow-md",
         minimal: "bg-white border border-elegant-200 text-elegant-900 hover:bg-elegant-50",
         premium: "bg-white shadow-sm border border-elegant-200 text-elegant-900 hover:shadow-md hover:bg-elegant-50",

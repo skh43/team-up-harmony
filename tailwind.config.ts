@@ -1,4 +1,3 @@
-
 import type { Config } from "tailwindcss"
 import { fontFamily } from "tailwindcss/defaultTheme"
 import animatePlugin from "tailwindcss-animate"
@@ -22,9 +21,9 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["'Inter'", ...fontFamily.sans],
-        serif: ["'Playfair Display'", "serif"],
-        heading: ["'Playfair Display'", "serif"],
+        sans: ["'Circular'", "'Cereal'", "'Helvetica Neue'", ...fontFamily.sans],
+        serif: ["'Georgia'", "serif"],
+        heading: ["'Circular'", "'Cereal'", "sans-serif"],
         montserrat: ["'Montserrat'", "sans-serif"],
       },
       animation: {
@@ -133,6 +132,20 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        airbnb: {
+          red: "#FF5A5F",
+          pink: "#FF385C",
+          darkpink: "#D93B30",
+          purple: "#914669",
+          navy: "#192B55",
+          teal: "#00A699",
+          green: "#008489",
+          yellow: "#FCB017",
+          orange: "#FC642D",
+          light: "#F7F7F7",
+          dark: "#222222",
+          gray: "#717171",
+        },
         vibrant: {
           purple: "#9b87f5",
           pink: "#D946EF",
@@ -152,7 +165,6 @@ const config = {
           orange: "#FDE1D3",
           gray: "#F1F0FB",
         },
-        // New elegant colors 
         elegant: {
           DEFAULT: "#1D1D1F",
           50: "#F5F5F7",
@@ -168,9 +180,9 @@ const config = {
           950: "#000000",
         },
         apple: {
-          DEFAULT: "#0071E3",
-          light: "#2997FF",
-          dark: "#0066CC",
+          DEFAULT: "#FF5A5F",
+          light: "#FF385C",
+          dark: "#D93B30",
         },
         rolex: {
           DEFAULT: "#006039",
@@ -190,7 +202,8 @@ const config = {
         "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
         "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
         "card-hover": "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
-        "apple": "0 4px 14px rgba(0, 0, 0, 0.1)",
+        "airbnb": "0 6px 16px rgba(0, 0, 0, 0.12)",
+        "airbnb-hover": "0 6px 20px rgba(0, 0, 0, 0.2)",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -198,6 +211,7 @@ const config = {
         "gradient-shine": "linear-gradient(45deg, transparent 25%, rgba(255, 255, 255, 0.3) 50%, transparent 75%)",
         "gradient-apple": "linear-gradient(180deg, #42a1ec 0%, #0070c9 100%)",
         "gradient-rolex": "linear-gradient(to right, #006039, #004C2C)",
+        "gradient-airbnb": "linear-gradient(to right, #FF385C, #D93B30)",
       },
     },
   },

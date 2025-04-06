@@ -13,10 +13,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 0 2em rgba(255, 90, 95, 0.3));
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0 0 2em rgba(255, 90, 95, 0.3));
 }
 
 @keyframes logo-spin {
@@ -36,19 +36,20 @@
 
 .card {
   padding: 2em;
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 0.75rem;
   transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
 }
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 }
 
 .read-the-docs {
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(113, 113, 113, 0.8);
 }
 
 /* Accent line */
@@ -56,7 +57,7 @@
   height: 1px;
   background: linear-gradient(90deg, 
     rgba(0, 0, 0, 0) 0%, 
-    rgba(0, 0, 0, 0.1) 50%, 
+    rgba(255, 90, 95, 0.2) 50%, 
     rgba(0, 0, 0, 0) 100%);
   margin: 2rem auto;
   width: 80%;
@@ -69,20 +70,20 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(240, 240, 240, 0.8);
+  background: rgba(247, 247, 247, 0.9);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(113, 113, 113, 0.3);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(113, 113, 113, 0.5);
 }
 
 /* Selection style */
 ::selection {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 90, 95, 0.1);
   color: rgb(0, 0, 0);
 }
