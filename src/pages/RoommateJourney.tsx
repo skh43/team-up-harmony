@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from 'react-router-dom';
@@ -73,7 +72,6 @@ const RoommateJourney = () => {
     }
   ];
 
-  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -99,7 +97,6 @@ const RoommateJourney = () => {
   
   return (
     <section className="py-16 bg-gradient-to-b from-white to-airbnb-light/30 overflow-hidden">
-      {/* Decorative elements */}
       <div className="absolute left-0 top-1/3 w-32 h-32 bg-gradient-to-br from-airbnb-red/20 to-airbnb-navy/20 rounded-full blur-3xl"></div>
       <div className="absolute right-0 top-2/3 w-40 h-40 bg-gradient-to-br from-airbnb-red/20 to-airbnb-darkpink/20 rounded-full blur-3xl"></div>
       
@@ -130,7 +127,6 @@ const RoommateJourney = () => {
           </p>
         </motion.div>
 
-        {/* Spinning Ad before the steps */}
         <div className="max-w-lg mx-auto mb-10">
           <AdComponent type="inline" isSpinning={true} />
         </div>
@@ -184,7 +180,6 @@ const RoommateJourney = () => {
           ))}
         </motion.div>
 
-        {/* Middle ad - regular inline ad */}
         <div className="max-w-xl mx-auto mb-10">
           <AdComponent type="inline" />
         </div>
@@ -200,7 +195,7 @@ const RoommateJourney = () => {
             size="xl"
             radius="full"
             onClick={handleStartJourney}
-            className="px-10 py-6 text-base font-bold shadow-lg"
+            className="px-10 py-6 text-base font-bold shadow-lg bg-gradient-to-r from-airbnb-red to-airbnb-navy hover:from-airbnb-darkpink hover:to-airbnb-navy"
             whileHover={{ 
               scale: 1.05, 
               boxShadow: "0 10px 25px -5px rgba(0, 164, 212, 0.5)" 
