@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -52,7 +51,6 @@ const Chatbot = () => {
   const handleSend = () => {
     if (input.trim() === '') return;
     
-    // Add user message
     const userMessage: Message = {
       id: Date.now().toString(),
       content: input,
@@ -64,7 +62,6 @@ const Chatbot = () => {
     setInput('');
     setIsTyping(true);
     
-    // Simulate bot typing
     setTimeout(() => {
       const botResponse = getBotResponse(input);
       const botMessage: Message = {
@@ -90,7 +87,6 @@ const Chatbot = () => {
     }
   };
 
-  // Simple response generator based on keywords
   const getBotResponse = (message: string): string => {
     const lowerMsg = message.toLowerCase();
     
@@ -123,7 +119,6 @@ const Chatbot = () => {
 
   return (
     <>
-      {/* Chat button */}
       <div className="fixed bottom-4 right-4 z-50">
         <Button
           onClick={() => setIsOpen(true)}
@@ -135,7 +130,6 @@ const Chatbot = () => {
         </Button>
       </div>
 
-      {/* Chat window */}
       {isOpen && (
         <div className="fixed bottom-20 right-4 w-80 sm:w-96 z-50">
           <Card className="shadow-airbnb border border-border/10 rounded-xl overflow-hidden">
@@ -200,7 +194,6 @@ const Chatbot = () => {
                 <div ref={messagesEndRef} />
               </div>
               
-              {/* Suggested questions */}
               {messages.length <= 2 && (
                 <div className="px-4 py-2 border-t border-border/10">
                   <p className="text-xs text-muted-foreground mb-2">Suggested questions:</p>

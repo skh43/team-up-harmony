@@ -25,7 +25,7 @@ const buttonVariants = cva(
         gradientGold: "bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600 shadow-md hover:shadow-lg",
         shine: "btn-shine bg-primary text-primary-foreground hover:bg-primary/90",
         glass: "bg-white/20 backdrop-blur-md border border-white/30 text-primary hover:bg-white/30 shadow-sm hover:shadow-md",
-        // Airbnb-inspired theme variants
+        // Airbnb-inspired theme variants but with new colors
         airbnb: "bg-airbnb-red text-white hover:bg-airbnb-darkpink shadow-sm rounded-lg",
         airbnbOutline: "bg-transparent text-airbnb-red border border-airbnb-red hover:bg-airbnb-red/5 rounded-lg",
         airbnbGradient: "bg-gradient-airbnb text-white hover:shadow-airbnb-hover rounded-lg",
