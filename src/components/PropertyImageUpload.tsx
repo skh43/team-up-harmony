@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Camera, X, Upload, Check, AlertCircle } from 'lucide-react';
+import { Camera, X, Upload, Check, AlertCircle, Image, BedDouble, Bath, Utensils } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { 
   Carousel, 
@@ -159,10 +159,25 @@ const PropertyImageUpload: React.FC<PropertyImageUploadProps> = ({
       >
         <div className="flex flex-col items-center justify-center gap-2">
           <Camera className="h-10 w-10 text-muted-foreground/60" />
-          <h3 className="text-lg font-medium">Upload Property Images</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            Drag and drop your images here, or click to browse
+          <h3 className="text-lg font-medium">Upload Images of Your Space</h3>
+          <p className="text-sm text-muted-foreground mb-2">
+            Add photos of your space and all shared amenities for better matching
           </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4 w-full max-w-md">
+            <div className="bg-muted/50 rounded-lg p-3 text-center">
+              <BedDouble className="h-6 w-6 mx-auto mb-2 text-primary" />
+              <p className="text-xs font-medium">Living Space</p>
+            </div>
+            <div className="bg-muted/50 rounded-lg p-3 text-center">
+              <Bath className="h-6 w-6 mx-auto mb-2 text-primary" />
+              <p className="text-xs font-medium">Bathroom</p>
+            </div>
+            <div className="bg-muted/50 rounded-lg p-3 text-center">
+              <Utensils className="h-6 w-6 mx-auto mb-2 text-primary" />
+              <p className="text-xs font-medium">Kitchen</p>
+            </div>
+          </div>
           
           <div className="flex gap-2 flex-wrap justify-center">
             <Button type="button" onClick={() => document.getElementById('image-upload')?.click()}>
@@ -184,7 +199,7 @@ const PropertyImageUpload: React.FC<PropertyImageUploadProps> = ({
           />
           
           <p className="text-xs text-muted-foreground mt-4">
-            Tip: Include photos of all rooms, washrooms, kitchen, and exterior views
+            Quality images increase your chances of finding a good match
           </p>
           
           <div className="grid grid-cols-3 gap-2 mt-3">
