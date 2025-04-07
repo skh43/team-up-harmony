@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -97,6 +98,16 @@ const MatchCard = ({
     setSwipeDirection(null);
   };
 
+  // Helper function to get accommodation type label
+  const getAccommodationLabel = (livingRef: string) => {
+    switch(livingRef) {
+      case 'sharedRoom': return t('profileCreation.sharedRoom');
+      case 'singleRoom': return t('profileCreation.singleRoom');
+      case 'bedSpace': return t('profileCreation.bedSpace');
+      default: return livingRef;
+    }
+  };
+
   return (
     <Card 
       className={cn(
@@ -187,12 +198,19 @@ const MatchCard = ({
           
           {profile.livingReference && (
             <div className="flex items-center text-sm space-x-2">
-              <BedDouble className="h-4 w-4 text-muted-foreground" />
-              <span>
-                {profile.livingReference === 'sharedRoom' && t('profileCreation.sharedRoom')}
-                {profile.livingReference === 'singleRoom' && t('profileCreation.singleRoom')}
-                {profile.livingReference === 'bedSpace' && t('profileCreation.bedSpace')}
-              </span>
+              {userPath === 'host' ? (
+                <>
+                  <Home className="h-4 w-4 text-green-500" />
+                  <span className="font-medium text-green-600">
+                    {t('matching.availableSpace')}: {getAccommodationLabel(profile.livingReference)}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <BedDouble className="h-4 w-4 text-muted-foreground" />
+                  <span>{t('matching.lookingFor')}: {getAccommodationLabel(profile.livingReference)}</span>
+                </>
+              )}
             </div>
           )}
           

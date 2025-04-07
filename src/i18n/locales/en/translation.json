@@ -1,4 +1,3 @@
-
 {
   "common": {
     "welcome": "Welcome Back",
@@ -173,7 +172,8 @@
     "pets": "Pets",
     "welcome": "Welcome",
     "noPets": "No pets",
-    "availableRooms": "Available Rooms"
+    "availableRooms": "Available Rooms",
+    "availableSpace": "Available Space"
   },
   "payment": {
     "completePayment": "Complete Payment",
