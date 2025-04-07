@@ -175,9 +175,8 @@ const Matching = () => {
   const [animation, setAnimation] = useState<'swipe-left' | 'swipe-right' | null>(null);
   const [swipesUsed, setSwipesUsed] = useState<number>(0);
   const [swipesReset, setSwipesReset] = useState<string>("");
-  const [userPath, setUserPath] = useState<string>("seek"); // Default to "seek"
+  const [userPath, setUserPath] = useState<string>("seek");
   
-  // Add state for amenity image indices here, outside of any conditional rendering
   const [amenityImageIndices, setAmenityImageIndices] = useState({
     bathroom: 0,
     kitchen: 0,
@@ -335,7 +334,6 @@ const Matching = () => {
     };
   };
 
-  // Extract the amenity image navigation logic out of the render function
   const getAmenityImages = (images: string | string[] | undefined): string[] => {
     if (!images) return [];
     return Array.isArray(images) ? images : [images];
@@ -359,7 +357,6 @@ const Matching = () => {
     });
   };
 
-  // Create a separate component for rendering amenity images
   const AmenityImage = ({ 
     type, 
     label, 
@@ -416,10 +413,8 @@ const Matching = () => {
 
   const isAlreadyMatched = currentProfile && matches.includes(currentProfile.id);
 
-  // Add state for displaying profile sections
   const [activeProfileSection, setActiveProfileSection] = useState<string>('personal');
 
-  // Add a function to render profile information sections
   const renderProfileSection = () => {
     if (!currentProfile) return null;
 
@@ -595,7 +590,6 @@ const Matching = () => {
               />
             </div>
 
-            {/* Profile sections navigation */}
             <div className="mt-6 mb-4">
               <div className="flex rounded-full bg-muted p-1">
                 <button
@@ -631,7 +625,6 @@ const Matching = () => {
               </div>
             </div>
             
-            {/* Profile section content */}
             <Card className="p-4 mb-6">
               {renderProfileSection()}
             </Card>
@@ -724,3 +717,17 @@ const Matching = () => {
                 variant="outline" 
                 size="lg" 
                 className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-green-500/30 hover:text-green-500 backdrop-blur-sm border-none neon-border"
+                onClick={handleLike}
+                disabled={hasReachedSwipeLimit}
+              >
+                <Heart className="h-8 w-8" />
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    </MainLayout>
+  );
+};
+
+export default Matching;
