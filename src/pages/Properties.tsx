@@ -8,291 +8,22 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from '@/components/ui/use-toast';
-import { MapPin, Bed, Bath, Square, Heart, Filter, House, Sofa, Crown, Plus, Hospital, ShoppingCart, PlusCircle, Bus, Train, Map, ExternalLink, Share2, MessageCircle } from 'lucide-react';
+import { MapPin, Bed, Bath, Square, Heart, Filter, House, Sofa, Crown, Plus, Hospital, ShoppingCart, PlusCircle, Bus, Train, Map, ExternalLink, Share2, MessageCircle, Eye, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
 
 const MOCK_PROPERTIES = [
-  {
-    id: 1,
-    title: 'Spacious 2-Bedroom Apartment in Al Nahdah',
-    location: 'Al Nahdah, Riyadh',
-    price: 'SAR 22,000/year',
-    priceValue: 1833,
-    bedrooms: 2,
-    bathrooms: 2,
-    size: '105 sqm',
-    description: 'Luxurious 2-bedroom apartment with modern finishes, central AC, and built-in wardrobes. Located near King Khalid International Airport with easy access to main roads.',
-    image: 'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Central AC', 'Built-in Kitchen', 'Security', 'Covered Parking'],
-    mapLink: 'https://maps.google.com/?q=Al+Nahdah+Riyadh',
-    amenities: {
-      hospital: '3.5 km',
-      supermarket: '0.5 km',
-      medicalStore: '1.2 km',
-      publicTransport: '0.4 km',
-      metro: '5 km'
-    }
-  },
-  {
-    id: 2,
-    title: 'Modern Studio Apartment in Aziziyah District',
-    location: 'Al Aziziyah, Jeddah',
-    price: 'SAR 18,000/year',
-    priceValue: 1500,
-    bedrooms: 1,
-    bathrooms: 1,
-    size: '60 sqm',
-    description: 'Newly furnished studio apartment with sea view, perfect for singles or young couples. Features security, gym access, and high-speed internet.',
-    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Furnished', 'Sea View', 'Gym Access', 'Internet'],
-    mapLink: 'https://maps.google.com/?q=Al+Aziziyah+Jeddah',
-    amenities: {
-      hospital: '2 km',
-      supermarket: '0.3 km',
-      medicalStore: '0.7 km',
-      publicTransport: '0.2 km',
-      metro: 'N/A'
-    }
-  },
-  {
-    id: 3,
-    title: 'Premium 3-Bedroom Apartment in Al Olaya',
-    location: 'Al Olaya, Riyadh',
-    price: 'SAR 65,000/year',
-    priceValue: 5417,
-    bedrooms: 3,
-    bathrooms: 3,
-    size: '165 sqm',
-    description: 'Upscale apartment in the heart of Al Olaya business district with premium finishes, smart home features, and 24/7 concierge service. Walking distance to Kingdom Centre.',
-    image: 'https://images.unsplash.com/photo-1614107062077-086ba2489615?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Smart Home', 'Concierge', 'Swimming Pool', 'Gym', 'Premium Finishes'],
-    mapLink: 'https://maps.google.com/?q=Al+Olaya+Riyadh',
-    amenities: {
-      hospital: '1.5 km',
-      supermarket: '0.3 km',
-      medicalStore: '0.5 km',
-      publicTransport: '0.2 km',
-      metro: '0.8 km'
-    }
-  },
-  {
-    id: 4,
-    title: 'Budget-Friendly 1-Bedroom in Al Salamah',
-    location: 'Al Salamah, Jeddah',
-    price: 'SAR 15,000/year',
-    priceValue: 1250,
-    bedrooms: 1,
-    bathrooms: 1,
-    size: '75 sqm',
-    description: 'Affordable apartment in a family-friendly neighborhood with basic amenities and good connectivity to public transport and universities.',
-    image: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Family-Friendly', 'Near Universities', 'Public Transport'],
-    mapLink: 'https://maps.google.com/?q=Al+Salamah+Jeddah',
-    amenities: {
-      hospital: '4 km',
-      supermarket: '0.6 km',
-      medicalStore: '1 km',
-      publicTransport: '0.3 km',
-      metro: 'N/A'
-    }
-  },
-  {
-    id: 5,
-    title: 'Elegant 2-Bedroom in Al Hamra Compound',
-    location: 'Al Hamra, Riyadh',
-    price: 'SAR 90,000/year',
-    priceValue: 7500,
-    bedrooms: 2,
-    bathrooms: 2,
-    size: '130 sqm',
-    description: 'Luxurious compound apartment with exquisite finishes, private garden, and access to premium facilities including swimming pool, tennis court, and children\'s playground.',
-    image: 'https://images.unsplash.com/photo-1585129777188-71ecb882cd1d?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Compound', 'Private Garden', 'Swimming Pool', 'Tennis Court', 'Security'],
-    mapLink: 'https://maps.google.com/?q=Al+Hamra+Riyadh',
-    amenities: {
-      hospital: '5 km',
-      supermarket: '1.2 km',
-      medicalStore: '1.5 km',
-      publicTransport: '0.8 km',
-      metro: '3 km'
-    }
-  },
-  {
-    id: 6,
-    title: 'Female-Only Shared Room Near KAUST',
-    location: 'Thuwal, Jeddah',
-    price: 'SAR 12,000/year',
-    priceValue: 1000,
-    bedrooms: 1,
-    bathrooms: 1,
-    size: '25 sqm (room)',
-    description: 'Private room in shared apartment exclusively for female students or professionals. Close to King Abdullah University of Science and Technology (KAUST).',
-    image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Female Only', 'Near University', 'Shared Kitchen', 'Bills Included'],
-    mapLink: 'https://maps.google.com/?q=Thuwal+Jeddah',
-    amenities: {
-      hospital: '7 km',
-      supermarket: '1 km',
-      medicalStore: '1.5 km',
-      publicTransport: '0.5 km',
-      metro: 'N/A'
-    }
-  },
-  {
-    id: 7,
-    title: 'Luxury 1-Bedroom Apartment in Al Khobar Corniche',
-    location: 'Al Khobar Corniche, Eastern Province',
-    price: 'SAR 35,000/year',
-    priceValue: 2917,
-    bedrooms: 1,
-    bathrooms: 1,
-    size: '95 sqm',
-    description: 'Stunning apartment with panoramic Gulf views, modern design, and top-quality finishes. Features a spacious balcony and premium building amenities.',
-    image: 'https://images.unsplash.com/photo-1558442086-8ea5f6658931?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Sea View', 'Balcony', 'Modern Design', 'Premium Building'],
-    mapLink: 'https://maps.google.com/?q=Al+Khobar+Corniche',
-    amenities: {
-      hospital: '3 km',
-      supermarket: '0.4 km',
-      medicalStore: '0.7 km',
-      publicTransport: '0.3 km',
-      metro: 'N/A'
-    }
-  },
-  {
-    id: 8,
-    title: 'Affordable Studio in Al Faisaliyah District',
-    location: 'Al Faisaliyah, Riyadh',
-    price: 'SAR 16,000/year',
-    priceValue: 1333,
-    bedrooms: 1,
-    bathrooms: 1,
-    size: '55 sqm',
-    description: 'Cozy studio apartment with basic amenities in a convenient location. Suitable for singles or students with easy access to universities and shopping centers.',
-    image: 'https://images.unsplash.com/photo-1622866306950-81d17097d458?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Budget-Friendly', 'Student-Friendly', 'Near Shopping Centers'],
-    mapLink: 'https://maps.google.com/?q=Al+Faisaliyah+Riyadh',
-    amenities: {
-      hospital: '4.5 km',
-      supermarket: '0.7 km',
-      medicalStore: '1 km',
-      publicTransport: '0.4 km',
-      metro: '2.5 km'
-    }
-  },
-  {
-    id: 9,
-    title: 'Furnished 2-Bedroom Apartment in Al Rawdah',
-    location: 'Al Rawdah, Jeddah',
-    price: 'SAR 45,000/year',
-    priceValue: 3750,
-    bedrooms: 2,
-    bathrooms: 2,
-    size: '120 sqm',
-    description: 'Fully furnished apartment with modern decor in a quiet residential area. Includes high-speed internet, weekly cleaning service, and covered parking.',
-    image: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=2069&ixlib=rb-4.0.3',
-    tags: ['Fully Furnished', 'Internet Included', 'Cleaning Service', 'Quiet Area'],
-    mapLink: 'https://maps.google.com/?q=Al+Rawdah+Jeddah',
-    amenities: {
-      hospital: '2.5 km',
-      supermarket: '0.5 km',
-      medicalStore: '0.8 km',
-      publicTransport: '0.5 km',
-      metro: 'N/A'
-    }
-  },
-  {
-    id: 10,
-    title: 'New 3-Bedroom Apartment in Al Yasmin',
-    location: 'Al Yasmin, Riyadh',
-    price: 'SAR 55,000/year',
-    priceValue: 4583,
-    bedrooms: 3,
-    bathrooms: 2,
-    size: '150 sqm',
-    description: 'Brand new apartment in a modern residential complex with contemporary design and high-quality finishes. Features a spacious living area and balcony.',
-    image: 'https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Brand New', 'Modern Complex', 'Spacious', 'Balcony'],
-    mapLink: 'https://maps.google.com/?q=Al+Yasmin+Riyadh',
-    amenities: {
-      hospital: '3.8 km',
-      supermarket: '0.6 km',
-      medicalStore: '1 km',
-      publicTransport: '0.7 km',
-      metro: '4 km'
-    }
-  },
-  {
-    id: 11,
-    title: 'Upscale 1-Bedroom in Granada Business Park',
-    location: 'Granada, Riyadh',
-    price: 'SAR 40,000/year',
-    priceValue: 3333,
-    bedrooms: 1,
-    bathrooms: 1,
-    size: '85 sqm',
-    description: 'Contemporary apartment with premium finishes in a prime business district. Features smart home technology, high ceilings, and floor-to-ceiling windows.',
-    image: 'https://images.unsplash.com/photo-1502672023488-70e25813eb80?auto=format&fit=crop&q=80&w=2071&ixlib=rb-4.0.3',
-    tags: ['Smart Home', 'Business District', 'High Ceilings', 'Modern Design'],
-    mapLink: 'https://maps.google.com/?q=Granada+Riyadh',
-    amenities: {
-      hospital: '2 km',
-      supermarket: '0.3 km',
-      medicalStore: '0.5 km',
-      publicTransport: '0.2 km',
-      metro: '1 km'
-    }
-  },
-  {
-    id: 12,
-    title: 'Family 4-Bedroom Apartment in Al Nahda',
-    location: 'Al Nahda, Dammam',
-    price: 'SAR 70,000/year',
-    priceValue: 5833,
-    bedrooms: 4,
-    bathrooms: 3,
-    size: '200 sqm',
-    description: 'Spacious family apartment with maid\'s room, large kitchen, and multiple balconies. Located in a family-friendly neighborhood with easy access to schools and parks.',
-    image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Family-Sized', 'Maid\'s Room', 'Multiple Balconies', 'Near Schools'],
-    mapLink: 'https://maps.google.com/?q=Al+Nahda+Dammam',
-    amenities: {
-      hospital: '3 km',
-      supermarket: '0.4 km',
-      medicalStore: '0.7 km',
-      publicTransport: '0.5 km',
-      metro: 'N/A'
-    }
-  }
+  // ... keep existing MOCK_PROPERTIES array
 ];
 
 const MOCK_MATCHES = [
-  { 
-    id: 1, 
-    name: "Mohammed", 
-    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
-    status: "online"
-  },
-  { 
-    id: 2, 
-    name: "Fatima", 
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
-    status: "offline"
-  },
-  { 
-    id: 3, 
-    name: "Ahmed", 
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
-    status: "online"
-  }
+  // ... keep existing MOCK_MATCHES array
 ];
 
 const PRICE_THRESHOLDS = {
-  BASIC: 2500,    // Properties below 2500 SAR/month
-  COMFORT: 6000   // Properties between 2500-6000 SAR/month
-                  // Properties above 6000 SAR/month are Elite
+  BASIC: 2500,
+  COMFORT: 6000
 };
 
 const Properties = () => {
@@ -303,6 +34,8 @@ const Properties = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [sharePropertyId, setSharePropertyId] = useState<number | null>(null);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState<number | null>(null);
+  const [isDetailsDialogOpen, setIsDetailsDialogOpen] = useState(false);
   
   const toggleFavorite = (id: number) => {
     setFavorites(prev => 
@@ -328,6 +61,11 @@ const Properties = () => {
       });
       setIsShareDialogOpen(false);
     }
+  };
+  
+  const handleViewDetails = (propertyId: number) => {
+    setSelectedProperty(propertyId);
+    setIsDetailsDialogOpen(true);
   };
   
   const filteredProperties = MOCK_PROPERTIES
@@ -432,6 +170,7 @@ const Properties = () => {
                 isFavorite={favorites.includes(property.id)}
                 onToggleFavorite={() => toggleFavorite(property.id)}
                 onShare={() => handleShareProperty(property.id)}
+                onViewDetails={() => handleViewDetails(property.id)}
                 category={
                   property.priceValue < PRICE_THRESHOLDS.BASIC 
                     ? 'basic' 
@@ -501,6 +240,17 @@ const Properties = () => {
               Cancel
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      
+      <Dialog open={isDetailsDialogOpen} onOpenChange={setIsDetailsDialogOpen}>
+        <DialogContent className="sm:max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedProperty !== null && (
+            <PropertyDetails 
+              property={MOCK_PROPERTIES.find(p => p.id === selectedProperty)!}
+              onClose={() => setIsDetailsDialogOpen(false)}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </MainLayout>
@@ -587,10 +337,11 @@ interface PropertyCardProps {
   isFavorite: boolean;
   onToggleFavorite: () => void;
   onShare: () => void;
+  onViewDetails: () => void;
   category: 'basic' | 'comfort' | 'elite';
 }
 
-const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, category }: PropertyCardProps) => {
+const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, onViewDetails, category }: PropertyCardProps) => {
   const getCategoryStyles = () => {
     switch (category) {
       case 'basic':
@@ -749,7 +500,13 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, categor
       </CardContent>
       
       <CardFooter className="flex gap-2">
-        <Button className="w-full rounded-md">View Details</Button>
+        <Button 
+          className="w-full rounded-md flex items-center gap-2"
+          onClick={onViewDetails}
+        >
+          <Eye className="h-4 w-4" />
+          View Details
+        </Button>
         <Button 
           variant="outline" 
           size="icon" 
@@ -762,6 +519,213 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, categor
         </Button>
       </CardFooter>
     </Card>
+  );
+};
+
+interface PropertyDetailsProps {
+  property: {
+    id: number;
+    title: string;
+    location: string;
+    price: string;
+    priceValue: number;
+    bedrooms: number;
+    bathrooms: number;
+    size: string;
+    description: string;
+    image: string;
+    tags: string[];
+    mapLink?: string;
+    amenities?: {
+      hospital?: string;
+      supermarket?: string;
+      medicalStore?: string;
+      publicTransport?: string;
+      metro?: string;
+    };
+  };
+  onClose: () => void;
+}
+
+const PropertyDetails = ({ property, onClose }: PropertyDetailsProps) => {
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  
+  const propertyImages = [
+    property.image,
+    `${property.image}?v=2`,
+    `${property.image}?v=3`,
+    `${property.image}?v=4`,
+  ];
+  
+  const nextImage = () => {
+    setActiveImageIndex((prev) => (prev + 1) % propertyImages.length);
+  };
+  
+  const prevImage = () => {
+    setActiveImageIndex((prev) => (prev - 1 + propertyImages.length) % propertyImages.length);
+  };
+
+  return (
+    <>
+      <DialogHeader>
+        <DialogTitle className="text-2xl">{property.title}</DialogTitle>
+        <DialogDescription className="flex items-center">
+          <MapPin className="h-4 w-4 mr-1" />
+          {property.location}
+          {property.mapLink && (
+            <a 
+              href={property.mapLink} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary inline-flex items-center hover:underline ml-2"
+            >
+              <Map className="h-3.5 w-3.5 mr-1" />
+              <span className="text-xs">View on Map</span>
+              <ExternalLink className="h-3 w-3 ml-1" />
+            </a>
+          )}
+        </DialogDescription>
+      </DialogHeader>
+      
+      <div className="my-4 relative">
+        <div className="w-full aspect-video relative overflow-hidden rounded-lg">
+          <img 
+            src={propertyImages[activeImageIndex]} 
+            alt={`${property.title} - Image ${activeImageIndex + 1}`}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute bottom-4 right-4 bg-black/70 text-white px-2 py-1 rounded-md text-sm">
+            {activeImageIndex + 1} / {propertyImages.length}
+          </div>
+        </div>
+        
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 text-gray-800 hover:bg-white"
+          onClick={prevImage}
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </Button>
+        
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-white/80 text-gray-800 hover:bg-white"
+          onClick={nextImage}
+        >
+          <ChevronRight className="h-5 w-5" />
+        </Button>
+        
+        <div className="flex gap-2 mt-3 overflow-x-auto py-2">
+          {propertyImages.map((img, idx) => (
+            <div 
+              key={idx}
+              onClick={() => setActiveImageIndex(idx)}
+              className={cn(
+                "w-20 h-16 flex-shrink-0 rounded-md overflow-hidden cursor-pointer border-2",
+                activeImageIndex === idx ? "border-primary" : "border-transparent"
+              )}
+            >
+              <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      <div className="mb-4">
+        <div className="flex flex-wrap items-center justify-between mb-4">
+          <h3 className="text-xl font-bold text-primary">{property.price}</h3>
+          <div className="flex gap-4">
+            <div className="flex items-center gap-1.5">
+              <Bed className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm">{property.bedrooms} {property.bedrooms === 1 ? 'Bed' : 'Beds'}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Bath className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm">{property.bathrooms} {property.bathrooms === 1 ? 'Bath' : 'Baths'}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <Square className="h-4 w-4 text-muted-foreground" />
+              <span className="text-sm">{property.size}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div className="mb-4">
+          <h4 className="font-medium mb-2">Description</h4>
+          <p className="text-muted-foreground">{property.description}</p>
+        </div>
+        
+        <div className="mb-4">
+          <h4 className="font-medium mb-2">Features</h4>
+          <div className="flex flex-wrap gap-2">
+            {property.tags.map((tag, index) => (
+              <span key={index} className="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+        
+        {property.amenities && (
+          <div className="mb-4">
+            <h4 className="font-medium mb-2">Nearby Amenities</h4>
+            <div className="grid grid-cols-2 gap-3">
+              {property.amenities.hospital && (
+                <div className="flex items-center gap-2">
+                  <Hospital className="h-4 w-4 text-blue-500" />
+                  <span>Hospital: {property.amenities.hospital}</span>
+                </div>
+              )}
+              {property.amenities.supermarket && (
+                <div className="flex items-center gap-2">
+                  <ShoppingCart className="h-4 w-4 text-green-500" />
+                  <span>Supermarket: {property.amenities.supermarket}</span>
+                </div>
+              )}
+              {property.amenities.medicalStore && (
+                <div className="flex items-center gap-2">
+                  <PlusCircle className="h-4 w-4 text-red-500" />
+                  <span>Medical Store: {property.amenities.medicalStore}</span>
+                </div>
+              )}
+              {property.amenities.publicTransport && (
+                <div className="flex items-center gap-2">
+                  <Bus className="h-4 w-4 text-orange-500" />
+                  <span>Public Transport: {property.amenities.publicTransport}</span>
+                </div>
+              )}
+              {property.amenities.metro && (
+                <div className="flex items-center gap-2">
+                  <Train className="h-4 w-4 text-purple-500" />
+                  <span>Metro: {property.amenities.metro}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+      
+      <div className="flex flex-col sm:flex-row gap-3">
+        <Button className="flex-1 gap-2">
+          <MessageCircle className="h-4 w-4" />
+          Contact Owner
+        </Button>
+        <Button variant="outline" className="flex-1 gap-2">
+          <Share2 className="h-4 w-4" />
+          Share Property
+        </Button>
+        <Button 
+          variant={property.id ? "ghost" : "outline"} 
+          size="icon"
+          onClick={onClose}
+          className="sm:flex-none"
+        >
+          <Heart className="h-5 w-5" />
+        </Button>
+      </div>
+    </>
   );
 };
 
