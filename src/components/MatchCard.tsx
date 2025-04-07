@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check, BedDouble, BedSingle, Users, Bath, Utensils, Sofa } from 'lucide-react';
+import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check, BedDouble, BedSingle, Users, Bath, Utensils, Sofa, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 
@@ -22,10 +22,10 @@ export interface MatchProfile {
   };
   roomImages?: string[];
   sharedAmenityImages?: {
-    bathroom?: string;
-    kitchen?: string;
-    livingRoom?: string;
-    other?: string;
+    bathroom?: string | string[];
+    kitchen?: string | string[];
+    livingRoom?: string | string[];
+    other?: string | string[];
   };
   nationality?: string;
   workProfession?: string;
@@ -55,6 +55,13 @@ const MatchCard = ({
   const [translateX, setTranslateX] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [showSharedAmenities, setShowSharedAmenities] = useState(false);
+  
+  const [amenityImageIndices, setAmenityImageIndices] = useState({
+    bathroom: 0,
+    kitchen: 0,
+    livingRoom: 0,
+    other: 0
+  });
   
   const userPath = localStorage.getItem('userPath') || 'seek';
   
@@ -123,6 +130,75 @@ const MatchCard = ({
     profile.sharedAmenityImages.livingRoom || 
     profile.sharedAmenityImages.other
   );
+
+  const getAmenityImages = (images: string | string[] | undefined): string[] => {
+    if (!images) return [];
+    return Array.isArray(images) ? images : [images];
+  };
+
+  const navigateAmenityImage = (type: 'bathroom' | 'kitchen' | 'livingRoom' | 'other', direction: 'next' | 'prev') => {
+    const images = getAmenityImages(profile.sharedAmenityImages?.[type]);
+    if (images.length <= 1) return;
+
+    setAmenityImageIndices(prev => {
+      const currentIndex = prev[type];
+      let newIndex;
+      
+      if (direction === 'next') {
+        newIndex = (currentIndex + 1) % images.length;
+      } else {
+        newIndex = (currentIndex - 1 + images.length) % images.length;
+      }
+      
+      return { ...prev, [type]: newIndex };
+    });
+  };
+
+  const renderAmenityImage = (type: 'bathroom' | 'kitchen' | 'livingRoom' | 'other', label: string, icon: React.ReactNode) => {
+    const images = getAmenityImages(profile.sharedAmenityImages?.[type]);
+    if (images.length === 0) return null;
+    
+    const currentIndex = amenityImageIndices[type];
+    const currentImage = images[currentIndex];
+
+    return (
+      <div className="relative">
+        <img 
+          src={currentImage} 
+          alt={label} 
+          className="rounded-md h-20 w-full object-cover"
+        />
+        {images.length > 1 && (
+          <>
+            <button 
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/40 rounded-r p-1 text-white hover:bg-black/60"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateAmenityImage(type, 'prev');
+              }}
+            >
+              <ChevronLeft className="h-3 w-3" />
+            </button>
+            <button 
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/40 rounded-l p-1 text-white hover:bg-black/60"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigateAmenityImage(type, 'next');
+              }}
+            >
+              <ChevronRight className="h-3 w-3" />
+            </button>
+            <div className="absolute top-1 right-1 bg-black/50 text-white text-xs px-1.5 py-0.5 rounded-full">
+              {currentIndex + 1}/{images.length}
+            </div>
+          </>
+        )}
+        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
+          {icon} <span className="ml-1">{label}</span>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <Card 
@@ -275,54 +351,10 @@ const MatchCard = ({
                 <div className="mt-3 space-y-3">
                   <h4 className="text-sm font-medium">{t('matching.sharedAmenities')}</h4>
                   <div className="grid grid-cols-2 gap-2">
-                    {profile.sharedAmenityImages?.bathroom && (
-                      <div className="relative">
-                        <img 
-                          src={profile.sharedAmenityImages.bathroom} 
-                          alt="Bathroom" 
-                          className="rounded-md h-20 w-full object-cover"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
-                          <Bath className="h-3 w-3 mr-1" /> {t('matching.bathroom')}
-                        </div>
-                      </div>
-                    )}
-                    {profile.sharedAmenityImages?.kitchen && (
-                      <div className="relative">
-                        <img 
-                          src={profile.sharedAmenityImages.kitchen} 
-                          alt="Kitchen" 
-                          className="rounded-md h-20 w-full object-cover"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
-                          <Utensils className="h-3 w-3 mr-1" /> {t('matching.kitchen')}
-                        </div>
-                      </div>
-                    )}
-                    {profile.sharedAmenityImages?.livingRoom && (
-                      <div className="relative">
-                        <img 
-                          src={profile.sharedAmenityImages.livingRoom} 
-                          alt="Living Room" 
-                          className="rounded-md h-20 w-full object-cover"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
-                          <Sofa className="h-3 w-3 mr-1" /> {t('matching.livingRoom')}
-                        </div>
-                      </div>
-                    )}
-                    {profile.sharedAmenityImages?.other && (
-                      <div className="relative">
-                        <img 
-                          src={profile.sharedAmenityImages.other} 
-                          alt="Other Space" 
-                          className="rounded-md h-20 w-full object-cover"
-                        />
-                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
-                          <Home className="h-3 w-3 mr-1" /> {t('matching.otherSpace')}
-                        </div>
-                      </div>
-                    )}
+                    {renderAmenityImage('bathroom', t('matching.bathroom'), <Bath className="h-3 w-3 mr-1" />)}
+                    {renderAmenityImage('kitchen', t('matching.kitchen'), <Utensils className="h-3 w-3 mr-1" />)}
+                    {renderAmenityImage('livingRoom', t('matching.livingRoom'), <Sofa className="h-3 w-3 mr-1" />)}
+                    {renderAmenityImage('other', t('matching.otherSpace'), <Home className="h-3 w-3 mr-1" />)}
                   </div>
                 </div>
               )}

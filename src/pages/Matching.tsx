@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -29,8 +30,14 @@ const MOCK_ROOMMATES: MatchProfile[] = [
       'https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2074&auto=format&fit=crop'
     ],
     sharedAmenityImages: {
-      bathroom: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop',
-      kitchen: 'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?q=80&w=2070&auto=format&fit=crop',
+      bathroom: [
+        'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=1974&auto=format&fit=crop'
+      ],
+      kitchen: [
+        'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?q=80&w=2070&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=2067&auto=format&fit=crop'
+      ],
       livingRoom: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop'
     },
     nationality: 'Canadian',
@@ -58,7 +65,10 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     ],
     sharedAmenityImages: {
       bathroom: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=1974&auto=format&fit=crop',
-      kitchen: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=2067&auto=format&fit=crop'
+      kitchen: [
+        'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=2067&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1588854337115-1c67d9247e4d?q=80&w=2070&auto=format&fit=crop'
+      ]
     },
     nationality: 'Emirati',
     workProfession: 'Software Engineer',
