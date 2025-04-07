@@ -1,3 +1,4 @@
+
 {
   "common": {
     "welcome": "Maligayang Pagbabalik",
@@ -96,6 +97,9 @@
     "workSchedulePlaceholder": "9am-5pm weekdays, night shifts, remote, etc.",
     "nationality": "Nationality",
     "selectNationality": "Select your nationality",
+    "locationArea": "Location Area",
+    "selectLocationArea": "Select your location area",
+    "locationAreaDesc": "Choose the area in Riyadh where you live or want to live",
     "openToAllNationalities": "Open to living with all nationalities",
     "openToAllNationalitiesDesc": "Check this if you're comfortable living with people from any background",
     "roomDetails": "Your Room/Space Details",

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,6 +38,7 @@ const formSchema = z.object({
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
   livingReference: z.string().min(1, "Please select your accommodation type"),
+  locationArea: z.string().optional(),
   roomDescription: z.string().optional(),
   sharedFacilities: z.string().optional(),
   mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
@@ -54,6 +56,16 @@ const nationalities = [
   "Italian", "Japanese", "Kenyan", "Korean", "Malaysian", 
   "Mexican", "Nigerian", "Pakistani", "Russian", "Saudi Arabian", 
   "Singaporean", "South African", "Spanish", "Turkish", "Other"
+];
+
+// Areas in Riyadh
+const riyadhAreas = [
+  "Al Olaya", "Al Malaz", "Al Murabba", "Al Muruj", "Al Nakheel",
+  "Al Naseem", "Al Qods", "Al Rabwah", "Al Rawdah", "Al Sahafah",
+  "Al Shifa", "Al Sulimaniyah", "Al Wadi", "Al Wurud", "Al Yasmin",
+  "Diplomatic Quarter", "Hittin", "King Abdullah Financial District",
+  "King Fahd District", "Qurtubah", "Taawun", "Al Hamra", "Al Rimal",
+  "Al Nahda", "Al Izdihar", "Al Ghadir", "Al Bat'ha", "Al Ma'athar"
 ];
 
 export default function ProfileCreation() {
@@ -90,6 +102,7 @@ export default function ProfileCreation() {
       nationality: "",
       openToAllNationalities: false,
       livingReference: "",
+      locationArea: "",
       roomDescription: "",
       sharedFacilities: "",
       mapLink: "",
@@ -309,6 +322,36 @@ export default function ProfileCreation() {
                         ))}
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="locationArea"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" /> {t('profileCreation.locationArea')}
+                    </FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('profileCreation.selectLocationArea')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {riyadhAreas.map((area) => (
+                          <SelectItem key={area} value={area.toLowerCase()}>
+                            {area}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormDescription>
+                      {t('profileCreation.locationAreaDesc')}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
