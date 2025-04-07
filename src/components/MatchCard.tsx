@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check, BedDouble, BedSingle, Users, Bath, KitchenPot, Sofa } from 'lucide-react';
+import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check, BedDouble, BedSingle, Users, Bath, Utensils, Sofa } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 
@@ -105,7 +104,6 @@ const MatchCard = ({
     setSwipeDirection(null);
   };
 
-  // Helper function to get accommodation type label
   const getAccommodationLabel = (livingRef: string) => {
     switch(livingRef) {
       case 'sharedRoom': return t('profileCreation.sharedRoom');
@@ -115,12 +113,10 @@ const MatchCard = ({
     }
   };
 
-  // Function to toggle showing shared amenities
   const toggleSharedAmenities = () => {
     setShowSharedAmenities(!showSharedAmenities);
   };
 
-  // Check if profile has any shared amenity images
   const hasSharedAmenities = profile.sharedAmenityImages && (
     profile.sharedAmenityImages.bathroom || 
     profile.sharedAmenityImages.kitchen || 
@@ -299,7 +295,7 @@ const MatchCard = ({
                           className="rounded-md h-20 w-full object-cover"
                         />
                         <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
-                          <KitchenPot className="h-3 w-3 mr-1" /> {t('matching.kitchen')}
+                          <Utensils className="h-3 w-3 mr-1" /> {t('matching.kitchen')}
                         </div>
                       </div>
                     )}

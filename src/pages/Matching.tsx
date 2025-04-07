@@ -10,7 +10,6 @@ import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
-// Mock data for potential roommates
 const MOCK_ROOMMATES: MatchProfile[] = [
   {
     id: '1',
