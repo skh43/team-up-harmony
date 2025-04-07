@@ -490,6 +490,38 @@ const Matching = () => {
                 </div>
               ))}
             </div>
+            
+            {currentProfile.sharedAmenityImages && 
+              (currentProfile.sharedAmenityImages.bathroom || 
+               currentProfile.sharedAmenityImages.kitchen || 
+               currentProfile.sharedAmenityImages.livingRoom || 
+               currentProfile.sharedAmenityImages.other) && (
+              <div className="mt-4">
+                <h4 className="text-md font-medium mb-2">{t("matching.sharedAmenities")}</h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <AmenityImage 
+                    type="bathroom" 
+                    label={t('matching.bathroom')} 
+                    icon={<Bath className="h-3 w-3 mr-1" />} 
+                  />
+                  <AmenityImage 
+                    type="kitchen" 
+                    label={t('matching.kitchen')} 
+                    icon={<Utensils className="h-3 w-3 mr-1" />} 
+                  />
+                  <AmenityImage 
+                    type="livingRoom" 
+                    label={t('matching.livingRoom')} 
+                    icon={<Sofa className="h-3 w-3 mr-1" />} 
+                  />
+                  <AmenityImage 
+                    type="other" 
+                    label={t('matching.otherSpace')} 
+                    icon={<Home className="h-3 w-3 mr-1" />} 
+                  />
+                </div>
+              </div>
+            )}
           </div>
         );
         
@@ -628,69 +660,6 @@ const Matching = () => {
             <Card className="p-4 mb-6">
               {renderProfileSection()}
             </Card>
-
-            {userPath === 'host' && (currentProfile.roomImages?.length > 0 || 
-                  (currentProfile.sharedAmenityImages && 
-                  (currentProfile.sharedAmenityImages.bathroom || 
-                   currentProfile.sharedAmenityImages.kitchen || 
-                   currentProfile.sharedAmenityImages.livingRoom || 
-                   currentProfile.sharedAmenityImages.other))) && (
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold mb-3">{t("matching.availableRoomsAndAmenities")}</h3>
-                
-                {currentProfile.roomImages && currentProfile.roomImages.length > 0 && (
-                  <div className="mb-4">
-                    <h4 className="text-md font-medium mb-2">{t("matching.availableRooms")}</h4>
-                    <div className="grid grid-cols-2 gap-4">
-                      {currentProfile.roomImages.map((image, index) => (
-                        <div 
-                          key={index} 
-                          className="aspect-[4/3] rounded-lg overflow-hidden shadow-md"
-                        >
-                          <img 
-                            src={image} 
-                            alt={`Room ${index + 1}`} 
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-                
-                {currentProfile.sharedAmenityImages && 
-                  (currentProfile.sharedAmenityImages.bathroom || 
-                   currentProfile.sharedAmenityImages.kitchen || 
-                   currentProfile.sharedAmenityImages.livingRoom || 
-                   currentProfile.sharedAmenityImages.other) && (
-                  <div>
-                    <h4 className="text-md font-medium mb-2">{t("matching.sharedAmenities")}</h4>
-                    <div className="grid grid-cols-2 gap-4">
-                      <AmenityImage 
-                        type="bathroom" 
-                        label={t('matching.bathroom')} 
-                        icon={<Bath className="h-3 w-3 mr-1" />} 
-                      />
-                      <AmenityImage 
-                        type="kitchen" 
-                        label={t('matching.kitchen')} 
-                        icon={<Utensils className="h-3 w-3 mr-1" />} 
-                      />
-                      <AmenityImage 
-                        type="livingRoom" 
-                        label={t('matching.livingRoom')} 
-                        icon={<Sofa className="h-3 w-3 mr-1" />} 
-                      />
-                      <AmenityImage 
-                        type="other" 
-                        label={t('matching.otherSpace')} 
-                        icon={<Home className="h-3 w-3 mr-1" />} 
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
 
             <div className="flex justify-center gap-4 mt-6">
               <Button 
