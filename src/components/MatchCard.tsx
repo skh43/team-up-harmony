@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -206,17 +207,6 @@ const MatchCard = ({
               </span>
             </div>
           )}
-        </div>
-        
-        <div>
-          <h4 className="text-sm font-medium mb-2">{t('matching.interests')}</h4>
-          <div className="flex flex-wrap gap-2">
-            {profile.interests.map((interest, index) => (
-              <Badge key={index} variant="secondary" className="font-normal">
-                {interest}
-              </Badge>
-            ))}
-          </div>
         </div>
         
         <div className="space-y-2">
