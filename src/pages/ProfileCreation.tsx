@@ -37,7 +37,8 @@ const formSchema = z.object({
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
   livingReference: z.string().min(1, "Please select your accommodation type"),
-  locationArea: z.string().optional(),
+  city: z.string().min(1, "Please enter your city"),
+  district: z.string().min(1, "Please enter your district"),
   roomDescription: z.string().optional(),
   sharedFacilities: z.string().optional(),
   mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
@@ -57,13 +58,11 @@ const nationalities = [
   "Singaporean", "South African", "Spanish", "Turkish", "Other"
 ];
 
-const riyadhAreas = [
-  "Al Olaya", "Al Malaz", "Al Murabba", "Al Muruj", "Al Nakheel",
-  "Al Naseem", "Al Qods", "Al Rabwah", "Al Rawdah", "Al Sahafah",
-  "Al Shifa", "Al Sulimaniyah", "Al Wadi", "Al Wurud", "Al Yasmin",
-  "Diplomatic Quarter", "Hittin", "King Abdullah Financial District",
-  "King Fahd District", "Qurtubah", "Taawun", "Al Hamra", "Al Rimal",
-  "Al Nahda", "Al Izdihar", "Al Ghadir", "Al Bat'ha", "Al Ma'athar"
+const cities = [
+  "Riyadh", "Jeddah", "Mecca", "Medina", "Dammam", 
+  "Al Khobar", "Dhahran", "Tabuk", "Abha", "Taif",
+  "Buraidah", "Al-Ahsa", "Khamis Mushait", "Najran", "Yanbu",
+  "Sakaka", "Jubail", "Hail", "Qatif", "Kharj", "Other"
 ];
 
 export default function ProfileCreation() {
@@ -100,7 +99,8 @@ export default function ProfileCreation() {
       nationality: "",
       openToAllNationalities: false,
       livingReference: "",
-      locationArea: "",
+      city: "",
+      district: "",
       roomDescription: "",
       sharedFacilities: "",
       mapLink: "",
@@ -333,35 +333,50 @@ export default function ProfileCreation() {
                 )}
               />
               
-              <FormField
-                control={form.control}
-                name="locationArea"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" /> {t('profileCreation.locationArea')}
-                    </FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+              <div className="grid grid-cols-1 gap-4">
+                <FormField
+                  control={form.control}
+                  name="city"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" /> {t('profileCreation.city')}
+                      </FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('profileCreation.selectCity')} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {cities.map((city) => (
+                            <SelectItem key={city} value={city.toLowerCase()}>
+                              {city}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="district"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4" /> {t('profileCreation.district')}
+                      </FormLabel>
                       <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder={t('profileCreation.selectLocationArea')} />
-                        </SelectTrigger>
+                        <Input placeholder={t('profileCreation.districtPlaceholder')} {...field} />
                       </FormControl>
-                      <SelectContent>
-                        {riyadhAreas.map((area) => (
-                          <SelectItem key={area} value={area.toLowerCase()}>
-                            {area}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormDescription>
-                      {t('profileCreation.locationAreaDesc')}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
               
               <FormField
                 control={form.control}
