@@ -60,7 +60,7 @@ const PathSelection = () => {
               <div>
                 <h3 className="font-bold text-lg">{t('pathSelection.hostSpace')}</h3>
                 <p className="text-muted-foreground">{t('pathSelection.hostSpaceDesc')}</p>
-                <p className="text-xs text-airbnb-red mt-2 font-medium">{t('pathSelection.hostEasier')}</p>
+                {/* Removed the "Easier process" text here */}
               </div>
             </div>
           </CardContent>
