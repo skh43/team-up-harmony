@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
@@ -76,6 +77,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
     giant: 'text-3xl'
   };
 
+  // Logo colors using direct hex values rather than template literals
   const logoColors = {
     primary: "#01CDFA",
     secondary: "#004E64"
@@ -91,7 +93,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
           <div className={cn("flex items-center relative", compact ? "space-x-1" : "space-x-2")}>
             {showIcon && (
               <div className={cn(
-                `bg-[${logoColors.primary}] rounded-full p-1 flex items-center justify-center shadow-sm`,
+                "bg-[#01CDFA] rounded-full p-1 flex items-center justify-center shadow-sm relative overflow-hidden",
                 compact ? "scale-90" : ""
               )}>
                 <Circle 
@@ -104,6 +106,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
                   className="text-white absolute" 
                   strokeWidth={2.5}
                 />
+                {/* Adding subtle inner ring for depth */}
+                <div className="absolute inset-0 border-2 border-white/20 rounded-full"></div>
               </div>
             )}
             
@@ -111,8 +115,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               "font-bold tracking-tight whitespace-nowrap",
               textSizes[size]
             )}>
-              <span className={`text-[${logoColors.primary}] font-extrabold`}>The</span>
-              <span className={`text-[${logoColors.secondary}] font-extrabold ml-1`}>Living Circle</span>
+              <span className="text-[#01CDFA] font-extrabold">The</span>
+              <span className="text-[#004E64] font-extrabold ml-1">Living Circle</span>
             </div>
           </div>
 
@@ -134,7 +138,7 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
         )}>
           {showIcon && (
             <div className={cn(
-              `bg-[${logoColors.primary}] rounded-full p-1 flex items-center justify-center shadow-sm`,
+              "bg-[#01CDFA] rounded-full p-1 flex items-center justify-center shadow-sm relative overflow-hidden",
               compact ? "scale-90" : "mr-2"
             )}>
               <Circle 
@@ -147,11 +151,13 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
                 className="text-white absolute" 
                 strokeWidth={2.5}
               />
+              {/* Adding subtle inner ring for depth */}
+              <div className="absolute inset-0 border-2 border-white/20 rounded-full"></div>
             </div>
           )}
           <div className="flex items-center whitespace-nowrap">
-            <span className={`text-[${logoColors.primary}] font-extrabold`}>The</span>
-            <span className={`text-[${logoColors.secondary}] font-extrabold ml-1`}>Living Circle</span>
+            <span className="text-[#01CDFA] font-extrabold">The</span>
+            <span className="text-[#004E64] font-extrabold ml-1">Living Circle</span>
           </div>
         </div>
       )}
