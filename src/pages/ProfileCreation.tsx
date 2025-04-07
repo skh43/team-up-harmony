@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -37,7 +38,6 @@ const formSchema = z.object({
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
   livingReference: z.string().min(1, "Please select your accommodation type"),
-  city: z.string().min(1, "Please enter your city"),
   district: z.string().min(1, "Please enter your district"),
   roomDescription: z.string().optional(),
   sharedFacilities: z.string().optional(),
@@ -58,12 +58,7 @@ const nationalities = [
   "Singaporean", "South African", "Spanish", "Turkish", "Other"
 ];
 
-const cities = [
-  "Riyadh", "Jeddah", "Mecca", "Medina", "Dammam", 
-  "Al Khobar", "Dhahran", "Tabuk", "Abha", "Taif",
-  "Buraidah", "Al-Ahsa", "Khamis Mushait", "Najran", "Yanbu",
-  "Sakaka", "Jubail", "Hail", "Qatif", "Kharj", "Other"
-];
+// Removed cities array as it's no longer needed
 
 export default function ProfileCreation() {
   const navigate = useNavigate();
@@ -99,7 +94,6 @@ export default function ProfileCreation() {
       nationality: "",
       openToAllNationalities: false,
       livingReference: "",
-      city: "",
       district: "",
       roomDescription: "",
       sharedFacilities: "",
@@ -330,50 +324,21 @@ export default function ProfileCreation() {
                 )}
               />
               
-              <div className="grid grid-cols-1 gap-4">
-                <FormField
-                  control={form.control}
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" /> {t('profileCreation.city')}
-                      </FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <FormControl>
-                          <SelectTrigger>
-                            <SelectValue placeholder={t('profileCreation.selectCity')} />
-                          </SelectTrigger>
-                        </FormControl>
-                        <SelectContent>
-                          {cities.map((city) => (
-                            <SelectItem key={city} value={city.toLowerCase()}>
-                              {city}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="district"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4" /> {t('profileCreation.district')}
-                      </FormLabel>
-                      <FormControl>
-                        <Input placeholder={t('profileCreation.districtPlaceholder')} {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
+              <FormField
+                control={form.control}
+                name="district"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" /> {t('profileCreation.district')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder={t('profileCreation.districtPlaceholder')} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               
               <FormField
                 control={form.control}
