@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -21,7 +20,6 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Marketing professional who loves cooking and yoga. Looking for a clean and quiet roommate to share my apartment.',
     imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop',
     compatibility: 95,
-    interests: ['Yoga', 'Cooking', 'Reading', 'Travel'],
     preferences: {
       pets: false,
       openToAllNationalities: true
@@ -32,7 +30,9 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     ],
     nationality: 'Canadian',
     workProfession: 'Marketing Manager',
-    workTiming: '9 AM - 5 PM'
+    workTiming: '9 AM - 5 PM',
+    gender: 'female',
+    livingReference: 'singleRoom'
   },
   {
     id: '2',
@@ -42,7 +42,6 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Software engineer working for a tech startup. Neat, organized, and looking for a similar roommate.',
     imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop',
     compatibility: 87,
-    interests: ['Technology', 'Gaming', 'Fitness', 'Movies'],
     preferences: {
       pets: true,
       openToAllNationalities: false
@@ -53,7 +52,9 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     ],
     nationality: 'Emirati',
     workProfession: 'Software Engineer',
-    workTiming: 'Flexible hours'
+    workTiming: 'Flexible hours',
+    gender: 'male',
+    livingReference: 'sharedRoom'
   },
   {
     id: '3',
@@ -63,7 +64,6 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Medical student who enjoys music and art. Looking for a peaceful environment to study and relax.',
     imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop',
     compatibility: 82,
-    interests: ['Art', 'Music', 'Medicine', 'Hiking'],
     preferences: {
       pets: false,
       openToAllNationalities: true
@@ -74,7 +74,9 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     ],
     nationality: 'Indian',
     workProfession: 'Medical Student',
-    workTiming: 'Variable schedule'
+    workTiming: 'Variable schedule',
+    gender: 'female',
+    livingReference: 'bedSpace'
   },
   {
     id: '4',
@@ -84,7 +86,6 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Finance professional who loves sports and travel. Looking for a sociable roommate who respects privacy.',
     imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop',
     compatibility: 78,
-    interests: ['Finance', 'Football', 'Travel', 'Cooking'],
     preferences: {
       pets: true,
       openToAllNationalities: true
@@ -95,7 +96,9 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     ],
     nationality: 'British',
     workProfession: 'Financial Analyst',
-    workTiming: '8 AM - 6 PM'
+    workTiming: '8 AM - 6 PM',
+    gender: 'male',
+    livingReference: 'singleRoom'
   },
   {
     id: '5',
@@ -105,7 +108,6 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Designer who loves photography and trying new restaurants. Looking for a creative and clean roommate.',
     imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop',
     compatibility: 90,
-    interests: ['Design', 'Photography', 'Food', 'Travel'],
     preferences: {
       pets: false,
       openToAllNationalities: false
@@ -116,7 +118,9 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     ],
     nationality: 'Korean',
     workProfession: 'UX Designer',
-    workTiming: 'Hybrid - 3 days in office'
+    workTiming: 'Hybrid - 3 days in office',
+    gender: 'male',
+    livingReference: 'sharedRoom'
   }
 ];
 
@@ -136,7 +140,6 @@ const Matching = () => {
 
   const currentProfile = MOCK_ROOMMATES[currentIndex];
 
-  // Load user path from localStorage
   useEffect(() => {
     const savedPath = localStorage.getItem('userPath');
     if (savedPath) {
@@ -160,14 +163,12 @@ const Matching = () => {
       updateSwipeStorage(0);
     }
     
-    // Load saved matches
     const savedMatches = localStorage.getItem('userMatches');
     if (savedMatches) {
       setMatches(JSON.parse(savedMatches));
     }
   }, []);
 
-  // Save matches to localStorage when they change
   useEffect(() => {
     if (matches.length > 0) {
       localStorage.setItem('userMatches', JSON.stringify(matches));
@@ -204,7 +205,6 @@ const Matching = () => {
     setAnimation('swipe-right');
     incrementSwipeCount();
     
-    // Add to matches
     setMatches(prev => [...prev, currentProfile.id]);
     
     toast({
@@ -260,7 +260,6 @@ const Matching = () => {
     });
   };
 
-  // Convert current profile to MatchProfile type
   const convertToMatchProfile = (profile: any): MatchProfile => {
     return {
       id: profile.id,
@@ -270,12 +269,13 @@ const Matching = () => {
       bio: profile.bio,
       imageUrl: profile.imageUrl,
       compatibility: profile.compatibility,
-      interests: profile.interests,
       preferences: profile.preferences,
       roomImages: profile.roomImages,
       nationality: profile.nationality,
       workProfession: profile.workProfession,
-      workTiming: profile.workTiming
+      workTiming: profile.workTiming,
+      gender: profile.gender,
+      livingReference: profile.livingReference
     };
   };
 
@@ -314,7 +314,6 @@ const Matching = () => {
 
         {currentProfile && (
           <div className="relative w-full mb-8">
-            {/* Card for swiping */}
             <div className="flex justify-center">
               <MatchCard
                 profile={convertToMatchProfile(currentProfile)}
@@ -325,7 +324,6 @@ const Matching = () => {
               />
             </div>
 
-            {/* Display room images if the path is 'host' */}
             {userPath === 'host' && currentProfile.roomImages && currentProfile.roomImages.length > 0 && (
               <div className="mt-6">
                 <h3 className="text-lg font-semibold mb-3">{t("matching.availableRooms")}</h3>

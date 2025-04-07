@@ -28,7 +28,8 @@
     "messages": "消息",
     "properties": "房产",
     "settings": "设置",
-    "myProfile": "我的资料"
+    "myProfile": "我的资料",
+    "continue": "继续"
   },
   "login": {
     "subtitle": "登录到您的账户",
@@ -143,6 +144,8 @@
     "step": "步骤 4/4",
     "title": "寻找您的完美匹配",
     "subtitle": "对您感兴趣的室友向右滑动，对不感兴趣的向左滑动。",
+    "descriptionHost": "浏览潜在的室友，找到合适的人分享您的空间。",
+    "descriptionSeek": "浏览潜在的室友，找到理想的人一起寻找住处。",
     "match": "匹配成功！",
     "matchDesc": "您与{{name}}匹配成功。现在可以给他们发消息了。",
     "noMoreProfiles": "您已查看所有个人资料",
