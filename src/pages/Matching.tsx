@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -23,16 +22,15 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 95,
     interests: ['Yoga', 'Cooking', 'Reading', 'Travel'],
     preferences: {
-      cleanliness: 5,
-      noise: 2,
-      guests: 3,
       pets: false
     },
     roomImages: [
       'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2074&auto=format&fit=crop'
     ],
-    nationality: 'Canadian'
+    nationality: 'Canadian',
+    workProfession: 'Marketing Manager',
+    workTiming: '9 AM - 5 PM'
   },
   {
     id: '2',
@@ -44,16 +42,15 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 87,
     interests: ['Technology', 'Gaming', 'Fitness', 'Movies'],
     preferences: {
-      cleanliness: 4,
-      noise: 3,
-      guests: 2,
       pets: true
     },
     roomImages: [
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1980&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop'
     ],
-    nationality: 'Emirati'
+    nationality: 'Emirati',
+    workProfession: 'Software Engineer',
+    workTiming: 'Flexible hours'
   },
   {
     id: '3',
@@ -65,16 +62,15 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 82,
     interests: ['Art', 'Music', 'Medicine', 'Hiking'],
     preferences: {
-      cleanliness: 5,
-      noise: 1,
-      guests: 2,
       pets: false
     },
     roomImages: [
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1617104678098-de229db51175?q=80&w=2070&auto=format&fit=crop'
     ],
-    nationality: 'Indian'
+    nationality: 'Indian',
+    workProfession: 'Medical Student',
+    workTiming: 'Variable schedule'
   },
   {
     id: '4',
@@ -86,16 +82,15 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 78,
     interests: ['Finance', 'Football', 'Travel', 'Cooking'],
     preferences: {
-      cleanliness: 3,
-      noise: 3,
-      guests: 4,
       pets: true
     },
     roomImages: [
       'https://images.unsplash.com/photo-1602872030219-ad2b9a54315c?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?q=80&w=2070&auto=format&fit=crop'
     ],
-    nationality: 'British'
+    nationality: 'British',
+    workProfession: 'Financial Analyst',
+    workTiming: '8 AM - 6 PM'
   },
   {
     id: '5',
@@ -107,16 +102,15 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 90,
     interests: ['Design', 'Photography', 'Food', 'Travel'],
     preferences: {
-      cleanliness: 4,
-      noise: 2,
-      guests: 3,
       pets: false
     },
     roomImages: [
       'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=2076&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1556702571-3e11dd2b1a92?q=80&w=2076&auto=format&fit=crop'
     ],
-    nationality: 'Korean'
+    nationality: 'Korean',
+    workProfession: 'UX Designer',
+    workTiming: 'Hybrid - 3 days in office'
   }
 ];
 
@@ -271,7 +265,11 @@ const Matching = () => {
       imageUrl: profile.imageUrl,
       compatibility: profile.compatibility,
       interests: profile.interests,
-      preferences: profile.preferences
+      preferences: profile.preferences,
+      roomImages: profile.roomImages,
+      nationality: profile.nationality,
+      workProfession: profile.workProfession,
+      workTiming: profile.workTiming
     };
   };
 

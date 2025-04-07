@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Heart, X, MessageCircle, Star, MapPin, Home, User } from 'lucide-react';
+import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 
@@ -18,11 +18,12 @@ export interface MatchProfile {
   compatibility: number;
   interests: string[];
   preferences: {
-    cleanliness: number;
-    noise: number;
-    guests: number;
     pets: boolean;
   };
+  roomImages?: string[];
+  nationality?: string;
+  workProfession?: string;
+  workTiming?: string;
 }
 
 interface MatchCardProps {
@@ -98,21 +99,6 @@ const MatchCard = ({
     setDragStartX(0);
     setSwipeDirection(null);
   };
-  
-  const renderPreferenceBar = (value: number, label: string) => (
-    <div className="space-y-1">
-      <div className="flex justify-between text-xs">
-        <span>{label}</span>
-        <span className="text-muted-foreground">{value}/5</span>
-      </div>
-      <div className="w-full h-1.5 bg-secondary rounded-full overflow-hidden">
-        <div 
-          className="h-full bg-primary rounded-full"
-          style={{ width: `${(value / 5) * 100}%` }}
-        />
-      </div>
-    </div>
-  );
 
   return (
     <Card 
@@ -198,6 +184,30 @@ const MatchCard = ({
           <p className="text-muted-foreground leading-relaxed">{profile.bio}</p>
         </div>
         
+        {/* Profile details */}
+        <div className="space-y-2 py-2">
+          {profile.nationality && (
+            <div className="flex items-center text-sm space-x-2">
+              <Flag className="h-4 w-4 text-muted-foreground" />
+              <span>{profile.nationality}</span>
+            </div>
+          )}
+          
+          {profile.workProfession && (
+            <div className="flex items-center text-sm space-x-2">
+              <Briefcase className="h-4 w-4 text-muted-foreground" />
+              <span>{profile.workProfession}</span>
+            </div>
+          )}
+          
+          {profile.workTiming && (
+            <div className="flex items-center text-sm space-x-2">
+              <Clock className="h-4 w-4 text-muted-foreground" />
+              <span>{profile.workTiming}</span>
+            </div>
+          )}
+        </div>
+        
         {/* Interests */}
         <div>
           <h4 className="text-sm font-medium mb-2">{t('matching.interests')}</h4>
@@ -213,9 +223,6 @@ const MatchCard = ({
         {/* Preferences */}
         <div className="space-y-2">
           <h4 className="text-sm font-medium mb-2">{t('matching.livingPreferences')}</h4>
-          {renderPreferenceBar(profile.preferences.cleanliness, t('matching.cleanliness'))}
-          {renderPreferenceBar(profile.preferences.noise, t('matching.noiseLevel'))}
-          {renderPreferenceBar(profile.preferences.guests, t('matching.guestFrequency'))}
           <div className="flex items-center space-x-1 text-sm">
             <span className="font-medium">{t('matching.pets')}:</span>
             <span>{profile.preferences.pets ? t('matching.welcome') : t('matching.noPets')}</span>
