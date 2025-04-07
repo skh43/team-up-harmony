@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,6 +24,8 @@ export interface MatchProfile {
   nationality?: string;
   workProfession?: string;
   workTiming?: string;
+  gender?: string;
+  livingReference?: string;
 }
 
 interface MatchCardProps {
@@ -174,10 +175,27 @@ const MatchCard = ({
               {profile.location}
             </div>
           </div>
-          <p className="text-muted-foreground leading-relaxed">{profile.bio}</p>
         </div>
         
         <div className="space-y-2 py-2">
+          {profile.gender && (
+            <div className="flex items-center text-sm space-x-2">
+              <User className="h-4 w-4 text-muted-foreground" />
+              <span>{profile.gender}</span>
+            </div>
+          )}
+          
+          {profile.livingReference && (
+            <div className="flex items-center text-sm space-x-2">
+              <BedDouble className="h-4 w-4 text-muted-foreground" />
+              <span>
+                {profile.livingReference === 'sharedRoom' && t('profileCreation.sharedRoom')}
+                {profile.livingReference === 'singleRoom' && t('profileCreation.singleRoom')}
+                {profile.livingReference === 'bedSpace' && t('profileCreation.bedSpace')}
+              </span>
+            </div>
+          )}
+          
           {profile.nationality && (
             <div className="flex items-center text-sm space-x-2">
               <Flag className="h-4 w-4 text-muted-foreground" />
@@ -207,14 +225,6 @@ const MatchCard = ({
               </span>
             </div>
           )}
-        </div>
-        
-        <div className="space-y-2">
-          <h4 className="text-sm font-medium mb-2">{t('matching.livingPreferences')}</h4>
-          <div className="flex items-center space-x-1 text-sm">
-            <span className="font-medium">{t('matching.pets')}:</span>
-            <span>{profile.preferences.pets ? t('matching.welcome') : t('matching.noPets')}</span>
-          </div>
         </div>
       </CardContent>
       

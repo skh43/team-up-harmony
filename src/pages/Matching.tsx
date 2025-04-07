@@ -20,6 +20,7 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Marketing professional who loves cooking and yoga. Looking for a clean and quiet roommate to share my apartment.',
     imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop',
     compatibility: 95,
+    interests: [],
     preferences: {
       pets: false,
       openToAllNationalities: true
@@ -42,6 +43,7 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Software engineer working for a tech startup. Neat, organized, and looking for a similar roommate.',
     imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop',
     compatibility: 87,
+    interests: [],
     preferences: {
       pets: true,
       openToAllNationalities: false
@@ -64,6 +66,7 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Medical student who enjoys music and art. Looking for a peaceful environment to study and relax.',
     imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop',
     compatibility: 82,
+    interests: [],
     preferences: {
       pets: false,
       openToAllNationalities: true
@@ -86,6 +89,7 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Finance professional who loves sports and travel. Looking for a sociable roommate who respects privacy.',
     imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop',
     compatibility: 78,
+    interests: [],
     preferences: {
       pets: true,
       openToAllNationalities: true
@@ -108,6 +112,7 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     bio: 'Designer who loves photography and trying new restaurants. Looking for a creative and clean roommate.',
     imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop',
     compatibility: 90,
+    interests: [],
     preferences: {
       pets: false,
       openToAllNationalities: false
@@ -269,6 +274,7 @@ const Matching = () => {
       bio: profile.bio,
       imageUrl: profile.imageUrl,
       compatibility: profile.compatibility,
+      interests: profile.interests || [],
       preferences: profile.preferences,
       roomImages: profile.roomImages,
       nationality: profile.nationality,
