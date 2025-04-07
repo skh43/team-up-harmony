@@ -26,6 +26,7 @@ import PropertyImageUpload from '@/components/PropertyImageUpload';
 import { useTranslation } from 'react-i18next';
 import { TabView, TabsContent } from "@/components/ui/tab-view";
 
+// Define a simpler form schema for hosts - not all fields are required
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -124,11 +125,15 @@ export default function ProfileCreation() {
     navigate("/matching");
   }
 
-  const tabs = [
-    { value: "personal", label: t('profileCreation.personalInfo'), color: "purple" },
-    ...(showRoomDetails ? [{ value: "room", label: t('profileCreation.roomInfo'), color: "blue" }] : []),
-    ...(showRoomDetails ? [{ value: "location", label: t('profileCreation.locationInfo'), color: "amber" }] : [])
-  ];
+  // Simplified host path: just personal info and room info tabs
+  const tabs = userPath === 'host' 
+    ? [
+        { value: "personal", label: t('profileCreation.personalInfo'), color: "purple" },
+        { value: "room", label: t('profileCreation.roomInfo'), color: "blue" }
+      ]
+    : [
+        { value: "personal", label: t('profileCreation.personalInfo'), color: "purple" },
+      ];
 
   return (
     <div className="max-w-md mx-auto p-6">
@@ -140,6 +145,9 @@ export default function ProfileCreation() {
         <BackButton />
         <h1 className="text-2xl font-bold mt-4 mb-2">{t('profileCreation.title')}</h1>
         <p className="text-muted-foreground">{t('profileCreation.subtitle')}</p>
+        {userPath === 'host' && (
+          <p className="text-xs text-airbnb-red mt-2 font-medium">{t('pathSelection.hostEasier')}</p>
+        )}
       </div>
       
       <Form {...form}>
@@ -225,48 +233,50 @@ export default function ProfileCreation() {
                 />
               </div>
               
-              <FormField
-                control={form.control}
-                name="livingReference"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <BedDouble className="w-4 h-4" /> {t('profileCreation.livingReference')}
-                    </FormLabel>
-                    <FormDescription>
-                      {t('profileCreation.livingReferenceDesc')}
-                    </FormDescription>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder={t('profileCreation.selectLivingReference')} />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="sharedRoom">
-                          <div className="flex items-center gap-2">
-                            <Users className="w-4 h-4" />
-                            <span>{t('profileCreation.sharedRoom')}</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="singleRoom">
-                          <div className="flex items-center gap-2">
-                            <BedDouble className="w-4 h-4" />
-                            <span>{t('profileCreation.singleRoom')}</span>
-                          </div>
-                        </SelectItem>
-                        <SelectItem value="bedSpace">
-                          <div className="flex items-center gap-2">
-                            <Sofa className="w-4 h-4" />
-                            <span>{t('profileCreation.bedSpace')}</span>
-                          </div>
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              {showRoomDetails && (
+                <FormField
+                  control={form.control}
+                  name="livingReference"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <BedDouble className="w-4 h-4" /> {t('profileCreation.livingReference')}
+                      </FormLabel>
+                      <FormDescription>
+                        {t('profileCreation.livingReferenceDesc')}
+                      </FormDescription>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('profileCreation.selectLivingReference')} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="sharedRoom">
+                            <div className="flex items-center gap-2">
+                              <Users className="w-4 h-4" />
+                              <span>{t('profileCreation.sharedRoom')}</span>
+                            </div>
+                          </SelectItem>
+                          <SelectItem value="singleRoom">
+                            <div className="flex items-center gap-2">
+                              <BedDouble className="w-4 h-4" />
+                              <span>{t('profileCreation.singleRoom')}</span>
+                            </div>
+                          </SelectItem>
+                          <SelectItem value="bedSpace">
+                            <div className="flex items-center gap-2">
+                              <Sofa className="w-4 h-4" />
+                              <span>{t('profileCreation.bedSpace')}</span>
+                            </div>
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
               
               <FormField
                 control={form.control}
@@ -382,87 +392,85 @@ export default function ProfileCreation() {
             </TabsContent>
             
             {showRoomDetails && (
-              <>
-                <TabsContent value="room" className="space-y-6 mt-4">
-                  <div>
-                    <FormLabel className="block mb-2">{t('profileCreation.roomImages')}</FormLabel>
-                    <PropertyImageUpload 
-                      images={roomImages}
-                      setImages={setRoomImages}
-                      minImages={2}
-                    />
-                  </div>
-                  
-                  <FormField
-                    control={form.control}
-                    name="roomDescription"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2">
-                          <Home className="w-4 h-4" /> {t('profileCreation.roomDescription')}
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder={t('profileCreation.roomDescriptionPlaceholder')} 
-                            className="min-h-24" 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          {t('profileCreation.roomDescriptionHelp')}
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+              <TabsContent value="room" className="space-y-6 mt-4">
+                <div>
+                  <FormLabel className="block mb-2">{t('profileCreation.roomImages')}</FormLabel>
+                  <PropertyImageUpload 
+                    images={roomImages}
+                    setImages={setRoomImages}
+                    minImages={1} // Reduced from 2 to 1 to make it easier
                   />
-                  
-                  <FormField
-                    control={form.control}
-                    name="sharedFacilities"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2">
-                          <Coffee className="w-4 h-4" /> {t('profileCreation.sharedFacilities')}
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            placeholder={t('profileCreation.sharedFacilitiesPlaceholder')} 
-                            className="min-h-24" 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          {t('profileCreation.sharedFacilitiesHelp')}
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </TabsContent>
+                </div>
                 
-                <TabsContent value="location" className="space-y-6 mt-4">                  
-                  <FormField
-                    control={form.control}
-                    name="mapLink"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2">
-                          <Map className="w-4 h-4" /> {t('profileCreation.mapLink')}
-                        </FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder={t('profileCreation.mapLinkPlaceholder')} 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          {t('profileCreation.mapLinkDesc')}
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
+                <FormField
+                  control={form.control}
+                  name="roomDescription"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Home className="w-4 h-4" /> {t('profileCreation.roomDescription')}
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder={t('profileCreation.roomDescriptionPlaceholder')} 
+                          className="min-h-24" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t('profileCreation.roomDescriptionHelp')}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="sharedFacilities"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Coffee className="w-4 h-4" /> {t('profileCreation.sharedFacilities')}
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder={t('profileCreation.sharedFacilitiesPlaceholder')} 
+                          className="min-h-24" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t('profileCreation.sharedFacilitiesHelp')}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="mapLink"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Map className="w-4 h-4" /> {t('profileCreation.mapLink')}
+                      </FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder={t('profileCreation.mapLinkPlaceholder')} 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        {t('profileCreation.mapLinkDesc')}
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <div className="grid grid-cols-2 gap-4">
                   <FormField
                     control={form.control}
                     name="distanceHospital"
@@ -500,65 +508,8 @@ export default function ProfileCreation() {
                       </FormItem>
                     )}
                   />
-                  
-                  <FormField
-                    control={form.control}
-                    name="distanceMedicalStore"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2">
-                          <MapPin className="w-4 h-4" /> {t('profileCreation.distanceMedicalStore')}
-                        </FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder={t('profileCreation.distanceMedicalStorePlaceholder')} 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="distancePublicTransport"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2">
-                          <Bus className="w-4 h-4" /> {t('profileCreation.distancePublicTransport')}
-                        </FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder={t('profileCreation.distancePublicTransportPlaceholder')} 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="distanceMetroStation"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="flex items-center gap-2">
-                          <Train className="w-4 h-4" /> {t('profileCreation.distanceMetroStation')}
-                        </FormLabel>
-                        <FormControl>
-                          <Input 
-                            placeholder={t('profileCreation.distanceMetroStationPlaceholder')} 
-                            {...field} 
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                </TabsContent>
-              </>
+                </div>
+              </TabsContent>
             )}
           </TabView>
           
