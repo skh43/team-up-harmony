@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -362,23 +361,47 @@ const Matching = () => {
               />
             </div>
 
-            {userPath === 'host' && currentProfile.roomImages && currentProfile.roomImages.length > 0 && (
+            {userPath === 'host' && (currentProfile.roomImages?.length > 0 || 
+                  (currentProfile.sharedAmenityImages && 
+                  (currentProfile.sharedAmenityImages.bathroom || 
+                   currentProfile.sharedAmenityImages.kitchen || 
+                   currentProfile.sharedAmenityImages.livingRoom || 
+                   currentProfile.sharedAmenityImages.other))) && (
               <div className="mt-6">
-                <h3 className="text-lg font-semibold mb-3">{t("matching.availableRooms")}</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {currentProfile.roomImages.map((image, index) => (
-                    <div 
-                      key={index} 
-                      className="aspect-[4/3] rounded-lg overflow-hidden shadow-md"
-                    >
-                      <img 
-                        src={image} 
-                        alt={`Room ${index + 1}`} 
-                        className="w-full h-full object-cover"
-                      />
+                <h3 className="text-lg font-semibold mb-3">{t("matching.availableRoomsAndAmenities")}</h3>
+                
+                {currentProfile.roomImages && currentProfile.roomImages.length > 0 && (
+                  <div className="mb-4">
+                    <h4 className="text-md font-medium mb-2">{t("matching.availableRooms")}</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      {currentProfile.roomImages.map((image, index) => (
+                        <div 
+                          key={index} 
+                          className="aspect-[4/3] rounded-lg overflow-hidden shadow-md"
+                        >
+                          <img 
+                            src={image} 
+                            alt={`Room ${index + 1}`} 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
+                
+                {currentProfile.sharedAmenityImages && 
+                  (currentProfile.sharedAmenityImages.bathroom || 
+                   currentProfile.sharedAmenityImages.kitchen || 
+                   currentProfile.sharedAmenityImages.livingRoom || 
+                   currentProfile.sharedAmenityImages.other) && (
+                  <div>
+                    <h4 className="text-md font-medium mb-2">{t("matching.sharedAmenities")}</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      {renderSharedAmenityImages(currentProfile)}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -478,6 +501,93 @@ const Matching = () => {
       </div>
     </MainLayout>
   );
+  
+  function renderSharedAmenityImages(profile: any) {
+    const [amenityImageIndices, setAmenityImageIndices] = useState({
+      bathroom: 0,
+      kitchen: 0,
+      livingRoom: 0,
+      other: 0
+    });
+    
+    const getAmenityImages = (images: string | string[] | undefined): string[] => {
+      if (!images) return [];
+      return Array.isArray(images) ? images : [images];
+    };
+    
+    const navigateAmenityImage = (type: 'bathroom' | 'kitchen' | 'livingRoom' | 'other', direction: 'next' | 'prev') => {
+      const images = getAmenityImages(profile.sharedAmenityImages?.[type]);
+      if (images.length <= 1) return;
+  
+      setAmenityImageIndices(prev => {
+        const currentIndex = prev[type];
+        let newIndex;
+        
+        if (direction === 'next') {
+          newIndex = (currentIndex + 1) % images.length;
+        } else {
+          newIndex = (currentIndex - 1 + images.length) % images.length;
+        }
+        
+        return { ...prev, [type]: newIndex };
+      });
+    };
+    
+    const renderAmenityImage = (type: 'bathroom' | 'kitchen' | 'livingRoom' | 'other', label: string, icon: React.ReactNode) => {
+      const images = getAmenityImages(profile.sharedAmenityImages?.[type]);
+      if (images.length === 0) return null;
+      
+      const currentIndex = amenityImageIndices[type];
+      const currentImage = images[currentIndex];
+  
+      return (
+        <div className="relative aspect-[4/3]">
+          <img 
+            src={currentImage} 
+            alt={label} 
+            className="rounded-lg h-full w-full object-cover"
+          />
+          {images.length > 1 && (
+            <>
+              <button 
+                className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/40 rounded-r p-1 text-white hover:bg-black/60"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateAmenityImage(type, 'prev');
+                }}
+              >
+                <ChevronLeft className="h-3 w-3" />
+              </button>
+              <button 
+                className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/40 rounded-l p-1 text-white hover:bg-black/60"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateAmenityImage(type, 'next');
+                }}
+              >
+                <ChevronRight className="h-3 w-3" />
+              </button>
+              <div className="absolute top-1 right-1 bg-black/50 text-white text-xs px-1.5 py-0.5 rounded-full">
+                {currentIndex + 1}/{images.length}
+              </div>
+            </>
+          )}
+          <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
+            {icon} <span className="ml-1">{label}</span>
+          </div>
+        </div>
+      );
+    };
+    
+    return (
+      <>
+        {renderAmenityImage('bathroom', t('matching.bathroom'), <Bath className="h-3 w-3 mr-1" />)}
+        {renderAmenityImage('kitchen', t('matching.kitchen'), <Utensils className="h-3 w-3 mr-1" />)}
+        {renderAmenityImage('livingRoom', t('matching.livingRoom'), <Sofa className="h-3 w-3 mr-1" />)}
+        {renderAmenityImage('other', t('matching.otherSpace'), <Home className="h-3 w-3 mr-1" />)}
+      </>
+    );
+  }
 };
 
 export default Matching;
