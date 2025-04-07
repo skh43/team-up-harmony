@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from "sonner";
@@ -14,7 +13,6 @@ const PathSelection = () => {
   const navigate = useNavigate();
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
   
-  // Check if path is already stored in localStorage
   useEffect(() => {
     const savedPath = localStorage.getItem('userPath');
     if (savedPath) {
@@ -30,10 +28,7 @@ const PathSelection = () => {
       return;
     }
     
-    // Save path to localStorage
     localStorage.setItem('userPath', selectedPath);
-    
-    // Navigate to next step with path in state
     navigate('/profile-creation', { state: { path: selectedPath } });
   };
 
@@ -60,7 +55,6 @@ const PathSelection = () => {
               <div>
                 <h3 className="font-bold text-lg">{t('pathSelection.hostSpace')}</h3>
                 <p className="text-muted-foreground">{t('pathSelection.hostSpaceDesc')}</p>
-                {/* Removed the "Easier process" text here */}
               </div>
             </div>
           </CardContent>
@@ -83,7 +77,7 @@ const PathSelection = () => {
               </div>
               <div>
                 <h3 className="font-bold text-lg">{t('pathSelection.seekSettle')}</h3>
-                <p className="text-muted-foreground">{t('pathSelection.seekSettleDesc')}</p>
+                <p className="text-muted-foreground">我想先找到一个兼容的室友，然后我们一起找地方，或匹配已有住处的人。</p>
               </div>
             </div>
           </CardContent>
