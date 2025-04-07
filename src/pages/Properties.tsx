@@ -320,7 +320,7 @@ const Properties = () => {
                   
                   <Button size="sm" variant="ghost">
                     <Share2 className="h-4 w-4 mr-2" />
-                    Share
+                    Share with Match
                   </Button>
                 </div>
               ))
@@ -477,8 +477,10 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, categor
               e.preventDefault();
               onShare();
             }}
+            title="Share with Match"
           >
             <Share2 className="h-5 w-5" />
+            <span className="sr-only">Share with Match</span>
           </Button>
           
           <Button 
@@ -590,6 +592,16 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, categor
       
       <CardFooter className="flex gap-2">
         <Button className="w-full rounded-md">View Details</Button>
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="rounded-md"
+          onClick={onShare}
+          title="Share with Match"
+        >
+          <Share2 className="h-5 w-5" />
+          <span className="sr-only">Share with Match</span>
+        </Button>
       </CardFooter>
     </Card>
   );
