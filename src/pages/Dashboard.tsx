@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
@@ -276,7 +277,7 @@ const Dashboard = () => {
                                   <p className="text-xs text-muted-foreground">Matched {match.time}</p>
                                 </div>
                               </div>
-                              <Button size="sm" variant="outline" className="h-12 w-12">
+                              <Button size="sm" variant="outline" className="w-24">
                                 Message
                                 {match.unreadMessages > 0 && (
                                   <Badge className="ml-2 bg-primary text-white h-5 w-5 p-0 flex items-center justify-center rounded-full">
