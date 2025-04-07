@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -8,13 +7,14 @@ import {
   Heart, X, Star, MessageCircle, ChevronLeft, ChevronRight, 
   UserCircle2, Globe, AlertCircle, Home, User, Briefcase, 
   Clock, Flag, Check, BedDouble, BedSingle, Users, Bath, 
-  Utensils, Sofa 
+  Utensils, Sofa, MapPin, Map 
 } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import MatchCard, { MatchProfile } from '@/components/MatchCard';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
 
 const MOCK_ROOMMATES: MatchProfile[] = [
   {
@@ -326,7 +326,12 @@ const Matching = () => {
       workProfession: profile.workProfession,
       workTiming: profile.workTiming,
       gender: profile.gender,
-      livingReference: profile.livingReference
+      livingReference: profile.livingReference,
+      distanceHospital: profile.distanceHospital,
+      distanceSupermarket: profile.distanceSupermarket,
+      distanceMedicalStore: profile.distanceMedicalStore,
+      distancePublicTransport: profile.distancePublicTransport,
+      distanceMetroStation: profile.distanceMetroStation,
     };
   };
 
@@ -411,6 +416,142 @@ const Matching = () => {
 
   const isAlreadyMatched = currentProfile && matches.includes(currentProfile.id);
 
+  // Add state for displaying profile sections
+  const [activeProfileSection, setActiveProfileSection] = useState<string>('personal');
+
+  // Add a function to render profile information sections
+  const renderProfileSection = () => {
+    if (!currentProfile) return null;
+
+    switch (activeProfileSection) {
+      case 'personal':
+        return (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <User className="h-4 w-4 text-primary" />
+              <span className="font-medium">About {currentProfile.name}</span>
+            </div>
+            <p className="text-sm text-muted-foreground">{currentProfile.bio}</p>
+            
+            <div className="grid grid-cols-2 gap-3 mt-3">
+              <div className="flex items-center gap-2">
+                <Flag className="h-4 w-4 text-primary" />
+                <span className="text-sm">{currentProfile.nationality}</span>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Briefcase className="h-4 w-4 text-primary" />
+                <span className="text-sm">{currentProfile.workProfession}</span>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-primary" />
+                <span className="text-sm">{currentProfile.workTiming}</span>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <BedDouble className="h-4 w-4 text-primary" />
+                <span className="text-sm">
+                  {currentProfile.livingReference === 'sharedRoom' 
+                    ? t('profileCreation.sharedRoom')
+                    : currentProfile.livingReference === 'singleRoom'
+                      ? t('profileCreation.singleRoom')
+                      : t('profileCreation.bedSpace')}
+                </span>
+              </div>
+            </div>
+            
+            {currentProfile.preferences?.openToAllNationalities && (
+              <Badge variant="outline" className="gap-1 mt-2">
+                <Globe className="h-3 w-3" />
+                <span className="text-xs">{t('matching.openToAllNationalities')}</span>
+              </Badge>
+            )}
+          </div>
+        );
+        
+      case 'room':
+        if (!currentProfile.roomImages || currentProfile.roomImages.length === 0) {
+          return (
+            <div className="text-center py-6 text-muted-foreground">
+              <Home className="h-12 w-12 mx-auto mb-3 opacity-30" />
+              <p>{t('matching.profileHidden')}</p>
+              <p className="text-xs">{t('matching.visibleAfterMatch')}</p>
+            </div>
+          );
+        }
+        
+        return (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 mb-3">
+              <Home className="h-4 w-4 text-primary" />
+              <span className="font-medium">{t('profileCreation.roomInfo')}</span>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-2">
+              {currentProfile.roomImages.slice(0, 4).map((image, idx) => (
+                <div key={idx} className="aspect-square rounded-md overflow-hidden">
+                  <img src={image} alt={`Room ${idx+1}`} className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+        
+      case 'location':
+        return (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2 mb-3">
+              <MapPin className="h-4 w-4 text-primary" />
+              <span className="font-medium">{t('profileCreation.locationInfo')}</span>
+            </div>
+            
+            <div className="bg-background/50 rounded-lg p-3 space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Map className="h-4 w-4 text-primary" /> 
+                  <span className="text-sm font-medium">{currentProfile.location}</span>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-sm">
+                {currentProfile.distanceHospital && (
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-red-500"></div>
+                    <span>Hospital: {currentProfile.distanceHospital}</span>
+                  </div>
+                )}
+                
+                {currentProfile.distanceSupermarket && (
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500"></div>
+                    <span>Market: {currentProfile.distanceSupermarket}</span>
+                  </div>
+                )}
+                
+                {currentProfile.distancePublicTransport && (
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                    <span>Transport: {currentProfile.distancePublicTransport}</span>
+                  </div>
+                )}
+                
+                {currentProfile.distanceMetroStation && (
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-purple-500"></div>
+                    <span>Metro: {currentProfile.distanceMetroStation}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+        
+      default:
+        return null;
+    }
+  };
+
   return (
     <MainLayout className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-3xl mx-auto">
@@ -453,6 +594,47 @@ const Matching = () => {
                 isActive={!hasReachedSwipeLimit}
               />
             </div>
+
+            {/* Profile sections navigation */}
+            <div className="mt-6 mb-4">
+              <div className="flex rounded-full bg-muted p-1">
+                <button
+                  className={`flex-1 py-2 px-3 rounded-full text-sm font-medium transition-all ${
+                    activeProfileSection === 'personal'
+                      ? 'bg-purple-500 text-white shadow-sm'
+                      : 'hover:bg-muted-foreground/10'
+                  }`}
+                  onClick={() => setActiveProfileSection('personal')}
+                >
+                  {t('profileCreation.personalInfo')}
+                </button>
+                <button
+                  className={`flex-1 py-2 px-3 rounded-full text-sm font-medium transition-all ${
+                    activeProfileSection === 'room'
+                      ? 'bg-blue-500 text-white shadow-sm'
+                      : 'hover:bg-muted-foreground/10'
+                  }`}
+                  onClick={() => setActiveProfileSection('room')}
+                >
+                  {t('profileCreation.roomInfo')}
+                </button>
+                <button
+                  className={`flex-1 py-2 px-3 rounded-full text-sm font-medium transition-all ${
+                    activeProfileSection === 'location'
+                      ? 'bg-amber-500 text-white shadow-sm'
+                      : 'hover:bg-muted-foreground/10'
+                  }`}
+                  onClick={() => setActiveProfileSection('location')}
+                >
+                  {t('profileCreation.locationInfo')}
+                </button>
+              </div>
+            </div>
+            
+            {/* Profile section content */}
+            <Card className="p-4 mb-6">
+              {renderProfileSection()}
+            </Card>
 
             {userPath === 'host' && (currentProfile.roomImages?.length > 0 || 
                   (currentProfile.sharedAmenityImages && 
@@ -542,77 +724,3 @@ const Matching = () => {
                 variant="outline" 
                 size="lg" 
                 className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-green-500/30 hover:text-green-500 backdrop-blur-sm border-none neon-border"
-                onClick={handleLike}
-                disabled={hasReachedSwipeLimit}
-              >
-                <Heart className="h-8 w-8" />
-              </Button>
-              
-              <Button 
-                variant="outline" 
-                size="lg" 
-                className="h-16 w-16 rounded-full bg-background/30 shadow-md hover:bg-blue-500/30 hover:text-blue-500 backdrop-blur-sm border-none neon-border"
-                onClick={goToNextProfile}
-                disabled={currentIndex === MOCK_ROOMMATES.length - 1 || hasReachedSwipeLimit}
-              >
-                <ChevronRight className="h-8 w-8" />
-              </Button>
-            </div>
-            
-            {hasReachedSwipeLimit && (
-              <div className="mt-6 p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-center">
-                <h3 className="font-semibold text-destructive mb-1">{t("matching.swipeLimitReached")}</h3>
-                <p className="text-sm text-muted-foreground">{t("matching.swipesResetMidnight")}</p>
-              </div>
-            )}
-          </div>
-        )}
-
-        {matches.length > 0 && (
-          <div className="mt-8 glass-panel p-6 rounded-xl">
-            <h2 className="text-xl font-semibold mb-4 text-white">{t("matching.yourMatches")}</h2>
-            <div className="flex flex-wrap gap-4">
-              {matches.map(matchId => {
-                const matchProfile = MOCK_ROOMMATES.find(r => r.id === matchId);
-                if (!matchProfile) return null;
-                
-                return (
-                  <div key={matchId} className="flex flex-col items-center">
-                    <div className="relative">
-                      <Avatar className="h-16 w-16 border-2 border-primary/50">
-                        <AvatarImage src={matchProfile.imageUrl} alt={matchProfile.name} />
-                        <AvatarFallback>
-                          {matchProfile.name.substring(0, 2).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <Button 
-                        size="icon" 
-                        className="h-6 w-6 absolute -bottom-1 -right-1 rounded-full bg-primary hover:bg-primary/90 shadow-neon"
-                        onClick={() => handleMessage(matchId)}
-                      >
-                        <MessageCircle className="h-3 w-3" />
-                      </Button>
-                    </div>
-                    <span className="text-sm mt-1 text-white">{matchProfile.name}</span>
-                    <span className="text-xs mt-0.5 text-primary/80">{matchProfile.nationality}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        <div className="mt-10 flex justify-center">
-          <Button 
-            onClick={() => navigate('/properties')}
-            className="rounded-full px-6 bg-primary/80 hover:bg-primary backdrop-blur-sm shadow-neon"
-          >
-            {t("matching.browseProperties")}
-          </Button>
-        </div>
-      </div>
-    </MainLayout>
-  );
-};
-
-export default Matching;

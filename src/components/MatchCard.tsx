@@ -7,7 +7,7 @@ import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Fl
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 
-export interface MatchProfile {
+export type MatchProfile = {
   id: string;
   name: string;
   age: number;
@@ -18,7 +18,7 @@ export interface MatchProfile {
   interests: string[];
   preferences: {
     pets: boolean;
-    openToAllNationalities?: boolean;
+    openToAllNationalities: boolean;
   };
   roomImages?: string[];
   sharedAmenityImages?: {
@@ -27,12 +27,17 @@ export interface MatchProfile {
     livingRoom?: string | string[];
     other?: string | string[];
   };
-  nationality?: string;
-  workProfession?: string;
-  workTiming?: string;
-  gender?: string;
-  livingReference?: string;
-}
+  nationality: string;
+  workProfession: string;
+  workTiming: string;
+  gender: string;
+  livingReference: string;
+  distanceHospital?: string;
+  distanceSupermarket?: string;
+  distanceMedicalStore?: string;
+  distancePublicTransport?: string;
+  distanceMetroStation?: string;
+};
 
 interface MatchCardProps {
   profile: MatchProfile;
