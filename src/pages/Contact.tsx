@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useTranslation } from 'react-i18next';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,19 +15,20 @@ import { Mail, Phone, MapPin, Send, MessageSquare, ArrowRight } from "lucide-rea
 import MainLayout from '@/layouts/MainLayout';
 import { motion } from 'framer-motion';
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Name is required"),
-  email: z.string().email("Please enter a valid email address"),
-  subject: z.string().min(5, "Subject is required"),
-  message: z.string().min(10, "Message is too short"),
-});
-
-type ContactFormValues = z.infer<typeof contactSchema>;
-
 const Contact = () => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  
+  const contactSchema = z.object({
+    name: z.string().min(2, t("validation.required", { field: t("contact.fullName") })),
+    email: z.string().email(t("validation.email")),
+    subject: z.string().min(5, t("validation.required", { field: t("contact.subject") })),
+    message: z.string().min(10, t("validation.required", { field: t("contact.message") })),
+  });
+
+  type ContactFormValues = z.infer<typeof contactSchema>;
   
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -46,16 +48,16 @@ const Contact = () => {
       
       // Show success toast
       toast({
-        title: "Message sent successfully!",
-        description: "We'll get back to you as soon as possible.",
+        title: t("contact.messageSent"),
+        description: t("contact.messageSentDesc"),
       });
       
       form.reset();
     } catch (error) {
       console.error("Form submission error:", error);
       toast({
-        title: "Message sending failed",
-        description: "There was an error sending your message. Please try again.",
+        title: t("contact.messageFailed"),
+        description: t("contact.messageFailedDesc"),
         variant: "destructive",
       });
     } finally {
@@ -97,10 +99,10 @@ const Contact = () => {
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gradient-royal">
-            Get in Touch
+            {t("contact.getInTouch")}
           </h1>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            We're here to answer any questions you might have. Feel free to reach out and we'll respond as soon as possible.
+            {t("contact.contactDesc")}
           </p>
         </motion.div>
 
@@ -116,8 +118,8 @@ const Contact = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-[#01CDFA] to-[#516CF7] rounded-full flex items-center justify-center mb-5 shadow-glow-sm">
                   <Mail className="h-7 w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Email Us</h3>
-                <p className="text-muted-foreground mb-4">For general inquiries and support</p>
+                <h3 className="text-xl font-semibold mb-3">{t("contact.emailUs")}</h3>
+                <p className="text-muted-foreground mb-4">{t("contact.emailDesc")}</p>
                 <a href="mailto:contact@roomateharmony.com" className="text-[#516CF7] hover:text-[#01CDFA] transition-colors font-medium hover:underline flex items-center gap-1 group">
                   contact@roomateharmony.com
                   <ArrowRight size={16} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
@@ -132,8 +134,8 @@ const Contact = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-[#8563C9] to-[#ED2FC0] rounded-full flex items-center justify-center mb-5 shadow-glow-sm">
                   <Phone className="h-7 w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Call Us</h3>
-                <p className="text-muted-foreground mb-4">Monday to Friday, 9am - 6pm</p>
+                <h3 className="text-xl font-semibold mb-3">{t("contact.callUs")}</h3>
+                <p className="text-muted-foreground mb-4">{t("contact.callDesc")}</p>
                 <a href="tel:+966123456789" className="text-[#A83ACB] hover:text-[#ED2FC0] transition-colors font-medium hover:underline flex items-center gap-1 group">
                   +966 12 345 6789
                   <ArrowRight size={16} className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
@@ -148,11 +150,11 @@ const Contact = () => {
                 <div className="w-16 h-16 bg-gradient-to-br from-[#FFB347] to-[#FF9900] rounded-full flex items-center justify-center mb-5 shadow-glow-sm">
                   <MapPin className="h-7 w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Visit Us</h3>
-                <p className="text-muted-foreground mb-4">Our headquarters</p>
+                <h3 className="text-xl font-semibold mb-3">{t("contact.visitUs")}</h3>
+                <p className="text-muted-foreground mb-4">{t("contact.visitDesc")}</p>
                 <address className="not-italic text-amber-600 hover:text-amber-500 transition-colors font-medium">
-                  King Fahd Road, Riyadh<br />
-                  Saudi Arabia
+                  {t("contact.address")}<br />
+                  {t("contact.country")}
                 </address>
               </CardContent>
             </Card>
@@ -165,9 +167,9 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
-            <h2 className="text-3xl font-bold mb-4 text-gradient-primary">Send Us a Message</h2>
+            <h2 className="text-3xl font-bold mb-4 text-gradient-primary">{t("contact.sendMessage")}</h2>
             <p className="text-muted-foreground mb-8 text-lg">
-              We'd love to hear from you. Please fill out the form below with your inquiry.
+              {t("contact.sendMessageDesc")}
             </p>
             
             <Card className="shadow-elegant border-0 overflow-hidden bg-white/80 backdrop-blur-sm">
@@ -179,7 +181,7 @@ const Contact = () => {
                       name="name"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-medium text-gray-700">Full Name</FormLabel>
+                          <FormLabel className="font-medium text-gray-700">{t("contact.fullName")}</FormLabel>
                           <FormControl>
                             <Input 
                               placeholder="John Doe" 
@@ -197,7 +199,7 @@ const Contact = () => {
                       name="email"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-medium text-gray-700">Email Address</FormLabel>
+                          <FormLabel className="font-medium text-gray-700">{t("contact.emailAddress")}</FormLabel>
                           <FormControl>
                             <Input 
                               type="email" 
@@ -216,10 +218,10 @@ const Contact = () => {
                       name="subject"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-medium text-gray-700">Subject</FormLabel>
+                          <FormLabel className="font-medium text-gray-700">{t("contact.subject")}</FormLabel>
                           <FormControl>
                             <Input 
-                              placeholder="How can we help you?" 
+                              placeholder={t("contact.subjectPlaceholder")} 
                               {...field} 
                               className="border-gray-200 focus:border-[#516CF7] focus:ring-[#516CF7]/10 transition-all" 
                             />
@@ -234,10 +236,10 @@ const Contact = () => {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="font-medium text-gray-700">Message</FormLabel>
+                          <FormLabel className="font-medium text-gray-700">{t("contact.message")}</FormLabel>
                           <FormControl>
                             <Textarea 
-                              placeholder="Please provide details about your inquiry..." 
+                              placeholder={t("contact.messagePlaceholder")} 
                               className="min-h-32 border-gray-200 focus:border-[#516CF7] focus:ring-[#516CF7]/10 transition-all resize-none" 
                               {...field} 
                             />
@@ -257,12 +259,12 @@ const Contact = () => {
                       {isLoading ? (
                         <>
                           <div className="h-5 w-5 mr-2 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                          Sending...
+                          {t("contact.sending")}
                         </>
                       ) : (
                         <>
                           <MessageSquare className="mr-2 h-5 w-5" />
-                          Send Message
+                          {t("contact.send")}
                         </>
                       )}
                     </Button>

@@ -80,16 +80,15 @@ const Index = () => {
             <div className="lg:w-1/2">
               <div className="inline-flex items-center justify-center bg-airbnb-red/10 px-4 py-1.5 rounded-full mb-6">
                 <Users className="text-airbnb-red mr-2 h-4 w-4" />
-                <span className="text-airbnb-red text-sm font-medium">Find Your Perfect Roommate</span>
+                <span className="text-airbnb-red text-sm font-medium">{t('common.findRoommates')}</span>
               </div>
               
               <h1 className="text-4xl md:text-5xl font-bold font-playfair mb-6 leading-tight">
-                Find Your <span className="bg-gradient-to-r from-airbnb-red to-airbnb-navy bg-clip-text text-transparent">Perfect</span> <br />
-                Roommate Match
+                {t('index.title')}
               </h1>
               
               <p className="text-lg text-gray-600 mb-8 max-w-xl">
-                Connect with compatible roommates based on lifestyle, habits, and preferences. Say goodbye to roommate nightmares!
+                {t('index.subtitle')}
               </p>
               
               <div className="flex flex-wrap gap-4 mb-8">
@@ -97,7 +96,7 @@ const Index = () => {
                   className="bg-gradient-to-r from-airbnb-red to-airbnb-navy hover:from-airbnb-darkpink hover:to-airbnb-navy text-white font-medium py-2.5 px-6 rounded-md"
                   onClick={() => navigate('/living-plan-selection')}
                 >
-                  Get Started
+                  {t('common.getStarted')}
                 </Button>
                 
                 <Button 
@@ -105,7 +104,7 @@ const Index = () => {
                   className="border-airbnb-red/30 text-airbnb-navy hover:bg-airbnb-light/20 font-medium py-2.5 px-6 rounded-md"
                   onClick={() => navigate('/about')}
                 >
-                  Learn More
+                  {t('common.learnMore')}
                 </Button>
               </div>
               
@@ -187,10 +186,10 @@ const Index = () => {
         <div className="container px-4 mx-auto max-w-6xl py-10">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold font-playfair mb-4 bg-gradient-to-r from-airbnb-purple to-airbnb-navy bg-clip-text text-transparent">
-              How It Works
+              {t('roommate.title')}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Finding the perfect roommate is easy with our guided process
+              {t('roommate.subtitle')}
             </p>
           </div>
         </div>
@@ -200,17 +199,17 @@ const Index = () => {
       <section className="py-16 bg-white">
         <div className="container px-4 mx-auto text-center max-w-3xl">
           <h2 className="text-3xl font-bold mb-6 font-playfair bg-gradient-to-r from-airbnb-red to-airbnb-navy bg-clip-text text-transparent">
-            Ready to find your ideal roommate?
+            {t('index.ready')}
           </h2>
           <p className="text-lg text-gray-600 mb-8">
-            Join thousands of people who have found their perfect match.
+            {t('index.joinThousands')}
           </p>
           
           <Button 
             className="bg-gradient-to-r from-airbnb-purple to-airbnb-navy hover:from-airbnb-red hover:to-airbnb-purple text-white font-medium py-3 px-8 rounded-md inline-flex items-center"
             onClick={() => navigate('/register')}
           >
-            Sign Up Now
+            {t('common.signUpNow')}
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
           

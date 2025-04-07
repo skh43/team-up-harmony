@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { useNavigate } from 'react-router-dom';
 import { toast } from "sonner";
+import { useTranslation } from 'react-i18next';
 import { MapPin, Bed, Bath, Square, Building, DollarSign, Tag, Camera, Check, House, Sofa, Crown,
   Hospital, ShoppingCart, PlusCircle, Bus, Train, Map, Calendar } from 'lucide-react';
 
@@ -40,33 +42,34 @@ const PRICE_THRESHOLDS = {
                   // Properties above 6000 SAR/month are Elite
 };
 
-// Define form schema with validation rules
-const formSchema = z.object({
-  title: z.string().min(5, "Title must be at least 5 characters"),
-  location: z.string().min(3, "Location is required"),
-  description: z.string().min(20, "Description must be at least 20 characters"),
-  price: z.string().min(1, "Price is required"),
-  bedrooms: z.string().min(1, "Number of bedrooms is required"),
-  bathrooms: z.string().min(1, "Number of bathrooms is required"),
-  size: z.string().min(1, "Size is required"),
-  propertyType: z.string().min(1, "Property type is required"),
-  contractDuration: z.enum(["monthly", "sixMonths", "yearly"], {
-    required_error: "Please select a contract duration",
-  }),
-  imageUrl: z.string().url("Please enter a valid image URL").optional(),
-  tags: z.string().optional(),
-  mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
-  distanceHospital: z.string().optional(),
-  distanceSupermarket: z.string().optional(),
-  distanceMedicalStore: z.string().optional(),
-  distancePublicTransport: z.string().optional(),
-  distanceMetro: z.string().optional(),
-});
-
 const ListProperty = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [category, setCategory] = useState<'basic' | 'comfort' | 'elite' | ''>('');
   const [propertyImages, setPropertyImages] = useState<string[]>([]);
+  
+  // Define form schema with validation rules
+  const formSchema = z.object({
+    title: z.string().min(5, t("validation.required", { field: t("listProperty.propertyTitle") })),
+    location: z.string().min(3, t("validation.required", { field: t("listProperty.location") })),
+    description: z.string().min(20, t("validation.required", { field: t("listProperty.propertyDescription") })),
+    price: z.string().min(1, t("validation.required", { field: t("listProperty.monthlyPrice") })),
+    bedrooms: z.string().min(1, t("validation.required", { field: t("listProperty.bedrooms") })),
+    bathrooms: z.string().min(1, t("validation.required", { field: t("listProperty.bathrooms") })),
+    size: z.string().min(1, t("validation.required", { field: t("listProperty.size") })),
+    propertyType: z.string().min(1, t("validation.required", { field: t("listProperty.propertyType") })),
+    contractDuration: z.enum(["monthly", "sixMonths", "yearly"], {
+      required_error: t("validation.required", { field: t("listProperty.contractDuration") }),
+    }),
+    imageUrl: z.string().url(t("validation.required", { field: t("listProperty.mainImageUrl") })).optional(),
+    tags: z.string().optional(),
+    mapLink: z.string().url(t("validation.required", { field: t("listProperty.mapLink") })).optional().or(z.literal('')),
+    distanceHospital: z.string().optional(),
+    distanceSupermarket: z.string().optional(),
+    distanceMedicalStore: z.string().optional(),
+    distancePublicTransport: z.string().optional(),
+    distanceMetro: z.string().optional(),
+  });
   
   // Initialize form with react-hook-form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -115,24 +118,24 @@ const ListProperty = () => {
     switch (category) {
       case 'basic':
         return {
-          label: 'Basic',
+          label: t('properties.basic'),
           icon: <House className="h-4 w-4 mr-1" />,
           color: 'basic',
-          description: 'Affordable and functional living space'
+          description: t('properties.basicDescription')
         };
       case 'comfort':
         return {
-          label: 'Comfort',
+          label: t('properties.comfort'),
           icon: <Sofa className="h-4 w-4 mr-1" />,
           color: 'comfort',
-          description: 'Mid-range property with modern amenities'
+          description: t('properties.comfortDescription')
         };
       case 'elite':
         return {
-          label: 'Elite',
+          label: t('properties.elite'),
           icon: <Crown className="h-4 w-4 mr-1" />,
           color: 'elite',
-          description: 'Premium property with luxury features'
+          description: t('properties.eliteDescription')
         };
       default:
         return null;
@@ -145,7 +148,7 @@ const ListProperty = () => {
     
     // Validate that we have enough property images
     if (propertyImages.length < 6) {
-      toast.error("Please add at least 6 property images showing different rooms");
+      toast.error(t("validation.required", { field: t("listProperty.propertyImages") }));
       return;
     }
     
@@ -159,7 +162,7 @@ const ListProperty = () => {
     console.log("Property submission with category:", submissionData);
     
     // Show success toast
-    toast.success("Property listing submitted successfully! It will be reviewed by our team.");
+    toast.success(t("listProperty.success"));
     
     // Redirect to properties page after submission
     setTimeout(() => {
@@ -171,17 +174,17 @@ const ListProperty = () => {
   
   // Generate placeholder text based on selected category
   const getDescriptionPlaceholder = () => {
-    if (!category) return "Describe your property in detail...";
+    if (!category) return t("listProperty.descriptionPlaceholderDefault");
     
     switch (category) {
       case 'basic':
-        return "Describe your Basic property in detail. Include key features like proximity to public transport, nearby facilities, etc. This is an affordable property option.";
+        return t("listProperty.descriptionPlaceholderBasic");
       case 'comfort':
-        return "Describe your Comfort property in detail. Highlight the modern amenities, quality fixtures, neighborhood benefits, etc. This is a mid-range property with attractive features.";
+        return t("listProperty.descriptionPlaceholderComfort");
       case 'elite':
-        return "Describe your Elite property in detail. Emphasize premium features, luxury finishes, exclusive location benefits, etc. This is a high-end property with exceptional quality.";
+        return t("listProperty.descriptionPlaceholderElite");
       default:
-        return "Describe your property in detail...";
+        return t("listProperty.descriptionPlaceholderDefault");
     }
   };
 
@@ -189,17 +192,17 @@ const ListProperty = () => {
     <MainLayout className="pb-16">
       <div className="w-full max-w-4xl mx-auto px-4">
         <div className="my-8 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-3">List Your Property</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-3">{t("listProperty.title")}</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Complete the form below to list your property and reach potential tenants or buyers.
+            {t("listProperty.subtitle")}
           </p>
         </div>
         
         <Card className="bg-white/80 backdrop-blur shadow-subtle">
           <CardHeader>
-            <CardTitle className="text-2xl">Property Details</CardTitle>
+            <CardTitle className="text-2xl">{t("listProperty.propertyDetails")}</CardTitle>
             <CardDescription>
-              Provide accurate information to help people find your property.
+              {t("listProperty.accurateInfo")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -212,11 +215,11 @@ const ListProperty = () => {
                     name="title"
                     render={({ field }) => (
                       <FormItem className="md:col-span-2">
-                        <FormLabel>Property Title</FormLabel>
+                        <FormLabel>{t("listProperty.propertyTitle")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Building className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. Modern Apartment with Balcony" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.titlePlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -230,11 +233,11 @@ const ListProperty = () => {
                     name="location"
                     render={({ field }) => (
                       <FormItem className="md:col-span-2">
-                        <FormLabel>Location</FormLabel>
+                        <FormLabel>{t("listProperty.location")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <MapPin className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. Al Olaya, Riyadh" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.locationPlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -248,22 +251,22 @@ const ListProperty = () => {
                     name="propertyType"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Property Type</FormLabel>
+                        <FormLabel>{t("listProperty.propertyType")}</FormLabel>
                         <Select 
                           onValueChange={field.onChange} 
                           defaultValue={field.value}
                         >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select property type" />
+                              <SelectValue placeholder={t("listProperty.selectPropertyType")} />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="apartment">Apartment</SelectItem>
-                            <SelectItem value="villa">Villa</SelectItem>
-                            <SelectItem value="house">House</SelectItem>
-                            <SelectItem value="room">Private Room</SelectItem>
-                            <SelectItem value="shared">Shared Room</SelectItem>
+                            <SelectItem value="apartment">{t("listProperty.apartment")}</SelectItem>
+                            <SelectItem value="villa">{t("listProperty.villa")}</SelectItem>
+                            <SelectItem value="house">{t("listProperty.house")}</SelectItem>
+                            <SelectItem value="room">{t("listProperty.privateRoom")}</SelectItem>
+                            <SelectItem value="shared">{t("listProperty.sharedRoom")}</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -277,13 +280,13 @@ const ListProperty = () => {
                     name="price"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Monthly Price (SAR)</FormLabel>
+                        <FormLabel>{t("listProperty.monthlyPrice")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <DollarSign className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                             <Input 
                               className="pl-10" 
-                              placeholder="e.g. 3500" 
+                              placeholder={t("listProperty.pricePlaceholder")} 
                               {...field} 
                               type="number"
                               min="0"
@@ -311,7 +314,7 @@ const ListProperty = () => {
                           <div className="mt-2 flex items-center">
                             <Badge variant={categoryDetails.color as any} className="flex items-center gap-1">
                               {categoryDetails.icon}
-                              {categoryDetails.label} Property
+                              {categoryDetails.label} {t("properties.properties")}
                             </Badge>
                             <span className="text-xs text-muted-foreground ml-2">
                               {categoryDetails.description}
@@ -321,9 +324,9 @@ const ListProperty = () => {
                         <FormDescription>
                           {category && (
                             <div className="mt-1 text-xs">
-                              <strong>Price tiers:</strong> Basic (&lt; {PRICE_THRESHOLDS.BASIC} SAR), 
-                              Comfort ({PRICE_THRESHOLDS.BASIC}-{PRICE_THRESHOLDS.COMFORT} SAR), 
-                              Elite (&gt; {PRICE_THRESHOLDS.COMFORT} SAR)
+                              <strong>{t("listProperty.priceTiers")}:</strong> {t("properties.basic")} (&lt; {PRICE_THRESHOLDS.BASIC} SAR), 
+                              {t("properties.comfort")} ({PRICE_THRESHOLDS.BASIC}-{PRICE_THRESHOLDS.COMFORT} SAR), 
+                              {t("properties.elite")} (&gt; {PRICE_THRESHOLDS.COMFORT} SAR)
                             </div>
                           )}
                         </FormDescription>
@@ -339,7 +342,7 @@ const ListProperty = () => {
                     render={({ field }) => (
                       <FormItem className="space-y-3">
                         <FormLabel className="flex items-center gap-2">
-                          <Calendar className="h-4 w-4 mr-1" /> Contract Duration
+                          <Calendar className="h-4 w-4 mr-1" /> {t("listProperty.contractDuration")}
                         </FormLabel>
                         <FormControl>
                           <RadioGroup
@@ -352,7 +355,7 @@ const ListProperty = () => {
                                 <RadioGroupItem value="monthly" />
                               </FormControl>
                               <FormLabel className="font-normal">
-                                Monthly (Short-term)
+                                {t("listProperty.monthly")}
                               </FormLabel>
                             </FormItem>
                             <FormItem className="flex items-center space-x-3 space-y-0">
@@ -360,7 +363,7 @@ const ListProperty = () => {
                                 <RadioGroupItem value="sixMonths" />
                               </FormControl>
                               <FormLabel className="font-normal">
-                                6 Months (Medium-term)
+                                {t("listProperty.sixMonths")}
                               </FormLabel>
                             </FormItem>
                             <FormItem className="flex items-center space-x-3 space-y-0">
@@ -368,13 +371,13 @@ const ListProperty = () => {
                                 <RadioGroupItem value="yearly" />
                               </FormControl>
                               <FormLabel className="font-normal">
-                                Yearly (Long-term)
+                                {t("listProperty.yearly")}
                               </FormLabel>
                             </FormItem>
                           </RadioGroup>
                         </FormControl>
                         <FormDescription>
-                          Select the contract duration you're offering for this property
+                          {t("listProperty.contractDesc")}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -387,11 +390,11 @@ const ListProperty = () => {
                     name="bedrooms"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Bedrooms</FormLabel>
+                        <FormLabel>{t("listProperty.bedrooms")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Bed className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 2" type="number" min="0" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.bedroomPlaceholder")} type="number" min="0" {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -405,11 +408,11 @@ const ListProperty = () => {
                     name="bathrooms"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Bathrooms</FormLabel>
+                        <FormLabel>{t("listProperty.bathrooms")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Bath className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 1" type="number" min="0" step="0.5" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.bathroomPlaceholder")} type="number" min="0" step="0.5" {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -423,11 +426,11 @@ const ListProperty = () => {
                     name="size"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Size (sqm)</FormLabel>
+                        <FormLabel>{t("listProperty.size")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Square className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 120" type="number" min="0" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.sizePlaceholder")} type="number" min="0" {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -437,7 +440,7 @@ const ListProperty = () => {
                   
                   {/* Location Details Section */}
                   <div className="md:col-span-2 mt-4">
-                    <h3 className="text-lg font-semibold mb-4">Nearby Amenities & Location</h3>
+                    <h3 className="text-lg font-semibold mb-4">{t("listProperty.nearbyAmenities")}</h3>
                   </div>
                   
                   {/* Map Link */}
@@ -446,15 +449,15 @@ const ListProperty = () => {
                     name="mapLink"
                     render={({ field }) => (
                       <FormItem className="md:col-span-2">
-                        <FormLabel>Map Link</FormLabel>
+                        <FormLabel>{t("listProperty.mapLink")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Map className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. https://maps.google.com/?q=your-property-location" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.mapLinkPlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormDescription>
-                          Paste a link to Google Maps or any other map service showing your property location
+                          {t("listProperty.mapLinkDesc")}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -467,11 +470,11 @@ const ListProperty = () => {
                     name="distanceHospital"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Distance to Nearest Hospital</FormLabel>
+                        <FormLabel>{t("listProperty.distanceHospital")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Hospital className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 2.5 km" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.distanceHospitalPlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -485,11 +488,11 @@ const ListProperty = () => {
                     name="distanceSupermarket"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Distance to Nearest Supermarket</FormLabel>
+                        <FormLabel>{t("listProperty.distanceSupermarket")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <ShoppingCart className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 0.5 km" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.distanceSupermarketPlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -503,11 +506,11 @@ const ListProperty = () => {
                     name="distanceMedicalStore"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Distance to Nearest Medical Store</FormLabel>
+                        <FormLabel>{t("listProperty.distanceMedicalStore")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <PlusCircle className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 1 km" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.distanceMedicalStorePlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -521,11 +524,11 @@ const ListProperty = () => {
                     name="distancePublicTransport"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Distance to Public Transport</FormLabel>
+                        <FormLabel>{t("listProperty.distancePublicTransport")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Bus className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 0.2 km" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.distancePublicTransportPlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -539,11 +542,11 @@ const ListProperty = () => {
                     name="distanceMetro"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Distance to Metro Station</FormLabel>
+                        <FormLabel>{t("listProperty.distanceMetro")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Train className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. 1.5 km" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.distanceMetroPlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormMessage />
@@ -557,15 +560,15 @@ const ListProperty = () => {
                     name="imageUrl"
                     render={({ field }) => (
                       <FormItem className="md:col-span-2">
-                        <FormLabel>Main Property Image URL (Optional)</FormLabel>
+                        <FormLabel>{t("listProperty.mainImageUrl")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Camera className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="https://example.com/image.jpg" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.mainImageUrlPlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormDescription>
-                          You can upload multiple images below or provide a URL for the main image
+                          {t("listProperty.mainImageUrlDesc")}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -587,15 +590,15 @@ const ListProperty = () => {
                     name="tags"
                     render={({ field }) => (
                       <FormItem className="md:col-span-2">
-                        <FormLabel>Tags</FormLabel>
+                        <FormLabel>{t("listProperty.tags")}</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Tag className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                            <Input className="pl-10" placeholder="e.g. Balcony, Pool, Furnished (comma separated)" {...field} />
+                            <Input className="pl-10" placeholder={t("listProperty.tagsPlaceholder")} {...field} />
                           </div>
                         </FormControl>
                         <FormDescription>
-                          Add tags that highlight key features of your property
+                          {t("listProperty.tagsDesc")}
                         </FormDescription>
                         <FormMessage />
                       </FormItem>
@@ -609,7 +612,7 @@ const ListProperty = () => {
                     render={({ field }) => (
                       <FormItem className="md:col-span-2">
                         <FormLabel className="flex items-center gap-2">
-                          Property Description
+                          {t("listProperty.propertyDescription")}
                           {categoryDetails && (
                             <Badge variant={categoryDetails.color as any} className="flex items-center gap-1">
                               {categoryDetails.icon}
@@ -628,7 +631,10 @@ const ListProperty = () => {
                           {category && (
                             <span className="flex items-center gap-1 mt-1">
                               {categoryDetails?.icon}
-                              This is a <strong>{categoryDetails?.label}</strong> category property ({categoryDetails?.description}).
+                              {t("listProperty.categoryDescription", {
+                                 category: categoryDetails?.label,
+                                 description: categoryDetails?.description
+                              })}
                             </span>
                           )}
                         </FormDescription>
@@ -640,11 +646,11 @@ const ListProperty = () => {
                 
                 <div className="flex justify-between items-center mt-6 pt-6 border-t">
                   <p className="text-sm text-muted-foreground">
-                    All listings are reviewed by our team before going live
+                    {t("listProperty.reviewNotice")}
                   </p>
                   <Button type="submit" className="gap-2">
                     <Check className="h-4 w-4" />
-                    Submit Listing
+                    {t("listProperty.submitListing")}
                   </Button>
                 </div>
               </form>
