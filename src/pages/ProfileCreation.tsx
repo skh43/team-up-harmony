@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,6 +24,7 @@ import ProfilePhotoUpload from '@/components/ProfilePhotoUpload';
 import { Textarea } from "@/components/ui/textarea";
 import PropertyImageUpload from '@/components/PropertyImageUpload';
 import { useTranslation } from 'react-i18next';
+import { TabView, TabsContent } from "@/components/ui/tab-view";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -61,7 +63,7 @@ export default function ProfileCreation() {
   const { t } = useTranslation();
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [roomImages, setRoomImages] = useState<string[]>([]);
-  const [sharedAmenityImages, setSharedAmenityImages] = useState<string[]>([]);
+  const [activeTab, setActiveTab] = useState("personal");
   const [userPath, setUserPath] = useState<string>('host'); // Default to 'host'
   
   useEffect(() => {
@@ -105,11 +107,16 @@ export default function ProfileCreation() {
       ...values,
       profilePhoto,
       roomImages,
-      sharedAmenityImages,
       userPath
     });
     navigate("/matching");
   }
+
+  const tabs = [
+    { value: "personal", label: t('profileCreation.personalInfo'), color: "purple" },
+    ...(showRoomDetails ? [{ value: "room", label: t('profileCreation.roomInfo'), color: "blue" }] : []),
+    ...(showRoomDetails ? [{ value: "location", label: t('profileCreation.locationInfo'), color: "amber" }] : [])
+  ];
 
   return (
     <div className="max-w-md mx-auto p-6">
@@ -123,418 +130,395 @@ export default function ProfileCreation() {
         <p className="text-muted-foreground">{t('profileCreation.subtitle')}</p>
       </div>
       
-      <ProfilePhotoUpload 
-        image={profilePhoto}
-        setImage={setProfilePhoto}
-      />
-      
-      <div className="my-6 border-t border-gray-200"></div>
-      
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('profileCreation.firstName')}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t('profileCreation.firstNamePlaceholder')} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('profileCreation.lastName')}</FormLabel>
-                  <FormControl>
-                    <Input placeholder={t('profileCreation.lastNamePlaceholder')} {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          
-          <div className="grid grid-cols-2 gap-4">
-            <FormField
-              control={form.control}
-              name="age"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('profileCreation.age')}</FormLabel>
-                  <FormControl>
-                    <Input type="number" placeholder="25" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            
-            <FormField
-              control={form.control}
-              name="gender"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>{t('profileCreation.gender')}</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder={t('profileCreation.selectGender')} />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="male">{t('profileCreation.male')}</SelectItem>
-                      <SelectItem value="female">{t('profileCreation.female')}</SelectItem>
-                      <SelectItem value="nonbinary">{t('profileCreation.nonbinary')}</SelectItem>
-                      <SelectItem value="other">{t('profileCreation.other')}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
-          
-          <FormField
-            control={form.control}
-            name="livingReference"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <BedDouble className="w-4 h-4" /> {t('profileCreation.livingReference')}
-                </FormLabel>
-                <FormDescription>
-                  {t('profileCreation.livingReferenceDesc')}
-                </FormDescription>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder={t('profileCreation.selectLivingReference')} />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="sharedRoom">
-                      <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4" />
-                        <span>{t('profileCreation.sharedRoom')}</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="singleRoom">
-                      <div className="flex items-center gap-2">
-                        <BedDouble className="w-4 h-4" />
-                        <span>{t('profileCreation.singleRoom')}</span>
-                      </div>
-                    </SelectItem>
-                    <SelectItem value="bedSpace">
-                      <div className="flex items-center gap-2">
-                        <Sofa className="w-4 h-4" />
-                        <span>{t('profileCreation.bedSpace')}</span>
-                      </div>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="workProfession"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Briefcase className="w-4 h-4" /> {t('profileCreation.workProfession')}
-                </FormLabel>
-                <FormControl>
-                  <Input placeholder={t('profileCreation.workProfessionPlaceholder')} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="workTiming"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" /> {t('profileCreation.workSchedule')}
-                </FormLabel>
-                <FormControl>
-                  <Input placeholder={t('profileCreation.workSchedulePlaceholder')} {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="nationality"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Flag className="w-4 h-4" /> {t('profileCreation.nationality')}
-                </FormLabel>
-                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder={t('profileCreation.selectNationality')} />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {nationalities.map((nationality) => (
-                      <SelectItem key={nationality} value={nationality.toLowerCase()}>
-                        {nationality}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          <FormField
-            control={form.control}
-            name="openToAllNationalities"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel>
-                    {t('profileCreation.openToAllNationalities')}
-                  </FormLabel>
-                  <FormDescription>
-                    {t('profileCreation.openToAllNationalitiesDesc')}
-                  </FormDescription>
-                </div>
-              </FormItem>
-            )}
-          />
-          
-          {showRoomDetails && (
-            <>
-              <div className="my-6 border-t border-gray-200 pt-6">
-                <h2 className="text-xl font-semibold mb-4">{t('profileCreation.roomDetails')}</h2>
-                <p className="text-muted-foreground mb-4">
-                  {t('profileCreation.roomDetailsDesc')}
-                </p>
-              </div>
+          <TabView 
+            tabs={tabs} 
+            onValueChange={setActiveTab} 
+            defaultValue="personal"
+          >
+            <TabsContent value="personal" className="space-y-6 mt-4">
+              <ProfilePhotoUpload 
+                image={profilePhoto}
+                setImage={setProfilePhoto}
+              />
               
-              <div>
-                <FormLabel className="block mb-2">{t('profileCreation.roomImages')}</FormLabel>
-                <PropertyImageUpload 
-                  images={roomImages}
-                  setImages={setRoomImages}
-                  minImages={2}
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="firstName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('profileCreation.firstName')}</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t('profileCreation.firstNamePlaceholder')} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="lastName"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('profileCreation.lastName')}</FormLabel>
+                      <FormControl>
+                        <Input placeholder={t('profileCreation.lastNamePlaceholder')} {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
               </div>
               
-              <div className="mt-6">
-                <FormLabel className="flex items-center gap-2 mb-2">
-                  <div className="flex items-center gap-2">
-                    <Bath className="w-4 h-4" />
-                    <Utensils className="w-4 h-4" />
-                    <Sofa className="w-4 h-4" />
+              <div className="grid grid-cols-2 gap-4">
+                <FormField
+                  control={form.control}
+                  name="age"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('profileCreation.age')}</FormLabel>
+                      <FormControl>
+                        <Input type="number" placeholder="25" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="gender"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>{t('profileCreation.gender')}</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('profileCreation.selectGender')} />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="male">{t('profileCreation.male')}</SelectItem>
+                          <SelectItem value="female">{t('profileCreation.female')}</SelectItem>
+                          <SelectItem value="nonbinary">{t('profileCreation.nonbinary')}</SelectItem>
+                          <SelectItem value="other">{t('profileCreation.other')}</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              
+              <FormField
+                control={form.control}
+                name="livingReference"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <BedDouble className="w-4 h-4" /> {t('profileCreation.livingReference')}
+                    </FormLabel>
+                    <FormDescription>
+                      {t('profileCreation.livingReferenceDesc')}
+                    </FormDescription>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('profileCreation.selectLivingReference')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="sharedRoom">
+                          <div className="flex items-center gap-2">
+                            <Users className="w-4 h-4" />
+                            <span>{t('profileCreation.sharedRoom')}</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="singleRoom">
+                          <div className="flex items-center gap-2">
+                            <BedDouble className="w-4 h-4" />
+                            <span>{t('profileCreation.singleRoom')}</span>
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="bedSpace">
+                          <div className="flex items-center gap-2">
+                            <Sofa className="w-4 h-4" />
+                            <span>{t('profileCreation.bedSpace')}</span>
+                          </div>
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="workProfession"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Briefcase className="w-4 h-4" /> {t('profileCreation.workProfession')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder={t('profileCreation.workProfessionPlaceholder')} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="workTiming"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Clock className="w-4 h-4" /> {t('profileCreation.workSchedule')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input placeholder={t('profileCreation.workSchedulePlaceholder')} {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="nationality"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Flag className="w-4 h-4" /> {t('profileCreation.nationality')}
+                    </FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('profileCreation.selectNationality')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {nationalities.map((nationality) => (
+                          <SelectItem key={nationality} value={nationality.toLowerCase()}>
+                            {nationality}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="openToAllNationalities"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <div className="space-y-1 leading-none">
+                      <FormLabel>
+                        {t('profileCreation.openToAllNationalities')}
+                      </FormLabel>
+                      <FormDescription>
+                        {t('profileCreation.openToAllNationalitiesDesc')}
+                      </FormDescription>
+                    </div>
+                  </FormItem>
+                )}
+              />
+            </TabsContent>
+            
+            {showRoomDetails && (
+              <>
+                <TabsContent value="room" className="space-y-6 mt-4">
+                  <div>
+                    <FormLabel className="block mb-2">{t('profileCreation.roomImages')}</FormLabel>
+                    <PropertyImageUpload 
+                      images={roomImages}
+                      setImages={setRoomImages}
+                      minImages={2}
+                    />
                   </div>
-                  {t('profileCreation.sharedSpacesImages')}
-                </FormLabel>
-                <FormDescription className="mb-3">
-                  {t('profileCreation.addPhotosOfSharedSpaces')}
-                </FormDescription>
-                <PropertyImageUpload 
-                  images={sharedAmenityImages}
-                  setImages={setSharedAmenityImages}
-                  minImages={1}
-                />
-              </div>
-              
-              <FormField
-                control={form.control}
-                name="roomDescription"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <Home className="w-4 h-4" /> {t('profileCreation.roomDescription')}
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder={t('profileCreation.roomDescriptionPlaceholder')} 
-                        className="min-h-24" 
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t('profileCreation.roomDescriptionHelp')}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="sharedFacilities"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <Coffee className="w-4 h-4" /> {t('profileCreation.sharedFacilities')}
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder={t('profileCreation.sharedFacilitiesPlaceholder')} 
-                        className="min-h-24" 
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t('profileCreation.sharedFacilitiesHelp')}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <div className="my-6 border-t border-gray-200 pt-6">
-                <h2 className="text-xl font-semibold mb-4">{t('profileCreation.nearbyAmenities')}</h2>
-                <p className="text-muted-foreground mb-4">
-                  {t('profileCreation.nearbyAmenitiesDesc')}
-                </p>
-              </div>
-              
-              <FormField
-                control={form.control}
-                name="mapLink"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <Map className="w-4 h-4" /> {t('profileCreation.mapLink')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder={t('profileCreation.mapLinkPlaceholder')} 
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      {t('profileCreation.mapLinkDesc')}
-                    </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="distanceHospital"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <Hospital className="w-4 h-4" /> {t('profileCreation.distanceHospital')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder={t('profileCreation.distanceHospitalPlaceholder')} 
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="distanceSupermarket"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <ShoppingCart className="w-4 h-4" /> {t('profileCreation.distanceSupermarket')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder={t('profileCreation.distanceSupermarketPlaceholder')} 
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="distanceMedicalStore"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" /> {t('profileCreation.distanceMedicalStore')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder={t('profileCreation.distanceMedicalStorePlaceholder')} 
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="distancePublicTransport"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <Bus className="w-4 h-4" /> {t('profileCreation.distancePublicTransport')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder={t('profileCreation.distancePublicTransportPlaceholder')} 
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="distanceMetroStation"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <Train className="w-4 h-4" /> {t('profileCreation.distanceMetroStation')}
-                    </FormLabel>
-                    <FormControl>
-                      <Input 
-                        placeholder={t('profileCreation.distanceMetroStationPlaceholder')} 
-                        {...field} 
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </>
-          )}
+                  
+                  <FormField
+                    control={form.control}
+                    name="roomDescription"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Home className="w-4 h-4" /> {t('profileCreation.roomDescription')}
+                        </FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder={t('profileCreation.roomDescriptionPlaceholder')} 
+                            className="min-h-24" 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t('profileCreation.roomDescriptionHelp')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="sharedFacilities"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Coffee className="w-4 h-4" /> {t('profileCreation.sharedFacilities')}
+                        </FormLabel>
+                        <FormControl>
+                          <Textarea 
+                            placeholder={t('profileCreation.sharedFacilitiesPlaceholder')} 
+                            className="min-h-24" 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t('profileCreation.sharedFacilitiesHelp')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </TabsContent>
+                
+                <TabsContent value="location" className="space-y-6 mt-4">                  
+                  <FormField
+                    control={form.control}
+                    name="mapLink"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Map className="w-4 h-4" /> {t('profileCreation.mapLink')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.mapLinkPlaceholder')} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          {t('profileCreation.mapLinkDesc')}
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="distanceHospital"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Hospital className="w-4 h-4" /> {t('profileCreation.distanceHospital')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.distanceHospitalPlaceholder')} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="distanceSupermarket"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <ShoppingCart className="w-4 h-4" /> {t('profileCreation.distanceSupermarket')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.distanceSupermarketPlaceholder')} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="distanceMedicalStore"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4" /> {t('profileCreation.distanceMedicalStore')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.distanceMedicalStorePlaceholder')} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="distancePublicTransport"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Bus className="w-4 h-4" /> {t('profileCreation.distancePublicTransport')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.distancePublicTransportPlaceholder')} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="distanceMetroStation"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Train className="w-4 h-4" /> {t('profileCreation.distanceMetroStation')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.distanceMetroStationPlaceholder')} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </TabsContent>
+              </>
+            )}
+          </TabView>
           
           <Button type="submit" variant="airbnb" className="w-full">
             {t('common.continue')}
