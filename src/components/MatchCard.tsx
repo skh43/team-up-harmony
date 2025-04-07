@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag } from 'lucide-react';
+import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 
@@ -19,6 +18,7 @@ export interface MatchProfile {
   interests: string[];
   preferences: {
     pets: boolean;
+    openToAllNationalities?: boolean;
   };
   roomImages?: string[];
   nationality?: string;
@@ -47,15 +47,11 @@ const MatchCard = ({
   const [translateX, setTranslateX] = useState(0);
   const [rotation, setRotation] = useState(0);
   
-  // Get user path from localStorage
   const userPath = localStorage.getItem('userPath') || 'seek';
   
-  // Check if this profile is already matched
   const matches = JSON.parse(localStorage.getItem('userMatches') || '[]');
   const isMatched = matches.includes(profile.id);
   
-  // Determine if profile image should be blurred
-  // In host mode, profile images are blurred until matched
   const shouldBlurProfile = userPath === 'host' && !isMatched;
   
   const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
@@ -91,7 +87,6 @@ const MatchCard = ({
     } else if (swipeDirection === 'left') {
       onDislike(profile.id);
     } else {
-      // Reset if not swiped far enough
       setTranslateX(0);
       setRotation(0);
     }
@@ -119,7 +114,6 @@ const MatchCard = ({
       onTouchMove={handleDragMove}
       onTouchEnd={handleDragEnd}
     >
-      {/* Swipe Indicators */}
       <div 
         className={cn(
           "absolute top-4 left-4 bg-destructive text-white font-bold py-1 px-4 rounded-full z-10 transform -rotate-12 transition-opacity duration-200",
@@ -137,7 +131,6 @@ const MatchCard = ({
         {t('matching.like')}
       </div>
       
-      {/* Profile Image */}
       <div className="relative h-72 overflow-hidden">
         <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/40 to-transparent z-10" />
         <div className="absolute inset-x-4 top-4 flex justify-between items-center z-20">
@@ -171,7 +164,6 @@ const MatchCard = ({
         <div className="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-card to-transparent" />
       </div>
       
-      {/* Profile Content */}
       <CardContent className="relative -mt-16 space-y-3 pb-0">
         <div>
           <div className="flex justify-between items-end mb-1">
@@ -184,7 +176,6 @@ const MatchCard = ({
           <p className="text-muted-foreground leading-relaxed">{profile.bio}</p>
         </div>
         
-        {/* Profile details */}
         <div className="space-y-2 py-2">
           {profile.nationality && (
             <div className="flex items-center text-sm space-x-2">
@@ -206,9 +197,17 @@ const MatchCard = ({
               <span>{profile.workTiming}</span>
             </div>
           )}
+          
+          {profile.preferences.openToAllNationalities && (
+            <div className="flex items-start text-sm space-x-2">
+              <Globe className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+              <span className="text-green-600">
+                {t('matching.openToAllNationalities', 'Open to living with all nationalities')}
+              </span>
+            </div>
+          )}
         </div>
         
-        {/* Interests */}
         <div>
           <h4 className="text-sm font-medium mb-2">{t('matching.interests')}</h4>
           <div className="flex flex-wrap gap-2">
@@ -220,7 +219,6 @@ const MatchCard = ({
           </div>
         </div>
         
-        {/* Preferences */}
         <div className="space-y-2">
           <h4 className="text-sm font-medium mb-2">{t('matching.livingPreferences')}</h4>
           <div className="flex items-center space-x-1 text-sm">
@@ -230,7 +228,6 @@ const MatchCard = ({
         </div>
       </CardContent>
       
-      {/* Action Buttons */}
       <CardFooter className="flex justify-between p-4">
         <Button 
           variant="outline" 

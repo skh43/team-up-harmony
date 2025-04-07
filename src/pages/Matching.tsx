@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -22,7 +23,8 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 95,
     interests: ['Yoga', 'Cooking', 'Reading', 'Travel'],
     preferences: {
-      pets: false
+      pets: false,
+      openToAllNationalities: true
     },
     roomImages: [
       'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop',
@@ -42,7 +44,8 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 87,
     interests: ['Technology', 'Gaming', 'Fitness', 'Movies'],
     preferences: {
-      pets: true
+      pets: true,
+      openToAllNationalities: false
     },
     roomImages: [
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1980&auto=format&fit=crop',
@@ -62,7 +65,8 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 82,
     interests: ['Art', 'Music', 'Medicine', 'Hiking'],
     preferences: {
-      pets: false
+      pets: false,
+      openToAllNationalities: true
     },
     roomImages: [
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop',
@@ -82,7 +86,8 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 78,
     interests: ['Finance', 'Football', 'Travel', 'Cooking'],
     preferences: {
-      pets: true
+      pets: true,
+      openToAllNationalities: true
     },
     roomImages: [
       'https://images.unsplash.com/photo-1602872030219-ad2b9a54315c?q=80&w=2070&auto=format&fit=crop',
@@ -102,7 +107,8 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     compatibility: 90,
     interests: ['Design', 'Photography', 'Food', 'Travel'],
     preferences: {
-      pets: false
+      pets: false,
+      openToAllNationalities: false
     },
     roomImages: [
       'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=2076&auto=format&fit=crop',
