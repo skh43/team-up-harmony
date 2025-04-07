@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 
-const MOCK_ROOMMATES: MatchProfile[] = [
+const HOST_PROFILES: MatchProfile[] = [
   {
     id: '1',
     name: 'Sarah Johnson',
@@ -49,7 +49,8 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     workProfession: 'Marketing Manager',
     workTiming: '9 AM - 5 PM',
     gender: 'female',
-    livingReference: 'singleRoom'
+    livingReference: 'singleRoom',
+    userType: 'host'
   },
   {
     id: '2',
@@ -79,8 +80,12 @@ const MOCK_ROOMMATES: MatchProfile[] = [
     workProfession: 'Software Engineer',
     workTiming: 'Flexible hours',
     gender: 'male',
-    livingReference: 'sharedRoom'
-  },
+    livingReference: 'sharedRoom',
+    userType: 'host'
+  }
+];
+
+const SEEKER_PROFILES: MatchProfile[] = [
   {
     id: '3',
     name: 'Priya Sharma',
@@ -94,19 +99,14 @@ const MOCK_ROOMMATES: MatchProfile[] = [
       pets: false,
       openToAllNationalities: true
     },
-    roomImages: [
-      'https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1617104678098-de229db51175?q=80&w=2070&auto=format&fit=crop'
-    ],
-    sharedAmenityImages: {
-      livingRoom: 'https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=2069&auto=format&fit=crop',
-      other: 'https://images.unsplash.com/photo-1595514535415-dae8970c381a?q=80&w=2070&auto=format&fit=crop'
-    },
+    roomImages: [],
+    sharedAmenityImages: {},
     nationality: 'Indian',
     workProfession: 'Medical Student',
     workTiming: 'Variable schedule',
     gender: 'female',
-    livingReference: 'bedSpace'
+    livingReference: 'bedSpace',
+    userType: 'seek'
   },
   {
     id: '4',
@@ -121,19 +121,14 @@ const MOCK_ROOMMATES: MatchProfile[] = [
       pets: true,
       openToAllNationalities: true
     },
-    roomImages: [
-      'https://images.unsplash.com/photo-1602872030219-ad2b9a54315c?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?q=80&w=2070&auto=format&fit=crop'
-    ],
-    sharedAmenityImages: {
-      bathroom: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=2070&auto=format&fit=crop',
-      kitchen: 'https://images.unsplash.com/photo-1588854337115-1c67d9247e4d?q=80&w=2070&auto=format&fit=crop'
-    },
+    roomImages: [],
+    sharedAmenityImages: {},
     nationality: 'British',
     workProfession: 'Financial Analyst',
     workTiming: '8 AM - 6 PM',
     gender: 'male',
-    livingReference: 'singleRoom'
+    livingReference: 'singleRoom',
+    userType: 'seek'
   },
   {
     id: '5',
@@ -148,20 +143,14 @@ const MOCK_ROOMMATES: MatchProfile[] = [
       pets: false,
       openToAllNationalities: false
     },
-    roomImages: [
-      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=2076&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1556702571-3e11dd2b1a92?q=80&w=2076&auto=format&fit=crop'
-    ],
-    sharedAmenityImages: {
-      livingRoom: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=2070&auto=format&fit=crop',
-      kitchen: 'https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?q=80&w=2070&auto=format&fit=crop',
-      bathroom: 'https://images.unsplash.com/photo-1604709177225-055f99402ea3?q=80&w=1974&auto=format&fit=crop'
-    },
+    roomImages: [],
+    sharedAmenityImages: {},
     nationality: 'Korean',
     workProfession: 'UX Designer',
     workTiming: 'Hybrid - 3 days in office',
     gender: 'male',
-    livingReference: 'sharedRoom'
+    livingReference: 'sharedRoom',
+    userType: 'seek'
   }
 ];
 
@@ -176,6 +165,7 @@ const Matching = () => {
   const [swipesUsed, setSwipesUsed] = useState<number>(0);
   const [swipesReset, setSwipesReset] = useState<string>("");
   const [userPath, setUserPath] = useState<string>("seek");
+  const [matchProfiles, setMatchProfiles] = useState<MatchProfile[]>([]);
   
   const [amenityImageIndices, setAmenityImageIndices] = useState({
     bathroom: 0,
@@ -186,12 +176,16 @@ const Matching = () => {
   
   const MAX_DAILY_SWIPES = 20;
 
-  const currentProfile = MOCK_ROOMMATES[currentIndex];
-
   useEffect(() => {
     const savedPath = localStorage.getItem('userPath');
     if (savedPath) {
       setUserPath(savedPath);
+      
+      if (savedPath === 'host') {
+        setMatchProfiles(SEEKER_PROFILES);
+      } else if (savedPath === 'seek') {
+        setMatchProfiles([...HOST_PROFILES, ...SEEKER_PROFILES]);
+      }
     }
     
     const storedSwipeData = localStorage.getItem('dailySwipes');
@@ -234,6 +228,8 @@ const Matching = () => {
 
   const hasReachedSwipeLimit = swipesUsed >= MAX_DAILY_SWIPES;
 
+  const currentProfile = matchProfiles[currentIndex];
+
   const incrementSwipeCount = () => {
     const newCount = swipesUsed + 1;
     setSwipesUsed(newCount);
@@ -253,12 +249,14 @@ const Matching = () => {
     setAnimation('swipe-right');
     incrementSwipeCount();
     
-    setMatches(prev => [...prev, currentProfile.id]);
-    
-    toast({
-      title: t("matching.itsAMatch"),
-      description: t("matching.matchDescription", { name: currentProfile.name }),
-    });
+    if (currentProfile) {
+      setMatches(prev => [...prev, currentProfile.id]);
+      
+      toast({
+        title: t("matching.itsAMatch"),
+        description: t("matching.matchDescription", { name: currentProfile.name }),
+      });
+    }
     
     setTimeout(() => {
       setAnimation(null);
@@ -286,7 +284,7 @@ const Matching = () => {
   };
 
   const goToNextProfile = () => {
-    if (currentIndex < MOCK_ROOMMATES.length - 1) {
+    if (currentIndex < matchProfiles.length - 1) {
       setCurrentIndex(prevIndex => prevIndex + 1);
     } else {
       toast({
@@ -331,6 +329,7 @@ const Matching = () => {
       distanceMedicalStore: profile.distanceMedicalStore,
       distancePublicTransport: profile.distancePublicTransport,
       distanceMetroStation: profile.distanceMetroStation,
+      userType: profile.userType
     };
   };
 
@@ -366,6 +365,7 @@ const Matching = () => {
     label: string, 
     icon: React.ReactNode 
   }) => {
+    if (!currentProfile) return null;
     const images = getAmenityImages(currentProfile?.sharedAmenityImages?.[type]);
     if (images.length === 0) return null;
     
@@ -455,6 +455,14 @@ const Matching = () => {
                 </span>
               </div>
             </div>
+
+            {currentProfile.userType && (
+              <Badge variant="outline" className={`mt-2 ${currentProfile.userType === 'host' ? 'bg-blue-100 text-blue-800 border-blue-200' : 'bg-amber-100 text-amber-800 border-amber-200'}`}>
+                {currentProfile.userType === 'host' 
+                  ? t('pathSelection.hostSpace') 
+                  : t('pathSelection.seekSettle')}
+              </Badge>
+            )}
             
             {currentProfile.preferences?.openToAllNationalities && (
               <Badge variant="outline" className="gap-1 mt-2">
@@ -466,12 +474,17 @@ const Matching = () => {
         );
         
       case 'room':
-        if (!currentProfile.roomImages || currentProfile.roomImages.length === 0) {
+        if ((!currentProfile.roomImages || currentProfile.roomImages.length === 0) && 
+            currentProfile.userType !== 'host') {
           return (
             <div className="text-center py-6 text-muted-foreground">
               <Home className="h-12 w-12 mx-auto mb-3 opacity-30" />
-              <p>{t('matching.profileHidden')}</p>
-              <p className="text-xs">{t('matching.visibleAfterMatch')}</p>
+              <p>{currentProfile.userType === 'seek' 
+                ? t('matching.noRoomImages') 
+                : t('matching.profileHidden')}</p>
+              {currentProfile.userType !== 'seek' && (
+                <p className="text-xs">{t('matching.visibleAfterMatch')}</p>
+              )}
             </div>
           );
         }
@@ -484,7 +497,7 @@ const Matching = () => {
             </div>
             
             <div className="grid grid-cols-2 gap-2">
-              {currentProfile.roomImages.slice(0, 4).map((image, idx) => (
+              {currentProfile.roomImages && currentProfile.roomImages.slice(0, 4).map((image, idx) => (
                 <div key={idx} className="aspect-square rounded-md overflow-hidden">
                   <img src={image} alt={`Room ${idx+1}`} className="w-full h-full object-cover" />
                 </div>

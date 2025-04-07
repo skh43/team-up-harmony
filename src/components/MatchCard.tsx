@@ -38,6 +38,7 @@ export type MatchProfile = {
   distanceMedicalStore?: string;
   distancePublicTransport?: string;
   distanceMetroStation?: string;
+  userType?: 'host' | 'seek';
 };
 
 interface MatchCardProps {
@@ -172,6 +173,12 @@ const MatchCard = ({
                 {profile.compatibility}% {t('matching.match')}
               </Badge>
               
+              {profile.userType && (
+                <Badge variant={profile.userType === 'host' ? 'secondary' : 'outline'} className={profile.userType === 'host' ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800'}>
+                  {profile.userType === 'host' ? t('pathSelection.hostSpace') : t('pathSelection.seekSettle')}
+                </Badge>
+              )}
+              
               {isMatched && (
                 <Badge variant="outline" className="bg-green-500/20 text-green-500 border-green-500/30">
                   {t('matching.matched')}
@@ -242,7 +249,7 @@ const MatchCard = ({
               
               {profile.livingReference && (
                 <div className="flex items-center text-sm space-x-2 mt-2">
-                  {userPath === 'host' ? (
+                  {profile.userType === 'host' ? (
                     <>
                       <Home className="h-4 w-4 text-green-500" />
                       <span className="font-medium text-green-600">
@@ -323,7 +330,14 @@ const MatchCard = ({
             <div className="h-72 flex items-center justify-center bg-muted/30">
               <div className="text-center p-6">
                 <Home className="h-16 w-16 text-muted-foreground/50 mx-auto mb-3" />
-                <p className="text-muted-foreground font-medium">{t('matching.noRoomImages')}</p>
+                <p className="text-muted-foreground font-medium">
+                  {profile.userType === 'seek' 
+                    ? t('matching.noRoomImages')
+                    : t('matching.profileHidden')}
+                </p>
+                {profile.userType !== 'seek' && !isMatched && (
+                  <p className="text-xs text-muted-foreground">{t('matching.visibleAfterMatch')}</p>
+                )}
               </div>
             </div>
           ) : (
