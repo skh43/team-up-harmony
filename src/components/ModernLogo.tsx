@@ -115,8 +115,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
               "font-bold tracking-tight whitespace-nowrap",
               textSizes[size]
             )}>
-              <span className="text-[#01CDFA] font-extrabold">The</span>
-              <span className="text-[#004E64] font-extrabold ml-1">Living Circle</span>
+              <span className="text-[#01CDFA] font-extrabold">Living</span>
+              <span className="text-[#004E64] font-extrabold ml-1">Circle<span className="text-[#01CDFA] text-sm">.co</span></span>
             </div>
           </div>
 
@@ -156,8 +156,8 @@ const ModernLogo: React.FC<ModernLogoProps> = ({
             </div>
           )}
           <div className="flex items-center whitespace-nowrap">
-            <span className="text-[#01CDFA] font-extrabold">The</span>
-            <span className="text-[#004E64] font-extrabold ml-1">Living Circle</span>
+            <span className="text-[#01CDFA] font-extrabold">Living</span>
+            <span className="text-[#004E64] font-extrabold ml-1">Circle<span className="text-[#01CDFA] text-sm">.co</span></span>
           </div>
         </div>
       )}
