@@ -29,6 +29,11 @@ const MOCK_ROOMMATES: MatchProfile[] = [
       'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2074&auto=format&fit=crop'
     ],
+    sharedAmenityImages: {
+      bathroom: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop',
+      kitchen: 'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?q=80&w=2070&auto=format&fit=crop',
+      livingRoom: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop'
+    },
     nationality: 'Canadian',
     workProfession: 'Marketing Manager',
     workTiming: '9 AM - 5 PM',
@@ -52,6 +57,10 @@ const MOCK_ROOMMATES: MatchProfile[] = [
       'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1980&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop'
     ],
+    sharedAmenityImages: {
+      bathroom: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?q=80&w=1974&auto=format&fit=crop',
+      kitchen: 'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?q=80&w=2067&auto=format&fit=crop'
+    },
     nationality: 'Emirati',
     workProfession: 'Software Engineer',
     workTiming: 'Flexible hours',
@@ -75,6 +84,10 @@ const MOCK_ROOMMATES: MatchProfile[] = [
       'https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1617104678098-de229db51175?q=80&w=2070&auto=format&fit=crop'
     ],
+    sharedAmenityImages: {
+      livingRoom: 'https://images.unsplash.com/photo-1582582621959-48d27397dc69?q=80&w=2069&auto=format&fit=crop',
+      other: 'https://images.unsplash.com/photo-1595514535415-dae8970c381a?q=80&w=2070&auto=format&fit=crop'
+    },
     nationality: 'Indian',
     workProfession: 'Medical Student',
     workTiming: 'Variable schedule',
@@ -98,6 +111,10 @@ const MOCK_ROOMMATES: MatchProfile[] = [
       'https://images.unsplash.com/photo-1602872030219-ad2b9a54315c?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?q=80&w=2070&auto=format&fit=crop'
     ],
+    sharedAmenityImages: {
+      bathroom: 'https://images.unsplash.com/photo-1584622781564-1d987f7333c1?q=80&w=2070&auto=format&fit=crop',
+      kitchen: 'https://images.unsplash.com/photo-1588854337115-1c67d9247e4d?q=80&w=2070&auto=format&fit=crop'
+    },
     nationality: 'British',
     workProfession: 'Financial Analyst',
     workTiming: '8 AM - 6 PM',
@@ -121,6 +138,11 @@ const MOCK_ROOMMATES: MatchProfile[] = [
       'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=2076&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1556702571-3e11dd2b1a92?q=80&w=2076&auto=format&fit=crop'
     ],
+    sharedAmenityImages: {
+      livingRoom: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?q=80&w=2070&auto=format&fit=crop',
+      kitchen: 'https://images.unsplash.com/photo-1600489000022-c2086d79f9d4?q=80&w=2070&auto=format&fit=crop',
+      bathroom: 'https://images.unsplash.com/photo-1604709177225-055f99402ea3?q=80&w=1974&auto=format&fit=crop'
+    },
     nationality: 'Korean',
     workProfession: 'UX Designer',
     workTiming: 'Hybrid - 3 days in office',
@@ -277,6 +299,7 @@ const Matching = () => {
       interests: profile.interests || [],
       preferences: profile.preferences,
       roomImages: profile.roomImages,
+      sharedAmenityImages: profile.sharedAmenityImages,
       nationality: profile.nationality,
       workProfession: profile.workProfession,
       workTiming: profile.workTiming,

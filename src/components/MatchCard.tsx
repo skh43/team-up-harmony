@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check, BedDouble, BedSingle, Users } from 'lucide-react';
+import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check, BedDouble, BedSingle, Users, Bath, KitchenPot, Sofa } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 
@@ -22,6 +22,12 @@ export interface MatchProfile {
     openToAllNationalities?: boolean;
   };
   roomImages?: string[];
+  sharedAmenityImages?: {
+    bathroom?: string;
+    kitchen?: string;
+    livingRoom?: string;
+    other?: string;
+  };
   nationality?: string;
   workProfession?: string;
   workTiming?: string;
@@ -49,6 +55,7 @@ const MatchCard = ({
   const [dragStartX, setDragStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [rotation, setRotation] = useState(0);
+  const [showSharedAmenities, setShowSharedAmenities] = useState(false);
   
   const userPath = localStorage.getItem('userPath') || 'seek';
   
@@ -107,6 +114,19 @@ const MatchCard = ({
       default: return livingRef;
     }
   };
+
+  // Function to toggle showing shared amenities
+  const toggleSharedAmenities = () => {
+    setShowSharedAmenities(!showSharedAmenities);
+  };
+
+  // Check if profile has any shared amenity images
+  const hasSharedAmenities = profile.sharedAmenityImages && (
+    profile.sharedAmenityImages.bathroom || 
+    profile.sharedAmenityImages.kitchen || 
+    profile.sharedAmenityImages.livingRoom || 
+    profile.sharedAmenityImages.other
+  );
 
   return (
     <Card 
@@ -241,6 +261,75 @@ const MatchCard = ({
               <span className="text-green-600">
                 {t('matching.openToAllNationalities', 'Open to living with all nationalities')}
               </span>
+            </div>
+          )}
+
+          {userPath === 'host' && hasSharedAmenities && (
+            <div>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="mt-2 text-xs"
+                onClick={toggleSharedAmenities}
+              >
+                {showSharedAmenities ? t('matching.hideAmenities') : t('matching.viewSharedAmenities')}
+              </Button>
+
+              {showSharedAmenities && (
+                <div className="mt-3 space-y-3">
+                  <h4 className="text-sm font-medium">{t('matching.sharedAmenities')}</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {profile.sharedAmenityImages?.bathroom && (
+                      <div className="relative">
+                        <img 
+                          src={profile.sharedAmenityImages.bathroom} 
+                          alt="Bathroom" 
+                          className="rounded-md h-20 w-full object-cover"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
+                          <Bath className="h-3 w-3 mr-1" /> {t('matching.bathroom')}
+                        </div>
+                      </div>
+                    )}
+                    {profile.sharedAmenityImages?.kitchen && (
+                      <div className="relative">
+                        <img 
+                          src={profile.sharedAmenityImages.kitchen} 
+                          alt="Kitchen" 
+                          className="rounded-md h-20 w-full object-cover"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
+                          <KitchenPot className="h-3 w-3 mr-1" /> {t('matching.kitchen')}
+                        </div>
+                      </div>
+                    )}
+                    {profile.sharedAmenityImages?.livingRoom && (
+                      <div className="relative">
+                        <img 
+                          src={profile.sharedAmenityImages.livingRoom} 
+                          alt="Living Room" 
+                          className="rounded-md h-20 w-full object-cover"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
+                          <Sofa className="h-3 w-3 mr-1" /> {t('matching.livingRoom')}
+                        </div>
+                      </div>
+                    )}
+                    {profile.sharedAmenityImages?.other && (
+                      <div className="relative">
+                        <img 
+                          src={profile.sharedAmenityImages.other} 
+                          alt="Other Space" 
+                          className="rounded-md h-20 w-full object-cover"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 flex items-center justify-center">
+                          <Home className="h-3 w-3 mr-1" /> {t('matching.otherSpace')}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>
