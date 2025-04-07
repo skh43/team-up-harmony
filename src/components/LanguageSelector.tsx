@@ -15,9 +15,7 @@ const LanguageSelector = ({ className }: LanguageSelectorProps) => {
   
   const languages = [
     { code: 'en', name: 'English' },
-    { code: 'ar', name: 'العربية' },
-    { code: 'zh', name: '中文' },
-    { code: 'fil', name: 'Filipino' }
+    { code: 'ar', name: 'العربية' }
   ];
   
   const changeLanguage = (value: string) => {
