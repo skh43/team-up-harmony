@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map, BedDouble, Users } from "lucide-react";
+import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map, BedDouble, Users, Bath, Utensils } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -60,12 +60,26 @@ const nationalities = [
   "Singaporean", "South African", "Spanish", "Turkish", "Other"
 ];
 
+// Shared amenity types
+const AMENITY_TYPES = [
+  { id: "bathroom", label: "Bathroom", icon: <Bath className="w-4 h-4 mr-2" /> },
+  { id: "kitchen", label: "Kitchen", icon: <Utensils className="w-4 h-4 mr-2" /> },
+  { id: "livingRoom", label: "Living Room", icon: <Sofa className="w-4 h-4 mr-2" /> },
+  { id: "other", label: "Other Spaces", icon: <Home className="w-4 h-4 mr-2" /> }
+];
+
 export default function ProfileCreation() {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [roomImages, setRoomImages] = useState<string[]>([]);
+  const [sharedAmenityImages, setSharedAmenityImages] = useState<Record<string, string[]>>({
+    bathroom: [],
+    kitchen: [],
+    livingRoom: [],
+    other: []
+  });
   const [userPath, setUserPath] = useState<string>('host'); // Default to 'host'
   
   // Check if this is Seek & Settle path by getting path from location state
@@ -114,11 +128,20 @@ export default function ProfileCreation() {
       ...values,
       profilePhoto,
       roomImages,
+      sharedAmenityImages,
       userPath
     });
     // Redirect to the next step
     navigate("/matching");
   }
+
+  // Handler for adding shared amenity images
+  const handleAmenityImageChange = (type: string, images: string[]) => {
+    setSharedAmenityImages(prev => ({
+      ...prev,
+      [type]: images
+    }));
+  };
 
   return (
     <div className="max-w-md mx-auto p-6">
@@ -354,6 +377,30 @@ export default function ProfileCreation() {
                   setImages={setRoomImages}
                   minImages={2}
                 />
+              </div>
+              
+              {/* Shared Amenities Images */}
+              <div className="mt-8">
+                <h3 className="text-lg font-semibold mb-3">{t('profileCreation.sharedAmenities')}</h3>
+                <p className="text-muted-foreground mb-4">
+                  Add photos of the shared spaces that tenants will have access to
+                </p>
+                
+                <div className="space-y-6">
+                  {AMENITY_TYPES.map((amenity) => (
+                    <div key={amenity.id} className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        {amenity.icon}
+                        <h4 className="font-medium">{amenity.label}</h4>
+                      </div>
+                      <PropertyImageUpload 
+                        images={sharedAmenityImages[amenity.id as keyof typeof sharedAmenityImages]}
+                        setImages={(images) => handleAmenityImageChange(amenity.id, images)}
+                        minImages={1}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
               
               {/* Room Description */}
