@@ -1,3 +1,4 @@
+
 {
   "common": {
     "welcome": "欢迎回来",
@@ -70,7 +71,7 @@
     "hostSpace": "主持我的空间",
     "hostSpaceDesc": "我已经有了一个地方，正在寻找愿意与我分享的人。",
     "seekSettle": "寻找与安定",
-    "seekSettleDesc": "I want to find a compatible roommate first, then we'll find a place together OR FIND SOME ONE WHO IS HOSTING",
+    "seekSettleDesc": "我想先找到一个兼容的室友，然后我们一起找地方，或加入已有住处的人。",
     "selected": "已选择",
     "select": "选择",
     "continue": "继续",
