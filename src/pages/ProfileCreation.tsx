@@ -509,6 +509,65 @@ export default function ProfileCreation() {
                     )}
                   />
                 </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="distanceMedicalStore"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Hospital className="w-4 h-4" /> {t('profileCreation.distanceMedicalStore')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.distanceMedicalStorePlaceholder')} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="distancePublicTransport"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Bus className="w-4 h-4" /> {t('profileCreation.distancePublicTransport')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.distancePublicTransportPlaceholder')} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                
+                <FormField
+                  control={form.control}
+                  name="distanceMetroStation"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">
+                        <Train className="w-4 h-4" /> {t('profileCreation.distanceMetroStation')}
+                      </FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder={t('profileCreation.distanceMetroStationPlaceholder')} 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </TabsContent>
             )}
           </TabView>
