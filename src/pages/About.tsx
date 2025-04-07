@@ -1,163 +1,215 @@
 
 import React from 'react';
-import MainLayout from '@/layouts/MainLayout';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { Check, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Users, CheckCircle, Star, Crown, Heart, ArrowRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
+import MainLayout from '@/layouts/MainLayout';
 
 const About = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  // Ensure features arrays are properly typed as string[]
+  const generalFeatures: string[] = t('about.features', { returnObjects: true }) as string[];
+  
+  const basicFeatures: string[] = t('about.basicFeatures', { returnObjects: true }) as string[];
+  
+  const comfortFeatures: string[] = t('about.comfortFeatures', { returnObjects: true }) as string[];
+  
+  const eliteFeatures: string[] = t('about.eliteFeatures', { returnObjects: true }) as string[];
 
   return (
-    <MainLayout className="py-20 bg-gradient-to-b from-blue-50 to-purple-50">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="text-center mb-16 mt-12">
-          <div className="inline-block mb-4 animate-float">
-            <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
-              <h1 className="text-5xl font-bold mb-6">{t('about.title')}</h1>
-            </div>
-          </div>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto bg-white/50 backdrop-blur-sm p-4 rounded-lg shadow-subtle">
-            {t('about.mission')}
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-          <div className="glass-card p-8 rounded-2xl shadow-elegant">
-            <h2 className="text-2xl font-bold mb-4 text-gradient-primary">{t('about.platformTitle')}</h2>
-            <p className="text-lg mb-6">
-              {t('about.platformDesc1')}
-            </p>
-            <p className="text-lg">
-              {t('about.platformDesc2')}
-            </p>
-            <div className="mt-6">
-              <Button asChild variant="outline" className="rounded-full border-blue-300 hover:bg-blue-100/50 hover:text-blue-700">
-                <Link to="/register">{t('about.joinToday')}</Link>
+    <MainLayout>
+      <div className="py-12 bg-gradient-to-r from-airbnb-light/30 to-white">
+        <div className="container px-4 mx-auto max-w-6xl">
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold font-playfair mb-6">{t('about.title')}</h1>
+            <p className="text-lg text-gray-700 mb-10">{t('about.mission')}</p>
+            <div className="flex justify-center">
+              <Button 
+                variant="airbnb" 
+                size="lg" 
+                className="px-8"
+                onClick={() => navigate('/living-plan-selection')}
+              >
+                {t('about.joinToday')}
               </Button>
             </div>
           </div>
-          <div className="bg-gradient-to-r from-blue-100 to-purple-100 rounded-2xl p-6 flex items-center justify-center shadow-neon">
-            <div className="glass-panel rounded-xl p-8 max-w-md border border-white/20 shadow-elegant">
-              <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
-                <Sparkles className="h-5 w-5 text-yellow-500" /> 
-                {t('about.whyChooseUs')}
-              </h3>
-              <ul className="space-y-3">
-                {t('about.features', { returnObjects: true }).map((item, index) => (
-                  <li key={index} className="flex items-start animate-fade-in" style={{animationDelay: `${index * 100}ms`}}>
-                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 mr-3">
-                      <Check className="h-3.5 w-3.5 text-white" />
-                    </div>
-                    <span className="font-medium">{item}</span>
+        </div>
+      </div>
+
+      <div className="py-16 bg-white">
+        <div className="container px-4 mx-auto max-w-6xl">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-3xl font-bold font-playfair mb-6">{t('about.platformTitle')}</h2>
+              <p className="text-gray-700 mb-4">{t('about.platformDesc1')}</p>
+              <p className="text-gray-700 mb-8">{t('about.platformDesc2')}</p>
+              
+              <h3 className="text-xl font-bold mb-4">{t('about.whyChooseUs')}</h3>
+              <ul className="space-y-2 mb-8">
+                {generalFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-airbnb-red mr-2 mt-0.5 flex-shrink-0" />
+                    <span>{feature}</span>
                   </li>
                 ))}
               </ul>
             </div>
+            <div className="bg-airbnb-light/30 rounded-xl p-8 shadow-subtle">
+              <div className="bg-white rounded-lg p-6 shadow-md">
+                <div className="flex justify-center mb-4">
+                  <Users className="h-12 w-12 text-airbnb-red" />
+                </div>
+                <h3 className="text-xl font-bold text-center mb-2">{t('roommate.title')}</h3>
+                <p className="text-gray-600 text-center mb-6">{t('roommate.subtitle')}</p>
+                
+                <div className="space-y-4">
+                  <div className="flex items-start">
+                    <div className="bg-airbnb-light rounded-full h-8 w-8 flex items-center justify-center text-airbnb-red font-bold mr-3 flex-shrink-0">1</div>
+                    <div>
+                      <h4 className="font-bold text-airbnb-navy">{t('roommate.step1Title')}</h4>
+                      <p className="text-sm text-gray-600">{t('roommate.step1Description')}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-airbnb-light rounded-full h-8 w-8 flex items-center justify-center text-airbnb-red font-bold mr-3 flex-shrink-0">2</div>
+                    <div>
+                      <h4 className="font-bold text-airbnb-navy">{t('roommate.step2Title')}</h4>
+                      <p className="text-sm text-gray-600">{t('roommate.step2Description')}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-airbnb-light rounded-full h-8 w-8 flex items-center justify-center text-airbnb-red font-bold mr-3 flex-shrink-0">3</div>
+                    <div>
+                      <h4 className="font-bold text-airbnb-navy">{t('roommate.step3Title')}</h4>
+                      <p className="text-sm text-gray-600">{t('roommate.step3Description')}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start">
+                    <div className="bg-airbnb-light rounded-full h-8 w-8 flex items-center justify-center text-airbnb-red font-bold mr-3 flex-shrink-0">4</div>
+                    <div>
+                      <h4 className="font-bold text-airbnb-navy">{t('roommate.step4Title')}</h4>
+                      <p className="text-sm text-gray-600">{t('roommate.step4Description')}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <Tabs defaultValue="basic" className="mb-16">
-          <h2 className="text-3xl font-bold mb-6 text-center bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">{t('about.plans')}</h2>
-          <TabsList className="grid grid-cols-3 w-full max-w-2xl mx-auto bg-blue-100/70 p-1 rounded-xl">
-            <TabsTrigger value="basic" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-blue-600 data-[state=active]:text-white rounded-lg transition-all">{t('properties.basic')}</TabsTrigger>
-            <TabsTrigger value="comfort" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-purple-600 data-[state=active]:text-white rounded-lg transition-all">{t('properties.comfort')}</TabsTrigger>
-            <TabsTrigger value="elite" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-pink-600 data-[state=active]:text-white rounded-lg transition-all">{t('properties.elite')}</TabsTrigger>
-          </TabsList>
-          <TabsContent value="basic" className="mt-8 animate-scale-in">
-            <Card className="overflow-hidden border-0 shadow-elegant">
-              <CardHeader className="text-center bg-gradient-to-r from-blue-400/20 to-blue-500/20 rounded-t-lg">
-                <CardTitle className="text-2xl bg-gradient-to-r from-blue-600 to-blue-800 text-transparent bg-clip-text">{t('about.basicPlan')}</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6 bg-white">
-                <div className="grid gap-4">
-                  <p className="text-center text-muted-foreground mb-4">
-                    {t('about.basicPlanDesc')}
-                  </p>
-                  <ul className="space-y-3 mb-6">
-                    {t('about.basicFeatures', { returnObjects: true }).map((item, index) => (
-                      <li key={index} className="flex items-start">
-                        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600 mr-3">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button asChild className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white shadow-subtle" size="lg">
-                    <Link to="/living-plan-selection">{t('about.selectBasicPlan')}</Link>
-                  </Button>
+      <div className="py-16 bg-airbnb-light/30">
+        <div className="container px-4 mx-auto max-w-6xl">
+          <h2 className="text-3xl font-bold text-center font-playfair mb-12">{t('about.plans')}</h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Basic Plan */}
+            <div className="bg-white rounded-xl shadow-subtle p-6 border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 rounded-full bg-airbnb-light flex items-center justify-center">
+                  <Star className="h-8 w-8 text-airbnb-red" />
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="comfort" className="mt-8 animate-scale-in">
-            <Card className="overflow-hidden border-0 shadow-elegant">
-              <CardHeader className="text-center bg-gradient-to-r from-purple-400/20 to-purple-500/20 rounded-t-lg">
-                <CardTitle className="text-2xl bg-gradient-to-r from-purple-600 to-purple-800 text-transparent bg-clip-text">{t('about.comfortPlan')}</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6 bg-white">
-                <div className="grid gap-4">
-                  <p className="text-center text-muted-foreground mb-4">
-                    {t('about.comfortPlanDesc')}
-                  </p>
-                  <ul className="space-y-3 mb-6">
-                    {t('about.comfortFeatures', { returnObjects: true }).map((item, index) => (
-                      <li key={index} className="flex items-start">
-                        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-purple-100 text-purple-600 mr-3">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button asChild className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white shadow-subtle" size="lg">
-                    <Link to="/living-plan-selection">{t('about.selectComfortPlan')}</Link>
-                  </Button>
+              </div>
+              <h3 className="text-xl font-bold text-center mb-2">{t('about.basicPlan')}</h3>
+              <p className="text-gray-600 text-center mb-6">{t('about.basicPlanDesc')}</p>
+              
+              <ul className="space-y-2 mb-8">
+                {basicFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-airbnb-red mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => navigate('/living-plan-selection')}
+              >
+                {t('about.selectBasicPlan')}
+              </Button>
+            </div>
+            
+            {/* Comfort Plan */}
+            <div className="bg-white rounded-xl shadow-subtle p-6 border border-airbnb-red/30 hover:shadow-md transition-shadow relative transform scale-105">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-airbnb-red text-white px-4 py-1 rounded-full text-sm font-medium">
+                {t('common.recommended')}
+              </div>
+              <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 rounded-full bg-airbnb-light flex items-center justify-center">
+                  <Heart className="h-8 w-8 text-airbnb-red" />
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="elite" className="mt-8 animate-scale-in">
-            <Card className="overflow-hidden border-0 shadow-elegant">
-              <CardHeader className="text-center bg-gradient-to-r from-pink-400/20 to-pink-500/20 rounded-t-lg">
-                <CardTitle className="text-2xl bg-gradient-to-r from-pink-600 to-pink-800 text-transparent bg-clip-text">{t('about.elitePlan')}</CardTitle>
-              </CardHeader>
-              <CardContent className="pt-6 bg-white">
-                <div className="grid gap-4">
-                  <p className="text-center text-muted-foreground mb-4">
-                    {t('about.elitePlanDesc')}
-                  </p>
-                  <ul className="space-y-3 mb-6">
-                    {t('about.eliteFeatures', { returnObjects: true }).map((item, index) => (
-                      <li key={index} className="flex items-start">
-                        <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-pink-100 text-pink-600 mr-3">
-                          <Check className="h-3.5 w-3.5" />
-                        </div>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <Button asChild className="w-full bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 text-white shadow-subtle" size="lg">
-                    <Link to="/living-plan-selection">{t('about.selectElitePlan')}</Link>
-                  </Button>
+              </div>
+              <h3 className="text-xl font-bold text-center mb-2">{t('about.comfortPlan')}</h3>
+              <p className="text-gray-600 text-center mb-6">{t('about.comfortPlanDesc')}</p>
+              
+              <ul className="space-y-2 mb-8">
+                {comfortFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-airbnb-red mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <Button 
+                variant="airbnb" 
+                className="w-full"
+                onClick={() => navigate('/living-plan-selection')}
+              >
+                {t('about.selectComfortPlan')}
+              </Button>
+            </div>
+            
+            {/* Elite Plan */}
+            <div className="bg-white rounded-xl shadow-subtle p-6 border border-gray-100 hover:shadow-md transition-shadow">
+              <div className="flex justify-center mb-6">
+                <div className="w-16 h-16 rounded-full bg-airbnb-light flex items-center justify-center">
+                  <Crown className="h-8 w-8 text-airbnb-red" />
                 </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
-
-        <div className="text-center mt-12 mb-8">
-          <div className="max-w-xl mx-auto p-8 bg-gradient-to-r from-blue-100/50 to-purple-100/50 rounded-2xl shadow-elegant">
-            <h2 className="text-2xl font-bold mb-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-transparent bg-clip-text">{t('about.readyToFind')}</h2>
-            <p className="mb-6 text-lg">{t('about.joinThousands')}</p>
-            <Button asChild size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full px-8 shadow-neon">
-              <Link to="/register">{t('about.getStartedToday')}</Link>
-            </Button>
+              </div>
+              <h3 className="text-xl font-bold text-center mb-2">{t('about.elitePlan')}</h3>
+              <p className="text-gray-600 text-center mb-6">{t('about.elitePlanDesc')}</p>
+              
+              <ul className="space-y-2 mb-8">
+                {eliteFeatures.map((feature, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckCircle className="h-5 w-5 text-airbnb-red mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <Button 
+                variant="outline" 
+                className="w-full"
+                onClick={() => navigate('/living-plan-selection')}
+              >
+                {t('about.selectElitePlan')}
+              </Button>
+            </div>
           </div>
+        </div>
+      </div>
+      
+      <div className="py-16 bg-white">
+        <div className="container px-4 mx-auto text-center max-w-3xl">
+          <h2 className="text-3xl font-bold mb-6 font-playfair">{t('about.readyToFind')}</h2>
+          <p className="text-lg text-gray-600 mb-8">{t('about.joinThousands')}</p>
+          
+          <Button 
+            variant="airbnb" 
+            size="lg"
+            className="px-8 inline-flex items-center"
+            onClick={() => navigate('/register')}
+          >
+            {t('about.getStartedToday')} <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
         </div>
       </div>
     </MainLayout>

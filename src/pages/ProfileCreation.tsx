@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -23,6 +23,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import ProfilePhotoUpload from '@/components/ProfilePhotoUpload';
 import { Textarea } from "@/components/ui/textarea";
 import PropertyImageUpload from '@/components/PropertyImageUpload';
+import { useTranslation } from 'react-i18next';
 
 // Define the form schema with Zod
 const formSchema = z.object({
@@ -36,10 +37,10 @@ const formSchema = z.object({
   workTiming: z.string().min(2, "Please specify your work schedule"),
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
-  // Room details fields
-  roomDescription: z.string().min(10, "Please provide details about your room/space").optional(),
-  sharedFacilities: z.string().min(5, "Please list the facilities you're willing to share").optional(),
-  // New location and amenities fields
+  // Room details fields - made optional since they might not be needed for Seek & Settle path
+  roomDescription: z.string().optional(),
+  sharedFacilities: z.string().optional(),
+  // New location and amenities fields - also made optional
   mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
   distanceHospital: z.string().optional(),
   distanceSupermarket: z.string().optional(),
@@ -60,8 +61,27 @@ const nationalities = [
 
 export default function ProfileCreation() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { t } = useTranslation();
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [roomImages, setRoomImages] = useState<string[]>([]);
+  const [userPath, setUserPath] = useState<string>('host'); // Default to 'host'
+  
+  // Check if this is Seek & Settle path by getting path from location state
+  useEffect(() => {
+    if (location.state && location.state.path) {
+      setUserPath(location.state.path);
+    } else {
+      // Try to get from localStorage if not in location state
+      const savedPath = localStorage.getItem('userPath');
+      if (savedPath) {
+        setUserPath(savedPath);
+      }
+    }
+  }, [location]);
+
+  // Determine if we should show the room details section
+  const showRoomDetails = userPath === 'host';
   
   // Initialize the form
   const form = useForm<z.infer<typeof formSchema>>({
@@ -91,7 +111,8 @@ export default function ProfileCreation() {
     console.log({
       ...values,
       profilePhoto,
-      roomImages
+      roomImages,
+      userPath
     });
     // Redirect to the next step
     navigate("/matching");
@@ -105,8 +126,8 @@ export default function ProfileCreation() {
       
       <div className="mb-6">
         <BackButton />
-        <h1 className="text-2xl font-bold mt-4 mb-2">Create Your Profile</h1>
-        <p className="text-muted-foreground">Tell us about yourself to help find your perfect roommate match.</p>
+        <h1 className="text-2xl font-bold mt-4 mb-2">{t('profileCreation.title')}</h1>
+        <p className="text-muted-foreground">{t('profileCreation.subtitle')}</p>
       </div>
       
       <ProfilePhotoUpload 
@@ -124,9 +145,9 @@ export default function ProfileCreation() {
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>First Name</FormLabel>
+                  <FormLabel>{t('profileCreation.firstName')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="John" {...field} />
+                    <Input placeholder={t('profileCreation.firstNamePlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -138,9 +159,9 @@ export default function ProfileCreation() {
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Last Name</FormLabel>
+                  <FormLabel>{t('profileCreation.lastName')}</FormLabel>
                   <FormControl>
-                    <Input placeholder="Doe" {...field} />
+                    <Input placeholder={t('profileCreation.lastNamePlaceholder')} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -154,7 +175,7 @@ export default function ProfileCreation() {
               name="age"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Age</FormLabel>
+                  <FormLabel>{t('profileCreation.age')}</FormLabel>
                   <FormControl>
                     <Input type="number" placeholder="25" {...field} />
                   </FormControl>
@@ -168,18 +189,18 @@ export default function ProfileCreation() {
               name="gender"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Gender</FormLabel>
+                  <FormLabel>{t('profileCreation.gender')}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select gender" />
+                        <SelectValue placeholder={t('profileCreation.selectGender')} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="male">Male</SelectItem>
-                      <SelectItem value="female">Female</SelectItem>
-                      <SelectItem value="nonbinary">Non-binary</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="male">{t('profileCreation.male')}</SelectItem>
+                      <SelectItem value="female">{t('profileCreation.female')}</SelectItem>
+                      <SelectItem value="nonbinary">{t('profileCreation.nonbinary')}</SelectItem>
+                      <SelectItem value="other">{t('profileCreation.other')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -194,10 +215,10 @@ export default function ProfileCreation() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
-                  <Briefcase className="w-4 h-4" /> Work Profession
+                  <Briefcase className="w-4 h-4" /> {t('profileCreation.workProfession')}
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="Software Engineer, Teacher, etc." {...field} />
+                  <Input placeholder={t('profileCreation.workProfessionPlaceholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -210,10 +231,10 @@ export default function ProfileCreation() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" /> Work Schedule
+                  <Clock className="w-4 h-4" /> {t('profileCreation.workSchedule')}
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="9am-5pm weekdays, night shifts, remote, etc." {...field} />
+                  <Input placeholder={t('profileCreation.workSchedulePlaceholder')} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -226,12 +247,12 @@ export default function ProfileCreation() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
-                  <Flag className="w-4 h-4" /> Nationality
+                  <Flag className="w-4 h-4" /> {t('profileCreation.nationality')}
                 </FormLabel>
                 <Select onValueChange={field.onChange} defaultValue={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select your nationality" />
+                      <SelectValue placeholder={t('profileCreation.selectNationality')} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -260,214 +281,218 @@ export default function ProfileCreation() {
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <FormLabel>
-                    Open to living with all nationalities
+                    {t('profileCreation.openToAllNationalities')}
                   </FormLabel>
                   <FormDescription>
-                    Check this if you're comfortable living with people from any background
+                    {t('profileCreation.openToAllNationalitiesDesc')}
                   </FormDescription>
                 </div>
               </FormItem>
             )}
           />
           
-          {/* Add the Room/Space Section */}
-          <div className="my-6 border-t border-gray-200 pt-6">
-            <h2 className="text-xl font-semibold mb-4">Your Room/Space Details</h2>
-            <p className="text-muted-foreground mb-4">
-              Upload photos and provide details about the room or bed space you're offering.
-            </p>
-          </div>
-          
-          {/* Room Images Upload */}
-          <div>
-            <PropertyImageUpload 
-              images={roomImages}
-              setImages={setRoomImages}
-              minImages={2}
-            />
-          </div>
-          
-          {/* Room Description */}
-          <FormField
-            control={form.control}
-            name="roomDescription"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Home className="w-4 h-4" /> Room/Space Description
-                </FormLabel>
-                <FormControl>
-                  <Textarea 
-                    placeholder="Describe your room or bed space in detail (size, furnishings, window, etc.)" 
-                    className="min-h-24" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormDescription>
-                  Provide details about your room/space to help potential roommates understand what you're offering
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          {/* Shared Facilities */}
-          <FormField
-            control={form.control}
-            name="sharedFacilities"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Coffee className="w-4 h-4" /> Shared Facilities
-                </FormLabel>
-                <FormControl>
-                  <Textarea 
-                    placeholder="List all facilities you're willing to share (kitchen, bathroom, living room, wifi, etc.)" 
-                    className="min-h-24" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormDescription>
-                  Clearly mention which facilities will be shared with roommates
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          {/* NEW: Nearby Amenities & Location Section */}
-          <div className="my-6 border-t border-gray-200 pt-6">
-            <h2 className="text-xl font-semibold mb-4">Nearby Amenities & Location</h2>
-            <p className="text-muted-foreground mb-4">
-              Help potential roommates understand your location and nearby facilities.
-            </p>
-          </div>
-          
-          {/* Map Link */}
-          <FormField
-            control={form.control}
-            name="mapLink"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Map className="w-4 h-4" /> Map Link
-                </FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="e.g. https://maps.google.com/?q=your-property-location" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormDescription>
-                  Paste a link to Google Maps or any other map service showing your property location
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          {/* Hospital distance */}
-          <FormField
-            control={form.control}
-            name="distanceHospital"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Hospital className="w-4 h-4" /> Distance to Nearest Hospital
-                </FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="e.g. 2.5 km" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          {/* Supermarket distance */}
-          <FormField
-            control={form.control}
-            name="distanceSupermarket"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <ShoppingCart className="w-4 h-4" /> Distance to Nearest Supermarket
-                </FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="e.g. 0.5 km" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          {/* Medical Store distance */}
-          <FormField
-            control={form.control}
-            name="distanceMedicalStore"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4" /> Distance to Nearest Medical Store
-                </FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="e.g. 1 km" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          {/* Public Transport distance */}
-          <FormField
-            control={form.control}
-            name="distancePublicTransport"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Bus className="w-4 h-4" /> Distance to Public Transport
-                </FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="e.g. 0.2 km" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          
-          {/* Metro Station distance */}
-          <FormField
-            control={form.control}
-            name="distanceMetroStation"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="flex items-center gap-2">
-                  <Train className="w-4 h-4" /> Distance to Metro Station
-                </FormLabel>
-                <FormControl>
-                  <Input 
-                    placeholder="e.g. 1.5 km" 
-                    {...field} 
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          {/* Room/Space Section - Only show for "Host My Space" path */}
+          {showRoomDetails && (
+            <>
+              <div className="my-6 border-t border-gray-200 pt-6">
+                <h2 className="text-xl font-semibold mb-4">{t('profileCreation.roomDetails')}</h2>
+                <p className="text-muted-foreground mb-4">
+                  {t('profileCreation.roomDetailsDesc')}
+                </p>
+              </div>
+              
+              {/* Room Images Upload */}
+              <div>
+                <PropertyImageUpload 
+                  images={roomImages}
+                  setImages={setRoomImages}
+                  minImages={2}
+                />
+              </div>
+              
+              {/* Room Description */}
+              <FormField
+                control={form.control}
+                name="roomDescription"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Home className="w-4 h-4" /> {t('profileCreation.roomDescription')}
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea 
+                        placeholder={t('profileCreation.roomDescriptionPlaceholder')} 
+                        className="min-h-24" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t('profileCreation.roomDescriptionHelp')}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              {/* Shared Facilities */}
+              <FormField
+                control={form.control}
+                name="sharedFacilities"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Coffee className="w-4 h-4" /> {t('profileCreation.sharedFacilities')}
+                    </FormLabel>
+                    <FormControl>
+                      <Textarea 
+                        placeholder={t('profileCreation.sharedFacilitiesPlaceholder')} 
+                        className="min-h-24" 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t('profileCreation.sharedFacilitiesHelp')}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              {/* Nearby Amenities & Location Section */}
+              <div className="my-6 border-t border-gray-200 pt-6">
+                <h2 className="text-xl font-semibold mb-4">{t('profileCreation.nearbyAmenities')}</h2>
+                <p className="text-muted-foreground mb-4">
+                  {t('profileCreation.nearbyAmenitiesDesc')}
+                </p>
+              </div>
+              
+              {/* Map Link */}
+              <FormField
+                control={form.control}
+                name="mapLink"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Map className="w-4 h-4" /> {t('profileCreation.mapLink')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder={t('profileCreation.mapLinkPlaceholder')} 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      {t('profileCreation.mapLinkDesc')}
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              {/* Hospital distance */}
+              <FormField
+                control={form.control}
+                name="distanceHospital"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Hospital className="w-4 h-4" /> {t('profileCreation.distanceHospital')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder={t('profileCreation.distanceHospitalPlaceholder')} 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              {/* Supermarket distance */}
+              <FormField
+                control={form.control}
+                name="distanceSupermarket"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <ShoppingCart className="w-4 h-4" /> {t('profileCreation.distanceSupermarket')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder={t('profileCreation.distanceSupermarketPlaceholder')} 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              {/* Medical Store distance */}
+              <FormField
+                control={form.control}
+                name="distanceMedicalStore"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" /> {t('profileCreation.distanceMedicalStore')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder={t('profileCreation.distanceMedicalStorePlaceholder')} 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              {/* Public Transport distance */}
+              <FormField
+                control={form.control}
+                name="distancePublicTransport"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Bus className="w-4 h-4" /> {t('profileCreation.distancePublicTransport')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder={t('profileCreation.distancePublicTransportPlaceholder')} 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              {/* Metro Station distance */}
+              <FormField
+                control={form.control}
+                name="distanceMetroStation"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">
+                      <Train className="w-4 h-4" /> {t('profileCreation.distanceMetroStation')}
+                    </FormLabel>
+                    <FormControl>
+                      <Input 
+                        placeholder={t('profileCreation.distanceMetroStationPlaceholder')} 
+                        {...field} 
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </>
+          )}
           
           <Button type="submit" variant="airbnb" className="w-full">
-            Continue
+            {t('common.continue')}
           </Button>
         </form>
       </Form>

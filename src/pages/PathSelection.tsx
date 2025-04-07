@@ -1,137 +1,111 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Home, Users, CheckCircle2 } from 'lucide-react';
-import { useToast } from '@/components/ui/use-toast';
-import MainLayout from '@/layouts/MainLayout';
-import { cn } from '@/lib/utils';
+import { toast } from "sonner";
 import { useTranslation } from 'react-i18next';
-
-type UserPath = 'has-room' | 'needs-roommate' | null;
+import { Home, Users } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import BackButton from '@/components/BackButton';
+import ModernLogo from '@/components/ModernLogo';
 
 const PathSelection = () => {
-  const { toast } = useToast();
-  const navigate = useNavigate();
-  const [selectedPath, setSelectedPath] = useState<UserPath>(null);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [selectedPath, setSelectedPath] = useState<string | null>(null);
   
-  const handlePathChange = (path: UserPath) => {
-    setSelectedPath(path);
-  };
-  
+  // Check if path is already stored in localStorage
+  useEffect(() => {
+    const savedPath = localStorage.getItem('userPath');
+    if (savedPath) {
+      setSelectedPath(savedPath);
+    }
+  }, []);
+
   const handleContinue = () => {
     if (!selectedPath) {
-      toast({
-        title: t('pathSelection.selectionRequired'),
-        description: t('pathSelection.pleaseSelect'),
-        variant: "destructive",
+      toast.error(t('pathSelection.selectionRequired'), {
+        description: t('pathSelection.pleaseSelect')
       });
       return;
     }
     
-    // Store selection in state management or localStorage if needed
+    // Save path to localStorage
     localStorage.setItem('userPath', selectedPath);
     
-    // Navigate to profile creation after path selection
-    navigate('/profile-creation');
+    // Navigate to next step with path in state
+    navigate('/profile-creation', { state: { path: selectedPath } });
   };
-  
+
   return (
-    <MainLayout className="flex flex-col items-center justify-center min-h-screen p-4">
-      <div className="w-full max-w-5xl">
-        <div className="mb-10 text-center">
-          <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            {t('pathSelection.step')}
-          </span>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('pathSelection.title')}</h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {t('pathSelection.subtitle')}
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-6 mb-10 max-w-4xl mx-auto">
-          <PathCard
-            icon={<Home className="h-10 w-10" />}
-            title={t('pathSelection.hostSpace')}
-            description={t('pathSelection.hostSpaceDesc')}
-            selected={selectedPath === 'has-room'}
-            onClick={() => handlePathChange('has-room')}
-          />
-          
-          <PathCard
-            icon={<Users className="h-10 w-10" />}
-            title={t('pathSelection.seekSettle')}
-            description={t('pathSelection.seekSettleDesc')}
-            selected={selectedPath === 'needs-roommate'}
-            onClick={() => handlePathChange('needs-roommate')}
-          />
-        </div>
-        
-        <div className="text-center">
-          <Button 
-            size="lg" 
-            onClick={handleContinue}
-            className="rounded-full px-8 py-6 text-base shadow-subtle"
-          >
-            {t('pathSelection.continue')} <ArrowRight className="ml-2 h-5 w-5" />
-          </Button>
-        </div>
+    <div className="max-w-md mx-auto p-6">
+      <div className="flex justify-center mb-8">
+        <ModernLogo size="large" />
       </div>
-    </MainLayout>
-  );
-};
-
-interface PathCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  selected: boolean;
-  onClick: () => void;
-}
-
-const PathCard = ({ icon, title, description, selected, onClick }: PathCardProps) => {
-  const { t } = useTranslation();
-  
-  return (
-    <Card 
-      className={cn(
-        "cursor-pointer overflow-hidden transition-all duration-300 border hover:border-primary/50 relative",
-        selected ? "border-primary ring-2 ring-primary/20 shadow-elegant" : "shadow-subtle"
-      )}
-      onClick={onClick}
-    >
-      {selected && (
-        <div className="absolute top-3 right-3">
-          <CheckCircle2 className="h-6 w-6 text-primary" />
-        </div>
-      )}
-      <CardHeader>
-        <div className={cn(
-          "w-16 h-16 rounded-full flex items-center justify-center mb-4 transition-colors",
-          selected ? "bg-primary/10 text-primary" : "bg-secondary text-foreground/80"
-        )}>
-          {icon}
-        </div>
-        <CardTitle className="text-xl">{title}</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <CardDescription className="text-base">{description}</CardDescription>
-      </CardContent>
-      <CardFooter className="pt-0">
-        <Button 
-          variant={selected ? "default" : "outline"} 
-          className="w-full rounded-md" 
-          onClick={(e) => {
-            e.stopPropagation();
-            onClick();
-          }}
-        >
-          {selected ? t('pathSelection.selected') : t('pathSelection.select')}
-        </Button>
-      </CardFooter>
-    </Card>
+      
+      <div className="mb-6">
+        <BackButton />
+        <p className="text-sm text-muted-foreground mt-6">{t('pathSelection.step')}</p>
+        <h1 className="text-2xl font-bold mt-2 mb-2">{t('pathSelection.title')}</h1>
+        <p className="text-muted-foreground">{t('pathSelection.subtitle')}</p>
+      </div>
+      
+      <div className="space-y-4 my-6">
+        <Card className={`cursor-pointer transition-all hover:shadow-md ${selectedPath === 'host' ? 'border-airbnb-red ring-2 ring-airbnb-red/20' : 'border'}`} onClick={() => setSelectedPath('host')}>
+          <CardContent className="p-6">
+            <div className="flex items-start gap-4">
+              <div className="bg-airbnb-light p-3 rounded-full">
+                <Home className="h-6 w-6 text-airbnb-red" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg">{t('pathSelection.hostSpace')}</h3>
+                <p className="text-muted-foreground">{t('pathSelection.hostSpaceDesc')}</p>
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter className="bg-muted/50 px-6 py-3">
+            {selectedPath === 'host' ? (
+              <span className="text-airbnb-red font-medium text-sm flex items-center">
+                {t('pathSelection.selected')}
+              </span>
+            ) : (
+              <span className="text-muted-foreground text-sm">{t('pathSelection.select')}</span>
+            )}
+          </CardFooter>
+        </Card>
+        
+        <Card className={`cursor-pointer transition-all hover:shadow-md ${selectedPath === 'seek' ? 'border-airbnb-red ring-2 ring-airbnb-red/20' : 'border'}`} onClick={() => setSelectedPath('seek')}>
+          <CardContent className="p-6">
+            <div className="flex items-start gap-4">
+              <div className="bg-airbnb-light p-3 rounded-full">
+                <Users className="h-6 w-6 text-airbnb-red" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg">{t('pathSelection.seekSettle')}</h3>
+                <p className="text-muted-foreground">{t('pathSelection.seekSettleDesc')}</p>
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter className="bg-muted/50 px-6 py-3">
+            {selectedPath === 'seek' ? (
+              <span className="text-airbnb-red font-medium text-sm flex items-center">
+                {t('pathSelection.selected')}
+              </span>
+            ) : (
+              <span className="text-muted-foreground text-sm">{t('pathSelection.select')}</span>
+            )}
+          </CardFooter>
+        </Card>
+      </div>
+      
+      <Button 
+        variant="airbnb" 
+        className="w-full" 
+        onClick={handleContinue}
+      >
+        {t('pathSelection.continue')}
+      </Button>
+    </div>
   );
 };
 
