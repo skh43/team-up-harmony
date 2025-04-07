@@ -16,14 +16,14 @@ import { cn } from '@/lib/utils';
 const MOCK_PROPERTIES = [
   {
     id: 1,
-    title: 'Modern Apartment with Balcony',
+    title: 'Modern 2-Bedroom Apartment in Al Olaya',
     location: 'Al Olaya, Riyadh',
     price: 'SAR 3,500/month',
     priceValue: 3500,
     bedrooms: 2,
     bathrooms: 2,
     size: '120 sqm',
-    description: 'Spacious and bright apartment in a central location with modern amenities.',
+    description: 'Spacious apartment with modern finish in the heart of Al Olaya business district. Walking distance to Kingdom Centre.',
     image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
     tags: ['Balcony', 'Pool', 'Gym', 'Parking'],
     mapLink: 'https://maps.google.com/?q=Al+Olaya+Riyadh',
@@ -37,14 +37,14 @@ const MOCK_PROPERTIES = [
   },
   {
     id: 2,
-    title: 'Cozy Studio near University',
+    title: 'Studio Apartment near King Saud University',
     location: 'Al Malaz, Riyadh',
     price: 'SAR 2,200/month',
     priceValue: 2200,
     bedrooms: 1,
     bathrooms: 1,
     size: '65 sqm',
-    description: 'Perfect for students, this studio apartment is just a 5-minute walk from the university.',
+    description: 'Perfect for students, this studio apartment is just a 5-minute walk from King Saud University campus.',
     image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
     tags: ['Furnished', 'Near University', 'Public Transport'],
     mapLink: 'https://maps.google.com/?q=Al+Malaz+Riyadh',
@@ -58,20 +58,28 @@ const MOCK_PROPERTIES = [
   },
   {
     id: 3,
-    title: 'Luxury Villa with Garden',
+    title: 'Luxury 4-Bedroom Villa in Al Narjis',
     location: 'Al Narjis, Riyadh',
     price: 'SAR 9,000/month',
     priceValue: 9000,
     bedrooms: 4,
     bathrooms: 3,
     size: '300 sqm',
-    description: 'Elegant villa with a beautiful garden, perfect for families or groups of friends.',
+    description: 'Elegant villa with a beautiful garden in the prestigious Al Narjis neighborhood, perfect for families.',
     image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Garden', 'Private Parking', 'Security', 'Pets Allowed']
+    tags: ['Garden', 'Private Parking', 'Security', 'Pets Allowed'],
+    mapLink: 'https://maps.google.com/?q=Al+Narjis+Riyadh',
+    amenities: {
+      hospital: '4 km',
+      supermarket: '1.5 km',
+      medicalStore: '1.8 km',
+      publicTransport: '0.8 km',
+      metro: '3.5 km'
+    }
   },
   {
     id: 4,
-    title: 'Shared Room in Modern Flat',
+    title: 'Shared Room in Modern Apartment',
     location: 'Al Muruj, Riyadh',
     price: 'SAR 1,300/month',
     priceValue: 1300,
@@ -80,33 +88,120 @@ const MOCK_PROPERTIES = [
     size: '20 sqm (room)',
     description: 'Shared apartment with private room. Common areas include kitchen, living room and bathroom.',
     image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Shared', 'Furnished', 'Bills Included', 'Internet']
+    tags: ['Shared', 'Furnished', 'Bills Included', 'Internet'],
+    mapLink: 'https://maps.google.com/?q=Al+Muruj+Riyadh',
+    amenities: {
+      hospital: '2.2 km',
+      supermarket: '0.4 km',
+      medicalStore: '0.6 km',
+      publicTransport: '0.2 km',
+      metro: '1.8 km'
+    }
   },
   {
     id: 5,
-    title: 'Penthouse with Stunning Views',
+    title: 'Beachfront 3-Bedroom Apartment',
     location: 'Al Hamra, Jeddah',
     price: 'SAR 7,500/month',
     priceValue: 7500,
     bedrooms: 3,
     bathrooms: 2,
     size: '180 sqm',
-    description: 'Luxurious penthouse with panoramic sea views. Includes private rooftop terrace.',
+    description: 'Luxurious apartment with panoramic Red Sea views. Includes access to private beach and rooftop terrace.',
     image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Terrace', 'Sea View', 'Luxury', 'Furnished']
+    tags: ['Sea View', 'Beach Access', 'Luxury', 'Furnished'],
+    mapLink: 'https://maps.google.com/?q=Al+Hamra+Jeddah',
+    amenities: {
+      hospital: '3.5 km',
+      supermarket: '0.7 km',
+      medicalStore: '1.2 km',
+      publicTransport: '0.5 km',
+      metro: 'N/A'
+    }
   },
   {
     id: 6,
-    title: 'Spacious Room for Rent',
+    title: 'Female-Only Room in Shared Apartment',
     location: 'Al Rawdah, Jeddah',
     price: 'SAR 1,800/month',
     priceValue: 1800,
     bedrooms: 1,
     bathrooms: 1,
     size: '25 sqm (room)',
-    description: 'Large private room in a shared apartment. Close to shops and public transport.',
+    description: 'Large private room in a shared apartment exclusively for female tenants. Close to shopping centers and universities.',
     image: 'https://images.unsplash.com/photo-1598928636135-d146006ff4be?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
-    tags: ['Private Room', 'Female Only', 'Bills Included']
+    tags: ['Private Room', 'Female Only', 'Bills Included'],
+    mapLink: 'https://maps.google.com/?q=Al+Rawdah+Jeddah',
+    amenities: {
+      hospital: '2.8 km',
+      supermarket: '0.3 km',
+      medicalStore: '0.6 km',
+      publicTransport: '0.4 km',
+      metro: 'N/A'
+    }
+  },
+  {
+    id: 7,
+    title: 'Modern 1-Bedroom Apartment in Al Khobar',
+    location: 'Al Khobar Corniche, Eastern Province',
+    price: 'SAR 2,800/month',
+    priceValue: 2800,
+    bedrooms: 1,
+    bathrooms: 1,
+    size: '85 sqm',
+    description: 'Brand new apartment with stunning Gulf views, located on Al Khobar Corniche with easy access to shopping malls.',
+    image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
+    tags: ['Sea View', 'New Building', 'Furnished', 'Gym'],
+    mapLink: 'https://maps.google.com/?q=Al+Khobar+Corniche',
+    amenities: {
+      hospital: '3.2 km',
+      supermarket: '0.6 km',
+      medicalStore: '0.9 km',
+      publicTransport: '0.3 km',
+      metro: 'N/A'
+    }
+  },
+  {
+    id: 8,
+    title: '2-Bedroom Compound Apartment in Diplomatic Quarter',
+    location: 'Diplomatic Quarter, Riyadh',
+    price: 'SAR 5,200/month',
+    priceValue: 5200,
+    bedrooms: 2,
+    bathrooms: 2,
+    size: '130 sqm',
+    description: 'Secure compound living with shared facilities including swimming pool, gym, and children\'s playground.',
+    image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=2080&ixlib=rb-4.0.3',
+    tags: ['Compound', 'Swimming Pool', 'Security', '24/7 Maintenance'],
+    mapLink: 'https://maps.google.com/?q=Diplomatic+Quarter+Riyadh',
+    amenities: {
+      hospital: '4 km',
+      supermarket: '1 km',
+      medicalStore: '1.2 km',
+      publicTransport: '0.8 km',
+      metro: '3 km'
+    }
+  },
+  {
+    id: 9,
+    title: 'Furnished Studio near KAUST',
+    location: 'Thuwal, Jeddah',
+    price: 'SAR 2,500/month',
+    priceValue: 2500,
+    bedrooms: 1,
+    bathrooms: 1,
+    size: '60 sqm',
+    description: 'Fully furnished studio apartment close to King Abdullah University of Science and Technology (KAUST).',
+    image: 'https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&q=80&w=2070&ixlib=rb-4.0.3',
+    tags: ['Furnished', 'Near University', 'All Bills Included'],
+    mapLink: 'https://maps.google.com/?q=Thuwal+Jeddah',
+    amenities: {
+      hospital: '5 km',
+      supermarket: '1.5 km',
+      medicalStore: '1.8 km',
+      publicTransport: '0.7 km',
+      metro: 'N/A'
+    }
   }
 ];
 
