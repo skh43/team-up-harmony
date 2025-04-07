@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map, BedDouble, Users } from "lucide-react";
+import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map, BedDouble, Users, Bath, Utensils } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -25,7 +24,6 @@ import { Textarea } from "@/components/ui/textarea";
 import PropertyImageUpload from '@/components/PropertyImageUpload';
 import { useTranslation } from 'react-i18next';
 
-// Define the form schema with Zod
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -38,10 +36,8 @@ const formSchema = z.object({
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
   livingReference: z.string().min(1, "Please select your accommodation type"),
-  // Room details fields - made optional since they might not be needed for Seek & Settle path
   roomDescription: z.string().optional(),
   sharedFacilities: z.string().optional(),
-  // New location and amenities fields - also made optional
   mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
   distanceHospital: z.string().optional(),
   distanceSupermarket: z.string().optional(),
@@ -50,7 +46,6 @@ const formSchema = z.object({
   distanceMetroStation: z.string().optional(),
 });
 
-// List of nationalities for the dropdown
 const nationalities = [
   "Afghan", "American", "Australian", "Bangladeshi", "Brazilian", 
   "British", "Canadian", "Chinese", "Egyptian", "Filipino", 
@@ -66,14 +61,13 @@ export default function ProfileCreation() {
   const { t } = useTranslation();
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [roomImages, setRoomImages] = useState<string[]>([]);
+  const [sharedAmenityImages, setSharedAmenityImages] = useState<string[]>([]);
   const [userPath, setUserPath] = useState<string>('host'); // Default to 'host'
   
-  // Check if this is Seek & Settle path by getting path from location state
   useEffect(() => {
     if (location.state && location.state.path) {
       setUserPath(location.state.path);
     } else {
-      // Try to get from localStorage if not in location state
       const savedPath = localStorage.getItem('userPath');
       if (savedPath) {
         setUserPath(savedPath);
@@ -81,10 +75,8 @@ export default function ProfileCreation() {
     }
   }, [location]);
 
-  // Determine if we should show the room details section
   const showRoomDetails = userPath === 'host';
   
-  // Initialize the form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -108,15 +100,14 @@ export default function ProfileCreation() {
     },
   });
 
-  // Form submission handler
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log({
       ...values,
       profilePhoto,
       roomImages,
+      sharedAmenityImages,
       userPath
     });
-    // Redirect to the next step
     navigate("/matching");
   }
 
@@ -211,7 +202,6 @@ export default function ProfileCreation() {
             />
           </div>
           
-          {/* Living Reference - New Section */}
           <FormField
             control={form.control}
             name="livingReference"
@@ -337,7 +327,6 @@ export default function ProfileCreation() {
             )}
           />
           
-          {/* Room/Space Section - Only show for "Host My Space" path */}
           {showRoomDetails && (
             <>
               <div className="my-6 border-t border-gray-200 pt-6">
@@ -347,8 +336,8 @@ export default function ProfileCreation() {
                 </p>
               </div>
               
-              {/* Room Images Upload */}
               <div>
+                <FormLabel className="block mb-2">{t('profileCreation.roomImages')}</FormLabel>
                 <PropertyImageUpload 
                   images={roomImages}
                   setImages={setRoomImages}
@@ -356,7 +345,25 @@ export default function ProfileCreation() {
                 />
               </div>
               
-              {/* Room Description */}
+              <div className="mt-6">
+                <FormLabel className="flex items-center gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <Bath className="w-4 h-4" />
+                    <Utensils className="w-4 h-4" />
+                    <Sofa className="w-4 h-4" />
+                  </div>
+                  {t('profileCreation.sharedSpacesImages')}
+                </FormLabel>
+                <FormDescription className="mb-3">
+                  {t('profileCreation.addPhotosOfSharedSpaces')}
+                </FormDescription>
+                <PropertyImageUpload 
+                  images={sharedAmenityImages}
+                  setImages={setSharedAmenityImages}
+                  minImages={1}
+                />
+              </div>
+              
               <FormField
                 control={form.control}
                 name="roomDescription"
@@ -380,7 +387,6 @@ export default function ProfileCreation() {
                 )}
               />
               
-              {/* Shared Facilities */}
               <FormField
                 control={form.control}
                 name="sharedFacilities"
@@ -404,7 +410,6 @@ export default function ProfileCreation() {
                 )}
               />
               
-              {/* Nearby Amenities & Location Section */}
               <div className="my-6 border-t border-gray-200 pt-6">
                 <h2 className="text-xl font-semibold mb-4">{t('profileCreation.nearbyAmenities')}</h2>
                 <p className="text-muted-foreground mb-4">
@@ -412,7 +417,6 @@ export default function ProfileCreation() {
                 </p>
               </div>
               
-              {/* Map Link */}
               <FormField
                 control={form.control}
                 name="mapLink"
@@ -435,7 +439,6 @@ export default function ProfileCreation() {
                 )}
               />
               
-              {/* Hospital distance */}
               <FormField
                 control={form.control}
                 name="distanceHospital"
@@ -455,7 +458,6 @@ export default function ProfileCreation() {
                 )}
               />
               
-              {/* Supermarket distance */}
               <FormField
                 control={form.control}
                 name="distanceSupermarket"
@@ -475,7 +477,6 @@ export default function ProfileCreation() {
                 )}
               />
               
-              {/* Medical Store distance */}
               <FormField
                 control={form.control}
                 name="distanceMedicalStore"
@@ -495,7 +496,6 @@ export default function ProfileCreation() {
                 )}
               />
               
-              {/* Public Transport distance */}
               <FormField
                 control={form.control}
                 name="distancePublicTransport"
@@ -515,7 +515,6 @@ export default function ProfileCreation() {
                 )}
               />
               
-              {/* Metro Station distance */}
               <FormField
                 control={form.control}
                 name="distanceMetroStation"
