@@ -4,12 +4,15 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { MapPin, Bed, Bath, Square, Heart, Filter, House, Sofa, Crown, Plus, Hospital, ShoppingCart, PlusCircle, Bus, Train, Map, ExternalLink } from 'lucide-react';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { useToast } from '@/components/ui/use-toast';
+import { MapPin, Bed, Bath, Square, Heart, Filter, House, Sofa, Crown, Plus, Hospital, ShoppingCart, PlusCircle, Bus, Train, Map, ExternalLink, Share2, MessageCircle } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
 
-// Mock data for properties
 const MOCK_PROPERTIES = [
   {
     id: 1,
@@ -107,7 +110,27 @@ const MOCK_PROPERTIES = [
   }
 ];
 
-// Price thresholds for property categories
+const MOCK_MATCHES = [
+  { 
+    id: 1, 
+    name: "Mohammed", 
+    avatar: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
+    status: "online"
+  },
+  { 
+    id: 2, 
+    name: "Fatima", 
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
+    status: "offline"
+  },
+  { 
+    id: 3, 
+    name: "Ahmed", 
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=1974&ixlib=rb-4.0.3",
+    status: "online"
+  }
+];
+
 const PRICE_THRESHOLDS = {
   BASIC: 2500,    // Properties below 2500 SAR/month
   COMFORT: 6000   // Properties between 2500-6000 SAR/month
@@ -116,9 +139,12 @@ const PRICE_THRESHOLDS = {
 
 const Properties = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState('');
   const [favorites, setFavorites] = useState<number[]>([]);
   const [activeTab, setActiveTab] = useState('all');
+  const [sharePropertyId, setSharePropertyId] = useState<number | null>(null);
+  const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   
   const toggleFavorite = (id: number) => {
     setFavorites(prev => 
@@ -126,6 +152,24 @@ const Properties = () => {
         ? prev.filter(propId => propId !== id) 
         : [...prev, id]
     );
+  };
+  
+  const handleShareProperty = (propertyId: number) => {
+    setSharePropertyId(propertyId);
+    setIsShareDialogOpen(true);
+  };
+  
+  const handleShareWithMatch = (matchId: number) => {
+    const property = MOCK_PROPERTIES.find(p => p.id === sharePropertyId);
+    const match = MOCK_MATCHES.find(m => m.id === matchId);
+    
+    if (property && match) {
+      toast({
+        title: "Property Shared",
+        description: `You've shared "${property.title}" with ${match.name}.`,
+      });
+      setIsShareDialogOpen(false);
+    }
   };
   
   const filteredProperties = MOCK_PROPERTIES
@@ -229,6 +273,7 @@ const Properties = () => {
                 property={property}
                 isFavorite={favorites.includes(property.id)}
                 onToggleFavorite={() => toggleFavorite(property.id)}
+                onShare={() => handleShareProperty(property.id)}
                 category={
                   property.priceValue < PRICE_THRESHOLDS.BASIC 
                     ? 'basic' 
@@ -241,6 +286,65 @@ const Properties = () => {
           </div>
         )}
       </div>
+      
+      <Dialog open={isShareDialogOpen} onOpenChange={setIsShareDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Share Property with Match</DialogTitle>
+            <DialogDescription>
+              Select a roommate match to share this property with.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="grid gap-4 py-4">
+            {MOCK_MATCHES.length > 0 ? (
+              MOCK_MATCHES.map(match => (
+                <div 
+                  key={match.id} 
+                  className="flex items-center justify-between p-3 rounded-lg border hover:bg-accent cursor-pointer"
+                  onClick={() => handleShareWithMatch(match.id)}
+                >
+                  <div className="flex items-center gap-3">
+                    <Avatar>
+                      <AvatarImage src={match.avatar} alt={match.name} />
+                      <AvatarFallback>{match.name[0]}</AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <div className="font-medium">{match.name}</div>
+                      <div className="text-xs text-muted-foreground flex items-center gap-1">
+                        <span className={`h-2 w-2 rounded-full ${match.status === 'online' ? 'bg-green-500' : 'bg-gray-300'}`}></span>
+                        <span>{match.status === 'online' ? 'Online' : 'Offline'}</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <Button size="sm" variant="ghost">
+                    <Share2 className="h-4 w-4 mr-2" />
+                    Share
+                  </Button>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-6">
+                <p className="text-muted-foreground mb-3">You don't have any matches yet.</p>
+                <Button onClick={() => navigate('/matching')} variant="outline">
+                  Find Roommates
+                </Button>
+              </div>
+            )}
+          </div>
+          
+          <DialogFooter className="sm:justify-start">
+            <Button 
+              type="button" 
+              variant="secondary" 
+              onClick={() => setIsShareDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </MainLayout>
   );
 };
@@ -324,10 +428,11 @@ interface PropertyCardProps {
   };
   isFavorite: boolean;
   onToggleFavorite: () => void;
+  onShare: () => void;
   category: 'basic' | 'comfort' | 'elite';
 }
 
-const PropertyCard = ({ property, isFavorite, onToggleFavorite, category }: PropertyCardProps) => {
+const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, category }: PropertyCardProps) => {
   const getCategoryStyles = () => {
     switch (category) {
       case 'basic':
@@ -363,20 +468,34 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, category }: Prop
           alt={property.title}
           className="w-full h-full object-cover transition-transform hover:scale-105 duration-300"
         />
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className={cn(
-            "absolute top-2 right-2 rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/40",
-            isFavorite ? "text-red-500" : "text-white"
-          )}
-          onClick={(e) => {
-            e.preventDefault();
-            onToggleFavorite();
-          }}
-        >
-          <Heart className="h-5 w-5" fill={isFavorite ? "currentColor" : "none"} />
-        </Button>
+        <div className="absolute top-2 right-2 flex gap-2">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/40 text-white"
+            onClick={(e) => {
+              e.preventDefault();
+              onShare();
+            }}
+          >
+            <Share2 className="h-5 w-5" />
+          </Button>
+          
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className={cn(
+              "rounded-full bg-black/30 backdrop-blur-sm hover:bg-black/40",
+              isFavorite ? "text-red-500" : "text-white"
+            )}
+            onClick={(e) => {
+              e.preventDefault();
+              onToggleFavorite();
+            }}
+          >
+            <Heart className="h-5 w-5" fill={isFavorite ? "currentColor" : "none"} />
+          </Button>
+        </div>
         <div className="absolute bottom-2 left-2 px-2.5 py-1 bg-black/30 backdrop-blur-sm rounded-full text-white text-sm font-medium">
           {property.price}
         </div>
@@ -469,7 +588,7 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, category }: Prop
         <p className="text-sm text-muted-foreground line-clamp-2">{property.description}</p>
       </CardContent>
       
-      <CardFooter>
+      <CardFooter className="flex gap-2">
         <Button className="w-full rounded-md">View Details</Button>
       </CardFooter>
     </Card>
