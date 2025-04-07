@@ -1,4 +1,3 @@
-
 {
   "common": {
     "welcome": "欢迎回来",
@@ -86,7 +85,7 @@
     "roomInfo": "房间信息",
     "locationInfo": "位置信息",
     "firstName": "名字",
-    "firstNamePlaceholder": "例如：张",
+    "firstNamePlaceholder": "��如：张",
     "lastName": "姓氏",
     "lastNamePlaceholder": "例如：伟",
     "age": "年龄",
@@ -197,7 +196,8 @@
     "availableSpace": "可用空间",
     "lookingFor": "正在寻找",
     "noRoomImages": "没有房间照片",
-    "sharedAmenities": "共享设施"
+    "sharedAmenities": "共享设施",
+    "otherSpace": "其他空间"
   },
   "payment": {
     "completePayment": "完成支付",

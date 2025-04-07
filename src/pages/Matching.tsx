@@ -537,7 +537,7 @@ const Matching = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Map className="h-4 w-4 text-primary" /> 
-                  <span className="text-sm font-medium">{currentProfile.location}</span>
+                  <span className="text-sm font-medium">Silicon Oasis</span>
                 </div>
               </div>
               
@@ -556,9 +556,16 @@ const Matching = () => {
                   </div>
                 )}
                 
-                {currentProfile.distancePublicTransport && (
+                {currentProfile.distanceMedicalStore && (
                   <div className="flex items-center gap-1.5">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
+                    <span>Medical: {currentProfile.distanceMedicalStore}</span>
+                  </div>
+                )}
+                
+                {currentProfile.distancePublicTransport && (
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-1.5 h-1.5 rounded-full bg-yellow-500"></div>
                     <span>Transport: {currentProfile.distancePublicTransport}</span>
                   </div>
                 )}
