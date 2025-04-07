@@ -250,25 +250,6 @@ const Dashboard = () => {
                   </Card>
                 </div>
                 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Upcoming Payment</CardTitle>
-                    <CardDescription>Your next rent payment is due soon</CardDescription>
-                  </CardHeader>
-                  <CardContent className="flex justify-between items-center">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <CreditCard className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <p className="font-medium">{userData.upcomingRent}</p>
-                        <p className="text-sm text-muted-foreground">Due on {userData.paymentDue}</p>
-                      </div>
-                    </div>
-                    <Button>Pay Now</Button>
-                  </CardContent>
-                </Card>
-                
                 <div className="grid gap-6 grid-cols-1 md:grid-cols-2">
                   <Card>
                     <CardHeader>
