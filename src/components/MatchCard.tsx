@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +7,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check, BedDouble, BedSingle, Users, Bath, Utensils, Sofa, ChevronLeft, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 export type MatchProfile = {
   id: string;
@@ -59,6 +61,7 @@ const MatchCard = ({
   const [dragStartX, setDragStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [rotation, setRotation] = useState(0);
+  const [activeSection, setActiveSection] = useState<'profile' | 'room'>('profile');
   
   const userPath = localStorage.getItem('userPath') || 'seek';
   
@@ -117,6 +120,10 @@ const MatchCard = ({
     }
   };
 
+  const toggleSection = () => {
+    setActiveSection(prev => prev === 'profile' ? 'room' : 'profile');
+  };
+
   return (
     <Card 
       className={cn(
@@ -153,107 +160,261 @@ const MatchCard = ({
         {t('matching.like')}
       </div>
       
-      <div className="relative h-72 overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/40 to-transparent z-10" />
-        <div className="absolute inset-x-4 top-4 flex justify-between items-center z-20">
-          <Badge className="font-medium bg-primary/90">
-            {profile.compatibility}% {t('matching.match')}
-          </Badge>
-          
-          {isMatched && (
-            <Badge variant="outline" className="bg-green-500/20 text-green-500 border-green-500/30">
-              {t('matching.matched')}
-            </Badge>
-          )}
-        </div>
-        
-        {shouldBlurProfile ? (
-          <div className="flex items-center justify-center h-full bg-gradient-to-b from-gray-700 to-gray-900">
-            <div className="text-center p-4">
-              <User className="h-20 w-20 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-300 font-medium">{t('matching.profileHidden')}</p>
-              <p className="text-gray-400 text-sm mt-2">{t('matching.visibleAfterMatch')}</p>
-            </div>
-          </div>
-        ) : (
-          <img 
-            src={profile.imageUrl || "https://via.placeholder.com/400x550?text=Profile+Image"} 
-            alt={profile.name}
-            className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
-          />
-        )}
-        
-        <div className="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-card to-transparent" />
-      </div>
-      
-      <CardContent className="relative -mt-16 space-y-3 pb-0">
-        <div>
-          <div className="flex justify-between items-end mb-1">
-            <h3 className="text-2xl font-bold">{profile.name}, {profile.age}</h3>
-            <div className="flex items-center text-sm text-muted-foreground">
-              <MapPin className="h-3.5 w-3.5 mr-1" />
-              {profile.location}
-            </div>
-          </div>
-        </div>
-        
-        <div className="space-y-2 py-2">
-          {profile.gender && (
-            <div className="flex items-center text-sm space-x-2">
-              <User className="h-4 w-4 text-muted-foreground" />
-              <span>{profile.gender}</span>
-            </div>
-          )}
-          
-          {profile.livingReference && (
-            <div className="flex items-center text-sm space-x-2">
-              {userPath === 'host' ? (
-                <>
-                  <Home className="h-4 w-4 text-green-500" />
-                  <span className="font-medium text-green-600">
-                    {t('matching.availableSpace')}: {getAccommodationLabel(profile.livingReference)}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <BedDouble className="h-4 w-4 text-muted-foreground" />
-                  <span>{t('matching.lookingFor')}: {getAccommodationLabel(profile.livingReference)}</span>
-                </>
+      {activeSection === 'profile' ? (
+        <>
+          <div className="relative h-72 overflow-hidden">
+            <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-black/40 to-transparent z-10" />
+            <div className="absolute inset-x-4 top-4 flex justify-between items-center z-20">
+              <Badge className="font-medium bg-primary/90">
+                {profile.compatibility}% {t('matching.match')}
+              </Badge>
+              
+              {isMatched && (
+                <Badge variant="outline" className="bg-green-500/20 text-green-500 border-green-500/30">
+                  {t('matching.matched')}
+                </Badge>
               )}
             </div>
-          )}
+            
+            {shouldBlurProfile ? (
+              <div className="flex items-center justify-center h-full bg-gradient-to-b from-gray-700 to-gray-900">
+                <div className="text-center p-4">
+                  <User className="h-20 w-20 text-gray-400 mx-auto mb-4" />
+                  <p className="text-gray-300 font-medium">{t('matching.profileHidden')}</p>
+                  <p className="text-gray-400 text-sm mt-2">{t('matching.visibleAfterMatch')}</p>
+                </div>
+              </div>
+            ) : (
+              <img 
+                src={profile.imageUrl || "https://via.placeholder.com/400x550?text=Profile+Image"} 
+                alt={profile.name}
+                className="w-full h-full object-cover object-center transition-transform duration-500 hover:scale-105"
+              />
+            )}
+            
+            <div className="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-t from-card to-transparent" />
+          </div>
           
-          {profile.nationality && (
-            <div className="flex items-center text-sm space-x-2">
-              <Flag className="h-4 w-4 text-muted-foreground" />
-              <span>{profile.nationality}</span>
+          <CardContent className="relative -mt-16 space-y-3 pb-0">
+            <div>
+              <div className="flex justify-between items-end mb-1">
+                <h3 className="text-2xl font-bold">{profile.name}, {profile.age}</h3>
+                <div className="flex items-center text-sm text-muted-foreground">
+                  <MapPin className="h-3.5 w-3.5 mr-1" />
+                  {profile.location}
+                </div>
+              </div>
             </div>
-          )}
-          
-          {profile.workProfession && (
-            <div className="flex items-center text-sm space-x-2">
-              <Briefcase className="h-4 w-4 text-muted-foreground" />
-              <span>{profile.workProfession}</span>
+            
+            <div className="space-y-2 py-2">
+              <div className="grid grid-cols-2 gap-2">
+                {profile.gender && (
+                  <div className="flex items-center text-sm space-x-2 bg-primary/5 rounded-lg p-2">
+                    <User className="h-4 w-4 text-primary" />
+                    <span>{profile.gender}</span>
+                  </div>
+                )}
+                
+                {profile.nationality && (
+                  <div className="flex items-center text-sm space-x-2 bg-primary/5 rounded-lg p-2">
+                    <Flag className="h-4 w-4 text-primary" />
+                    <span>{profile.nationality}</span>
+                  </div>
+                )}
+                
+                {profile.workProfession && (
+                  <div className="flex items-center text-sm space-x-2 bg-primary/5 rounded-lg p-2">
+                    <Briefcase className="h-4 w-4 text-primary" />
+                    <span className="truncate">{profile.workProfession}</span>
+                  </div>
+                )}
+                
+                {profile.workTiming && (
+                  <div className="flex items-center text-sm space-x-2 bg-primary/5 rounded-lg p-2">
+                    <Clock className="h-4 w-4 text-primary" />
+                    <span className="truncate">{profile.workTiming}</span>
+                  </div>
+                )}
+              </div>
+              
+              {profile.livingReference && (
+                <div className="flex items-center text-sm space-x-2 mt-2">
+                  {userPath === 'host' ? (
+                    <>
+                      <Home className="h-4 w-4 text-green-500" />
+                      <span className="font-medium text-green-600">
+                        {t('matching.availableSpace')}: {getAccommodationLabel(profile.livingReference)}
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <BedDouble className="h-4 w-4 text-primary" />
+                      <span>{t('matching.lookingFor')}: {getAccommodationLabel(profile.livingReference)}</span>
+                    </>
+                  )}
+                </div>
+              )}
+              
+              {profile.preferences.openToAllNationalities && (
+                <div className="flex items-start text-sm space-x-2 mt-1">
+                  <Globe className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                  <span className="text-green-600">
+                    {t('matching.openToAllNationalities', 'Open to living with all nationalities')}
+                  </span>
+                </div>
+              )}
             </div>
-          )}
-          
-          {profile.workTiming && (
-            <div className="flex items-center text-sm space-x-2">
-              <Clock className="h-4 w-4 text-muted-foreground" />
-              <span>{profile.workTiming}</span>
+            
+            {profile.bio && (
+              <div className="mt-1 pt-2 border-t border-border/50">
+                <p className="text-sm text-muted-foreground line-clamp-2">{profile.bio}</p>
+              </div>
+            )}
+          </CardContent>
+        </>
+      ) : (
+        <>
+          {!profile.roomImages || profile.roomImages.length === 0 ? (
+            <div className="h-72 flex items-center justify-center bg-muted/30">
+              <div className="text-center p-6">
+                <Home className="h-16 w-16 text-muted-foreground/50 mx-auto mb-3" />
+                <p className="text-muted-foreground font-medium">{t('matching.noRoomImages')}</p>
+              </div>
             </div>
+          ) : (
+            <Carousel className="w-full">
+              <CarouselContent>
+                {profile.roomImages.map((image, index) => (
+                  <CarouselItem key={index}>
+                    <div className="h-72 relative">
+                      <img 
+                        src={image} 
+                        alt={`Room ${index + 1}`}
+                        className="w-full h-full object-cover" 
+                      />
+                      <div className="absolute bottom-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded-full">
+                        {index + 1}/{profile.roomImages?.length}
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <div className="absolute left-2 top-1/2 -translate-y-1/2 z-10">
+                <CarouselPrevious className="h-8 w-8 opacity-70 hover:opacity-100" />
+              </div>
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 z-10">
+                <CarouselNext className="h-8 w-8 opacity-70 hover:opacity-100" />
+              </div>
+            </Carousel>
           )}
-          
-          {profile.preferences.openToAllNationalities && (
-            <div className="flex items-start text-sm space-x-2">
-              <Globe className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-              <span className="text-green-600">
-                {t('matching.openToAllNationalities', 'Open to living with all nationalities')}
-              </span>
+
+          <CardContent className="p-4 space-y-3">
+            <div className="flex items-center justify-between">
+              <h3 className="font-semibold text-base">{profile.name}'s {t('matching.accommodation')}</h3>
+              <Badge variant="outline" className="font-medium">
+                {getAccommodationLabel(profile.livingReference)}
+              </Badge>
             </div>
-          )}
-        </div>
-      </CardContent>
+            
+            {profile.sharedAmenityImages && Object.keys(profile.sharedAmenityImages).length > 0 && (
+              <div>
+                <h4 className="text-sm font-medium mb-2">{t('matching.sharedAmenities')}</h4>
+                <div className="grid grid-cols-3 gap-2">
+                  {profile.sharedAmenityImages.bathroom && (
+                    <div className="relative rounded-md overflow-hidden aspect-square">
+                      <img 
+                        src={Array.isArray(profile.sharedAmenityImages.bathroom) 
+                          ? profile.sharedAmenityImages.bathroom[0] 
+                          : profile.sharedAmenityImages.bathroom} 
+                        alt="Bathroom"
+                        className="w-full h-full object-cover" 
+                      />
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <div className="text-white text-center">
+                          <Bath className="h-5 w-5 mx-auto mb-1" />
+                          <span className="text-xs">{t('matching.bathroom')}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {profile.sharedAmenityImages.kitchen && (
+                    <div className="relative rounded-md overflow-hidden aspect-square">
+                      <img 
+                        src={Array.isArray(profile.sharedAmenityImages.kitchen) 
+                          ? profile.sharedAmenityImages.kitchen[0] 
+                          : profile.sharedAmenityImages.kitchen} 
+                        alt="Kitchen"
+                        className="w-full h-full object-cover" 
+                      />
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <div className="text-white text-center">
+                          <Utensils className="h-5 w-5 mx-auto mb-1" />
+                          <span className="text-xs">{t('matching.kitchen')}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {profile.sharedAmenityImages.livingRoom && (
+                    <div className="relative rounded-md overflow-hidden aspect-square">
+                      <img 
+                        src={Array.isArray(profile.sharedAmenityImages.livingRoom) 
+                          ? profile.sharedAmenityImages.livingRoom[0] 
+                          : profile.sharedAmenityImages.livingRoom} 
+                        alt="Living Room"
+                        className="w-full h-full object-cover" 
+                      />
+                      <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                        <div className="text-white text-center">
+                          <Sofa className="h-5 w-5 mx-auto mb-1" />
+                          <span className="text-xs">{t('matching.livingRoom')}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {profile.distanceHospital || profile.distanceSupermarket || 
+             profile.distancePublicTransport || profile.distanceMetroStation ? (
+              <div className="border-t border-border/50 pt-2 mt-2">
+                <h4 className="text-sm font-medium mb-2">{t('matching.distances')}</h4>
+                <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                  {profile.distanceHospital && (
+                    <div className="flex items-center text-xs">
+                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></div>
+                      <span>Hospital: {profile.distanceHospital}</span>
+                    </div>
+                  )}
+                  
+                  {profile.distanceSupermarket && (
+                    <div className="flex items-center text-xs">
+                      <div className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5"></div>
+                      <span>Market: {profile.distanceSupermarket}</span>
+                    </div>
+                  )}
+                  
+                  {profile.distancePublicTransport && (
+                    <div className="flex items-center text-xs">
+                      <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5"></div>
+                      <span>Transport: {profile.distancePublicTransport}</span>
+                    </div>
+                  )}
+                  
+                  {profile.distanceMetroStation && (
+                    <div className="flex items-center text-xs">
+                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mr-1.5"></div>
+                      <span>Metro: {profile.distanceMetroStation}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : null}
+          </CardContent>
+        </>
+      )}
       
       <CardFooter className="flex justify-between p-4">
         <Button 
@@ -263,6 +424,15 @@ const MatchCard = ({
           onClick={() => onDislike(profile.id)}
         >
           <X className="h-6 w-6" />
+        </Button>
+        
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="rounded-full h-10 w-10 bg-background hover:bg-blue-500 hover:text-white transition-colors"
+          onClick={toggleSection}
+        >
+          {activeSection === 'profile' ? <Home className="h-4 w-4" /> : <User className="h-4 w-4" />}
         </Button>
         
         {onMessage && (
