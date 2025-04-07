@@ -141,9 +141,6 @@ export default function ProfileCreation() {
         <BackButton />
         <h1 className="text-2xl font-bold mt-4 mb-2">{t('profileCreation.title')}</h1>
         <p className="text-muted-foreground">{t('profileCreation.subtitle')}</p>
-        {userPath === 'host' && (
-          <p className="text-xs text-airbnb-red mt-2 font-medium">{t('pathSelection.hostEasier')}</p>
-        )}
       </div>
       
       <Form {...form}>
