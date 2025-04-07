@@ -1,9 +1,15 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
-import { Heart, X, Star, MessageCircle, ChevronLeft, ChevronRight, UserCircle2, Globe, AlertCircle, Home } from 'lucide-react';
+import { 
+  Heart, X, Star, MessageCircle, ChevronLeft, ChevronRight, 
+  UserCircle2, Globe, AlertCircle, Home, User, Briefcase, 
+  Clock, Flag, Check, BedDouble, BedSingle, Users, Bath, 
+  Utensils, Sofa 
+} from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
 import MatchCard, { MatchProfile } from '@/components/MatchCard';
 import { cn } from '@/lib/utils';
