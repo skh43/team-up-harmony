@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
   Bell, Settings, MessageSquare, User, Home, Heart, LogOut, 
-  Edit, ChevronRight, CalendarClock, CreditCard
+  Edit, ChevronRight, CalendarClock
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,7 +18,6 @@ const Dashboard = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("overview");
   
-  // Mock data for the dashboard
   const userData = {
     name: "Alex Johnson",
     email: "alex.johnson@example.com",
@@ -112,7 +111,6 @@ const Dashboard = () => {
     <MainLayout className="pt-8 pb-16">
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex flex-col md:flex-row gap-6">
-          {/* Sidebar */}
           <div className="w-full md:w-64 shrink-0">
             <div className="space-y-6">
               <div className="text-center md:text-left">
@@ -206,7 +204,6 @@ const Dashboard = () => {
             </div>
           </div>
           
-          {/* Main Content */}
           <div className="flex-1">
             {activeTab === "overview" && (
               <div className="space-y-6">
@@ -279,7 +276,7 @@ const Dashboard = () => {
                                   <p className="text-xs text-muted-foreground">Matched {match.time}</p>
                                 </div>
                               </div>
-                              <Button size="sm" variant="outline">
+                              <Button size="sm" variant="outline" className="h-12 w-12">
                                 Message
                                 {match.unreadMessages > 0 && (
                                   <Badge className="ml-2 bg-primary text-white h-5 w-5 p-0 flex items-center justify-center rounded-full">
@@ -465,7 +462,7 @@ const Dashboard = () => {
                           size="icon" 
                           className="absolute top-2 right-2 bg-black/30 text-white hover:bg-black/50 hover:text-white rounded-full"
                         >
-                          <Heart className="h-5 w-5 fill-current" />
+                          <Heart className="h-5 w-5" />
                         </Button>
                       </div>
                       <CardContent className="p-4">
