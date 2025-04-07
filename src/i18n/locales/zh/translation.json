@@ -187,7 +187,17 @@
     "pets": "宠物",
     "welcome": "欢迎",
     "noPets": "不允许",
-    "livingPreferences": "生活偏好"
+    "livingPreferences": "生活偏好",
+    "locationInfo": "位置信息",
+    "distances": "距离信息",
+    "bathroom": "浴室",
+    "kitchen": "厨房",
+    "livingRoom": "客厅",
+    "accommodation": "住宿",
+    "availableSpace": "可用空间",
+    "lookingFor": "正在寻找",
+    "noRoomImages": "没有房间照片",
+    "sharedAmenities": "共享设施"
   },
   "payment": {
     "completePayment": "完成支付",

@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -123,6 +122,10 @@ const MatchCard = ({
   const toggleSection = () => {
     setActiveSection(prev => prev === 'profile' ? 'room' : 'profile');
   };
+
+  const hasLocationInfo = profile.distanceHospital || profile.distanceSupermarket || 
+                          profile.distanceMedicalStore || profile.distancePublicTransport || 
+                          profile.distanceMetroStation;
 
   return (
     <Card 
@@ -263,6 +266,48 @@ const MatchCard = ({
                   </span>
                 </div>
               )}
+              
+              {hasLocationInfo && (
+                <div className="mt-3 pt-2 border-t border-border/50">
+                  <p className="text-sm font-medium mb-2">{t('matching.locationInfo', 'Location Information')}</p>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
+                    {profile.distanceHospital && (
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></div>
+                        <span>Hospital: {profile.distanceHospital}</span>
+                      </div>
+                    )}
+                    
+                    {profile.distanceSupermarket && (
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5"></div>
+                        <span>Supermarket: {profile.distanceSupermarket}</span>
+                      </div>
+                    )}
+                    
+                    {profile.distanceMedicalStore && (
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5"></div>
+                        <span>Medical Store: {profile.distanceMedicalStore}</span>
+                      </div>
+                    )}
+                    
+                    {profile.distancePublicTransport && (
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5"></div>
+                        <span>Public Transport: {profile.distancePublicTransport}</span>
+                      </div>
+                    )}
+                    
+                    {profile.distanceMetroStation && (
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mr-1.5"></div>
+                        <span>Metro Station: {profile.distanceMetroStation}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
             
             {profile.bio && (
@@ -377,8 +422,7 @@ const MatchCard = ({
               </div>
             )}
             
-            {profile.distanceHospital || profile.distanceSupermarket || 
-             profile.distancePublicTransport || profile.distanceMetroStation ? (
+            {hasLocationInfo && (
               <div className="border-t border-border/50 pt-2 mt-2">
                 <h4 className="text-sm font-medium mb-2">{t('matching.distances')}</h4>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-1">
@@ -396,9 +440,16 @@ const MatchCard = ({
                     </div>
                   )}
                   
-                  {profile.distancePublicTransport && (
+                  {profile.distanceMedicalStore && (
                     <div className="flex items-center text-xs">
                       <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5"></div>
+                      <span>Medical: {profile.distanceMedicalStore}</span>
+                    </div>
+                  )}
+                  
+                  {profile.distancePublicTransport && (
+                    <div className="flex items-center text-xs">
+                      <div className="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5"></div>
                       <span>Transport: {profile.distancePublicTransport}</span>
                     </div>
                   )}
@@ -411,7 +462,7 @@ const MatchCard = ({
                   )}
                 </div>
               </div>
-            ) : null}
+            )}
           </CardContent>
         </>
       )}
