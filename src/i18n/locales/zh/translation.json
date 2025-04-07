@@ -1,3 +1,4 @@
+
 {
   "common": {
     "welcome": "欢迎回来",
@@ -121,7 +122,7 @@
     "distancePublicTransportPlaceholder": "例如：0.2公里",
     "distanceMetroStation": "到地铁站的距离",
     "distanceMetroStationPlaceholder": "例如：1.5公里",
-    "livingReference": "住宿类型",
+    "livingReference": "寻找类型",
     "livingReferenceDesc": "选择您提供或寻找的住宿类型",
     "selectLivingReference": "选择住宿类型",
     "sharedRoom": "共享房间",

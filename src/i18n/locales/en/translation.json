@@ -125,7 +125,7 @@
     "distancePublicTransportPlaceholder": "e.g. 0.2 km",
     "distanceMetroStation": "Distance to Metro Station",
     "distanceMetroStationPlaceholder": "e.g. 1.5 km",
-    "livingReference": "Living Accommodation",
+    "livingReference": "Looking For",
     "livingReferenceDesc": "Select the type of accommodation you're offering or looking for",
     "selectLivingReference": "Select accommodation type",
     "sharedRoom": "Shared Room",
