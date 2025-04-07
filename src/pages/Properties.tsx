@@ -1,5 +1,7 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from '@/components/ui/input';
@@ -209,6 +211,7 @@ const PRICE_THRESHOLDS = {
 const Properties = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
   const [favorites, setFavorites] = useState<number[]>([]);
   const [activeTab, setActiveTab] = useState('all');
@@ -236,8 +239,8 @@ const Properties = () => {
     
     if (property && match) {
       toast({
-        title: "Property Shared",
-        description: `You've shared "${property.title}" with ${match.name}.`,
+        title: t('properties.propertyShared'),
+        description: t('properties.sharedWithDescription', { propertyTitle: property.title, matchName: match.name }),
       });
       setIsShareDialogOpen(false);
     }
@@ -266,15 +269,15 @@ const Properties = () => {
     <MainLayout className="flex flex-col min-h-screen">
       <div className="w-full max-w-7xl mx-auto px-4">
         <div className="my-10 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Find Your Perfect Space</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">{t('properties.findPerfectSpace')}</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-            Browse available properties that match your needs and budget.
+            {t('properties.browseProperties')}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 max-w-3xl mx-auto mb-4">
             <div className="relative flex-1">
               <Input
-                placeholder="Search by location, property type..."
+                placeholder={t('properties.searchPlaceholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="h-12 pr-10 rounded-full"
@@ -295,7 +298,7 @@ const Properties = () => {
               className="h-12 gap-2 rounded-full"
             >
               <Filter className="h-4 w-4" />
-              Filters
+              {t('properties.filters')}
             </Button>
           </div>
           
@@ -306,7 +309,7 @@ const Properties = () => {
             className="gap-2 rounded-full px-8 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-md mb-6"
           >
             <Plus className="h-4 w-4" />
-            List Your Property
+            {t('properties.listYourProperty')}
           </Button>
         </div>
         
@@ -314,19 +317,19 @@ const Properties = () => {
           <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid grid-cols-4 max-w-3xl mx-auto bg-muted/60">
               <TabsTrigger value="all" className="data-[state=active]:bg-background">
-                All Properties
+                {t('properties.allProperties')}
               </TabsTrigger>
               <TabsTrigger value="basic" className="data-[state=active]:bg-background flex items-center gap-2">
                 <House className="h-4 w-4" />
-                <span>Basic</span>
+                <span>{t('properties.basic')}</span>
               </TabsTrigger>
               <TabsTrigger value="comfort" className="data-[state=active]:bg-background flex items-center gap-2">
                 <Sofa className="h-4 w-4" />
-                <span>Comfort</span>
+                <span>{t('properties.comfort')}</span>
               </TabsTrigger>
               <TabsTrigger value="elite" className="data-[state=active]:bg-background flex items-center gap-2">
                 <Crown className="h-4 w-4" />
-                <span>Elite</span>
+                <span>{t('properties.elite')}</span>
               </TabsTrigger>
             </TabsList>
             
@@ -338,8 +341,8 @@ const Properties = () => {
         
         {filteredProperties.length === 0 ? (
           <div className="text-center py-10">
-            <h2 className="text-xl font-medium mb-2">No properties found</h2>
-            <p className="text-muted-foreground">Try changing your search terms or filters.</p>
+            <h2 className="text-xl font-medium mb-2">{t('properties.noPropertiesFound')}</h2>
+            <p className="text-muted-foreground">{t('properties.tryChangingSearch')}</p>
           </div>
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
@@ -367,9 +370,9 @@ const Properties = () => {
       <Dialog open={isShareDialogOpen} onOpenChange={setIsShareDialogOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Share Property with Match</DialogTitle>
+            <DialogTitle>{t('properties.sharePropertyWithMatch')}</DialogTitle>
             <DialogDescription>
-              Select a roommate match to share this property with.
+              {t('properties.selectRoommateToShare')}
             </DialogDescription>
           </DialogHeader>
           
@@ -390,22 +393,22 @@ const Properties = () => {
                       <div className="font-medium">{match.name}</div>
                       <div className="text-xs text-muted-foreground flex items-center gap-1">
                         <span className={`h-2 w-2 rounded-full ${match.status === 'online' ? 'bg-green-500' : 'bg-gray-300'}`}></span>
-                        <span>{match.status === 'online' ? 'Online' : 'Offline'}</span>
+                        <span>{match.status === 'online' ? t('properties.online') : t('properties.offline')}</span>
                       </div>
                     </div>
                   </div>
                   
                   <Button size="sm" variant="ghost">
                     <Share2 className="h-4 w-4 mr-2" />
-                    Share with Match
+                    {t('properties.shareWithMatch')}
                   </Button>
                 </div>
               ))
             ) : (
               <div className="text-center py-6">
-                <p className="text-muted-foreground mb-3">You don't have any matches yet.</p>
+                <p className="text-muted-foreground mb-3">{t('properties.noMatches')}</p>
                 <Button onClick={() => navigate('/matching')} variant="outline">
-                  Find Roommates
+                  {t('properties.findRoommates')}
                 </Button>
               </div>
             )}
@@ -417,7 +420,7 @@ const Properties = () => {
               variant="secondary" 
               onClick={() => setIsShareDialogOpen(false)}
             >
-              Cancel
+              {t('common.cancel')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -442,10 +445,12 @@ interface CategoryDescriptionProps {
 }
 
 const CategoryDescription = ({ category }: CategoryDescriptionProps) => {
+  const { t } = useTranslation();
+  
   if (category === 'all') {
     return (
       <div className="text-center text-muted-foreground mb-6">
-        <p>View all available properties from our listings</p>
+        <p>{t('properties.viewAllAvailable')}</p>
       </div>
     );
   }
@@ -455,10 +460,10 @@ const CategoryDescription = ({ category }: CategoryDescriptionProps) => {
       <div className="text-center text-muted-foreground mb-6">
         <div className="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full mb-2">
           <House className="h-4 w-4" />
-          <span className="font-medium">Basic Properties</span>
-          <span className="text-xs bg-blue-100 px-2 py-0.5 rounded-full">Under SAR {PRICE_THRESHOLDS.BASIC}/month</span>
+          <span className="font-medium">{t('properties.basicProperties')}</span>
+          <span className="text-xs bg-blue-100 px-2 py-0.5 rounded-full">{t('properties.underPrice', { price: PRICE_THRESHOLDS.BASIC })}</span>
         </div>
-        <p>Affordable and functional living spaces for budget-conscious renters</p>
+        <p>{t('properties.basicDescription')}</p>
       </div>
     );
   }
@@ -468,10 +473,10 @@ const CategoryDescription = ({ category }: CategoryDescriptionProps) => {
       <div className="text-center text-muted-foreground mb-6">
         <div className="inline-flex items-center gap-2 bg-purple-50 text-purple-700 px-3 py-1 rounded-full mb-2">
           <Sofa className="h-4 w-4" />
-          <span className="font-medium">Comfort Properties</span>
-          <span className="text-xs bg-purple-100 px-2 py-0.5 rounded-full">SAR {PRICE_THRESHOLDS.BASIC}-{PRICE_THRESHOLDS.COMFORT}/month</span>
+          <span className="font-medium">{t('properties.comfortProperties')}</span>
+          <span className="text-xs bg-purple-100 px-2 py-0.5 rounded-full">{t('properties.priceRange', { min: PRICE_THRESHOLDS.BASIC, max: PRICE_THRESHOLDS.COMFORT })}</span>
         </div>
-        <p>Mid-range properties with modern amenities and convenient locations</p>
+        <p>{t('properties.comfortDescription')}</p>
       </div>
     );
   }
@@ -481,10 +486,10 @@ const CategoryDescription = ({ category }: CategoryDescriptionProps) => {
       <div className="text-center text-muted-foreground mb-6">
         <div className="inline-flex items-center gap-2 bg-amber-50 text-amber-700 px-3 py-1 rounded-full mb-2">
           <Crown className="h-4 w-4" />
-          <span className="font-medium">Elite Properties</span>
-          <span className="text-xs bg-amber-100 px-2 py-0.5 rounded-full">Above SAR {PRICE_THRESHOLDS.COMFORT}/month</span>
+          <span className="font-medium">{t('properties.eliteProperties')}</span>
+          <span className="text-xs bg-amber-100 px-2 py-0.5 rounded-full">{t('properties.abovePrice', { price: PRICE_THRESHOLDS.COMFORT })}</span>
         </div>
-        <p>Premium properties with luxury features, spacious layouts and exclusive locations</p>
+        <p>{t('properties.eliteDescription')}</p>
       </div>
     );
   }
@@ -522,6 +527,8 @@ interface PropertyCardProps {
 }
 
 const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, onViewDetails, category }: PropertyCardProps) => {
+  const { t } = useTranslation();
+  
   const getCategoryStyles = () => {
     switch (category) {
       case 'basic':
@@ -566,10 +573,10 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, onViewD
               e.preventDefault();
               onShare();
             }}
-            title="Share with Match"
+            title={t('properties.shareWithMatch')}
           >
             <Share2 className="h-5 w-5" />
-            <span className="sr-only">Share with Match</span>
+            <span className="sr-only">{t('properties.shareWithMatch')}</span>
           </Button>
           
           <Button 
@@ -593,7 +600,7 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, onViewD
         
         <div className={`absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1 ${categoryStyle.badge}`}>
           {categoryStyle.icon}
-          <span className="capitalize">{category}</span>
+          <span className="capitalize">{t(`properties.${category}`)}</span>
         </div>
       </div>
       
@@ -611,7 +618,7 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, onViewD
               className="text-primary inline-flex items-center hover:underline ml-2"
             >
               <Map className="h-3.5 w-3.5 mr-1" />
-              <span className="text-xs">View Map</span>
+              <span className="text-xs">{t('properties.viewMap')}</span>
             </a>
           )}
         </div>
@@ -621,11 +628,11 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, onViewD
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-1.5">
             <Bed className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm">{property.bedrooms} {property.bedrooms === 1 ? 'Bed' : 'Beds'}</span>
+            <span className="text-sm">{property.bedrooms} {property.bedrooms === 1 ? t('properties.bed') : t('properties.beds')}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Bath className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm">{property.bathrooms} {property.bathrooms === 1 ? 'Bath' : 'Baths'}</span>
+            <span className="text-sm">{property.bathrooms} {property.bathrooms === 1 ? t('properties.bath') : t('properties.baths')}</span>
           </div>
           <div className="flex items-center gap-1.5">
             <Square className="h-4 w-4 text-muted-foreground" />
@@ -638,31 +645,31 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, onViewD
             {property.amenities.hospital && (
               <div className="flex items-center gap-1">
                 <Hospital className="h-3.5 w-3.5" />
-                <span>Hospital: {property.amenities.hospital}</span>
+                <span>{t('properties.hospital')}: {property.amenities.hospital}</span>
               </div>
             )}
             {property.amenities.supermarket && (
               <div className="flex items-center gap-1">
                 <ShoppingCart className="h-3.5 w-3.5" />
-                <span>Supermarket: {property.amenities.supermarket}</span>
+                <span>{t('properties.supermarket')}: {property.amenities.supermarket}</span>
               </div>
             )}
             {property.amenities.medicalStore && (
               <div className="flex items-center gap-1">
                 <PlusCircle className="h-3.5 w-3.5" />
-                <span>Medical Store: {property.amenities.medicalStore}</span>
+                <span>{t('properties.medicalStore')}: {property.amenities.medicalStore}</span>
               </div>
             )}
             {property.amenities.publicTransport && (
               <div className="flex items-center gap-1">
                 <Bus className="h-3.5 w-3.5" />
-                <span>Public Transport: {property.amenities.publicTransport}</span>
+                <span>{t('properties.publicTransport')}: {property.amenities.publicTransport}</span>
               </div>
             )}
             {property.amenities.metro && (
               <div className="flex items-center gap-1">
                 <Train className="h-3.5 w-3.5" />
-                <span>Metro: {property.amenities.metro}</span>
+                <span>{t('properties.metro')}: {property.amenities.metro}</span>
               </div>
             )}
           </div>
@@ -685,17 +692,17 @@ const PropertyCard = ({ property, isFavorite, onToggleFavorite, onShare, onViewD
           onClick={onViewDetails}
         >
           <Eye className="h-4 w-4" />
-          View Details
+          {t('properties.viewDetails')}
         </Button>
         <Button 
           variant="outline" 
           size="icon" 
           className="rounded-md"
           onClick={onShare}
-          title="Share with Match"
+          title={t('properties.shareWithMatch')}
         >
           <Share2 className="h-5 w-5" />
-          <span className="sr-only">Share with Match</span>
+          <span className="sr-only">{t('properties.shareWithMatch')}</span>
         </Button>
       </CardFooter>
     </Card>
@@ -728,6 +735,7 @@ interface PropertyDetailsProps {
 }
 
 const PropertyDetails = ({ property, onClose }: PropertyDetailsProps) => {
+  const { t } = useTranslation();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   
   const propertyImages = [
@@ -760,7 +768,7 @@ const PropertyDetails = ({ property, onClose }: PropertyDetailsProps) => {
               className="text-primary inline-flex items-center hover:underline ml-2"
             >
               <Map className="h-3.5 w-3.5 mr-1" />
-              <span className="text-xs">View on Map</span>
+              <span className="text-xs">{t('properties.viewOnMap')}</span>
               <ExternalLink className="h-3 w-3 ml-1" />
             </a>
           )}
@@ -819,11 +827,11 @@ const PropertyDetails = ({ property, onClose }: PropertyDetailsProps) => {
           <div className="flex gap-4">
             <div className="flex items-center gap-1.5">
               <Bed className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm">{property.bedrooms} {property.bedrooms === 1 ? 'Bed' : 'Beds'}</span>
+              <span className="text-sm">{property.bedrooms} {property.bedrooms === 1 ? t('properties.bed') : t('properties.beds')}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Bath className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm">{property.bathrooms} {property.bathrooms === 1 ? 'Bath' : 'Baths'}</span>
+              <span className="text-sm">{property.bathrooms} {property.bathrooms === 1 ? t('properties.bath') : t('properties.baths')}</span>
             </div>
             <div className="flex items-center gap-1.5">
               <Square className="h-4 w-4 text-muted-foreground" />
@@ -833,12 +841,12 @@ const PropertyDetails = ({ property, onClose }: PropertyDetailsProps) => {
         </div>
         
         <div className="mb-4">
-          <h4 className="font-medium mb-2">Description</h4>
+          <h4 className="font-medium mb-2">{t('properties.description')}</h4>
           <p className="text-muted-foreground">{property.description}</p>
         </div>
         
         <div className="mb-4">
-          <h4 className="font-medium mb-2">Features</h4>
+          <h4 className="font-medium mb-2">{t('properties.features')}</h4>
           <div className="flex flex-wrap gap-2">
             {property.tags.map((tag, index) => (
               <span key={index} className="px-2.5 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
@@ -850,36 +858,36 @@ const PropertyDetails = ({ property, onClose }: PropertyDetailsProps) => {
         
         {property.amenities && (
           <div className="mb-4">
-            <h4 className="font-medium mb-2">Nearby Amenities</h4>
+            <h4 className="font-medium mb-2">{t('properties.nearbyAmenities')}</h4>
             <div className="grid grid-cols-2 gap-3">
               {property.amenities.hospital && (
                 <div className="flex items-center gap-2">
                   <Hospital className="h-4 w-4 text-blue-500" />
-                  <span>Hospital: {property.amenities.hospital}</span>
+                  <span>{t('properties.hospital')}: {property.amenities.hospital}</span>
                 </div>
               )}
               {property.amenities.supermarket && (
                 <div className="flex items-center gap-2">
                   <ShoppingCart className="h-4 w-4 text-green-500" />
-                  <span>Supermarket: {property.amenities.supermarket}</span>
+                  <span>{t('properties.supermarket')}: {property.amenities.supermarket}</span>
                 </div>
               )}
               {property.amenities.medicalStore && (
                 <div className="flex items-center gap-2">
                   <PlusCircle className="h-4 w-4 text-red-500" />
-                  <span>Medical Store: {property.amenities.medicalStore}</span>
+                  <span>{t('properties.medicalStore')}: {property.amenities.medicalStore}</span>
                 </div>
               )}
               {property.amenities.publicTransport && (
                 <div className="flex items-center gap-2">
                   <Bus className="h-4 w-4 text-orange-500" />
-                  <span>Public Transport: {property.amenities.publicTransport}</span>
+                  <span>{t('properties.publicTransport')}: {property.amenities.publicTransport}</span>
                 </div>
               )}
               {property.amenities.metro && (
                 <div className="flex items-center gap-2">
                   <Train className="h-4 w-4 text-purple-500" />
-                  <span>Metro: {property.amenities.metro}</span>
+                  <span>{t('properties.metro')}: {property.amenities.metro}</span>
                 </div>
               )}
             </div>
@@ -890,11 +898,11 @@ const PropertyDetails = ({ property, onClose }: PropertyDetailsProps) => {
       <div className="flex flex-col sm:flex-row gap-3">
         <Button className="flex-1 gap-2">
           <MessageCircle className="h-4 w-4" />
-          Contact Owner
+          {t('properties.contactOwner')}
         </Button>
         <Button variant="outline" className="flex-1 gap-2">
           <Share2 className="h-4 w-4" />
-          Share Property
+          {t('properties.shareProperty')}
         </Button>
         <Button 
           variant={property.id ? "ghost" : "outline"} 
