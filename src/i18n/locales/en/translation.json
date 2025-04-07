@@ -1,4 +1,3 @@
-
 {
   "common": {
     "welcome": "Welcome Back",
@@ -139,16 +138,35 @@
   "matching": {
     "step": "Step 4 of 4",
     "title": "Find Your Perfect Match",
-    "subtitle": "Swipe right on roommates you're interested in, left on those you're not.",
-    "match": "It's a match!",
-    "matchDesc": "You matched with {{name}}. You can now message them.",
+    "descriptionSeek": "Swipe right on roommates you're interested in, left on those you're not.",
+    "descriptionHost": "Swipe right on potential roommates for your space, left on those you're not interested in.",
+    "todaySwipes": "Today's Swipes",
+    "limitReached": "Limit reached",
+    "swipeLimitReached": "Daily Swipe Limit Reached",
+    "swipeLimitDescription": "You've used all 20 swipes for today. Come back tomorrow!",
+    "swipesResetMidnight": "You've used all 20 daily swipes. Your swipes will reset at midnight.",
+    "itsAMatch": "It's a match!",
+    "matchDescription": "You matched with {{name}}. You can now message them.",
     "noMoreProfiles": "You've seen all profiles",
-    "checkBack": "No more profiles to show at the moment. Check back later!",
-    "lifestyle": "Lifestyle",
-    "about": "About",
+    "checkBackLater": "No more profiles to show at the moment. Check back later!",
+    "messagingComingSoon": "Messaging functionality will be implemented soon.",
     "yourMatches": "Your Matches",
-    "messagingSoon": "Messaging functionality will be implemented soon.",
-    "browseProperties": "Browse Properties"
+    "browseProperties": "Browse Properties",
+    "nope": "NOPE",
+    "like": "LIKE",
+    "match": "Match",
+    "matched": "Matched",
+    "profileHidden": "Profile Hidden",
+    "visibleAfterMatch": "Profile will be visible after matching",
+    "interests": "Interests",
+    "livingPreferences": "Living Preferences",
+    "cleanliness": "Cleanliness",
+    "noiseLevel": "Noise Level",
+    "guestFrequency": "Guest Frequency",
+    "pets": "Pets",
+    "welcome": "Welcome",
+    "noPets": "No pets",
+    "availableRooms": "Available Rooms"
   },
   "payment": {
     "completePayment": "Complete Payment",

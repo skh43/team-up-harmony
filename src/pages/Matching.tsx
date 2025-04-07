@@ -1,31 +1,148 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
-import { Heart, X, Star, MessageCircle, ChevronLeft, ChevronRight, UserCircle2, Globe, AlertCircle } from 'lucide-react';
+import { Heart, X, Star, MessageCircle, ChevronLeft, ChevronRight, UserCircle2, Globe, AlertCircle, Home } from 'lucide-react';
 import MainLayout from '@/layouts/MainLayout';
+import MatchCard, { MatchProfile } from '@/components/MatchCard';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
-const MOCK_ROOMMATES = [
-  // Mock data for potential roommates with nationalities
-  // ... keep existing code
+// Mock data for potential roommates
+const MOCK_ROOMMATES: MatchProfile[] = [
+  {
+    id: '1',
+    name: 'Sarah Johnson',
+    age: 27,
+    location: 'Downtown Dubai',
+    bio: 'Marketing professional who loves cooking and yoga. Looking for a clean and quiet roommate to share my apartment.',
+    imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop',
+    compatibility: 95,
+    interests: ['Yoga', 'Cooking', 'Reading', 'Travel'],
+    preferences: {
+      cleanliness: 5,
+      noise: 2,
+      guests: 3,
+      pets: false
+    },
+    roomImages: [
+      'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=2074&auto=format&fit=crop'
+    ],
+    nationality: 'Canadian'
+  },
+  {
+    id: '2',
+    name: 'Mohammed Al-Farsi',
+    age: 30,
+    location: 'Business Bay',
+    bio: 'Software engineer working for a tech startup. Neat, organized, and looking for a similar roommate.',
+    imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop',
+    compatibility: 87,
+    interests: ['Technology', 'Gaming', 'Fitness', 'Movies'],
+    preferences: {
+      cleanliness: 4,
+      noise: 3,
+      guests: 2,
+      pets: true
+    },
+    roomImages: [
+      'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=1980&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop'
+    ],
+    nationality: 'Emirati'
+  },
+  {
+    id: '3',
+    name: 'Priya Sharma',
+    age: 26,
+    location: 'Silicon Oasis',
+    bio: 'Medical student who enjoys music and art. Looking for a peaceful environment to study and relax.',
+    imageUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop',
+    compatibility: 82,
+    interests: ['Art', 'Music', 'Medicine', 'Hiking'],
+    preferences: {
+      cleanliness: 5,
+      noise: 1,
+      guests: 2,
+      pets: false
+    },
+    roomImages: [
+      'https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1617104678098-de229db51175?q=80&w=2070&auto=format&fit=crop'
+    ],
+    nationality: 'Indian'
+  },
+  {
+    id: '4',
+    name: 'John Smith',
+    age: 32,
+    location: 'The Greens',
+    bio: 'Finance professional who loves sports and travel. Looking for a sociable roommate who respects privacy.',
+    imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1974&auto=format&fit=crop',
+    compatibility: 78,
+    interests: ['Finance', 'Football', 'Travel', 'Cooking'],
+    preferences: {
+      cleanliness: 3,
+      noise: 3,
+      guests: 4,
+      pets: true
+    },
+    roomImages: [
+      'https://images.unsplash.com/photo-1602872030219-ad2b9a54315c?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1560185127-6ed189bf02f4?q=80&w=2070&auto=format&fit=crop'
+    ],
+    nationality: 'British'
+  },
+  {
+    id: '5',
+    name: 'Lee Min-ho',
+    age: 28,
+    location: 'Dubai Marina',
+    bio: 'Designer who loves photography and trying new restaurants. Looking for a creative and clean roommate.',
+    imageUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop',
+    compatibility: 90,
+    interests: ['Design', 'Photography', 'Food', 'Travel'],
+    preferences: {
+      cleanliness: 4,
+      noise: 2,
+      guests: 3,
+      pets: false
+    },
+    roomImages: [
+      'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?q=80&w=2076&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1556702571-3e11dd2b1a92?q=80&w=2076&auto=format&fit=crop'
+    ],
+    nationality: 'Korean'
+  }
 ];
 
 const Matching = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [matches, setMatches] = useState<number[]>([]);
+  const [matches, setMatches] = useState<string[]>([]);
   const [animation, setAnimation] = useState<'swipe-left' | 'swipe-right' | null>(null);
   const [swipesUsed, setSwipesUsed] = useState<number>(0);
   const [swipesReset, setSwipesReset] = useState<string>("");
+  const [userPath, setUserPath] = useState<string>("seek"); // Default to "seek"
   
   const MAX_DAILY_SWIPES = 20;
 
   const currentProfile = MOCK_ROOMMATES[currentIndex];
 
+  // Load user path from localStorage
   useEffect(() => {
+    const savedPath = localStorage.getItem('userPath');
+    if (savedPath) {
+      setUserPath(savedPath);
+    }
+    
     const storedSwipeData = localStorage.getItem('dailySwipes');
     if (storedSwipeData) {
       const { count, resetDate } = JSON.parse(storedSwipeData);
@@ -42,7 +159,20 @@ const Matching = () => {
     } else {
       updateSwipeStorage(0);
     }
+    
+    // Load saved matches
+    const savedMatches = localStorage.getItem('userMatches');
+    if (savedMatches) {
+      setMatches(JSON.parse(savedMatches));
+    }
   }, []);
+
+  // Save matches to localStorage when they change
+  useEffect(() => {
+    if (matches.length > 0) {
+      localStorage.setItem('userMatches', JSON.stringify(matches));
+    }
+  }, [matches]);
 
   const updateSwipeStorage = (count: number) => {
     const today = new Date().toDateString();
@@ -64,8 +194,8 @@ const Matching = () => {
   const handleLike = () => {
     if (hasReachedSwipeLimit) {
       toast({
-        title: "Daily Swipe Limit Reached",
-        description: "You've used all 20 swipes for today. Come back tomorrow!",
+        title: t("matching.swipeLimitReached"),
+        description: t("matching.swipeLimitDescription"),
         variant: "destructive",
       });
       return;
@@ -74,11 +204,12 @@ const Matching = () => {
     setAnimation('swipe-right');
     incrementSwipeCount();
     
+    // Add to matches
     setMatches(prev => [...prev, currentProfile.id]);
     
     toast({
-      title: "It's a match!",
-      description: `You matched with ${currentProfile.name}. You can now message them.`,
+      title: t("matching.itsAMatch"),
+      description: t("matching.matchDescription", { name: currentProfile.name }),
     });
     
     setTimeout(() => {
@@ -90,8 +221,8 @@ const Matching = () => {
   const handleDislike = () => {
     if (hasReachedSwipeLimit) {
       toast({
-        title: "Daily Swipe Limit Reached",
-        description: "You've used all 20 swipes for today. Come back tomorrow!",
+        title: t("matching.swipeLimitReached"),
+        description: t("matching.swipeLimitDescription"),
         variant: "destructive",
       });
       return;
@@ -111,8 +242,8 @@ const Matching = () => {
       setCurrentIndex(prevIndex => prevIndex + 1);
     } else {
       toast({
-        title: "You've seen all profiles",
-        description: "No more profiles to show at the moment. Check back later!",
+        title: t("matching.noMoreProfiles"),
+        description: t("matching.checkBackLater"),
       });
     }
   };
@@ -123,20 +254,45 @@ const Matching = () => {
     }
   };
 
+  const handleMessage = (id: string) => {
+    toast({
+      description: t("matching.messagingComingSoon"),
+    });
+  };
+
+  // Convert current profile to MatchProfile type
+  const convertToMatchProfile = (profile: any): MatchProfile => {
+    return {
+      id: profile.id,
+      name: profile.name,
+      age: profile.age,
+      location: profile.location,
+      bio: profile.bio,
+      imageUrl: profile.imageUrl,
+      compatibility: profile.compatibility,
+      interests: profile.interests,
+      preferences: profile.preferences
+    };
+  };
+
+  const isAlreadyMatched = currentProfile && matches.includes(currentProfile.id);
+
   return (
     <MainLayout className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="w-full max-w-3xl mx-auto">
         <div className="mb-8 text-center">
           <span className="inline-block px-3 py-1 mb-4 text-xs font-medium bg-primary/10 text-primary rounded-full">
-            Step 4 of 4
+            {t("matching.step")}
           </span>
-          <h1 className="text-3xl md:text-4xl font-bold mb-4">Find Your Perfect Match</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-4">{t("matching.title")}</h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Swipe right on roommates you're interested in, left on those you're not.
+            {userPath === 'host' 
+              ? t("matching.descriptionHost") 
+              : t("matching.descriptionSeek")}
           </p>
           
           <div className="mt-4 inline-flex items-center justify-center px-4 py-2 bg-primary/5 rounded-full">
-            <span className="text-sm text-primary font-medium mr-2">Today's Swipes:</span>
+            <span className="text-sm text-primary font-medium mr-2">{t("matching.todaySwipes")}:</span>
             <span className={cn(
               "font-bold",
               hasReachedSwipeLimit ? "text-destructive" : "text-primary"
@@ -146,7 +302,7 @@ const Matching = () => {
             {hasReachedSwipeLimit && (
               <div className="flex items-center ml-2 text-destructive">
                 <AlertCircle className="h-4 w-4 mr-1" />
-                <span className="text-xs">Limit reached</span>
+                <span className="text-xs">{t("matching.limitReached")}</span>
               </div>
             )}
           </div>
@@ -154,47 +310,37 @@ const Matching = () => {
 
         {currentProfile && (
           <div className="relative w-full mb-8">
-            <Card 
-              className={cn(
-                "w-full aspect-[3/4] overflow-hidden rounded-2xl shadow-elegant transition-transform duration-500 futuristic-panel",
-                animation === 'swipe-left' && "translate-x-[-100%] rotate-[-10deg]",
-                animation === 'swipe-right' && "translate-x-[100%] rotate-[10deg]",
-                hasReachedSwipeLimit && "opacity-70"
-              )}
-            >
-              <div className="relative h-full">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${currentProfile.image})` }}
-                />
-                
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <div className="flex items-center justify-between mb-1">
-                    <h2 className="text-2xl font-bold flex items-center gap-2">
-                      {currentProfile.name}, {currentProfile.age}
-                    </h2>
-                    <div className="flex items-center gap-1.5 px-3 py-1 bg-primary/20 backdrop-blur-sm rounded-full">
-                      <Globe className="h-4 w-4 text-primary" />
-                      <span className="text-sm font-medium text-primary">{currentProfile.nationality}</span>
+            {/* Card for swiping */}
+            <div className="flex justify-center">
+              <MatchCard
+                profile={convertToMatchProfile(currentProfile)}
+                onLike={handleLike}
+                onDislike={handleDislike}
+                onMessage={isAlreadyMatched ? handleMessage : undefined}
+                isActive={!hasReachedSwipeLimit}
+              />
+            </div>
+
+            {/* Display room images if the path is 'host' */}
+            {userPath === 'host' && currentProfile.roomImages && currentProfile.roomImages.length > 0 && (
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold mb-3">{t("matching.availableRooms")}</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  {currentProfile.roomImages.map((image, index) => (
+                    <div 
+                      key={index} 
+                      className="aspect-[4/3] rounded-lg overflow-hidden shadow-md"
+                    >
+                      <img 
+                        src={image} 
+                        alt={`Room ${index + 1}`} 
+                        className="w-full h-full object-cover"
+                      />
                     </div>
-                  </div>
-                  <p className="text-white/90 mb-2">{currentProfile.occupation}</p>
-                  <p className="text-white/90 mb-4">{currentProfile.location} • {currentProfile.budget}</p>
-                  
-                  <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 mb-4 glass-card">
-                    <h3 className="font-medium mb-2">Lifestyle</h3>
-                    <p className="text-sm text-white/80">{currentProfile.lifestyle}</p>
-                  </div>
-                  
-                  <div className="bg-white/10 backdrop-blur-md rounded-lg p-4 glass-card">
-                    <h3 className="font-medium mb-2">About</h3>
-                    <p className="text-sm text-white/80">{currentProfile.bio}</p>
-                  </div>
+                  ))}
                 </div>
               </div>
-            </Card>
+            )}
 
             <div className="flex justify-center gap-4 mt-6">
               <Button 
@@ -240,8 +386,8 @@ const Matching = () => {
             
             {hasReachedSwipeLimit && (
               <div className="mt-6 p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-center">
-                <h3 className="font-semibold text-destructive mb-1">Swipe Limit Reached</h3>
-                <p className="text-sm text-muted-foreground">You've used all 20 daily swipes. Your swipes will reset at midnight.</p>
+                <h3 className="font-semibold text-destructive mb-1">{t("matching.swipeLimitReached")}</h3>
+                <p className="text-sm text-muted-foreground">{t("matching.swipesResetMidnight")}</p>
               </div>
             )}
           </div>
@@ -249,7 +395,7 @@ const Matching = () => {
 
         {matches.length > 0 && (
           <div className="mt-8 glass-panel p-6 rounded-xl">
-            <h2 className="text-xl font-semibold mb-4 text-white">Your Matches</h2>
+            <h2 className="text-xl font-semibold mb-4 text-white">{t("matching.yourMatches")}</h2>
             <div className="flex flex-wrap gap-4">
               {matches.map(matchId => {
                 const matchProfile = MOCK_ROOMMATES.find(r => r.id === matchId);
@@ -258,18 +404,16 @@ const Matching = () => {
                 return (
                   <div key={matchId} className="flex flex-col items-center">
                     <div className="relative">
-                      <div 
-                        className="h-16 w-16 rounded-full bg-cover bg-center border-2 border-primary/50"
-                        style={{ backgroundImage: `url(${matchProfile.image})` }}
-                      />
+                      <Avatar className="h-16 w-16 border-2 border-primary/50">
+                        <AvatarImage src={matchProfile.imageUrl} alt={matchProfile.name} />
+                        <AvatarFallback>
+                          {matchProfile.name.substring(0, 2).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
                       <Button 
                         size="icon" 
                         className="h-6 w-6 absolute -bottom-1 -right-1 rounded-full bg-primary hover:bg-primary/90 shadow-neon"
-                        onClick={() => {
-                          toast({
-                            description: "Messaging functionality will be implemented soon.",
-                          });
-                        }}
+                        onClick={() => handleMessage(matchId)}
                       >
                         <MessageCircle className="h-3 w-3" />
                       </Button>
@@ -288,7 +432,7 @@ const Matching = () => {
             onClick={() => navigate('/properties')}
             className="rounded-full px-6 bg-primary/80 hover:bg-primary backdrop-blur-sm shadow-neon"
           >
-            Browse Properties
+            {t("matching.browseProperties")}
           </Button>
         </div>
       </div>
