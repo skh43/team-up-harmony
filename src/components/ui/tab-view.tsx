@@ -8,7 +8,7 @@ type TabViewProps = {
   defaultValue?: string;
   tabs: {
     value: string;
-    label: string;
+    label: string | React.ReactNode;
     icon?: React.ReactNode;
     color?: string;
   }[];
