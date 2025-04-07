@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,7 +25,6 @@ import PropertyImageUpload from '@/components/PropertyImageUpload';
 import { useTranslation } from 'react-i18next';
 import { TabView, TabsContent } from "@/components/ui/tab-view";
 
-// Define a simpler form schema for hosts - not all fields are required
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
   lastName: z.string().min(2, "Last name must be at least 2 characters"),
@@ -59,7 +57,6 @@ const nationalities = [
   "Singaporean", "South African", "Spanish", "Turkish", "Other"
 ];
 
-// Areas in Riyadh
 const riyadhAreas = [
   "Al Olaya", "Al Malaz", "Al Murabba", "Al Muruj", "Al Nakheel",
   "Al Naseem", "Al Qods", "Al Rabwah", "Al Rawdah", "Al Sahafah",
@@ -125,7 +122,6 @@ export default function ProfileCreation() {
     navigate("/matching");
   }
 
-  // Simplified host path: just personal info and room info tabs
   const tabs = userPath === 'host' 
     ? [
         { value: "personal", label: t('profileCreation.personalInfo'), color: "purple" },
@@ -431,17 +427,17 @@ export default function ProfileCreation() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
-                        <Coffee className="w-4 h-4" /> {t('profileCreation.sharedFacilities')}
+                        <Coffee className="w-4 h-4" /> {t('profileCreation.sharedAmenities')}
                       </FormLabel>
                       <FormControl>
                         <Textarea 
-                          placeholder={t('profileCreation.sharedFacilitiesPlaceholder')} 
+                          placeholder={t('profileCreation.sharedAmenitiesPlaceholder')} 
                           className="min-h-24" 
                           {...field} 
                         />
                       </FormControl>
                       <FormDescription>
-                        {t('profileCreation.sharedFacilitiesHelp')}
+                        {t('profileCreation.sharedAmenitiesHelp')}
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
