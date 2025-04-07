@@ -14,11 +14,191 @@ import MainLayout from '@/layouts/MainLayout';
 import { cn } from '@/lib/utils';
 
 const MOCK_PROPERTIES = [
-  // ... keep existing MOCK_PROPERTIES array
+  {
+    id: 1,
+    title: "Luxury Apartment in Al Olaya",
+    location: "Al Olaya, Riyadh",
+    price: "SAR 90,000/year",
+    priceValue: 7500, // monthly equivalent in SAR
+    bedrooms: 2,
+    bathrooms: 2,
+    size: "120 sq.m",
+    description: "Modern luxury apartment in the heart of Al Olaya district with premium finishes, floor-to-ceiling windows, and amazing city views. The apartment features an open kitchen, spacious living area, and a balcony overlooking the bustling city center.",
+    image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+    tags: ["Furnished", "Balcony", "Gym", "Swimming Pool", "24/7 Security"],
+    mapLink: "https://maps.google.com/?q=Al+Olaya+Riyadh",
+    amenities: {
+      hospital: "3.5 km",
+      supermarket: "400 m",
+      medicalStore: "600 m",
+      publicTransport: "250 m",
+      metro: "1.2 km"
+    }
+  },
+  {
+    id: 2,
+    title: "Spacious Villa in Al Nakheel",
+    location: "Al Nakheel, Riyadh",
+    price: "SAR 180,000/year",
+    priceValue: 15000, // monthly equivalent in SAR
+    bedrooms: 4,
+    bathrooms: 5,
+    size: "350 sq.m",
+    description: "Elegant villa in Al Nakheel with modern architecture and high-quality finishes. Features include a private garden, spacious living areas, maid's room, driver's room, and a two-car garage. Perfect for families looking for comfort and privacy.",
+    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+    tags: ["Villa", "Private Garden", "Maid's Room", "Driver's Room", "Garage"],
+    mapLink: "https://maps.google.com/?q=Al+Nakheel+Riyadh",
+    amenities: {
+      hospital: "4.2 km",
+      supermarket: "1.5 km",
+      medicalStore: "1.8 km",
+      publicTransport: "800 m"
+    }
+  },
+  {
+    id: 3,
+    title: "Modern Studio in Al Malqa",
+    location: "Al Malqa, Riyadh",
+    price: "SAR 40,000/year",
+    priceValue: 3333, // monthly equivalent in SAR
+    bedrooms: 0,
+    bathrooms: 1,
+    size: "55 sq.m",
+    description: "Cozy and stylish studio apartment in Al Malqa, perfect for singles or young professionals. Features a kitchenette, modern bathroom, and smart storage solutions. The building offers 24-hour security and covered parking.",
+    image: "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+    tags: ["Studio", "Covered Parking", "Smart Home", "New Building"],
+    mapLink: "https://maps.google.com/?q=Al+Malqa+Riyadh"
+  },
+  {
+    id: 4,
+    title: "Beachfront Apartment in Jeddah",
+    location: "Corniche Road, Jeddah",
+    price: "SAR 120,000/year",
+    priceValue: 10000, // monthly equivalent in SAR
+    bedrooms: 3,
+    bathrooms: 3,
+    size: "180 sq.m",
+    description: "Stunning beachfront apartment with panoramic Red Sea views on Corniche Road. Featuring high-end finishes, a spacious balcony, and direct beach access. The building includes a swimming pool, fitness center, and beachside cafe.",
+    image: "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2384&q=80",
+    tags: ["Waterfront", "Sea View", "Fitness Center", "Beach Access", "Fully Furnished"],
+    mapLink: "https://maps.google.com/?q=Corniche+Road+Jeddah",
+    amenities: {
+      hospital: "5 km",
+      supermarket: "700 m",
+      publicTransport: "450 m"
+    }
+  },
+  {
+    id: 5,
+    title: "Apartment in Al Khobar Corniche",
+    location: "Corniche, Al Khobar",
+    price: "SAR 85,000/year",
+    priceValue: 7083, // monthly equivalent in SAR
+    bedrooms: 2,
+    bathrooms: 2,
+    size: "130 sq.m",
+    description: "Modern apartment with partial sea view in Al Khobar Corniche. Features two bedrooms, a spacious living area, and a balcony. Located near shopping centers and restaurants. Building amenities include a gym and children's play area.",
+    image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+    tags: ["Sea View", "Gym", "Children's Play Area", "Near Malls"],
+    mapLink: "https://maps.google.com/?q=Corniche+Al+Khobar",
+    amenities: {
+      hospital: "3.8 km",
+      supermarket: "500 m",
+      medicalStore: "850 m",
+      publicTransport: "300 m"
+    }
+  },
+  {
+    id: 6,
+    title: "Traditional Townhouse in Al Balad",
+    location: "Al Balad, Jeddah",
+    price: "SAR 75,000/year",
+    priceValue: 6250, // monthly equivalent in SAR
+    bedrooms: 3,
+    bathrooms: 2,
+    size: "160 sq.m",
+    description: "Restored traditional townhouse in the historic Al Balad district with authentic architectural details and modern amenities. Features a rooftop terrace with city views, three bedrooms, and a charming courtyard.",
+    image: "https://images.unsplash.com/photo-1598928636135-d146006ff4be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+    tags: ["Historic", "Rooftop Terrace", "Courtyard", "Renovated", "UNESCO Area"],
+    mapLink: "https://maps.google.com/?q=Al+Balad+Jeddah",
+    amenities: {
+      hospital: "4.5 km",
+      supermarket: "900 m",
+      medicalStore: "1.2 km",
+      publicTransport: "600 m"
+    }
+  },
+  {
+    id: 7,
+    title: "Budget Apartment in Al Naseem",
+    location: "Al Naseem, Jeddah",
+    price: "SAR 30,000/year",
+    priceValue: 2500, // monthly equivalent in SAR
+    bedrooms: 1,
+    bathrooms: 1,
+    size: "70 sq.m",
+    description: "Affordable one-bedroom apartment in Al Naseem district, perfect for students or young professionals. The property is well-maintained with basic amenities and is located near public transportation and shopping areas.",
+    image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+    tags: ["Budget", "Student-friendly", "Near Transportation", "Unfurnished"],
+    mapLink: "https://maps.google.com/?q=Al+Naseem+Jeddah",
+    amenities: {
+      hospital: "6 km",
+      supermarket: "350 m",
+      medicalStore: "500 m",
+      publicTransport: "200 m"
+    }
+  },
+  {
+    id: 8,
+    title: "Executive Apartment in KAFD",
+    location: "King Abdullah Financial District, Riyadh",
+    price: "SAR 140,000/year",
+    priceValue: 11666, // monthly equivalent in SAR
+    bedrooms: 2,
+    bathrooms: 2,
+    size: "140 sq.m",
+    description: "High-end apartment in the prestigious King Abdullah Financial District with smart home technology, premium finishes, and panoramic city views. Building amenities include concierge service, business center, and fine dining restaurants.",
+    image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2340&q=80",
+    tags: ["Smart Home", "Concierge", "Business District", "Premium", "City View"],
+    mapLink: "https://maps.google.com/?q=KAFD+Riyadh",
+    amenities: {
+      hospital: "2.5 km",
+      supermarket: "In Building",
+      medicalStore: "In Building",
+      publicTransport: "300 m",
+      metro: "400 m"
+    }
+  }
 ];
 
 const MOCK_MATCHES = [
-  // ... keep existing MOCK_MATCHES array
+  {
+    id: 101,
+    name: "Ahmed Al-Farsi",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+    status: "online",
+    matchScore: 92,
+    occupation: "Software Engineer",
+    interests: ["Reading", "Technology", "Hiking"]
+  },
+  {
+    id: 102,
+    name: "Fatima Hassan",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+    status: "offline",
+    matchScore: 87,
+    occupation: "Marketing Specialist",
+    interests: ["Photography", "Cooking", "Travel"]
+  },
+  {
+    id: 103,
+    name: "Omar Khalid",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80",
+    status: "online",
+    matchScore: 85,
+    occupation: "Doctor",
+    interests: ["Music", "Sports", "Movies"]
+  }
 ];
 
 const PRICE_THRESHOLDS = {
