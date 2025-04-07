@@ -83,7 +83,7 @@ const PathSelection = () => {
               </div>
               <div>
                 <h3 className="font-bold text-lg">{t('pathSelection.seekSettle')}</h3>
-                <p className="text-muted-foreground">{t('pathSelection.seekSettleDescUpdated') || t('pathSelection.seekSettleDesc')}</p>
+                <p className="text-muted-foreground">{t('pathSelection.seekSettleDesc')}</p>
               </div>
             </div>
           </CardContent>

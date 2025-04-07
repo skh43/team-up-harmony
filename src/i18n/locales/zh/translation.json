@@ -1,4 +1,3 @@
-
 {
   "common": {
     "welcome": "欢迎回来",
@@ -73,7 +72,6 @@
     "hostEasier": "简单流程 - 更快设置您的房间",
     "seekSettle": "寻找与安定",
     "seekSettleDesc": "我想先找到一个兼容的室友，然后我们一起找地方。",
-    "seekSettleDescUpdated": "我想先找到一个兼容的室友，然后我们一起找地方，或匹配已有住处的人。",
     "selected": "已选择",
     "select": "选择",
     "continue": "继续",
