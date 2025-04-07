@@ -38,7 +38,7 @@ const formSchema = z.object({
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
   livingReference: z.string().min(1, "Please select your accommodation type"),
-  district: z.string().min(1, "Please enter your district"),
+  district: z.string().min(1, "Please enter your location"),
   roomDescription: z.string().optional(),
   sharedFacilities: z.string().optional(),
   mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
@@ -330,10 +330,10 @@ export default function ProfileCreation() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4" /> {t('profileCreation.district')}
+                      <MapPin className="w-4 h-4" /> {t('profileCreation.location')}
                     </FormLabel>
                     <FormControl>
-                      <Input placeholder={t('profileCreation.districtPlaceholder')} {...field} />
+                      <Input placeholder={t('profileCreation.locationPlaceholder')} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

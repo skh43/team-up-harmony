@@ -106,6 +106,8 @@
     "selectCity": "选择您的城市",
     "district": "区域",
     "districtPlaceholder": "输入您所在的区域或街区",
+    "location": "位置",
+    "locationPlaceholder": "输入您的位置",
     "openToAllNationalities": "愿意与所有国籍的人共同生活",
     "openToAllNationalitiesDesc": "如果您愿意与任何背景的人共同生活，请勾选此项",
     "roomDetails": "您的房间/空间详情",
