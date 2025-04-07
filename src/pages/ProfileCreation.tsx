@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map } from "lucide-react";
+import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map, BedDouble, Users } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -37,6 +37,7 @@ const formSchema = z.object({
   workTiming: z.string().min(2, "Please specify your work schedule"),
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
+  livingReference: z.string().min(1, "Please select your accommodation type"),
   // Room details fields - made optional since they might not be needed for Seek & Settle path
   roomDescription: z.string().optional(),
   sharedFacilities: z.string().optional(),
@@ -95,6 +96,7 @@ export default function ProfileCreation() {
       workTiming: "",
       nationality: "",
       openToAllNationalities: false,
+      livingReference: "",
       roomDescription: "",
       sharedFacilities: "",
       mapLink: "",
@@ -208,6 +210,50 @@ export default function ProfileCreation() {
               )}
             />
           </div>
+          
+          {/* Living Reference - New Section */}
+          <FormField
+            control={form.control}
+            name="livingReference"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="flex items-center gap-2">
+                  <BedDouble className="w-4 h-4" /> {t('profileCreation.livingReference')}
+                </FormLabel>
+                <FormDescription>
+                  {t('profileCreation.livingReferenceDesc')}
+                </FormDescription>
+                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder={t('profileCreation.selectLivingReference')} />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="sharedRoom">
+                      <div className="flex items-center gap-2">
+                        <Users className="w-4 h-4" />
+                        <span>{t('profileCreation.sharedRoom')}</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="singleRoom">
+                      <div className="flex items-center gap-2">
+                        <BedDouble className="w-4 h-4" />
+                        <span>{t('profileCreation.singleRoom')}</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="bedSpace">
+                      <div className="flex items-center gap-2">
+                        <Sofa className="w-4 h-4" />
+                        <span>{t('profileCreation.bedSpace')}</span>
+                      </div>
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           
           <FormField
             control={form.control}

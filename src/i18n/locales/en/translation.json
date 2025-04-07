@@ -1,3 +1,4 @@
+
 {
   "common": {
     "welcome": "Welcome Back",
@@ -123,7 +124,13 @@
     "distancePublicTransport": "Distance to Public Transport",
     "distancePublicTransportPlaceholder": "e.g. 0.2 km",
     "distanceMetroStation": "Distance to Metro Station",
-    "distanceMetroStationPlaceholder": "e.g. 1.5 km"
+    "distanceMetroStationPlaceholder": "e.g. 1.5 km",
+    "livingReference": "Living Accommodation",
+    "livingReferenceDesc": "Select the type of accommodation you're offering or looking for",
+    "selectLivingReference": "Select accommodation type",
+    "sharedRoom": "Shared Room",
+    "singleRoom": "Single Room",
+    "bedSpace": "Bed Space"
   },
   "dashboard": {
     "title": "Dashboard",
