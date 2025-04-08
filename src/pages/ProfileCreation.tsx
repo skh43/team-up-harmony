@@ -38,7 +38,7 @@ const formSchema = z.object({
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
   livingReference: z.string().min(1, "Please select your accommodation type"),
-  district: z.string().min(1, "Please enter your location"),
+  district: z.string().min(1, "Please select your district in Riyadh"),
   roomDescription: z.string().optional(),
   sharedFacilities: z.string().optional(),
   mapLink: z.string().url("Please enter a valid map URL").optional().or(z.literal('')),
@@ -58,7 +58,38 @@ const nationalities = [
   "Singaporean", "South African", "Spanish", "Turkish", "Other"
 ];
 
-// Removed cities array as it's no longer needed
+// Riyadh districts
+const riyadhDistricts = [
+  "Al Olaya", 
+  "Al Malaz", 
+  "Al Murabba", 
+  "Al Nasriyah", 
+  "Al Rawdah",
+  "Al Wurud",
+  "Al Shuhada",
+  "Al Sulimaniyah",
+  "Al Nakheel",
+  "Hittin",
+  "Al Muhammadiyah",
+  "Al Rabwah",
+  "Al Sahafah",
+  "King Fahd District",
+  "Diplomatic Quarter",
+  "Al Muruj",
+  "Al Yasmin",
+  "Qurtubah",
+  "Al Hamra",
+  "As Suwaidi",
+  "Al Batha",
+  "Al Maather",
+  "Al Faisaliah",
+  "Al Wadi",
+  "Al Ghadir",
+  "Al Narjis",
+  "Al Arid",
+  "King Abdullah Financial District",
+  "Al Khozama"
+];
 
 export default function ProfileCreation() {
   const navigate = useNavigate();
@@ -332,9 +363,20 @@ export default function ProfileCreation() {
                     <FormLabel className="flex items-center gap-2">
                       <MapPin className="w-4 h-4" /> {t('profileCreation.location')}
                     </FormLabel>
-                    <FormControl>
-                      <Input placeholder={t('profileCreation.locationPlaceholder')} {...field} />
-                    </FormControl>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={t('profileCreation.selectDistrict')} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {riyadhDistricts.map((district) => (
+                          <SelectItem key={district} value={district.toLowerCase()}>
+                            {district}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
