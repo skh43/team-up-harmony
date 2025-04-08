@@ -101,6 +101,7 @@ export default function ProfileCreation() {
   const [roomImages, setRoomImages] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState("personal");
   const [userPath, setUserPath] = useState<string>('host'); // Default to 'host'
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   useEffect(() => {
     if (location.state && location.state.path) {
@@ -139,33 +140,49 @@ export default function ProfileCreation() {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Log the submission data
-    console.log("Form submitted:", {
-      ...values,
-      profilePhoto,
-      roomImages,
-      userPath
-    });
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      setIsSubmitting(true);
+      
+      // Log the submission data
+      console.log("Form submitted:", {
+        ...values,
+        profilePhoto,
+        roomImages,
+        userPath
+      });
 
-    // Save profile to localStorage for retrieval in matching page
-    const profileData = {
-      ...values,
-      profilePhoto,
-      roomImages,
-      userPath
-    };
-    
-    localStorage.setItem('userProfile', JSON.stringify(profileData));
-    
-    toast({
-      title: "Profile created successfully",
-      description: "Redirecting to matching page",
-    });
-    
-    // Force navigation to matching page
-    console.log("Navigating to /matching");
-    navigate("/matching", { replace: true });
+      // Save profile to localStorage for retrieval in matching page
+      const profileData = {
+        ...values,
+        profilePhoto,
+        roomImages,
+        userPath
+      };
+      
+      localStorage.setItem('userProfile', JSON.stringify(profileData));
+      
+      toast({
+        title: "Profile created successfully",
+        description: "Redirecting to matching page",
+      });
+      
+      // Small delay to ensure the toast is shown before navigation
+      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Force navigation to matching page with replace to prevent back navigation
+      console.log("Navigating to /matching");
+      navigate("/matching", { replace: true });
+    } catch (error) {
+      console.error("Error during profile submission:", error);
+      toast({
+        title: "Error saving profile",
+        description: "Please try again",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const tabs = userPath === 'host' 
@@ -612,8 +629,9 @@ export default function ProfileCreation() {
             type="submit" 
             variant="airbnb" 
             className="w-full mt-8"
+            disabled={isSubmitting}
           >
-            {t('common.continue')}
+            {isSubmitting ? "Saving..." : t('common.continue')}
           </Button>
         </form>
       </Form>
