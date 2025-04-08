@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map, BedDouble, Users, Bath, Utensils } from "lucide-react";
+import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -47,6 +48,7 @@ const formSchema = z.object({
   distanceMedicalStore: z.string().optional(),
   distancePublicTransport: z.string().optional(),
   distanceMetroStation: z.string().optional(),
+  distanceBusStand: z.string().optional(),
 });
 
 const nationalities = [
@@ -137,6 +139,7 @@ export default function ProfileCreation() {
       distanceMedicalStore: "",
       distancePublicTransport: "",
       distanceMetroStation: "",
+      distanceBusStand: "",
     },
   });
 
@@ -600,24 +603,45 @@ export default function ProfileCreation() {
                   />
                 </div>
                 
-                <FormField
-                  control={form.control}
-                  name="distanceMetroStation"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <Train className="w-4 h-4" /> {t('profileCreation.distanceMetroStation')}
-                      </FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder={t('profileCreation.distanceMetroStationPlaceholder')} 
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="distanceMetroStation"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Train className="w-4 h-4" /> {t('profileCreation.distanceMetroStation')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.distanceMetroStationPlaceholder')} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={form.control}
+                    name="distanceBusStand"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center gap-2">
+                          <Bus className="w-4 h-4" /> {t('profileCreation.distanceBusStand')}
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder={t('profileCreation.distanceBusStandPlaceholder') || "e.g., 0.3 km"} 
+                            {...field} 
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </TabsContent>
             )}
           </TabView>

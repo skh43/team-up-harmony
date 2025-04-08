@@ -40,6 +40,7 @@ export type MatchProfile = {
   distanceMedicalStore?: string;
   distancePublicTransport?: string;
   distanceMetroStation?: string;
+  distanceBusStand?: string;
   userType?: 'host' | 'seek';
 };
 
@@ -128,7 +129,7 @@ const MatchCard = ({
 
   const hasLocationInfo = profile.distanceHospital || profile.distanceSupermarket || 
                           profile.distanceMedicalStore || profile.distancePublicTransport || 
-                          profile.distanceMetroStation;
+                          profile.distanceMetroStation || profile.distanceBusStand;
 
   return (
     <Card 
@@ -328,6 +329,13 @@ const MatchCard = ({
                         <span>Metro Station: {profile.distanceMetroStation}</span>
                       </div>
                     )}
+                    
+                    {profile.distanceBusStand && (
+                      <div className="flex items-center">
+                        <div className="w-1.5 h-1.5 rounded-full bg-orange-500 mr-1.5"></div>
+                        <span>Bus Stand: {profile.distanceBusStand}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -502,6 +510,13 @@ const MatchCard = ({
                     <div className="flex items-center text-xs">
                       <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mr-1.5"></div>
                       <span>Metro: {profile.distanceMetroStation}</span>
+                    </div>
+                  )}
+                  
+                  {profile.distanceBusStand && (
+                    <div className="flex items-center text-xs">
+                      <div className="w-1.5 h-1.5 rounded-full bg-orange-500 mr-1.5"></div>
+                      <span>Bus Stand: {profile.distanceBusStand}</span>
                     </div>
                   )}
                 </div>
