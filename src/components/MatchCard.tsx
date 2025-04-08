@@ -343,7 +343,7 @@ const MatchCard = ({
             
             {profile.bio && (
               <div className="mt-1 pt-2 border-t border-border/50">
-                <p className="text-sm text-muted-foreground line-clamp-2">{profile.bio}</p>
+                <p className="text-sm text-muted-foreground line-clamp-2"></p>
               </div>
             )}
           </CardContent>
