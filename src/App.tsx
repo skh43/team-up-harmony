@@ -27,19 +27,8 @@ import { useAuth } from "./hooks/useAuth";
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
 
-// Protected route component
+// Simplified auth check component
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated } = useAuth();
-  
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
-  
-  return <>{children}</>;
-};
-
-// Very basic roommate flow route - only checks authentication
-const RoommateFlowRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
   
   if (!isAuthenticated) {
@@ -62,12 +51,12 @@ const AppRoutes = () => {
       <Route path="/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
       
-      {/* Simplified roommate flow routes */}
-      <Route path="/living-plan-selection" element={<RoommateFlowRoute><LivingPlanSelection /></RoommateFlowRoute>} />
-      <Route path="/payment" element={<RoommateFlowRoute><Payment /></RoommateFlowRoute>} />
-      <Route path="/path-selection" element={<RoommateFlowRoute><PathSelection /></RoommateFlowRoute>} />
-      <Route path="/profile-creation" element={<RoommateFlowRoute><ProfileCreation /></RoommateFlowRoute>} />
-      <Route path="/matching" element={<RoommateFlowRoute><Matching /></RoommateFlowRoute>} />
+      {/* Roommate flow routes - simplified to avoid navigation issues */}
+      <Route path="/living-plan-selection" element={<LivingPlanSelection />} />
+      <Route path="/payment" element={<Payment />} />
+      <Route path="/path-selection" element={<PathSelection />} />
+      <Route path="/profile-creation" element={<ProfileCreation />} />
+      <Route path="/matching" element={<Matching />} />
       
       <Route path="/properties" element={<ProtectedRoute><Properties /></ProtectedRoute>} />
       <Route path="/list-property" element={<ProtectedRoute><ListProperty /></ProtectedRoute>} />

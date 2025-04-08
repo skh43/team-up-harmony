@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -111,8 +110,8 @@ export default function ProfileCreation() {
       setUserPath(savedPath);
     }
     
-    // Clear any previous profile creation flags
     localStorage.removeItem('profileCreationComplete');
+    console.log("ProfileCreation component mounted");
   }, [location]);
 
   const showRoomDetails = userPath === 'host';
@@ -143,8 +142,8 @@ export default function ProfileCreation() {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      console.log("Form submitted, preparing profile data...");
       setIsSubmitting(true);
-      console.log("Form submitted, preparing data...");
       
       const profileData = {
         ...values,
@@ -153,27 +152,25 @@ export default function ProfileCreation() {
         userPath
       };
       
-      // Save profile data
       localStorage.setItem('userProfile', JSON.stringify(profileData));
-      console.log("Profile data saved to localStorage");
+      console.log("Profile data saved successfully:", profileData);
       
-      // Set completion flag FIRST (important!)
       localStorage.setItem('profileCreationComplete', 'true');
+      console.log("Profile creation marked as complete");
       
-      // Show success toast
       toast({
         title: "Profile created successfully",
         description: "You will be redirected to matching page",
       });
       
-      // Log before redirect
-      console.log("About to navigate to matching page in 4 seconds");
+      console.log("About to navigate to matching page");
       
-      // Use a very long delay to ensure all state updates are processed
+      navigate('/matching');
+      
       setTimeout(() => {
-        console.log("Navigation timeout triggered, redirecting now");
+        console.log("Using fallback navigation method");
         window.location.href = '/matching';
-      }, 4000);
+      }, 1000);
     } catch (error) {
       console.error("Error during profile submission:", error);
       toast({
@@ -634,17 +631,18 @@ export default function ProfileCreation() {
             {isSubmitting ? "Processing..." : t('common.continue')}
           </Button>
           
-          {/* Emergency fallback navigation button - visible when submit is complete */}
-          {isSubmitting && (
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full mt-4"
-              onClick={() => window.location.href = '/matching'}
-            >
-              Click here if not redirected automatically
-            </Button>
-          )}
+          <Button
+            type="button"
+            variant="outline"
+            className="w-full mt-4"
+            onClick={() => {
+              console.log("Manual navigation button clicked");
+              localStorage.setItem('profileCreationComplete', 'true');
+              window.location.href = '/matching';
+            }}
+          >
+            Go to Matching Page
+          </Button>
         </form>
       </Form>
     </div>
