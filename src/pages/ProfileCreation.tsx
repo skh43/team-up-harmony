@@ -151,7 +151,14 @@ export default function ProfileCreation() {
         ...values,
         profilePhoto,
         roomImages,
-        userPath
+        userPath,
+        sharedFacilities: values.sharedFacilities,
+        distanceHospital: values.distanceHospital,
+        distanceSupermarket: values.distanceSupermarket,
+        distanceMedicalStore: values.distanceMedicalStore,
+        distancePublicTransport: values.distancePublicTransport,
+        distanceMetroStation: values.distanceMetroStation,
+        distanceBusStand: values.distanceBusStand,
       };
       
       localStorage.setItem('userProfile', JSON.stringify(profileData));

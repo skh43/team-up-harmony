@@ -50,7 +50,13 @@ const HOST_PROFILES: MatchProfile[] = [
     workTiming: '9 AM - 5 PM',
     gender: 'female',
     livingReference: 'singleRoom',
-    userType: 'host'
+    userType: 'host',
+    distanceHospital: '0.5 km',
+    distanceSupermarket: '0.3 km',
+    distanceMedicalStore: '0.7 km',
+    distancePublicTransport: '0.2 km',
+    distanceMetroStation: '1.2 km',
+    distanceBusStand: '0.4 km'
   },
   {
     id: '2',
@@ -181,10 +187,71 @@ const Matching = () => {
     if (savedPath) {
       setUserPath(savedPath);
       
-      if (savedPath === 'host') {
-        setMatchProfiles(SEEKER_PROFILES);
-      } else if (savedPath === 'seek') {
-        setMatchProfiles([...HOST_PROFILES, ...SEEKER_PROFILES]);
+      const userProfileData = localStorage.getItem('userProfile');
+      if (userProfileData) {
+        try {
+          const userProfile = JSON.parse(userProfileData);
+          console.log("Loaded user profile:", userProfile);
+          
+          if (userProfile) {
+            const userMatchProfile: MatchProfile = {
+              id: 'user-profile',
+              name: `${userProfile.firstName} ${userProfile.lastName}`,
+              age: parseInt(userProfile.age, 10),
+              location: userProfile.district || 'Unknown',
+              bio: userProfile.bio || '',
+              imageUrl: userProfile.profilePhoto || 'https://via.placeholder.com/400x550?text=Profile+Image',
+              compatibility: 100,
+              interests: [],
+              preferences: {
+                pets: false,
+                openToAllNationalities: userProfile.openToAllNationalities || false
+              },
+              nationality: userProfile.nationality || '',
+              workProfession: userProfile.workProfession || '',
+              workTiming: userProfile.workTiming || '',
+              gender: userProfile.gender || '',
+              livingReference: userProfile.livingReference || '',
+              roomImages: userProfile.roomImages || [],
+              roomDescription: userProfile.roomDescription || '',
+              sharedAmenities: userProfile.sharedFacilities || '',
+              distanceHospital: userProfile.distanceHospital || '',
+              distanceSupermarket: userProfile.distanceSupermarket || '',
+              distanceMedicalStore: userProfile.distanceMedicalStore || '',
+              distancePublicTransport: userProfile.distancePublicTransport || '',
+              distanceMetroStation: userProfile.distanceMetroStation || '',
+              distanceBusStand: userProfile.distanceBusStand || '',
+              userType: userProfile.userPath || savedPath
+            };
+            
+            console.log("Created user match profile:", userMatchProfile);
+            
+            if (savedPath === 'host') {
+              setMatchProfiles([userMatchProfile, ...SEEKER_PROFILES]);
+            } else if (savedPath === 'seek') {
+              setMatchProfiles([...HOST_PROFILES, userMatchProfile]);
+            }
+          } else {
+            if (savedPath === 'host') {
+              setMatchProfiles([...SEEKER_PROFILES]);
+            } else if (savedPath === 'seek') {
+              setMatchProfiles([...HOST_PROFILES, ...SEEKER_PROFILES]);
+            }
+          }
+        } catch (error) {
+          console.error("Error parsing user profile:", error);
+          if (savedPath === 'host') {
+            setMatchProfiles([...SEEKER_PROFILES]);
+          } else if (savedPath === 'seek') {
+            setMatchProfiles([...HOST_PROFILES, ...SEEKER_PROFILES]);
+          }
+        }
+      } else {
+        if (savedPath === 'host') {
+          setMatchProfiles([...SEEKER_PROFILES]);
+        } else if (savedPath === 'seek') {
+          setMatchProfiles([...HOST_PROFILES, ...SEEKER_PROFILES]);
+        }
       }
     }
     
@@ -331,6 +398,7 @@ const Matching = () => {
       distanceMedicalStore: profile.distanceMedicalStore,
       distancePublicTransport: profile.distancePublicTransport,
       distanceMetroStation: profile.distanceMetroStation,
+      distanceBusStand: profile.distanceBusStand,
       userType: profile.userType
     };
   };
