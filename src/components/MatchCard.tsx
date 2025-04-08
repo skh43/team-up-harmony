@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -277,23 +278,13 @@ const MatchCard = ({
                 </div>
               )}
 
-              {profile.roomDescription && (
-                <div className="mt-3 pt-2 border-t border-border/50">
-                  <p className="text-sm font-medium mb-1">{t('profileCreation.roomDescription')}</p>
-                  <p className="text-xs text-muted-foreground line-clamp-2">{profile.roomDescription}</p>
-                </div>
-              )}
-
-              {profile.sharedAmenities && (
-                <div className="mt-3 pt-2 border-t border-border/50">
-                  <p className="text-sm font-medium mb-1">{t('profileCreation.sharedAmenities')}</p>
-                  <p className="text-xs text-muted-foreground line-clamp-2">{profile.sharedAmenities}</p>
-                </div>
-              )}
-              
+              {/* Location information section - Now including distances to facilities */}
               {hasLocationInfo && (
                 <div className="mt-3 pt-2 border-t border-border/50">
-                  <p className="text-sm font-medium mb-2">{t('matching.distancesToFacilities', 'Distance to Facilities')}</p>
+                  <div className="flex items-center mb-2">
+                    <MapPin className="h-4 w-4 text-primary mr-1.5" />
+                    <p className="text-sm font-medium">{t('matching.locationDetails', 'Location Details')}</p>
+                  </div>
                   <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
                     {profile.distanceHospital && (
                       <div className="flex items-center">
@@ -337,6 +328,20 @@ const MatchCard = ({
                       </div>
                     )}
                   </div>
+                </div>
+              )}
+
+              {profile.roomDescription && (
+                <div className="mt-3 pt-2 border-t border-border/50">
+                  <p className="text-sm font-medium mb-1">{t('profileCreation.roomDescription')}</p>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{profile.roomDescription}</p>
+                </div>
+              )}
+
+              {profile.sharedAmenities && (
+                <div className="mt-3 pt-2 border-t border-border/50">
+                  <p className="text-sm font-medium mb-1">{t('profileCreation.sharedAmenities')}</p>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{profile.sharedAmenities}</p>
                 </div>
               )}
             </div>
