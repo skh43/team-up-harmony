@@ -150,20 +150,25 @@ export default function ProfileCreation() {
         userPath
       };
       
+      // Save profile data
       localStorage.setItem('userProfile', JSON.stringify(profileData));
       console.log("Profile data saved to localStorage");
       
+      // Show success toast
       toast({
         title: "Profile created successfully",
         description: "Redirecting to matching page",
       });
       
-      // Extend the delay to ensure navigation works
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // Set a very clear flag in localStorage to indicate profile creation is complete
+      localStorage.setItem('profileCreationComplete', 'true');
       
-      console.log("About to navigate to /matching with replace=true");
+      // Add a longer delay to ensure state updates properly
+      await new Promise(resolve => setTimeout(resolve, 3000));
       
-      // Direct navigation using window.location instead of navigate
+      console.log("About to navigate to matching page");
+      
+      // Force hard navigation to ensure complete state reset
       window.location.href = "/matching";
     } catch (error) {
       console.error("Error during profile submission:", error);

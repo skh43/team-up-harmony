@@ -89,7 +89,8 @@ const AppRoutes = () => {
       <Route path="/payment" element={<RoommateFlowRoute step={1}><Payment /></RoommateFlowRoute>} />
       <Route path="/path-selection" element={<RoommateFlowRoute step={2}><PathSelection /></RoommateFlowRoute>} />
       <Route path="/profile-creation" element={<RoommateFlowRoute step={3} checkPlan={true}><ProfileCreation /></RoommateFlowRoute>} />
-      {/* Make matching route more accessible by removing any potential blockers */}
+      
+      {/* Simplified matching route - accessible to any authenticated user */}
       <Route path="/matching" element={<ProtectedRoute><Matching /></ProtectedRoute>} />
       
       <Route path="/properties" element={<ProtectedRoute><Properties /></ProtectedRoute>} />
