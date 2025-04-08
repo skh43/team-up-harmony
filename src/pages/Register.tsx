@@ -57,7 +57,7 @@ const Register = () => {
         description: "Your account has been created.",
       });
       
-      navigate("/profile-creation");
+      navigate("/living-plan-selection");
     } catch (error) {
       console.error("Registration error:", error);
       toast({

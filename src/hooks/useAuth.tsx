@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useToast } from '@/components/ui/use-toast';
@@ -120,6 +121,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsAuthenticated(true);
       localStorage.setItem('user', JSON.stringify(mockUser));
       
+      // Navigate to living plan selection instead of profile creation
       navigate('/living-plan-selection');
     } catch (error) {
       console.error("Registration error:", error);
@@ -146,6 +148,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsAuthenticated(true);
       localStorage.setItem('user', JSON.stringify(mockUser));
       
+      // Navigate to living plan selection instead of profile creation
       navigate('/living-plan-selection');
     } catch (error) {
       console.error("Google registration error:", error);

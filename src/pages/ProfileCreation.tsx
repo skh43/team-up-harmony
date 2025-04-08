@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,6 +25,7 @@ import { Textarea } from "@/components/ui/textarea";
 import PropertyImageUpload from '@/components/PropertyImageUpload';
 import { useTranslation } from 'react-i18next';
 import { TabView, TabsContent } from "@/components/ui/tab-view";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   firstName: z.string().min(2, "First name must be at least 2 characters"),
@@ -36,7 +38,7 @@ const formSchema = z.object({
   workTiming: z.string().min(2, "Please specify your work schedule"),
   nationality: z.string().min(1, "Please select your nationality"),
   openToAllNationalities: z.boolean().default(false),
-  livingReference: z.string().min(1, "Please select your accommodation type"),
+  livingReference: z.string().min(1, "Please select your accommodation type").optional(),
   district: z.string().min(1, "Please select your district in Riyadh"),
   roomDescription: z.string().optional(),
   sharedFacilities: z.string().optional(),
@@ -94,6 +96,7 @@ export default function ProfileCreation() {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
+  const { toast } = useToast();
   const [profilePhoto, setProfilePhoto] = useState<string | null>(null);
   const [roomImages, setRoomImages] = useState<string[]>([]);
   const [activeTab, setActiveTab] = useState("personal");
@@ -123,7 +126,7 @@ export default function ProfileCreation() {
       workTiming: "",
       nationality: "",
       openToAllNationalities: false,
-      livingReference: "",
+      livingReference: userPath === 'host' ? "" : undefined,
       district: "",
       roomDescription: "",
       sharedFacilities: "",
@@ -137,13 +140,32 @@ export default function ProfileCreation() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log({
+    // Log the submission data
+    console.log("Form submitted:", {
       ...values,
       profilePhoto,
       roomImages,
       userPath
     });
-    navigate("/matching");
+
+    // Save profile to localStorage for retrieval in matching page
+    const profileData = {
+      ...values,
+      profilePhoto,
+      roomImages,
+      userPath
+    };
+    
+    localStorage.setItem('userProfile', JSON.stringify(profileData));
+    
+    toast({
+      title: "Profile created successfully",
+      description: "Redirecting to matching page",
+    });
+    
+    // Force navigation to matching page
+    console.log("Navigating to /matching");
+    navigate("/matching", { replace: true });
   }
 
   const tabs = userPath === 'host' 
@@ -586,7 +608,11 @@ export default function ProfileCreation() {
             )}
           </TabView>
           
-          <Button type="submit" variant="airbnb" className="w-full">
+          <Button 
+            type="submit" 
+            variant="airbnb" 
+            className="w-full mt-8"
+          >
             {t('common.continue')}
           </Button>
         </form>
