@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -33,6 +34,8 @@ export type MatchProfile = {
   workTiming: string;
   gender: string;
   livingReference: string;
+  roomDescription?: string;
+  sharedAmenities?: string;
   distanceHospital?: string;
   distanceSupermarket?: string;
   distanceMedicalStore?: string;
@@ -374,6 +377,22 @@ const MatchCard = ({
                 {getAccommodationLabel(profile.livingReference)}
               </Badge>
             </div>
+            
+            {/* Room Description */}
+            {profile.roomDescription && (
+              <div className="mt-2">
+                <h4 className="text-sm font-medium mb-1">{t('profileCreation.roomDescription')}</h4>
+                <p className="text-xs text-muted-foreground line-clamp-3">{profile.roomDescription}</p>
+              </div>
+            )}
+            
+            {/* Shared Amenities */}
+            {profile.sharedAmenities && (
+              <div className="mt-2 border-t border-border/50 pt-2">
+                <h4 className="text-sm font-medium mb-1">{t('profileCreation.sharedAmenities')}</h4>
+                <p className="text-xs text-muted-foreground line-clamp-3">{profile.sharedAmenities}</p>
+              </div>
+            )}
             
             {profile.sharedAmenityImages && Object.keys(profile.sharedAmenityImages).length > 0 && (
               <div>

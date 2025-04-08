@@ -1,3 +1,4 @@
+
 {
   "common": {
     "welcome": "欢迎回来",
@@ -84,7 +85,7 @@
     "roomInfo": "房间信息",
     "locationInfo": "位置信息",
     "firstName": "名字",
-    "firstNamePlaceholder": "���如：张",
+    "firstNamePlaceholder": "例如：张",
     "lastName": "姓氏",
     "lastNamePlaceholder": "例如：伟",
     "age": "年龄",
@@ -138,7 +139,8 @@
     "singleRoom": "单人房间",
     "bedSpace": "床位空间",
     "roomImages": "房间照片",
-    "addImages": "添加照片"
+    "addImages": "添加照片",
+    "selectLocationArea": "选择您的位置区域"
   },
   "dashboard": {
     "title": "控制面板",
