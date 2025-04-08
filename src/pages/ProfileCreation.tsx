@@ -110,6 +110,9 @@ export default function ProfileCreation() {
     } else if (savedPath) {
       setUserPath(savedPath);
     }
+    
+    // Clear any previous profile creation flags
+    localStorage.removeItem('profileCreationComplete');
   }, [location]);
 
   const showRoomDetails = userPath === 'host';
@@ -154,22 +157,23 @@ export default function ProfileCreation() {
       localStorage.setItem('userProfile', JSON.stringify(profileData));
       console.log("Profile data saved to localStorage");
       
+      // Set completion flag FIRST (important!)
+      localStorage.setItem('profileCreationComplete', 'true');
+      
       // Show success toast
       toast({
         title: "Profile created successfully",
-        description: "Redirecting to matching page",
+        description: "You will be redirected to matching page",
       });
       
-      // Set a very clear flag in localStorage to indicate profile creation is complete
-      localStorage.setItem('profileCreationComplete', 'true');
+      // Log before redirect
+      console.log("About to navigate to matching page in 4 seconds");
       
-      // Add a longer delay to ensure state updates properly
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      
-      console.log("About to navigate to matching page");
-      
-      // Force hard navigation to ensure complete state reset
-      window.location.href = "/matching";
+      // Use a very long delay to ensure all state updates are processed
+      setTimeout(() => {
+        console.log("Navigation timeout triggered, redirecting now");
+        window.location.href = '/matching';
+      }, 4000);
     } catch (error) {
       console.error("Error during profile submission:", error);
       toast({
@@ -177,7 +181,6 @@ export default function ProfileCreation() {
         description: "Please try again",
         variant: "destructive"
       });
-    } finally {
       setIsSubmitting(false);
     }
   };
@@ -628,8 +631,20 @@ export default function ProfileCreation() {
             className="w-full mt-8"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Saving..." : t('common.continue')}
+            {isSubmitting ? "Processing..." : t('common.continue')}
           </Button>
+          
+          {/* Emergency fallback navigation button - visible when submit is complete */}
+          {isSubmitting && (
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full mt-4"
+              onClick={() => window.location.href = '/matching'}
+            >
+              Click here if not redirected automatically
+            </Button>
+          )}
         </form>
       </Form>
     </div>

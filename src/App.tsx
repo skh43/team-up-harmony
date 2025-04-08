@@ -38,35 +38,12 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-// Roommate finding flow route with sequential validation
-const RoommateFlowRoute = ({ children, step, checkPlan = false }: { 
-  children: React.ReactNode, 
-  step: number, 
-  checkPlan?: boolean 
-}) => {
+// Very basic roommate flow route - only checks authentication
+const RoommateFlowRoute = ({ children }: { children: React.ReactNode }) => {
   const { isAuthenticated } = useAuth();
   
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
-  }
-  
-  const livingPlan = localStorage.getItem('livingPlan');
-  const planTier = localStorage.getItem('planTier');
-  const userPath = localStorage.getItem('userPath');
-  
-  if (step >= 2 && !planTier) {
-    return <Navigate to="/living-plan-selection" replace />;
-  }
-  
-  if (step >= 3 && !userPath) {
-    return <Navigate to="/path-selection" replace />;
-  }
-  
-  if (checkPlan && (planTier === 'comfort' || planTier === 'elite')) {
-    const paymentComplete = localStorage.getItem('paymentComplete');
-    if (!paymentComplete) {
-      return <Navigate to="/payment" replace />;
-    }
   }
   
   return <>{children}</>;
@@ -85,13 +62,12 @@ const AppRoutes = () => {
       <Route path="/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
       <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
       
-      <Route path="/living-plan-selection" element={<RoommateFlowRoute step={1}><LivingPlanSelection /></RoommateFlowRoute>} />
-      <Route path="/payment" element={<RoommateFlowRoute step={1}><Payment /></RoommateFlowRoute>} />
-      <Route path="/path-selection" element={<RoommateFlowRoute step={2}><PathSelection /></RoommateFlowRoute>} />
-      <Route path="/profile-creation" element={<RoommateFlowRoute step={3} checkPlan={true}><ProfileCreation /></RoommateFlowRoute>} />
-      
-      {/* Simplified matching route - accessible to any authenticated user */}
-      <Route path="/matching" element={<ProtectedRoute><Matching /></ProtectedRoute>} />
+      {/* Simplified roommate flow routes */}
+      <Route path="/living-plan-selection" element={<RoommateFlowRoute><LivingPlanSelection /></RoommateFlowRoute>} />
+      <Route path="/payment" element={<RoommateFlowRoute><Payment /></RoommateFlowRoute>} />
+      <Route path="/path-selection" element={<RoommateFlowRoute><PathSelection /></RoommateFlowRoute>} />
+      <Route path="/profile-creation" element={<RoommateFlowRoute><ProfileCreation /></RoommateFlowRoute>} />
+      <Route path="/matching" element={<RoommateFlowRoute><Matching /></RoommateFlowRoute>} />
       
       <Route path="/properties" element={<ProtectedRoute><Properties /></ProtectedRoute>} />
       <Route path="/list-property" element={<ProtectedRoute><ListProperty /></ProtectedRoute>} />
