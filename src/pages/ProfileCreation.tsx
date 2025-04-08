@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -157,11 +158,13 @@ export default function ProfileCreation() {
         description: "Redirecting to matching page",
       });
       
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Extend the delay to ensure navigation works
+      await new Promise(resolve => setTimeout(resolve, 2000));
       
       console.log("About to navigate to /matching with replace=true");
       
-      navigate("/matching", { replace: true });
+      // Direct navigation using window.location instead of navigate
+      window.location.href = "/matching";
     } catch (error) {
       console.error("Error during profile submission:", error);
       toast({
