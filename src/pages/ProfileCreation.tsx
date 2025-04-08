@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -59,7 +58,6 @@ const nationalities = [
   "Singaporean", "South African", "Spanish", "Turkish", "Other"
 ];
 
-// Riyadh districts
 const riyadhDistricts = [
   "Al Olaya", 
   "Al Malaz", 
@@ -104,13 +102,12 @@ export default function ProfileCreation() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   useEffect(() => {
+    const savedPath = localStorage.getItem('userPath');
     if (location.state && location.state.path) {
       setUserPath(location.state.path);
-    } else {
-      const savedPath = localStorage.getItem('userPath');
-      if (savedPath) {
-        setUserPath(savedPath);
-      }
+      localStorage.setItem('userPath', location.state.path);
+    } else if (savedPath) {
+      setUserPath(savedPath);
     }
   }, [location]);
 
@@ -140,19 +137,11 @@ export default function ProfileCreation() {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
       setIsSubmitting(true);
+      console.log("Form submitted, preparing data...");
       
-      // Log the submission data
-      console.log("Form submitted:", {
-        ...values,
-        profilePhoto,
-        roomImages,
-        userPath
-      });
-
-      // Save profile to localStorage for retrieval in matching page
       const profileData = {
         ...values,
         profilePhoto,
@@ -161,17 +150,17 @@ export default function ProfileCreation() {
       };
       
       localStorage.setItem('userProfile', JSON.stringify(profileData));
+      console.log("Profile data saved to localStorage");
       
       toast({
         title: "Profile created successfully",
         description: "Redirecting to matching page",
       });
       
-      // Small delay to ensure the toast is shown before navigation
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Force navigation to matching page with replace to prevent back navigation
-      console.log("Navigating to /matching");
+      console.log("About to navigate to /matching with replace=true");
+      
       navigate("/matching", { replace: true });
     } catch (error) {
       console.error("Error during profile submission:", error);
@@ -183,7 +172,7 @@ export default function ProfileCreation() {
     } finally {
       setIsSubmitting(false);
     }
-  }
+  };
 
   const tabs = userPath === 'host' 
     ? [
@@ -451,7 +440,7 @@ export default function ProfileCreation() {
                   <PropertyImageUpload 
                     images={roomImages}
                     setImages={setRoomImages}
-                    minImages={1} // Reduced from 2 to 1 to make it easier
+                    minImages={1}
                   />
                 </div>
                 
