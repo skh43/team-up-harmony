@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -276,6 +275,20 @@ const MatchCard = ({
                   </span>
                 </div>
               )}
+
+              {profile.roomDescription && (
+                <div className="mt-3 pt-2 border-t border-border/50">
+                  <p className="text-sm font-medium mb-1">{t('profileCreation.roomDescription')}</p>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{profile.roomDescription}</p>
+                </div>
+              )}
+
+              {profile.sharedAmenities && (
+                <div className="mt-3 pt-2 border-t border-border/50">
+                  <p className="text-sm font-medium mb-1">{t('profileCreation.sharedAmenities')}</p>
+                  <p className="text-xs text-muted-foreground line-clamp-2">{profile.sharedAmenities}</p>
+                </div>
+              )}
               
               {hasLocationInfo && (
                 <div className="mt-3 pt-2 border-t border-border/50">
@@ -378,7 +391,6 @@ const MatchCard = ({
               </Badge>
             </div>
             
-            {/* Room Description */}
             {profile.roomDescription && (
               <div className="mt-2">
                 <h4 className="text-sm font-medium mb-1">{t('profileCreation.roomDescription')}</h4>
@@ -386,7 +398,6 @@ const MatchCard = ({
               </div>
             )}
             
-            {/* Shared Amenities */}
             {profile.sharedAmenities && (
               <div className="mt-2 border-t border-border/50 pt-2">
                 <h4 className="text-sm font-medium mb-1">{t('profileCreation.sharedAmenities')}</h4>

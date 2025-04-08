@@ -324,6 +324,8 @@ const Matching = () => {
       workTiming: profile.workTiming,
       gender: profile.gender,
       livingReference: profile.livingReference,
+      roomDescription: profile.roomDescription,
+      sharedAmenities: profile.sharedAmenities,
       distanceHospital: profile.distanceHospital,
       distanceSupermarket: profile.distanceSupermarket,
       distanceMedicalStore: profile.distanceMedicalStore,
