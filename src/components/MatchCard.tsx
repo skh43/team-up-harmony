@@ -3,7 +3,7 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check, BedDouble, BedSingle, Users, Bath, Utensils, Sofa, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Heart, X, MessageCircle, Star, MapPin, Home, User, Briefcase, Clock, Flag, Globe, Check, BedDouble, BedSingle, Users, Bath, Utensils, Sofa, ChevronLeft, ChevronRight, Hospital, ShoppingCart, Bus, Train } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -293,46 +293,46 @@ const MatchCard = ({
               
               {hasLocationInfo && (
                 <div className="mt-3 pt-2 border-t border-border/50">
-                  <p className="text-sm font-medium mb-2">{t('matching.locationInfo', 'Location Information')}</p>
+                  <p className="text-sm font-medium mb-2">{t('matching.distancesToFacilities', 'Distance to Facilities')}</p>
                   <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 text-xs">
                     {profile.distanceHospital && (
                       <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></div>
+                        <Hospital className="h-3.5 w-3.5 text-red-500 mr-1.5" />
                         <span>Hospital: {profile.distanceHospital}</span>
                       </div>
                     )}
                     
                     {profile.distanceSupermarket && (
                       <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5"></div>
+                        <ShoppingCart className="h-3.5 w-3.5 text-green-500 mr-1.5" />
                         <span>Supermarket: {profile.distanceSupermarket}</span>
                       </div>
                     )}
                     
                     {profile.distanceMedicalStore && (
                       <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5"></div>
+                        <Hospital className="h-3.5 w-3.5 text-blue-500 mr-1.5" />
                         <span>Medical Store: {profile.distanceMedicalStore}</span>
                       </div>
                     )}
                     
                     {profile.distancePublicTransport && (
                       <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5"></div>
+                        <Bus className="h-3.5 w-3.5 text-yellow-500 mr-1.5" />
                         <span>Public Transport: {profile.distancePublicTransport}</span>
                       </div>
                     )}
                     
                     {profile.distanceMetroStation && (
                       <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mr-1.5"></div>
+                        <Train className="h-3.5 w-3.5 text-purple-500 mr-1.5" />
                         <span>Metro Station: {profile.distanceMetroStation}</span>
                       </div>
                     )}
                     
                     {profile.distanceBusStand && (
                       <div className="flex items-center">
-                        <div className="w-1.5 h-1.5 rounded-full bg-orange-500 mr-1.5"></div>
+                        <Bus className="h-3.5 w-3.5 text-orange-500 mr-1.5" />
                         <span>Bus Stand: {profile.distanceBusStand}</span>
                       </div>
                     )}
@@ -476,46 +476,46 @@ const MatchCard = ({
             
             {hasLocationInfo && (
               <div className="border-t border-border/50 pt-2 mt-2">
-                <h4 className="text-sm font-medium mb-2">{t('matching.distances')}</h4>
+                <h4 className="text-sm font-medium mb-2">{t('matching.distancesToFacilities', 'Distance to Facilities')}</h4>
                 <div className="grid grid-cols-2 gap-x-4 gap-y-1">
                   {profile.distanceHospital && (
                     <div className="flex items-center text-xs">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 mr-1.5"></div>
+                      <Hospital className="h-3.5 w-3.5 text-red-500 mr-1.5" />
                       <span>Hospital: {profile.distanceHospital}</span>
                     </div>
                   )}
                   
                   {profile.distanceSupermarket && (
                     <div className="flex items-center text-xs">
-                      <div className="w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5"></div>
-                      <span>Market: {profile.distanceSupermarket}</span>
+                      <ShoppingCart className="h-3.5 w-3.5 text-green-500 mr-1.5" />
+                      <span>Supermarket: {profile.distanceSupermarket}</span>
                     </div>
                   )}
                   
                   {profile.distanceMedicalStore && (
                     <div className="flex items-center text-xs">
-                      <div className="w-1.5 h-1.5 rounded-full bg-blue-500 mr-1.5"></div>
+                      <Hospital className="h-3.5 w-3.5 text-blue-500 mr-1.5" />
                       <span>Medical: {profile.distanceMedicalStore}</span>
                     </div>
                   )}
                   
                   {profile.distancePublicTransport && (
                     <div className="flex items-center text-xs">
-                      <div className="w-1.5 h-1.5 rounded-full bg-yellow-500 mr-1.5"></div>
+                      <Bus className="h-3.5 w-3.5 text-yellow-500 mr-1.5" />
                       <span>Transport: {profile.distancePublicTransport}</span>
                     </div>
                   )}
                   
                   {profile.distanceMetroStation && (
                     <div className="flex items-center text-xs">
-                      <div className="w-1.5 h-1.5 rounded-full bg-purple-500 mr-1.5"></div>
+                      <Train className="h-3.5 w-3.5 text-purple-500 mr-1.5" />
                       <span>Metro: {profile.distanceMetroStation}</span>
                     </div>
                   )}
                   
                   {profile.distanceBusStand && (
                     <div className="flex items-center text-xs">
-                      <div className="w-1.5 h-1.5 rounded-full bg-orange-500 mr-1.5"></div>
+                      <Bus className="h-3.5 w-3.5 text-orange-500 mr-1.5" />
                       <span>Bus Stand: {profile.distanceBusStand}</span>
                     </div>
                   )}
