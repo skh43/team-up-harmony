@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -366,7 +365,7 @@ export default function ProfileCreation() {
                     <Select onValueChange={field.onChange} defaultValue={field.value}>
                       <FormControl>
                         <SelectTrigger>
-                          <SelectValue placeholder={t('profileCreation.selectDistrict')} />
+                          <SelectValue placeholder={t('profileCreation.selectLocationArea')} />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>

@@ -1,4 +1,3 @@
-
 {
   "common": {
     "welcome": "Welcome Back",
@@ -135,6 +134,10 @@
     "roomInfo": "Room Info",
     "locationInfo": "Location Info",
     "locationArea": "Location Area",
+    "district": "District",
+    "districtPlaceholder": "Enter your district or neighborhood",
+    "location": "Location",
+    "locationPlaceholder": "Enter your location",
     "selectLocationArea": "Select your location area",
     "locationAreaDesc": "Choose the area in Riyadh where you live or want to live",
     "roomImages": "Room Photos"

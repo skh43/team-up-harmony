@@ -1,4 +1,3 @@
-
 {
   "common": {
     "welcome": "欢迎回来",
@@ -85,7 +84,7 @@
     "roomInfo": "房间信息",
     "locationInfo": "位置信息",
     "firstName": "名字",
-    "firstNamePlaceholder": "例如：张",
+    "firstNamePlaceholder": "���如：张",
     "lastName": "姓氏",
     "lastNamePlaceholder": "例如：伟",
     "age": "年龄",
