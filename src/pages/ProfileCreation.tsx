@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -16,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map } from "lucide-react";
+import { Briefcase, Clock, Flag, Home, Sofa, Coffee, MapPin, Hospital, ShoppingCart, Bus, Train, Map, Users, Bed } from "lucide-react";
 import BackButton from '@/components/BackButton';
 import ModernLogo from '@/components/ModernLogo';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -296,7 +295,7 @@ export default function ProfileCreation() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
-                        <BedDouble className="w-4 h-4" /> {t('profileCreation.livingReference')}
+                        <Bed className="w-4 h-4" /> {t('profileCreation.livingReference')}
                       </FormLabel>
                       <FormDescription>
                         {t('profileCreation.livingReferenceDesc')}
@@ -316,7 +315,7 @@ export default function ProfileCreation() {
                           </SelectItem>
                           <SelectItem value="singleRoom">
                             <div className="flex items-center gap-2">
-                              <BedDouble className="w-4 h-4" />
+                              <Bed className="w-4 h-4" />
                               <span>{t('profileCreation.singleRoom')}</span>
                             </div>
                           </SelectItem>
