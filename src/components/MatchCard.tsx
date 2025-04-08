@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -278,7 +277,6 @@ const MatchCard = ({
                 </div>
               )}
 
-              {/* Location information section - Now including distances to facilities */}
               {hasLocationInfo && (
                 <div className="mt-3 pt-2 border-t border-border/50">
                   <div className="flex items-center mb-2">
